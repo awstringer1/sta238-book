@@ -7,14 +7,14 @@
     "folds" : "",
     "hash" : "0",
     "id" : "AF5C774A",
-    "lastKnownWriteTime" : 1568288750,
-    "last_content_update" : 1568288750433,
+    "lastKnownWriteTime" : 1568292765,
+    "last_content_update" : 1568292765700,
     "path" : "~/teaching/w20/STA238/materials/book/index.Rmd",
     "project_path" : "index.Rmd",
     "properties" : {
-        "cursorPosition" : "6,18",
+        "cursorPosition" : "170,16",
         "docOutlineVisible" : "0",
-        "scrollLine" : "0"
+        "scrollLine" : "167"
     },
     "relative_order" : 4,
     "source_on_save" : false,

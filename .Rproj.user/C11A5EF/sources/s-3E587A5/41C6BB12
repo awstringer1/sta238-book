@@ -5,13 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1248109858",
+    "hash" : "1068649200",
     "id" : "41C6BB12",
-    "lastKnownWriteTime" : 1568252849,
-    "last_content_update" : 1568252849,
+    "lastKnownWriteTime" : 1568289358,
+    "last_content_update" : 1568289358832,
     "path" : "~/teaching/w20/STA238/materials/book/_output.yml",
     "project_path" : "_output.yml",
     "properties" : {
+        "cursorPosition" : "5,53",
+        "scrollLine" : "0"
     },
     "relative_order" : 3,
     "source_on_save" : false,

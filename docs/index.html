@@ -125,12 +125,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">STA238 University of Toronto</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Descriptive Statistics: What my data is telling me</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#descriptive-statistics"><i class="fa fa-check"></i><b>1.2</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#exercises"><i class="fa fa-check"></i><b>1.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="inferential-statistics-what-my-data-is-telling-me-about-the-world.html"><a href="inferential-statistics-what-my-data-is-telling-me-about-the-world.html"><i class="fa fa-check"></i><b>2</b> Inferential Statistics: What my data is telling me about the world</a></li>
 <li class="chapter" data-level="3" data-path="part1.html"><a href="part1.html"><i class="fa fa-check"></i><b>3</b> Part 1: What my data is telling me</a></li>
@@ -240,7 +241,7 @@ by side is our first example of an <strong>exploratory data analysis</strong>.</
 ## 1 yes           582      139     0.239
 ## 2 no            732      230     0.314</code></pre>
 <p>See anything interesting?</p>
-<p>What went wrong? Why are we concluding that smokers have a <em>lower</em> mortality rate than
+<p>What went wrong? Why are we observing that smokers have a <em>lower</em> mortality rate than
 non-smokers? Two possibilites immediately come to mind:</p>
 <ol style="list-style-type: decimal">
 <li>The opposite is really true, however, we got a very unlikely dataset;</li>
@@ -252,11 +253,11 @@ in the course. The second notion is more immediate. Did we make a mistake?</p>
 we also know how old the women were. How can we include this information in our
 descriptive statistics? We can compute mortality rates by age:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">smoker_numbers_age &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Now we&#39;re grouping by smoker AND age. The rest of the code remains unchanged.</span></a>
 <a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</a>
 <a class="sourceLine" id="cb8-4" title="4"></a>
 <a class="sourceLine" id="cb8-5" title="5">smoker_numbers_age_dead &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Retains rows where dead == &quot;yes&quot; only</span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb8-7" title="7"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb8-8" title="8"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</a>
 <a class="sourceLine" id="cb8-9" title="9"></a>
@@ -293,6 +294,50 @@ rate for smokers was lower than for non-smokers”. We should have mentioned tha
 this is <em>averaging over all age groups</em>. Even when we include age in the analysis,
 we ought to mention the fact that there are a whole lot of variables we <em>could</em>
 have measured but didn’t, and we are implicitly averaging over these too.</p>
+<p>Before moving on, get some practice doing exploratory analysis with the following
+exercises:</p>
+</div>
+<div id="exercises" class="section level2">
+<h2><span class="header-section-number">1.3</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li><p>How many non-smoking 18-24 year olds are there in the <code>femsmoke</code> data? Answer
+first by reading the answer off of the table of mortality rates by age that was
+just presented. Now compute the number yourself in the following two ways:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Use <code>group_by()</code> to group the data by <code>smoker</code> and <code>age</code>; <code>summarize()</code> to
+compute the number of people in each <code>smoker/age</code> group, and then <code>filter()</code> to
+retain only <code>smoker == &quot;yes&quot;</code> and <code>age == &quot;18-24&quot;</code>.</li>
+<li>Use <code>filter(smoker == &quot;yes&quot;,age = &quot;18-24&quot;)</code> to filter by both these variables,
+then use <code>summarize()</code> to compute the total number of people.</li>
+</ol></li>
+<li><p>What is the <em>relative risk</em> of mortality—the ratio of the mortality rates—for
+smoking 18-24 year olds vs non-smoking 18-24 year olds? Compute the answer manually by
+reading the numbers off the above table again. Then compute it using <code>R</code> by doing the
+following:</p>
+<ul>
+<li>Create two datasets using <code>filter()</code>: one containing smokers and one containing
+non-smokers. <code>filter()</code> out only the 18-24 year olds. This gives you two datasets
+each with only one row. For example, <code>smokers &lt;- femsmoke %&gt;% filter(smoker == &quot;yes&quot;,age = &quot;18-24&quot;)</code>.</li>
+<li><code>inner_join()</code> the two datasets together, using <code>age</code> as the <code>by</code> variable:
+<code>smokers %&gt;% inner_join(???,by = &quot;age&quot;)</code></li>
+</ul></li>
+<li><p><em>Advanced</em>: modify the above steps to create the following table of relative mortality rates. You should start from a cleaned up version of the mortality rate by age table:</p></li>
+</ol>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">rates_by_age &lt;-<span class="st"> </span>smoker_numbers_age <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="st">  </span><span class="kw">ungroup</span>() <span class="co"># The data was previously grouped, we don&#39;t want this anymore</span></a></code></pre></div>
+<p>Use <code>dplyr::select()</code> to remove and rename columns, see <code>?dplyr::select</code>.</p>
+<pre><code>## # A tibble: 7 x 4
+##   age   smoker_mort_rate nonsmoker_mort_rate relative_risk
+##   &lt;fct&gt;            &lt;dbl&gt;               &lt;dbl&gt;         &lt;dbl&gt;
+## 1 18-24           0.0364              0.0161         2.25 
+## 2 25-34           0.0242              0.0318         0.760
+## 3 35-44           0.128               0.0579         2.22 
+## 4 45-54           0.208               0.154          1.35 
+## 5 55-64           0.443               0.331          1.34 
+## 6 65-74           0.806               0.783          1.03 
+## 7 75+             1                   1              1</code></pre>
 
 </div>
 </div>
