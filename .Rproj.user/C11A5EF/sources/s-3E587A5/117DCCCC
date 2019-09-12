@@ -5,13 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2131189806",
+    "hash" : "0",
     "id" : "117DCCCC",
-    "lastKnownWriteTime" : 1568252849,
-    "last_content_update" : 1568252849,
+    "lastKnownWriteTime" : 1568288775,
+    "last_content_update" : 1568288775149,
     "path" : "~/teaching/w20/STA238/materials/book/_bookdown.yml",
     "project_path" : "_bookdown.yml",
     "properties" : {
+        "cursorPosition" : "5,17",
+        "scrollLine" : "0"
     },
     "relative_order" : 2,
     "source_on_save" : false,
