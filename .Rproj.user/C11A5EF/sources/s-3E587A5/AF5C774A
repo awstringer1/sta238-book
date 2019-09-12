@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1568252852391.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2681442371",
+    "id" : "AF5C774A",
+    "lastKnownWriteTime" : 1568256403,
+    "last_content_update" : 1568256403323,
+    "path" : "~/teaching/w20/STA238/materials/book/index.Rmd",
+    "project_path" : "index.Rmd",
+    "properties" : {
+        "cursorPosition" : "141,73",
+        "docOutlineVisible" : "0",
+        "scrollLine" : "117"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
