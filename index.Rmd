@@ -11,6 +11,8 @@ link-citations: yes
 description: "This book represents part of the course materials for STA238 at the University of Toronto"
 ---
 
+# Introduction
+
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
@@ -18,3 +20,4 @@ knitr::write_bib(c(
 ), 'packages.bib')
 ```
 
+This book contains course materials for STA238: Probability, Statistics, and Data Analysis, at the University of Toronto, Department of Statistical Sciences.
