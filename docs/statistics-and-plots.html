@@ -145,6 +145,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="error.html"><a href="error.html"><i class="fa fa-check"></i><b>3</b> Error</a></li>
 <li class="chapter" data-level="4" data-path="mathematical-models.html"><a href="mathematical-models.html"><i class="fa fa-check"></i><b>4</b> Mathematical Models</a></li>
+<li class="chapter" data-level="5" data-path="computational-models.html"><a href="computational-models.html"><i class="fa fa-check"></i><b>5</b> Computational Models</a></li>
+<li class="chapter" data-level="6" data-path="incorporating-what-i-know-using-prior-information-to-inform-inferences.html"><a href="incorporating-what-i-know-using-prior-information-to-inform-inferences.html"><i class="fa fa-check"></i><b>6</b> Incorporating what I know: using prior information to inform inferences</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -669,10 +671,10 @@ subject of Chapter 2.</p>
 <div id="exercises-1" class="section level3">
 <h3><span class="header-section-number">2.3.6</span> Exercises</h3>
 <ol style="list-style-type: decimal">
-<li><p>Read the documentation online and choose three variables that you find the most interesting. Reproduce the analysis of sections 1.3.2. and 1.3.3. using your favourite variables. Is there more or less variability across wards than with <code>score</code>?</p></li>
+<li><p>Read the documentation online and choose three variables that you find the most interesting. Reproduce the analysis of sections 2.3.2. and 2.3.3. using your favourite variables. Is there more or less variability across wards than with <code>score</code>?</p></li>
 <li><p>What is the ward with the highest average score? In what ward is/are the building(s) with the highest score(s)? Is this the same ward, or not? Would you expect the ward with the highest average to also have the highest-scoring buildings? Repeat this question with the lowest scoring buildings instead of the highest.</p></li>
 <li><p>If you live in a rental apartment, find it in these data. If not, find a friend’s place. How does your building compare to other buildings in your ward? Does it score higher or lower? The <code>filter()</code> function is your friend here, or you can use <code>apartmentfiltered %&gt;% arrange(SITE_ADDRESS) %&gt;% print(n = Inf)</code> and then find yours in the list manually.</p></li>
-<li><p>Combine the analyses of sections 1.3.2 and 1.3.3. with that of 1.3.4. Specifically, make a table and a boxplot of the average score by year. This means replace <code>ward</code> by <code>year_built</code> in the analysis of sections 1.3.2. and 1.3.3. Do your conclusions change when comparing with 1.3.4? Why or why not? Would you expect this to always be the case?</p></li>
+<li><p>Combine the analyses of sections 2.3.2 and 2.3.3. with that of 2.3.4. Specifically, make a table and a boxplot of the average score by year. This means replace <code>ward</code> by <code>year_built</code> in the analysis of sections 2.3.2. and 2.3.3. Do your conclusions change when comparing with 2.3.4? Why or why not? Would you expect this to always be the case?</p></li>
 <li><p><em>Advanced</em>: analyze the quality of <strong>social housing</strong> in Toronto. Perform a similar analysis to what we performed here for <code>PROPERTY_TYPE == 'PRIVATE'</code>, but instead for <code>PROPERTY_TYPE %in% c('SOCIAL HOUSING','TCHC')</code> (equivalent to <code>PROPERTY_TYPE != 'PRIVATE'</code>). Does the quality of social housing in Toronto vary greatly across different wards? Is it improving or degrading over time? Do you think we have enough information here to definitively answer these questions?</p></li>
 </ol>
 
