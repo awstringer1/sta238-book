@@ -128,12 +128,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">STA238 University of Toronto</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Statistics and Plots</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#descriptive-statistics"><i class="fa fa-check"></i><b>1.2</b> Descriptive Statistics</a><ul>
-<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#exercises"><i class="fa fa-check"></i><b>1.2.1</b> Exercises</a></li>
+<li class="chapter" data-level="1" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html"><i class="fa fa-check"></i><b>1</b> Statistics and Plots</a><ul>
+<li class="chapter" data-level="1.1" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#descriptive-statistics"><i class="fa fa-check"></i><b>1.2</b> Descriptive Statistics</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#exercises"><i class="fa fa-check"></i><b>1.2.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#extended-example-the-state-of-rental-housing-in-toronto"><i class="fa fa-check"></i><b>1.3</b> Extended example: the state of rental housing in Toronto</a></li>
+<li class="chapter" data-level="1.3" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#extended-example-the-state-of-rental-housing-in-toronto"><i class="fa fa-check"></i><b>1.3</b> Extended example: the state of rental housing in Toronto</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#load-the-data"><i class="fa fa-check"></i><b>1.3.1</b> Load the data</a></li>
+<li class="chapter" data-level="1.3.2" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>1.3.2</b> Do different wards have different quality housing?</a></li>
+<li class="chapter" data-level="1.3.3" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#data-visualization-for-description"><i class="fa fa-check"></i><b>1.3.3</b> Data visualization for description</a></li>
+<li class="chapter" data-level="1.3.4" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#further-analysis-trends-in-quality-over-time"><i class="fa fa-check"></i><b>1.3.4</b> Further analysis: trends in quality over time</a></li>
+<li class="chapter" data-level="1.3.5" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#summary"><i class="fa fa-check"></i><b>1.3.5</b> Summary</a></li>
+<li class="chapter" data-level="1.3.6" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#exercises-1"><i class="fa fa-check"></i><b>1.3.6</b> Exercises</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="error.html"><a href="error.html"><i class="fa fa-check"></i><b>2</b> Error</a></li>
 <li class="chapter" data-level="3" data-path="mathematical-models.html"><a href="mathematical-models.html"><i class="fa fa-check"></i><b>3</b> Mathematical Models</a></li>
@@ -255,17 +262,17 @@ in the course. The second notion is more immediate. Did we make a mistake?</p>
 we also know how old the women were. How can we include this information in our
 descriptive statistics? We can compute mortality rates by age:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">smoker_numbers_age &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Now we&#39;re grouping by smoker AND age. The rest of the code remains unchanged.</span></a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Now we&#39;re grouping by smoker AND age. The rest of the code remains unchanged.</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</a>
 <a class="sourceLine" id="cb8-4" title="4"></a>
 <a class="sourceLine" id="cb8-5" title="5">smoker_numbers_age_dead &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-7" title="7"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-8" title="8"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</a>
 <a class="sourceLine" id="cb8-9" title="9"></a>
 <a class="sourceLine" id="cb8-10" title="10">smoker_numbers_age <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-11" title="11"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-12" title="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</a></code></pre></div>
+<a class="sourceLine" id="cb8-11" title="11"><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</a></code></pre></div>
 <pre><code>## # A tibble: 14 x 5
 ## # Groups:   smoker [2]
 ##    smoker age   num_people num_dead mort_rate
@@ -301,33 +308,37 @@ exercises:</p>
 <div id="exercises" class="section level3">
 <h3><span class="header-section-number">1.2.1</span> Exercises</h3>
 <ol style="list-style-type: decimal">
-<li><p>How many non-smoking 18-24 year olds are there in the <code>femsmoke</code> data? Answer
+<li>How many non-smoking 18-24 year olds are there in the <code>femsmoke</code> data? Answer
 first by reading the answer off of the table of mortality rates by age that was
-just presented. Now compute the number yourself in the following two ways:</p>
+just presented. Now compute the number yourself in the following two ways:</li>
+</ol>
 <ol style="list-style-type: lower-alpha">
 <li>Use <code>group_by()</code> to group the data by <code>smoker</code> and <code>age</code>; <code>summarize()</code> to
 compute the number of people in each <code>smoker/age</code> group, and then <code>filter()</code> to
 retain only <code>smoker == &quot;yes&quot;</code> and <code>age == &quot;18-24&quot;</code>.</li>
 <li>Use <code>filter(smoker == &quot;yes&quot;,age = &quot;18-24&quot;)</code> to filter by both these variables,
 then use <code>summarize()</code> to compute the total number of people.</li>
-</ol></li>
-<li><p>What is the <em>relative risk</em> of mortality—the ratio of the mortality rates—for
+</ol>
+<ol style="list-style-type: decimal">
+<li>What is the <em>relative risk</em> of mortality—the ratio of the mortality rates—for
 smoking 18-24 year olds vs non-smoking 18-24 year olds? Compute the answer manually by
 reading the numbers off the above table again. Then compute it using <code>R</code> by doing the
-following:</p>
+following:</li>
+</ol>
 <ul>
 <li>Create two datasets using <code>filter()</code>: one containing smokers and one containing
 non-smokers. <code>filter()</code> out only the 18-24 year olds. This gives you two datasets
 each with only one row. For example, <code>smokers &lt;- femsmoke %&gt;% filter(smoker == &quot;yes&quot;,age = &quot;18-24&quot;)</code>.</li>
 <li><code>inner_join()</code> the two datasets together, using <code>age</code> as the <code>by</code> variable:
 <code>smokers %&gt;% inner_join(???,by = &quot;age&quot;)</code></li>
-</ul></li>
-<li><p><em>Advanced</em>: modify the above steps to create the following table of relative mortality rates. You should start from a cleaned up version of the mortality rate by age table:</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><em>Advanced</em>: modify the above steps to create the following table of relative mortality rates. You should start from a cleaned up version of the mortality rate by age table:</li>
 </ol>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">rates_by_age &lt;-<span class="st"> </span>smoker_numbers_age <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="st">  </span><span class="kw">ungroup</span>() <span class="co"># The data was previously grouped, we don&#39;t want this anymore</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="kw">ungroup</span>() <span class="co"># The data was previously grouped, we don&#39;t want this anymore</span></a></code></pre></div>
 <p>Use <code>dplyr::select()</code> to remove and rename columns, see <code>?dplyr::select</code>.</p>
 <pre><code>## # A tibble: 7 x 4
 ##   age   smoker_mort_rate nonsmoker_mort_rate relative_risk
@@ -361,6 +372,8 @@ and open it in a spreadsheet and have a look. Familiarize yourselves with the
 variable descriptions and how the data were collected. This somewhat tedious
 task is a first step of <strong>any</strong> data analysis, in academia, industry, government,
 or wherever.</p>
+<div id="load-the-data" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Load the data</h3>
 <p>The data are stored in a <code>.csv</code> file, which stands for “comma-separated-values”.
 Storing data in a text file with a separator, usually a comma, is very common.
 These are referred to as “flat files” in an industrial context, to distinguish
@@ -431,6 +444,9 @@ package, which is automatically loaded when you load the <code>tidyverse</code>:
 <p>That’s bigger than the <code>smoking</code> data! 3,446 rental apartment buildings, each with
 32 factors measured. The buliding’s address and Ward number are in there, which are
 helpful for characterizing neighbourhoods.</p>
+</div>
+<div id="do-different-wards-have-different-quality-housing" class="section level3">
+<h3><span class="header-section-number">1.3.2</span> Do different wards have different quality housing?</h3>
 <p>A Ward is an administrative district within the city that has a single city
 counsellor. If I’m thinking about moving to, or within, Toronto, I want to know:
 <strong>Do different wards have different quality housing?</strong>.</p>
@@ -475,15 +491,17 @@ as follows:</p>
 <a class="sourceLine" id="cb17-7" title="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="dt">ward =</span> WARD,</a>
 <a class="sourceLine" id="cb17-8" title="8">                <span class="dt">score =</span> SCORE,</a>
 <a class="sourceLine" id="cb17-9" title="9">                <span class="dt">property_type =</span> PROPERTY_TYPE,</a>
-<a class="sourceLine" id="cb17-10" title="10">                <span class="dt">year_built =</span> YEAR_BUILT</a>
-<a class="sourceLine" id="cb17-11" title="11">  )</a>
-<a class="sourceLine" id="cb17-12" title="12"><span class="kw">glimpse</span>(apartmentclean) <span class="co"># Much nicer!</span></a></code></pre></div>
+<a class="sourceLine" id="cb17-10" title="10">                <span class="dt">year_built =</span> YEAR_BUILT,</a>
+<a class="sourceLine" id="cb17-11" title="11">                <span class="dt">address =</span> SITE_ADDRESS</a>
+<a class="sourceLine" id="cb17-12" title="12">  )</a>
+<a class="sourceLine" id="cb17-13" title="13"><span class="kw">glimpse</span>(apartmentclean) <span class="co"># Much nicer!</span></a></code></pre></div>
 <pre><code>## Observations: 3,446
-## Variables: 4
+## Variables: 5
 ## $ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;04&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;0…
 ## $ score         &lt;dbl&gt; 71, 77, 71, 78, 98, 76, 93, 72, 74, 78, 73, 76, 57…
 ## $ property_type &lt;chr&gt; &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;SOCIAL HOUSING&quot;,…
-## $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 1920, 2017, 1967, 2015, 1970, 19…</code></pre>
+## $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 1920, 2017, 1967, 2015, 1970, 19…
+## $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACP…</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># Apply filter(s).</span></a>
 <a class="sourceLine" id="cb19-2" title="2">apartmentfiltered &lt;-<span class="st"> </span>apartmentclean <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb19-3" title="3"><span class="st">  </span><span class="kw">filter</span>(property_type <span class="op">==</span><span class="st"> &quot;PRIVATE&quot;</span>)</a>
@@ -491,18 +509,20 @@ as follows:</p>
 <a class="sourceLine" id="cb19-5" title="5"><span class="co"># the result is as expected:</span></a>
 <a class="sourceLine" id="cb19-6" title="6"><span class="kw">glimpse</span>(apartmentclean)</a></code></pre></div>
 <pre><code>## Observations: 3,446
-## Variables: 4
+## Variables: 5
 ## $ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;04&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;0…
 ## $ score         &lt;dbl&gt; 71, 77, 71, 78, 98, 76, 93, 72, 74, 78, 73, 76, 57…
 ## $ property_type &lt;chr&gt; &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;SOCIAL HOUSING&quot;,…
-## $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 1920, 2017, 1967, 2015, 1970, 19…</code></pre>
+## $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 1920, 2017, 1967, 2015, 1970, 19…
+## $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACP…</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">glimpse</span>(apartmentfiltered)</a></code></pre></div>
 <pre><code>## Observations: 2,879
-## Variables: 4
+## Variables: 5
 ## $ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;08&quot;, &quot;1…
 ## $ score         &lt;dbl&gt; 71, 77, 71, 98, 76, 93, 72, 74, 78, 73, 76, 57, 70…
 ## $ property_type &lt;chr&gt; &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVA…
-## $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 2017, 1967, 2015, 1970, 1976, 19…</code></pre>
+## $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 2017, 1967, 2015, 1970, 1976, 19…
+## $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACP…</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">nrow</span>(apartmentclean) <span class="op">-</span><span class="st"> </span><span class="kw">nrow</span>(apartmentfiltered) <span class="co"># Dropped 567 rows.</span></a></code></pre></div>
 <pre><code>## [1] 567</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="co"># Now create the table of averages:</span></a>
@@ -529,9 +549,10 @@ rental apartment building’s <code>score</code> is missing <em>is not related</
 that is, we hope apartments with higher or lower scores aren’t missing more often.</p>
 <p>We will ignore missingness for now. To do this, use the <code>na.rm = TRUE</code> option in
 <code>mean</code>:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">apartmentfiltered <span class="op">%&gt;%</span></a>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">apartmentsummary &lt;-<span class="st"> </span>apartmentfiltered <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb27-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb27-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb27-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb27-4" title="4">apartmentsummary</a></code></pre></div>
 <pre><code>## # A tibble: 26 x 2
 ##    ward  avg_score
 ##    &lt;chr&gt;     &lt;dbl&gt;
@@ -546,7 +567,120 @@ that is, we hope apartments with higher or lower scores aren’t missing more of
 ##  9 09         67.5
 ## 10 10         72.2
 ## # … with 16 more rows</code></pre>
+<p>This isn’t a super friendly way of comparing these 26 numbers. We need some kind
+od <strong>visualization</strong>, or <strong>plot</strong>, so we can take one look and get an idea of
+what is going on.</p>
+</div>
+<div id="data-visualization-for-description" class="section level3">
+<h3><span class="header-section-number">1.3.3</span> Data visualization for description</h3>
+<p>In order to pick what kind of plot to make, we have to understand what types
+of variables we are attempting to compare. Broadly speaking, variables can
+either be <strong>continuous</strong> or <strong>categorical</strong>.</p>
+<p>A <strong>continuous</strong> variable consists of
+numbers. You can always compare the <em>order</em> of two values of a continuous variable
+(say whether one is bigger than the other), because its values are just numbers.</p>
+<p>A <strong>categorical</strong> variable takes values from a finite (discrete) set. These values
+can be anything. Categorical variables sometimes have values which can be compared,
+like “big”, “medium”, “small”; but often the values are not inherently comparable.</p>
+<p>In the case of the table of average scores by ward, we will consider <code>avg_score</code>
+to be a <strong>continuous</strong> variable and <code>ward</code> to be a <strong>categorical</strong> variable. Wards
+are labelled with numbers, yes, but they are not inherently comparable; they are
+areas within the city. It wouldn’t make sense to say that ward 2 were “less” than
+ward 17. We could have labelled them “A”, “B”, “C”,… and the meaning would
+have been the same.</p>
+<p>One common visualization used to compare values of a <strong>continuous</strong> variable
+with values of a <strong>categorical</strong> variable is a <strong>bar chart</strong>. A bar chart contains
+the values of the categorical variable on the x-axis and the values of the
+continuous variable on the y-axis. You can take one look and see whether there is
+any pattern in values of the continuous variable with respect to the categorical
+variable.</p>
+<p>We create a <strong>bar chart</strong> to visualize these summary statistics using the <code>ggplot2</code>
+package. This is also included with the <code>tidyverse</code> (surprise!):</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">apartmentsummary <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ward,<span class="dt">y =</span> avg_score)) <span class="op">+</span><span class="st"> </span><span class="co"># Set up the variable mappings</span></a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="st">  </span><span class="kw">theme_light</span>() <span class="op">+</span><span class="st"> </span><span class="co"># Make it pretty</span></a>
+<a class="sourceLine" id="cb29-4" title="4"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Add the bars</span></a>
+<a class="sourceLine" id="cb29-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Average ABS score shows moderate variability across wards in Toronto&quot;</span>,</a>
+<a class="sourceLine" id="cb29-6" title="6">       <span class="dt">x =</span> <span class="st">&quot;Ward&quot;</span>,</a>
+<a class="sourceLine" id="cb29-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;Average ABS Score&quot;</span>) <span class="co"># Informative title</span></a></code></pre></div>
+<p><img src="book_files/figure-html/barchart-apartment-1-1.png" width="672" /></p>
+<p>It looks like some wards are better than others. Or are they? Can we make any
+definitive conclusions based on this?</p>
+</div>
+<div id="further-analysis-trends-in-quality-over-time" class="section level3">
+<h3><span class="header-section-number">1.3.4</span> Further analysis: trends in quality over time</h3>
+<p>Let’s go further and analyze some other interesting aspects of these data. I’m
+interested in knowing: <strong>Are newer buildings higher quality</strong>?</p>
+<p>We have the <code>score</code>
+and the <code>year_built</code>, and we’d like to investigate whether newer buildings (higher
+<code>year_built</code>) have higher <code>scores</code>. We have another decision to make. We could
+consider <code>year_built</code> to be a categorical variable, and make a bar chart. Or,
+we could consider it to be a continuous variable.</p>
+<p>Because values of <code>year_built</code> are inherently comparable, and because <em>our research
+question involves making such comparisons</em>, we will consider <code>year_built</code> to be
+a continuous variable.</p>
+<p>One type of plot used to compare continuous variables is a <strong>scatterplot</strong>. A
+scatterplot has continuous variables on the x- and y-axes, and draws a point (or
+bubble) at each place in the two-dimensional plane where a datapoint occurs. We
+can make this kind of plot in <code>ggplot2</code> as well. This time, we use the raw
+(well, cleaned and filtered) data:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">apartmentfiltered <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="st">  </span><span class="kw">filter</span>(year_built <span class="op">&gt;</span><span class="st"> </span><span class="dv">1900</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year_built,<span class="dt">y =</span> score)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-4" title="4"><span class="st">  </span><span class="kw">theme_light</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb30-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># pch=21 makes the bubbles hollow, looks nice</span></a>
+<a class="sourceLine" id="cb30-6" title="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1900</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">10</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># Set the x-axis range</span></a>
+<a class="sourceLine" id="cb30-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Less rental buildings are being built recently, but they are of higher quality&quot;</span>,</a>
+<a class="sourceLine" id="cb30-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Year Built&quot;</span>,</a>
+<a class="sourceLine" id="cb30-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;ABS Score&quot;</span>)</a></code></pre></div>
+<pre><code>## Warning: Removed 5 rows containing missing values (geom_point).</code></pre>
+<p><img src="book_files/figure-html/apartment-plot-2-1.png" width="672" /></p>
+<p>Very interesting. You can clearly see the baby boom of the 1950’s to 1970’s, followed by a massive slowdown in construction during the economic slump in the 1980’s, and a complete stop when rent control was introduced in 1991 (remember, these are <em>rental</em> buildings only). Then, we see a new wave of
+rental building construction, and the new buildings seem to be of higher quality.</p>
+<p>What are the highest and lowest quality rental buildings in Toronto?</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="co"># Get the 10 highest scoring buildings</span></a>
+<a class="sourceLine" id="cb32-2" title="2">apartmentfiltered <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb32-3" title="3"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(score)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Sort the data, descending, by score</span></a>
+<a class="sourceLine" id="cb32-4" title="4"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="co"># Take the first ten- i.e. the top ten</span></a></code></pre></div>
+<pre><code>## # A tibble: 10 x 5
+##    ward  score property_type year_built address                 
+##    &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;                   
+##  1 YY       99 PRIVATE             2018 561  SHERBOURNE ST      
+##  2 17       99 PRIVATE             2017 123  PARKWAY FOREST DR  
+##  3 16       99 PRIVATE             1963 70  PARKWOODS VILLAGE DR
+##  4 07       98 PRIVATE             2017 2  VENA WAY             
+##  5 17       97 PRIVATE             1968 24  FOREST MANOR RD     
+##  6 12       96 PRIVATE             1960 42  GLEN ELM AVE        
+##  7 13       95 PRIVATE             2017 252  VICTORIA ST        
+##  8 02       95 PRIVATE             1969 500  SCARLETT RD        
+##  9 16       95 PRIVATE             1962 67  PARKWOODS VILLAGE DR
+## 10 07       95 PRIVATE             2016 6  VENA WAY</code></pre>
+<p>Wow. I know where I want to live.</p>
+</div>
+<div id="summary" class="section level3">
+<h3><span class="header-section-number">1.3.5</span> Summary</h3>
+<p>We have seen how even something simple like trying to figure out whether
+different areas of the city have different quality housing can require
+a lot of decision making. And these decisions require expertise. By taking
+a principled approach to learning <strong>data analysis</strong>, you are <em>empowering</em>
+yourself to live a life that is better informed.</p>
+<p>But notice that we didn’t really answer any questions in this chapter. We
+saw some rough patterns, but were they real? If we made different decisions, or if we <em>sampled different data</em>, would we have seen different patterns?</p>
+<p>In order to understand what the problem is and how to approach it, we
+need to take a more detailed look at the concept of <strong>error</strong>. This is the
+subject of Chapter 2.</p>
+</div>
+<div id="exercises-1" class="section level3">
+<h3><span class="header-section-number">1.3.6</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li><p>Read the documentation online and choose three variables that you find the most interesting. Reproduce the analysis of sections 1.3.2. and 1.3.3. using your favourite variables. Is there more or less variability across wards than with <code>score</code>?</p></li>
+<li><p>What is the ward with the highest average score? In what ward is/are the building(s) with the highest score(s)? Is this the same ward, or not? Would you expect the ward with the highest average to also have the highest-scoring buildings? Repeat this question with the lowest scoring buildings instead of the highest.</p></li>
+<li><p>If you live in a rental apartment, find it in these data. If not, find a friend’s place. How does your building compare to other buildings in your ward? Does it score higher or lower? The <code>filter()</code> function is your friend here, or you can use <code>apartmentfiltered %&gt;% arrange(SITE_ADDRESS) %&gt;% print(n = Inf)</code> and then find yours in the list manually.</p></li>
+<li><p>Combine the analyses of sections 1.3.2 and 1.3.3. with that of 1.3.4. Specifically, make a table and a boxplot of the average score by year. This means replace <code>ward</code> by <code>year_built</code> in the analysis of sections 1.3.2. and 1.3.3. Do your conclusions change when comparing with 1.3.4? Why or why not? Would you expect this to always be the case?</p></li>
+<li><p><em>Advanced</em>: analyze the quality of <strong>social housing</strong> in Toronto. Perform a similar analysis to what we performed here for <code>PROPERTY_TYPE == 'PRIVATE'</code>, but instead for <code>PROPERTY_TYPE %in% c('SOCIAL HOUSING','TCHC')</code> (equivalent to <code>PROPERTY_TYPE != 'PRIVATE'</code>). Does the quality of social housing in Toronto vary greatly across different wards? Is it improving or degrading over time? Do you think we have enough information here to definitively answer these questions?</p></li>
+</ol>
 
+</div>
 </div>
 </div>
             </section>

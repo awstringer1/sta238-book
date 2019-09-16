@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>STA238: Probability, Statistics, and Data Analysis</title>
+  <title>Chapter 2 Statistics and Plots | STA238: Probability, Statistics, and Data Analysis</title>
   <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="STA238: Probability, Statistics, and Data Analysis" />
+  <meta property="og:title" content="Chapter 2 Statistics and Plots | STA238: Probability, Statistics, and Data Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="STA238: Probability, Statistics, and Data Analysis" />
+  <meta name="twitter:title" content="Chapter 2 Statistics and Plots | STA238: Probability, Statistics, and Data Analysis" />
   
   <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
   
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
+<link rel="prev" href="index.html"/>
 <link rel="next" href="error.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -135,8 +135,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#extended-example-the-state-of-rental-housing-in-toronto"><i class="fa fa-check"></i><b>1.3</b> Extended example: the state of rental housing in Toronto</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="error.html"><a href="error.html"><i class="fa fa-check"></i><b>2</b> Error</a></li>
-<li class="chapter" data-level="3" data-path="mathematical-models.html"><a href="mathematical-models.html"><i class="fa fa-check"></i><b>3</b> Mathematical Models</a></li>
+<li class="chapter" data-level="2" data-path="statistics-and-plots-1.html"><a href="statistics-and-plots-1.html"><i class="fa fa-check"></i><b>2</b> Statistics and Plots</a><ul>
+<li class="chapter" data-level="2.1" data-path="statistics-and-plots-1.html"><a href="statistics-and-plots-1.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="statistics-and-plots-1.html"><a href="statistics-and-plots-1.html#extended-example-the-state-of-rental-housing-in-toronto-1"><i class="fa fa-check"></i><b>2.2</b> Extended example: the state of rental housing in Toronto</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="error.html"><a href="error.html"><i class="fa fa-check"></i><b>3</b> Error</a></li>
+<li class="chapter" data-level="4" data-path="mathematical-models.html"><a href="mathematical-models.html"><i class="fa fa-check"></i><b>4</b> Mathematical Models</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -157,15 +161,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">STA238: Probability, Statistics, and Data Analysis</h1>
-<p class="author"><em>Alison Gibbs and Alex Stringer</em></p>
-<p class="date"><em>2019-09-16</em></p>
-</div>
-<div id="statistics-and-plots" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Statistics and Plots</h1>
-<div id="introduction" class="section level2">
-<h2><span class="header-section-number">1.1</span> Introduction</h2>
+<div id="statistics-and-plots-1" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Statistics and Plots</h1>
+<div id="introduction-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Introduction</h2>
 <p>Data only becomes information after it is analyzed. Analyzing data is extraordinarily difficult,
 but is the only way to learn meaningfully about the world.</p>
 <p>In this book, you will learn about analyzing data. You will learn how to make principled,
@@ -180,9 +179,7 @@ may be collected from a formal scientific experiment, or might be from a survey 
 relies on a random sample of a population. It could exist already in a big database
 at a bank or insurance company, or it could be scraped from the web. In all
 cases, the sitation is: you have data, and you want to use it to <em>tell a story.</em></p>
-</div>
-<div id="descriptive-statistics" class="section level2">
-<h2><span class="header-section-number">1.2</span> Descriptive Statistics</h2>
+<p>## Descriptive Statistics</p>
 <p>Like with usual storytelling, how you <em>present</em> the data makes a big difference.
 There is no one correct way to analyze any given dataset. You will make judgements,
 and assumptions, and you will have to justify and explain them. These judgements
@@ -255,17 +252,17 @@ in the course. The second notion is more immediate. Did we make a mistake?</p>
 we also know how old the women were. How can we include this information in our
 descriptive statistics? We can compute mortality rates by age:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">smoker_numbers_age &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Now we&#39;re grouping by smoker AND age. The rest of the code remains unchanged.</span></a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Now we&#39;re grouping by smoker AND age. The rest of the code remains unchanged.</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</a>
 <a class="sourceLine" id="cb8-4" title="4"></a>
 <a class="sourceLine" id="cb8-5" title="5">smoker_numbers_age_dead &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-7" title="7"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-8" title="8"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</a>
 <a class="sourceLine" id="cb8-9" title="9"></a>
 <a class="sourceLine" id="cb8-10" title="10">smoker_numbers_age <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-11" title="11"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-12" title="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</a></code></pre></div>
+<a class="sourceLine" id="cb8-11" title="11"><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</a></code></pre></div>
 <pre><code>## # A tibble: 14 x 5
 ## # Groups:   smoker [2]
 ##    smoker age   num_people num_dead mort_rate
@@ -298,36 +295,39 @@ we ought to mention the fact that there are a whole lot of variables we <em>coul
 have measured but didn’t, and we are implicitly averaging over these too.</p>
 <p>Before moving on, get some practice doing exploratory analysis with the following
 exercises:</p>
-<div id="exercises" class="section level3">
-<h3><span class="header-section-number">1.2.1</span> Exercises</h3>
+<p>### Exercises</p>
 <ol style="list-style-type: decimal">
-<li><p>How many non-smoking 18-24 year olds are there in the <code>femsmoke</code> data? Answer
+<li>How many non-smoking 18-24 year olds are there in the <code>femsmoke</code> data? Answer
 first by reading the answer off of the table of mortality rates by age that was
-just presented. Now compute the number yourself in the following two ways:</p>
+just presented. Now compute the number yourself in the following two ways:</li>
+</ol>
 <ol style="list-style-type: lower-alpha">
 <li>Use <code>group_by()</code> to group the data by <code>smoker</code> and <code>age</code>; <code>summarize()</code> to
 compute the number of people in each <code>smoker/age</code> group, and then <code>filter()</code> to
 retain only <code>smoker == &quot;yes&quot;</code> and <code>age == &quot;18-24&quot;</code>.</li>
 <li>Use <code>filter(smoker == &quot;yes&quot;,age = &quot;18-24&quot;)</code> to filter by both these variables,
 then use <code>summarize()</code> to compute the total number of people.</li>
-</ol></li>
-<li><p>What is the <em>relative risk</em> of mortality—the ratio of the mortality rates—for
+</ol>
+<ol style="list-style-type: decimal">
+<li>What is the <em>relative risk</em> of mortality—the ratio of the mortality rates—for
 smoking 18-24 year olds vs non-smoking 18-24 year olds? Compute the answer manually by
 reading the numbers off the above table again. Then compute it using <code>R</code> by doing the
-following:</p>
+following:</li>
+</ol>
 <ul>
 <li>Create two datasets using <code>filter()</code>: one containing smokers and one containing
 non-smokers. <code>filter()</code> out only the 18-24 year olds. This gives you two datasets
 each with only one row. For example, <code>smokers &lt;- femsmoke %&gt;% filter(smoker == &quot;yes&quot;,age = &quot;18-24&quot;)</code>.</li>
 <li><code>inner_join()</code> the two datasets together, using <code>age</code> as the <code>by</code> variable:
 <code>smokers %&gt;% inner_join(???,by = &quot;age&quot;)</code></li>
-</ul></li>
-<li><p><em>Advanced</em>: modify the above steps to create the following table of relative mortality rates. You should start from a cleaned up version of the mortality rate by age table:</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><em>Advanced</em>: modify the above steps to create the following table of relative mortality rates. You should start from a cleaned up version of the mortality rate by age table:</li>
 </ol>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">rates_by_age &lt;-<span class="st"> </span>smoker_numbers_age <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="st">  </span><span class="kw">ungroup</span>() <span class="co"># The data was previously grouped, we don&#39;t want this anymore</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="kw">ungroup</span>() <span class="co"># The data was previously grouped, we don&#39;t want this anymore</span></a></code></pre></div>
 <p>Use <code>dplyr::select()</code> to remove and rename columns, see <code>?dplyr::select</code>.</p>
 <pre><code>## # A tibble: 7 x 4
 ##   age   smoker_mort_rate nonsmoker_mort_rate relative_risk
@@ -340,9 +340,8 @@ each with only one row. For example, <code>smokers &lt;- femsmoke %&gt;% filter(
 ## 6 65-74           0.806               0.783          1.03 
 ## 7 75+             1                   1              1</code></pre>
 </div>
-</div>
-<div id="extended-example-the-state-of-rental-housing-in-toronto" class="section level2">
-<h2><span class="header-section-number">1.3</span> Extended example: the state of rental housing in Toronto</h2>
+<div id="extended-example-the-state-of-rental-housing-in-toronto-1" class="section level2">
+<h2><span class="header-section-number">2.2</span> Extended example: the state of rental housing in Toronto</h2>
 <p>We saw a basic example in the <code>smoking</code> data of how the choices that we make
 while analyzing a dataset can lead to different conclusions. The <code>smoking</code>
 data is quite small, and there aren’t that many choices to make. Let’s take a
@@ -530,8 +529,8 @@ that is, we hope apartments with higher or lower scores aren’t missing more of
 <p>We will ignore missingness for now. To do this, use the <code>na.rm = TRUE</code> option in
 <code>mean</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">apartmentfiltered <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb27-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb27-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb27-2" title="2"><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-3" title="3"><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 26 x 2
 ##    ward  avg_score
 ##    &lt;chr&gt;     &lt;dbl&gt;
@@ -554,8 +553,8 @@ that is, we hope apartments with higher or lower scores aren’t missing more of
           </div>
         </div>
       </div>
-
-<a href="error.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="error.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
