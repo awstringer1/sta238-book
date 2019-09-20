@@ -2,36 +2,26 @@
 
 ## Introduction
 
-Data only becomes information after it is analyzed. Analyzing data is extraordinarily difficult,
-but is the only way to learn meaningfully about the world.
+How do we turn **data** into **information**?
 
-In this book, you will learn about analyzing data. You will learn how to make principled,
-measured statements about the data on hand (*descriptive statistics*); how to 
-use the data on hand to make statements about the underlying world, and how to
-quantify the uncertainty in your statements (*inferential statistics*), and how
-to use the data on hand to make judgements, with uncertainty quantification,
-about what data you will see next (*predective statistics*).
+This question is highly *contextual*. The meaning of *information* will change depending on the task. And *data* isn't a well-defined concept on its own. Even [https://www.merriam-webster.com/dictionary/data](Webster's dictionary) defines data *implicitly*, as "a basis for...".
 
-This chapter focussed on **descriptive statistics**. This loosely refers to the set
-of principles and tools that you use to tell a story using available data. The data
-may be collected from a formal scientific experiment, or might be from a survey which
-relies on a random sample of a population. It could exist already in a big database
-at a bank or insurance company, or it could be scraped from the web. In all
-cases, the sitation is: you have data, and you want to use it to *tell a story.*
-  
-## Descriptive Statistics
-  
-  Like with usual storytelling, how you *present* the data makes a big difference.
+In this chapter we will discuss the use of data in the pursuit of three types of information: **descriptive**, **exploratory**, and **prescriptive**.
+
+## Descriptive analysis
+
+The most simple type of information available from a set of data is to  *describe* what you have in front of you. The decisions you make about *what* to describe and *how* to describe it make a big difference.
+
 There is no one correct way to analyze any given dataset. You will make judgements,
 and assumptions, and you will have to justify and explain them. These judgements
-and assumptions can have a profound impact on the story you tell using your data.
+and assumptions can have a profound impact on the *story* you tell using your data.
 
 For example, consider a famous dataset containing information on smoking and mortality.
 The data is available in the `R` package `faraway`. We may load the package and data
 and retrieve information on it as follows:
   
-  ```{r load-smoke}
-# install.packages("faraway") # Run this to install the faraway package
+```{r load-smoke}
+# install.packages("faraway") # Run this to install the faraway package, which has useful datasets
 library(faraway) # Attach the faraway package
 data("femsmoke") # Load the "femsmoke" data
 # ?femsmoke # Run this to open the help page for the dataset.
@@ -41,21 +31,81 @@ Lines in `R` that begin with a pound sign (or "hashtag" for the younger, more hi
 are comments and are not run. Remove the $\#$ to run the code.
 
 We see from the help page, and associated reference to the paper in the *American Statistician*,
-that the data comes from asking women in Newcastle, England, whether they smoke or not, 
-and then following up in 20 years to see if they died. We can use these data to
-observe any apparent association between smoking and mortality.
+that the data comes from asking women in Whickham, England, whether they smoke or not, 
+and then following up in 20 years to see if they died.
 
-To investigate any such associations, we can simply look at the observed mortality rates
-for smokers and non-smokers. This is our first **statistic**. What makes it a "statistic"?
-  Formally, a **statistic** is any summary---or *function*---of observed data. Here we
-are going to report the *mortality rate*---the proportion of people who died---for smokers,
-and non-smokers. These are both statistics, and reporting these two statistics side
-by side is our first example of an **exploratory data analysis**.
+In *describing* the context surrouning the data---a quite natural step to take---we have achieved our first example of a descriptive analysis. We didn't even use and numbers or code. Just describing what the data *is* counts. And it's important, because as we learned in the introduction, information can't exist without *context*.
+
+To go further in our descriptive analysis, we need some more *quantitative* pieces of descriptive information. What might we want to know about our data? Some ideas:
+
+- How many **observations** are there in the data, and what does an observation represent in the context of how the data was collected?
+- How many **variables** are present in the data, and what does each variable represent in the context of how the data was collected?
+- How might we summarize each variable? We might compute a **mean** and a **five-number summary** for "continuous" variables, and a **table of counts** for "categorical" variables (more on this later...).
+
+Let's see how we can obtain these descriptive measures in `R`:
+
+```{r descriptive-1}
+# install.packages("tidyverse")
+# install.packages("SMPracticals") # For datasets
+library(tidyverse) # We use a LOT of functions from this package.
+# Get the number of observations (rows), variables, and an idea
+# of what the data looks like:
+glimpse(femsmoke)
+
+# One observation represents a count of people in each category.
+# How many people?
+femsmoke %>%
+  summarize(num_people = sum(y)) # The summarize() function lets you compute summaries of variables in your dataframe
+
+# How many smokers?
+femsmoke %>%
+  filter(smoker == "yes") %>% # filter() lets you choose which rows to keep
+  summarize(num_smokers = sum(y))
+
+# How many non-smokers?
+femsmoke %>%
+  filter(smoker == "no") %>%
+  summarize(num_non_smokers = sum(y))
+
+# We can get both those numbers at the same time:
+femsmoke %>%
+  group_by(smoker) %>% # group_by() makes summarize() compute summaries within levels of a variable
+  summarize(num_people = sum(y))
+```
+
+There are lots of other descriptive statistics you could calculate.
+
+*Summary*: descriptive analysis involves communicating properties of a dataset, and the context behind the dataset.
+
+### Exercises
+
+1. How many non-smoking 18-24 year olds are there in the `femsmoke` data? Answer using `filter()`.
+
+1. How many smokers died? Answer using `filter()`.
+
+1. How many 45-55 year olds did not die?
+
+1. Compute the following table using `group_by()` and `summarize()`:
+
+```{r descriptive-ex-1,echo = FALSE}
+femsmoke %>%
+  group_by(age) %>%
+  summarize(num_people = sum(y))
+```
+
+## Exploratory analysis
+
+Descriptive analyses are an important task any time you are working with data. However, they don't accomplish anything *new*; they just, well, *describe* what you have.
+
+An **exploratory analysis** involves looking for patterns or structure in the available data. We can use what we find to make decisions or come to conclusions.
+
+One thing we can *choose* to explore about these data is whether we
+observe any apparent *association* between smoking and mortality. To investigate any such associations, we can look at *the observed mortality rates*
+for smokers and non-smokers. This is *exploratory*---not *descriptive*---because we are going beyond simply saying what the data looks like. We are looking for a pattern, namely, "do smokers die more or less frequently than non-smokers?"
+
+Exploratory analyses involve decisions made by us, the investigator. They are naturally *subjective*. Different decisions can lead to uncovering different patterns. For example:
 
 ```{r mort-rate-1,warning=FALSE,message=FALSE}
-# install.packages("tidyverse")
-library(tidyverse) # We use a LOT of functions from this package.
-
 # Compute the mortality rate for smokers and non-smokers.
 # To do this, create a dataframe containing the numbers of smokers
 # and non-smokers
@@ -80,20 +130,16 @@ smoker_numbers %>%
 
 See anything interesting?
   
-  What went wrong? Why are we observing that smokers have a *lower* mortality rate than
-non-smokers? Two possibilites immediately come to mind:
-  
-  1. The opposite is really true, however, we got a very unlikely dataset;
-1. We made a mistake in our analysis.
+What went wrong? Why are we observing that smokers have a *lower* mortality rate than
+non-smokers? This contradicts the *context* surrounding this analysis, which in this case is the large body of formal and anecdotal evidence suggesting that smoking is harmful to health.
 
-We will address the first notion when we discuss **inferential statistics** later
-in the course. The second notion is more immediate. Did we make a mistake?
+Did we make a mistake?
   
-  One thing we definitely did was ignore some present information. Specifically,
+One thing we definitely did was ignore some present information. Specifically,
 we also know how old the women were. How can we include this information in our
-descriptive statistics? We can compute mortality rates by age:
+exploratory analysis? We can compute mortality rates by age:
   
-  ```{r mort-rate-2,warning=FALSE,message=FALSE}
+```{r mort-rate-2,warning=FALSE,message=FALSE}
 smoker_numbers_age <- femsmoke %>%
   group_by(smoker,age) %>% # Now we're grouping by smoker AND age. The rest of the code remains unchanged.
   summarize(num_people = sum(y))
@@ -126,20 +172,10 @@ Before moving on, get some practice doing exploratory analysis with the followin
 exercises:
   
 ### Exercises
-  
-  1. How many non-smoking 18-24 year olds are there in the `femsmoke` data? Answer
-first by reading the answer off of the table of mortality rates by age that was
-just presented. Now compute the number yourself in the following two ways:
-  
-  a. Use `group_by()` to group the data by `smoker` and `age`; `summarize()` to
-compute the number of people in each `smoker/age` group, and then `filter()` to
-retain only `smoker == "yes"` and `age == "18-24"`.
-a. Use `filter(smoker == "yes",age = "18-24")` to filter by both these variables,
-then use `summarize()` to compute the total number of people.
 
 1. What is the *relative risk* of mortality---the ratio of the mortality rates---for
 smoking 18-24 year olds vs non-smoking 18-24 year olds? Compute the answer manually by
-reading the numbers off the above table again. Then compute it using `R` by doing the
+reading the numbers off the above table. Then compute it using `R` by doing the
 following:
   
   - Create two datasets using `filter()`: one containing smokers and one containing
@@ -175,7 +211,54 @@ smokers %>%
 
 ```
 
-## Extended example: the state of rental housing in Toronto
+## Prescriptive analysis
+
+Descriptive anlaysis is about understanding the data that we have. Exploratory anlaysis is about finding patterns in the data you have.
+
+**Prescriptive analysis** is about using the data you have to explicitly support making a decision or coming to a conclusion. Often the data has been collected for a reason. Scientific experiments, surveys, questionnaries given when applying for a mortage or insurance product; these aren't just "fishing expeditions". These data are collected in the hopes of coming to a specific conclusion. We might wish to state the efficacy of a clinical treatment, or decide which politician is going to win an election, or whether to grant somebody a loan or underwrite an insurance policy.
+
+Often a prescriptive analysis is conducted *using exactly the same steps* as an exploratory analysis. Here, you must be very careful. Knowing what you want the data to say can, and very often does, influence choices made by the researcher about how to analyze the data. This is often referred to as "researcher degrees of freedom".
+
+For example, perhaps the smoking data was collected with the explicit purpose of supporting anti-smoking initiatives. This renders the above analysis *prescriptive*, because we know what we want to see: we want smokers to have a higher mortality rate than non-smokers in these data. In this *context*, let's re-compute the above table of mortality rates:
+
+```{r prescriptive-1}
+smoker_numbers %>%
+  inner_join(smoker_numbers_dead,by = "smoker") %>%
+  mutate(mort_rate = num_dead/num_people)
+```
+
+...hm. It appears that the data is telling us the opposite of what we thought it would.
+
+What do we do now? Well, we ignored some information, namely the subjects' ages. So let's use those:
+
+```{r prescriptive-2}
+smoker_numbers_age %>%
+  inner_join(smoker_numbers_age_dead,by = c("smoker","age")) %>% 
+  mutate(mort_rate = num_dead/num_people)
+```
+
+Oh! It's because older people are more likely to die, and less likely to smoke.
+
+We performed the exact same steps in our prescriptive analysis as we did in our exploratory analysis. Can we make the same conclusions?
+
+This is where we need to be careful. When we were just exploring the data, it would be reasonable to report as much or little of what we see as we want. We can't report everything after all!
+
+When we go into the data with a specific question in mind, **we have to report everything we see that relates to this question**. We ought to report that
+
+- Smokers had a lower mortality rate than non-smokers, and
+- there were more young smokers than old smokers in the data, and
+- younger people had a lower mortality rate than older people, in our data.
+
+Context matters! If we just reported that "controlling for age, smokers have a higher mortality rate than non-smokers", we would be communicating a potentially *spurious* (meaningless) conclusion. What's so important about age? We could have controlled for other variables and perhaps seen different relationships. These "researcher degrees of freedom" are a big force behind what is known as the "reproducibility crisis" in modern science.
+
+### Exercises
+
+1. For each of the following analyses, state whether you think it is *descriptive*, *exploratory* or *prescriptive*, and say why.
+
+  a. I work for an urban planning think tank and I want to present to our clients a proposal that advocates the development of green spaces in urban centres as a public health initiative. I use Health Canada data on obesity and Open Data Toronto data on locations of greenspaces to investigate whether areas with more green spaces have less obesity.
+  a. I am interested in which streets have more heavily enforced parking laws, so I download data on all parking tickets given in Toronto last year and make a map.
+
+## Rental housing in Toronto
 
 We saw a basic example in the `smoking` data of how the choices that we make
 while analyzing a dataset can lead to different conclusions. The `smoking`

@@ -20,4 +20,12 @@ knitr::write_bib(c(
 ), 'packages.bib')
 ```
 
-This book contains course materials for STA238: Probability, Statistics, and Data Analysis, at the University of Toronto, Department of Statistical Sciences.
+Data only becomes information after it is analyzed. Analyzing data is extraordinarily difficult,
+but is the only way to learn meaningfully about the world.
+
+In this book, you will learn about analyzing data. You will learn how to make principled,
+measured statements about the data on hand (*descriptive statistics*); how to 
+use the data on hand to make statements about the underlying world, and how to
+quantify the uncertainty in your statements (*inferential statistics*), and how
+to use the data on hand to make judgements, with uncertainty quantification,
+about what data you will see next (*predective statistics*).
