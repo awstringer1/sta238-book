@@ -1,3 +1,17 @@
 # Error
 
-In this chapter we will more formally discuss the notion of **error**.
+## Introduction
+
+In this chapter we will more formally discuss the notion of **error**. We will learn how to identify potential sources of error in an analysis, and for certain types of error, how to *quantify* them.
+
+There are many different potential sources of error when analyzing data. A very limited list of examples:
+
+- **Human error**. You may make a mistake somewhere in your code. You could join tables incorrectly, exclude/include data you didn't mean to, compute a summary or fit a model incorrectly.
+
+- **Statistical error**. The data you have is subject to *uncertainty* and *variability*. In a survey or scientific experiment, your data may be subject to *sampling variability*, which is the notion that if you repeated your data collection again under identical circumstances, you'd get different data. In cases where such hypothetical *repeated sampling* doesn't make sense---for example when studying phenomena like air pollution or temperature, which occur once at each given place and time---your data is still not perfectly measured and you may be *uncertain* that it is fully capturing the underlying truth.
+
+- **Communication error**. You might have perfect data and a perfect analysis, and then communicate the results incorrectly. Or, your analysis and data might not be answering the question you intended.
+
+In this chapter we will primarily focus on **statistical error**, because this is the type of error that, in statistical sciences, we are usually able to *quantify*.
+
+## Which wards have the highest/lowest quality rental housing?

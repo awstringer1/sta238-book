@@ -241,15 +241,13 @@ Oh! It's because older people are more likely to die, and less likely to smoke.
 
 We performed the exact same steps in our prescriptive analysis as we did in our exploratory analysis. Can we make the same conclusions?
 
-This is where we need to be careful. When we were just exploring the data, it would be reasonable to report as much or little of what we see as we want. We can't report everything after all!
-
-When we go into the data with a specific question in mind, **we have to report everything we see that relates to this question**. We ought to report that
+This is where we need to be careful. When we go into the data with a specific question in mind, **we have to report everything we see that relates to this question**. We ought to report that
 
 - Smokers had a lower mortality rate than non-smokers, and
 - there were more young smokers than old smokers in the data, and
 - younger people had a lower mortality rate than older people, in our data.
 
-Context matters! If we just reported that "controlling for age, smokers have a higher mortality rate than non-smokers", we would be communicating a potentially *spurious* (meaningless) conclusion. What's so important about age? We could have controlled for other variables and perhaps seen different relationships. These "researcher degrees of freedom" are a big force behind what is known as the "reproducibility crisis" in modern science.
+Context matters! If we just reported that "controlling for age, smokers have a higher mortality rate than non-smokers", we would be communicating a potentially *spurious* conclusion. What's so important about age? We could have controlled for other variables and perhaps seen different relationships. These "researcher degrees of freedom" are a big force behind what is known as the "reproducibility crisis" in modern science.
 
 ### Exercises
 
@@ -260,16 +258,11 @@ Context matters! If we just reported that "controlling for age, smokers have a h
 
 ## Rental housing in Toronto
 
-We saw a basic example in the `smoking` data of how the choices that we make
-while analyzing a dataset can lead to different conclusions. The `smoking`
-data is quite small, and there aren't that many choices to make. Let's take a
-look at something more complicated, modern, and topical.
-
 The RentSafeTO: Apartment Building Standards program is designed to help renters
 in the city of Toronto make informed choices about where to live, and to enforce
 a minimum standard of quality upon rental units within the city. With rents 
 skyrocketing and home ownership not a reasonable option for most, having an
-informed view of the rental market is imperative. It also helps keep leaders
+informed view of the rental market is imperative for Toronto residents. It also helps keep leaders
 accountable, specifically if we focus on social and community housing buildings.
 
 Comprehensive and fairly clean data from the program, along with specific
@@ -278,7 +271,7 @@ Data for the following were downloaded on `2019/09/16`.
 
 To start your analysis, go now and download the data
 and open it in a spreadsheet and have a look. Familiarize yourselves with the
-variable descriptions and how the data were collected. This somewhat tedious 
+variable descriptions and how the data were collected; the *documentation*. This somewhat tedious 
 task is a first step of **any** data analysis, in academia, industry, government,
 or wherever.
 
@@ -320,7 +313,81 @@ That's bigger than the `smoking` data! 3,446 rental apartment buildings, each wi
 32 factors measured. The buliding's address and Ward number are in there, which are
 helpful for characterizing neighbourhoods.
 
-### Do different wards have different quality housing?
+### Analysis I: what does the data look like?
+
+As a first step, we want to get an idea of what our data "looks like". This typically means picking some interesting variables and summarizing their distributions somehow.
+
+Which variables to pick will depend on the context. Often it will be clear which variables are important, and sometimes not.
+
+Because you read the documentation and familiarized yourselves with the variables in the dataset, you know that there is a variable called `SCORE` which sums up the individual category scores for each building. In the context of determining building quality, this seems like an important variable to look at.
+
+We'll summarize the distribution of `SCORE` using a five-number summary and mean, and a **histogram** with a **kernel density estimate**.
+
+First, prepare the data for analysis:
+
+```{r apartment-descriptive-1}
+# First, select only the columns you want
+# This isn't strictly necessary but trust me, it makes 
+# debugging WAY easier.
+# I'm also renaming the columns so the dataframe looks prettier.
+# Again, trust me. This stuff matters.
+apartmentclean <- apartmentdata %>% 
+  filter(!is.na(SCORE)) %>% # Remove apartments with missing scores
+  dplyr::select(ward = WARD,
+                score = SCORE,
+                property_type = PROPERTY_TYPE,
+                year_built = YEAR_BUILT,
+                address = SITE_ADDRESS
+  )
+glimpse(apartmentclean) # Much nicer!
+```
+
+To compute the five-number summary (plus mean), use the `summary()` function in `R`. I also want to know the *standard deviation* of `SCORE`:
+
+```{r apartment-descriptive-2}
+summary(apartmentclean$score)
+sd(apartmentclean$score,na.rm = TRUE)
+```
+
+The worst building in the city has a total score of 37, and the best gets 99. The median score---half the buildings in the city have a lower score, and half a higher score than this---is 72, and this roughly equals the mean of 72.28. 25% of buildings score higher than 77, and 25% score lower than 68. So most buildings seem to fall within less than one standard deviation of the mean, which indicates that these data are fairly *concentrated* about their mean.
+
+To provide some context, go look up your own building (if you live in a rental building) or that of a friend in the data. Where does your building fall in terms of quality within Toronto?
+
+So far we have used tabular displays to summarize our data, for both the `smoking` and the apartment data. To communicate more information at once, we can use a **plot**. 
+
+The most common type of plot for visualizing an empirical estimate of a probability distribution is a **histogram**. A histogram bins the data into ranges and, by default, counts the number of data points in each range. We will tell the plotting function to compute the *proportion* of data in each range, and then *normalize* the results so that the plot integrates to one (and hence estimates a probability density). This won't change the shape of the plot.
+
+We can make a histogram in `R` as follows:
+
+```{r apartment-descriptive-3}
+# The ggplot2 package is loaded as part of the tidyverse
+score_histogram <- apartmentclean %>%
+  ggplot(aes(x = score)) + # Tell ggplot to use score on the x axis
+  theme_light() + # Make the plot pretty
+  geom_histogram( # Makes a histogram
+    aes(y = ..density..),
+    bins = 20,
+    colour = "black",
+    fill = "lightgrey"
+  ) +
+  labs(title = "Distribution of RentSafeTO Apartment Building Standards score",
+       x = "Score",
+       y = "Density") +
+  scale_x_continuous(breaks = seq(30,100,by = 5))
+
+score_histogram
+```
+
+It appears that most buildings are in the 65 to 85 range. (Interesting point: at time of writing I am in the process of moving from one building to another; current building has a 66, new building has an 86 :D).
+
+Another common estimate of a distribution is a **kernel density estimate**, which can be viewed as a more "continuous" version of a histogram that actually draws a curve on the plot that is supposed to represent the (empirical) probability density of the data. We can add this to our plot very quickly:
+
+```{r apartment-descriptive-4}
+score_histogram +
+  geom_density()
+```
+
+### Analysis II: Do different wards have different quality housing?
 
 A Ward is an administrative district within the city that has a single city 
 counsellor. If I'm thinking about moving to, or within, Toronto, I want to know:
@@ -360,19 +427,6 @@ With these decisions made, we may proceed with our analysis using the `tidyverse
 as follows:
 
 ```{r apartment-analysis-1}
-# First, select only the columns you want
-# This isn't strictly necessary but trust me, it makes 
-# debugging WAY easier.
-# I'm also renaming the columns so the dataframe looks prettier.
-# Again, trust me. This stuff matters.
-apartmentclean <- apartmentdata %>% 
-  dplyr::select(ward = WARD,
-                score = SCORE,
-                property_type = PROPERTY_TYPE,
-                year_built = YEAR_BUILT,
-                address = SITE_ADDRESS
-  )
-glimpse(apartmentclean) # Much nicer!
 # Apply filter(s).
 apartmentfiltered <- apartmentclean %>%
   filter(property_type == "PRIVATE")
@@ -409,8 +463,6 @@ This isn't a super friendly way of comparing these 26 numbers. We need some kind
 od **visualization**, or **plot**, so we can take one look and get an idea of 
 what is going on.
 
-### Data visualization for description
-
 In order to pick what kind of plot to make, we have to understand what types
 of variables we are attempting to compare. Broadly speaking, variables can
 either be **continuous** or **categorical**. 
@@ -431,20 +483,20 @@ ward 17. We could have labelled them "A", "B", "C",... and the meaning would
 have been the same.
 
 One common visualization used to compare values of a **continuous** variable
-with values of a **categorical** variable is a **bar chart**. A bar chart contains
+with values of a **categorical** variable is a **dot chart**. A dot chart contains
 the values of the categorical variable on the x-axis and the values of the
 continuous variable on the y-axis. You can take one look and see whether there is
 any pattern in values of the continuous variable with respect to the categorical
 variable.
 
-We create a **bar chart** to visualize these summary statistics using the `ggplot2`
+We create a **dot chart** to visualize these summary statistics using the `ggplot2`
 package. This is also included with the `tidyverse` (surprise!):
 
 ```{r barchart-apartment-1}
 apartmentsummary %>%
   ggplot(aes(x = ward,y = avg_score)) + # Set up the variable mappings
   theme_light() + # Make it pretty
-  geom_bar(stat = "identity",colour = "black",fill = "grey") + # Add the bars
+  geom_point(pch = 21,colour = "black",fill = "grey") + # Add the bars
   labs(title = "Average ABS score shows moderate variability across wards in Toronto",
        x = "Ward",
        y = "Average ABS Score") # Informative title
@@ -453,7 +505,7 @@ apartmentsummary %>%
 It looks like some wards are better than others. Or are they? Can we make any
 definitive conclusions based on this?
 
-### Further analysis: trends in quality over time
+### Analysis III: trends in quality over time
 
 Let's go further and analyze some other interesting aspects of these data. I'm
 interested in knowing: **Are newer buildings higher quality**? 
@@ -517,7 +569,11 @@ subject of Chapter 2.
 
 ### Exercises
 
-1. Read the documentation online and choose three variables that you find the most interesting. Reproduce the analysis of sections 2.3.2. and 2.3.3. using your favourite variables. Is there more or less variability across wards than with `score`?
+1. Take each of the analyses we have performed on the Toronto rental data and say whether you think it's **descriptive**, **exploratory**, or **prescriptive**, or a mix, and say why.
+
+1. What is that "YY" ward that shows up in the dot plot? Investigate this unusual observation. 
+
+1. Read the documentation online and choose three variables that you find the most interesting. Reproduce the analyses I, II and III using your variables. Is there more or less variability across wards than with `score`?
 
 1. What is the ward with the highest average score? In what ward is/are the building(s) with the highest score(s)? Is this the same ward, or not? Would you expect the ward with the highest average to also have the highest-scoring buildings? Repeat this question with the lowest scoring buildings instead of the highest.
 
