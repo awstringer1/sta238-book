@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2019-09-20" />
+<meta name="date" content="2019-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -212,49 +212,38 @@ and then following up in 20 years to see if they died.</p>
 <p>Let’s see how we can obtain these descriptive measures in <code>R</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># install.packages(&quot;tidyverse&quot;)</span></a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="co"># install.packages(&quot;SMPracticals&quot;) # For datasets</span></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="kw">library</span>(tidyverse) <span class="co"># We use a LOT of functions from this package.</span></a></code></pre></div>
-<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
-## ✔ tibble  2.1.3     ✔ dplyr   0.8.1
-## ✔ tidyr   0.8.2     ✔ stringr 1.4.0
-## ✔ readr   1.3.1     ✔ forcats 0.3.0</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;stringr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># Get the number of observations (rows), variables, and an idea</span></a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="co"># of what the data looks like:</span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="kw">glimpse</span>(femsmoke)</a></code></pre></div>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw">library</span>(tidyverse) <span class="co"># We use a LOT of functions from this package.</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co"># Get the number of observations (rows), variables, and an idea</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co"># of what the data looks like:</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="kw">glimpse</span>(femsmoke)</a></code></pre></div>
 <pre><code>## Observations: 28
 ## Variables: 4
 ## $ y      &lt;dbl&gt; 2, 1, 3, 5, 14, 7, 27, 12, 51, 40, 29, 101, 13, 64, 53, 6…
 ## $ smoker &lt;fct&gt; yes, no, yes, no, yes, no, yes, no, yes, no, yes, no, yes…
 ## $ dead   &lt;fct&gt; yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, ye…
 ## $ age    &lt;fct&gt; 18-24, 18-24, 25-34, 25-34, 35-44, 35-44, 45-54, 45-54, 5…</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># One observation represents a count of people in each category.</span></a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="co"># How many people?</span></a>
-<a class="sourceLine" id="cb11-3" title="3">femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y)) <span class="co"># The summarize() function lets you compute summaries of variables in your dataframe</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># One observation represents a count of people in each category.</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co"># How many people?</span></a>
+<a class="sourceLine" id="cb4-3" title="3">femsmoke <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y)) <span class="co"># The summarize() function lets you compute summaries of variables in your dataframe</span></a></code></pre></div>
 <pre><code>##   num_people
 ## 1       1314</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># How many smokers?</span></a>
-<a class="sourceLine" id="cb13-2" title="2">femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-3" title="3"><span class="st">  </span><span class="kw">filter</span>(smoker <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># filter() lets you choose which rows to keep</span></a>
-<a class="sourceLine" id="cb13-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_smokers =</span> <span class="kw">sum</span>(y))</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># How many smokers?</span></a>
+<a class="sourceLine" id="cb6-2" title="2">femsmoke <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="st">  </span><span class="kw">filter</span>(smoker <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># filter() lets you choose which rows to keep</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_smokers =</span> <span class="kw">sum</span>(y))</a></code></pre></div>
 <pre><code>##   num_smokers
 ## 1         582</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># How many non-smokers?</span></a>
-<a class="sourceLine" id="cb15-2" title="2">femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="st">  </span><span class="kw">filter</span>(smoker <span class="op">==</span><span class="st"> &quot;no&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb15-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_non_smokers =</span> <span class="kw">sum</span>(y))</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># How many non-smokers?</span></a>
+<a class="sourceLine" id="cb8-2" title="2">femsmoke <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span><span class="kw">filter</span>(smoker <span class="op">==</span><span class="st"> &quot;no&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_non_smokers =</span> <span class="kw">sum</span>(y))</a></code></pre></div>
 <pre><code>##   num_non_smokers
 ## 1             732</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># We can get both those numbers at the same time:</span></a>
-<a class="sourceLine" id="cb17-2" title="2">femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb17-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># group_by() makes summarize() compute summaries within levels of a variable</span></a>
-<a class="sourceLine" id="cb17-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># We can get both those numbers at the same time:</span></a>
+<a class="sourceLine" id="cb10-2" title="2">femsmoke <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># group_by() makes summarize() compute summaries within levels of a variable</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
 ##   smoker num_people
 ##   &lt;fct&gt;       &lt;dbl&gt;
@@ -290,34 +279,34 @@ and then following up in 20 years to see if they died.</p>
 observe any apparent <em>association</em> between smoking and mortality. To investigate any such associations, we can look at <em>the observed mortality rates</em>
 for smokers and non-smokers. This is <em>exploratory</em>—not <em>descriptive</em>—because we are going beyond simply saying what the data looks like. We are looking for a pattern, namely, “do smokers die more or less frequently than non-smokers?”</p>
 <p>Exploratory analyses involve decisions made by us, the investigator. They are naturally <em>subjective</em>. Different decisions can lead to uncovering different patterns. For example:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># Compute the mortality rate for smokers and non-smokers.</span></a>
-<a class="sourceLine" id="cb20-2" title="2"><span class="co"># To do this, create a dataframe containing the numbers of smokers</span></a>
-<a class="sourceLine" id="cb20-3" title="3"><span class="co"># and non-smokers</span></a>
-<a class="sourceLine" id="cb20-4" title="4">smoker_numbers &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># The %&gt;% operator lets you form sequences of operations</span></a>
-<a class="sourceLine" id="cb20-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># group_by() makes all the following operations happen within groups</span></a>
-<a class="sourceLine" id="cb20-6" title="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y)) <span class="co"># Count the number of people who are smokers and not smokers </span></a>
-<a class="sourceLine" id="cb20-7" title="7">smoker_numbers</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># Compute the mortality rate for smokers and non-smokers.</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="co"># To do this, create a dataframe containing the numbers of smokers</span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="co"># and non-smokers</span></a>
+<a class="sourceLine" id="cb13-4" title="4">smoker_numbers &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># The %&gt;% operator lets you form sequences of operations</span></a>
+<a class="sourceLine" id="cb13-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># group_by() makes all the following operations happen within groups</span></a>
+<a class="sourceLine" id="cb13-6" title="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y)) <span class="co"># Count the number of people who are smokers and not smokers </span></a>
+<a class="sourceLine" id="cb13-7" title="7">smoker_numbers</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
 ##   smoker num_people
 ##   &lt;fct&gt;       &lt;dbl&gt;
 ## 1 yes           582
 ## 2 no            732</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="co"># Now, compute the number of people who died out of the smokers and non-smokers</span></a>
-<a class="sourceLine" id="cb22-2" title="2"><span class="co"># This looks the same as above, except we now filter() only the people who died.</span></a>
-<a class="sourceLine" id="cb22-3" title="3">smoker_numbers_dead &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb22-4" title="4"><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Retains rows where dead == &quot;yes&quot; only</span></a>
-<a class="sourceLine" id="cb22-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb22-6" title="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</a>
-<a class="sourceLine" id="cb22-7" title="7">smoker_numbers_dead</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># Now, compute the number of people who died out of the smokers and non-smokers</span></a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="co"># This looks the same as above, except we now filter() only the people who died.</span></a>
+<a class="sourceLine" id="cb15-3" title="3">smoker_numbers_dead &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-4" title="4"><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Retains rows where dead == &quot;yes&quot; only</span></a>
+<a class="sourceLine" id="cb15-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-6" title="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</a>
+<a class="sourceLine" id="cb15-7" title="7">smoker_numbers_dead</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
 ##   smoker num_dead
 ##   &lt;fct&gt;     &lt;dbl&gt;
 ## 1 yes         139
 ## 2 no          230</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="co"># Now, we join these two tables together and compute the mortality rates by group.</span></a>
-<a class="sourceLine" id="cb24-2" title="2">smoker_numbers <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb24-3" title="3"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_dead,<span class="dt">by =</span> <span class="st">&quot;smoker&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Joins rows with the same value of &quot;smoker&quot;</span></a>
-<a class="sourceLine" id="cb24-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="co"># mutate() creates a new variable, which can be a function of the other variables in the dataframe.</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># Now, we join these two tables together and compute the mortality rates by group.</span></a>
+<a class="sourceLine" id="cb17-2" title="2">smoker_numbers <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_dead,<span class="dt">by =</span> <span class="st">&quot;smoker&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Joins rows with the same value of &quot;smoker&quot;</span></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="co"># mutate() creates a new variable, which can be a function of the other variables in the dataframe.</span></a></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   smoker num_people num_dead mort_rate
 ##   &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
@@ -330,18 +319,18 @@ non-smokers? This contradicts the <em>context</em> surrounding this analysis, wh
 <p>One thing we definitely did was ignore some present information. Specifically,
 we also know how old the women were. How can we include this information in our
 exploratory analysis? We can compute mortality rates by age:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">smoker_numbers_age &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb26-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Now we&#39;re grouping by smoker AND age. The rest of the code remains unchanged.</span></a>
-<a class="sourceLine" id="cb26-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</a>
-<a class="sourceLine" id="cb26-4" title="4"></a>
-<a class="sourceLine" id="cb26-5" title="5">smoker_numbers_age_dead &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb26-6" title="6"><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb26-7" title="7"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb26-8" title="8"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</a>
-<a class="sourceLine" id="cb26-9" title="9"></a>
-<a class="sourceLine" id="cb26-10" title="10">smoker_numbers_age <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb26-11" title="11"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb26-12" title="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">smoker_numbers_age &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Now we&#39;re grouping by smoker AND age. The rest of the code remains unchanged.</span></a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</a>
+<a class="sourceLine" id="cb19-4" title="4"></a>
+<a class="sourceLine" id="cb19-5" title="5">smoker_numbers_age_dead &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-6" title="6"><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-7" title="7"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-8" title="8"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</a>
+<a class="sourceLine" id="cb19-9" title="9"></a>
+<a class="sourceLine" id="cb19-10" title="10">smoker_numbers_age <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-11" title="11"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-12" title="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</a></code></pre></div>
 <pre><code>## # A tibble: 14 x 5
 ## # Groups:   smoker [2]
 ##    smoker age   num_people num_dead mort_rate
@@ -392,10 +381,10 @@ each with only one row. For example, <code>smokers &lt;- femsmoke %&gt;% filter(
 <ol style="list-style-type: decimal">
 <li><em>Advanced</em>: modify the above steps to create the following table of relative mortality rates. You should start from a cleaned up version of the mortality rate by age table:</li>
 </ol>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1">rates_by_age &lt;-<span class="st"> </span>smoker_numbers_age <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb28-2" title="2"><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb28-3" title="3"><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb28-4" title="4"><span class="kw">ungroup</span>() <span class="co"># The data was previously grouped, we don&#39;t want this anymore</span></a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">rates_by_age &lt;-<span class="st"> </span>smoker_numbers_age <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-3" title="3"><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-4" title="4"><span class="kw">ungroup</span>() <span class="co"># The data was previously grouped, we don&#39;t want this anymore</span></a></code></pre></div>
 <p>Use <code>dplyr::select()</code> to remove and rename columns, see <code>?dplyr::select</code>.</p>
 <pre><code>## # A tibble: 7 x 4
 ##   age   smoker_mort_rate nonsmoker_mort_rate relative_risk
@@ -415,9 +404,9 @@ each with only one row. For example, <code>smokers &lt;- femsmoke %&gt;% filter(
 <p><strong>Prescriptive analysis</strong> is about using the data you have to explicitly support making a decision or coming to a conclusion. Often the data has been collected for a reason. Scientific experiments, surveys, questionnaries given when applying for a mortage or insurance product; these aren’t just “fishing expeditions”. These data are collected in the hopes of coming to a specific conclusion. We might wish to state the efficacy of a clinical treatment, or decide which politician is going to win an election, or whether to grant somebody a loan or underwrite an insurance policy.</p>
 <p>Often a prescriptive analysis is conducted <em>using exactly the same steps</em> as an exploratory analysis. Here, you must be very careful. Knowing what you want the data to say can, and very often does, influence choices made by the researcher about how to analyze the data. This is often referred to as “researcher degrees of freedom”.</p>
 <p>For example, perhaps the smoking data was collected with the explicit purpose of supporting anti-smoking initiatives. This renders the above analysis <em>prescriptive</em>, because we know what we want to see: we want smokers to have a higher mortality rate than non-smokers in these data. In this <em>context</em>, let’s re-compute the above table of mortality rates:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">smoker_numbers <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb30-2" title="2"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_dead,<span class="dt">by =</span> <span class="st">&quot;smoker&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb30-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">smoker_numbers <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_dead,<span class="dt">by =</span> <span class="st">&quot;smoker&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   smoker num_people num_dead mort_rate
 ##   &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
@@ -425,9 +414,9 @@ each with only one row. For example, <code>smokers &lt;- femsmoke %&gt;% filter(
 ## 2 no            732      230     0.314</code></pre>
 <p>…hm. It appears that the data is telling us the opposite of what we thought it would.</p>
 <p>What do we do now? Well, we ignored some information, namely the subjects’ ages. So let’s use those:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">smoker_numbers_age <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb32-2" title="2"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb32-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">smoker_numbers_age <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</a></code></pre></div>
 <pre><code>## # A tibble: 14 x 5
 ## # Groups:   smoker [2]
 ##    smoker age   num_people num_dead mort_rate
@@ -491,16 +480,16 @@ them from data stored in databases.</p>
 <p>We may read the data into <code>R</code> using the <code>read_csv</code> function in the <code>readr</code> package.
 The <code>readr</code> package is part of the <code>tidyverse</code> package that we used before, so if
 you installed that package, you have it loaded.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="co"># https://open.toronto.ca/dataset/apartment-building-evaluation/</span></a>
-<a class="sourceLine" id="cb34-2" title="2"><span class="co"># install.packages(&quot;readr&quot;)</span></a>
-<a class="sourceLine" id="cb34-3" title="3"></a>
-<a class="sourceLine" id="cb34-4" title="4"><span class="co"># Read the data in. This means call the readr::read_csv() function, point it</span></a>
-<a class="sourceLine" id="cb34-5" title="5"><span class="co"># to where you saved the data on your computer, and then save the result to a</span></a>
-<a class="sourceLine" id="cb34-6" title="6"><span class="co"># variable. I am naming this variable &#39;apartmentdata&#39;.</span></a>
-<a class="sourceLine" id="cb34-7" title="7"><span class="co"># Type ?readr::read_csv if you want to read about this function.</span></a>
-<a class="sourceLine" id="cb34-8" title="8">apartmentdata &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb34-9" title="9">  <span class="dt">file =</span> <span class="st">&quot;./data/apartment-data/toronto-apartment-building-evaluations.csv&quot;</span></a>
-<a class="sourceLine" id="cb34-10" title="10">)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="co"># https://open.toronto.ca/dataset/apartment-building-evaluation/</span></a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="co"># install.packages(&quot;readr&quot;)</span></a>
+<a class="sourceLine" id="cb27-3" title="3"></a>
+<a class="sourceLine" id="cb27-4" title="4"><span class="co"># Read the data in. This means call the readr::read_csv() function, point it</span></a>
+<a class="sourceLine" id="cb27-5" title="5"><span class="co"># to where you saved the data on your computer, and then save the result to a</span></a>
+<a class="sourceLine" id="cb27-6" title="6"><span class="co"># variable. I am naming this variable &#39;apartmentdata&#39;.</span></a>
+<a class="sourceLine" id="cb27-7" title="7"><span class="co"># Type ?readr::read_csv if you want to read about this function.</span></a>
+<a class="sourceLine" id="cb27-8" title="8">apartmentdata &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb27-9" title="9">  <span class="dt">file =</span> <span class="st">&quot;./data/apartment-data/toronto-apartment-building-evaluations.csv&quot;</span></a>
+<a class="sourceLine" id="cb27-10" title="10">)</a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   .default = col_double(),
@@ -516,7 +505,7 @@ kind of data were in each column, i.e. numbers, letters, dates, etc. You should
 make sure, as I have while writing, that these are what you expect. You can
 get a concise view of this dataset using the <code>glimpse</code> function in the <code>dplyr</code>
 package, which is automatically loaded when you load the <code>tidyverse</code>:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">glimpse</span>(apartmentdata)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">glimpse</span>(apartmentdata)</a></code></pre></div>
 <pre><code>## Observations: 3,446
 ## Variables: 32
 ## $ `_id`                       &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1…
@@ -562,20 +551,20 @@ helpful for characterizing neighbourhoods.</p>
 <p>Because you read the documentation and familiarized yourselves with the variables in the dataset, you know that there is a variable called <code>SCORE</code> which sums up the individual category scores for each building. In the context of determining building quality, this seems like an important variable to look at.</p>
 <p>We’ll summarize the distribution of <code>SCORE</code> using a five-number summary and mean, and a <strong>histogram</strong> with a <strong>kernel density estimate</strong>.</p>
 <p>First, prepare the data for analysis:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="co"># First, select only the columns you want</span></a>
-<a class="sourceLine" id="cb39-2" title="2"><span class="co"># This isn&#39;t strictly necessary but trust me, it makes </span></a>
-<a class="sourceLine" id="cb39-3" title="3"><span class="co"># debugging WAY easier.</span></a>
-<a class="sourceLine" id="cb39-4" title="4"><span class="co"># I&#39;m also renaming the columns so the dataframe looks prettier.</span></a>
-<a class="sourceLine" id="cb39-5" title="5"><span class="co"># Again, trust me. This stuff matters.</span></a>
-<a class="sourceLine" id="cb39-6" title="6">apartmentclean &lt;-<span class="st"> </span>apartmentdata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb39-7" title="7"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(SCORE)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Remove apartments with missing scores</span></a>
-<a class="sourceLine" id="cb39-8" title="8"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="dt">ward =</span> WARD,</a>
-<a class="sourceLine" id="cb39-9" title="9">                <span class="dt">score =</span> SCORE,</a>
-<a class="sourceLine" id="cb39-10" title="10">                <span class="dt">property_type =</span> PROPERTY_TYPE,</a>
-<a class="sourceLine" id="cb39-11" title="11">                <span class="dt">year_built =</span> YEAR_BUILT,</a>
-<a class="sourceLine" id="cb39-12" title="12">                <span class="dt">address =</span> SITE_ADDRESS</a>
-<a class="sourceLine" id="cb39-13" title="13">  )</a>
-<a class="sourceLine" id="cb39-14" title="14"><span class="kw">glimpse</span>(apartmentclean) <span class="co"># Much nicer!</span></a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="co"># First, select only the columns you want</span></a>
+<a class="sourceLine" id="cb32-2" title="2"><span class="co"># This isn&#39;t strictly necessary but trust me, it makes </span></a>
+<a class="sourceLine" id="cb32-3" title="3"><span class="co"># debugging WAY easier.</span></a>
+<a class="sourceLine" id="cb32-4" title="4"><span class="co"># I&#39;m also renaming the columns so the dataframe looks prettier.</span></a>
+<a class="sourceLine" id="cb32-5" title="5"><span class="co"># Again, trust me. This stuff matters.</span></a>
+<a class="sourceLine" id="cb32-6" title="6">apartmentclean &lt;-<span class="st"> </span>apartmentdata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb32-7" title="7"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(SCORE)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Remove apartments with missing scores</span></a>
+<a class="sourceLine" id="cb32-8" title="8"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="dt">ward =</span> WARD,</a>
+<a class="sourceLine" id="cb32-9" title="9">                <span class="dt">score =</span> SCORE,</a>
+<a class="sourceLine" id="cb32-10" title="10">                <span class="dt">property_type =</span> PROPERTY_TYPE,</a>
+<a class="sourceLine" id="cb32-11" title="11">                <span class="dt">year_built =</span> YEAR_BUILT,</a>
+<a class="sourceLine" id="cb32-12" title="12">                <span class="dt">address =</span> SITE_ADDRESS</a>
+<a class="sourceLine" id="cb32-13" title="13">  )</a>
+<a class="sourceLine" id="cb32-14" title="14"><span class="kw">glimpse</span>(apartmentclean) <span class="co"># Much nicer!</span></a></code></pre></div>
 <pre><code>## Observations: 3,437
 ## Variables: 5
 ## $ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;04&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;0…
@@ -584,37 +573,37 @@ helpful for characterizing neighbourhoods.</p>
 ## $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 1920, 2017, 1967, 2015, 1970, 19…
 ## $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACP…</code></pre>
 <p>To compute the five-number summary (plus mean), use the <code>summary()</code> function in <code>R</code>. I also want to know the <em>standard deviation</em> of <code>SCORE</code>:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw">summary</span>(apartmentclean<span class="op">$</span>score)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">summary</span>(apartmentclean<span class="op">$</span>score)</a></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   37.00   68.00   72.00   72.28   77.00   99.00</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw">sd</span>(apartmentclean<span class="op">$</span>score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw">sd</span>(apartmentclean<span class="op">$</span>score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] 7.117172</code></pre>
 <p>The worst building in the city has a total score of 37, and the best gets 99. The median score—half the buildings in the city have a lower score, and half a higher score than this—is 72, and this roughly equals the mean of 72.28. 25% of buildings score higher than 77, and 25% score lower than 68. So most buildings seem to fall within less than one standard deviation of the mean, which indicates that these data are fairly <em>concentrated</em> about their mean.</p>
 <p>To provide some context, go look up your own building (if you live in a rental building) or that of a friend in the data. Where does your building fall in terms of quality within Toronto?</p>
 <p>So far we have used tabular displays to summarize our data, for both the <code>smoking</code> and the apartment data. To communicate more information at once, we can use a <strong>plot</strong>.</p>
 <p>The most common type of plot for visualizing an empirical estimate of a probability distribution is a <strong>histogram</strong>. A histogram bins the data into ranges and, by default, counts the number of data points in each range. We will tell the plotting function to compute the <em>proportion</em> of data in each range, and then <em>normalize</em> the results so that the plot integrates to one (and hence estimates a probability density). This won’t change the shape of the plot.</p>
 <p>We can make a histogram in <code>R</code> as follows:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="co"># The ggplot2 package is loaded as part of the tidyverse</span></a>
-<a class="sourceLine" id="cb45-2" title="2">score_histogram &lt;-<span class="st"> </span>apartmentclean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb45-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> score)) <span class="op">+</span><span class="st"> </span><span class="co"># Tell ggplot to use score on the x axis</span></a>
-<a class="sourceLine" id="cb45-4" title="4"><span class="st">  </span><span class="kw">theme_light</span>() <span class="op">+</span><span class="st"> </span><span class="co"># Make the plot pretty</span></a>
-<a class="sourceLine" id="cb45-5" title="5"><span class="st">  </span><span class="kw">geom_histogram</span>( <span class="co"># Makes a histogram</span></a>
-<a class="sourceLine" id="cb45-6" title="6">    <span class="kw">aes</span>(<span class="dt">y =</span> ..density..),</a>
-<a class="sourceLine" id="cb45-7" title="7">    <span class="dt">bins =</span> <span class="dv">20</span>,</a>
-<a class="sourceLine" id="cb45-8" title="8">    <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,</a>
-<a class="sourceLine" id="cb45-9" title="9">    <span class="dt">fill =</span> <span class="st">&quot;lightgrey&quot;</span></a>
-<a class="sourceLine" id="cb45-10" title="10">  ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb45-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Distribution of RentSafeTO Apartment Building Standards score&quot;</span>,</a>
-<a class="sourceLine" id="cb45-12" title="12">       <span class="dt">x =</span> <span class="st">&quot;Score&quot;</span>,</a>
-<a class="sourceLine" id="cb45-13" title="13">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb45-14" title="14"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">30</span>,<span class="dv">100</span>,<span class="dt">by =</span> <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb45-15" title="15"></a>
-<a class="sourceLine" id="cb45-16" title="16">score_histogram</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="co"># The ggplot2 package is loaded as part of the tidyverse</span></a>
+<a class="sourceLine" id="cb38-2" title="2">score_histogram &lt;-<span class="st"> </span>apartmentclean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb38-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> score)) <span class="op">+</span><span class="st"> </span><span class="co"># Tell ggplot to use score on the x axis</span></a>
+<a class="sourceLine" id="cb38-4" title="4"><span class="st">  </span><span class="kw">theme_light</span>() <span class="op">+</span><span class="st"> </span><span class="co"># Make the plot pretty</span></a>
+<a class="sourceLine" id="cb38-5" title="5"><span class="st">  </span><span class="kw">geom_histogram</span>( <span class="co"># Makes a histogram</span></a>
+<a class="sourceLine" id="cb38-6" title="6">    <span class="kw">aes</span>(<span class="dt">y =</span> ..density..),</a>
+<a class="sourceLine" id="cb38-7" title="7">    <span class="dt">bins =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb38-8" title="8">    <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,</a>
+<a class="sourceLine" id="cb38-9" title="9">    <span class="dt">fill =</span> <span class="st">&quot;lightgrey&quot;</span></a>
+<a class="sourceLine" id="cb38-10" title="10">  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb38-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Distribution of RentSafeTO Apartment Building Standards score&quot;</span>,</a>
+<a class="sourceLine" id="cb38-12" title="12">       <span class="dt">x =</span> <span class="st">&quot;Score&quot;</span>,</a>
+<a class="sourceLine" id="cb38-13" title="13">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb38-14" title="14"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">30</span>,<span class="dv">100</span>,<span class="dt">by =</span> <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb38-15" title="15"></a>
+<a class="sourceLine" id="cb38-16" title="16">score_histogram</a></code></pre></div>
 <p><img src="book_files/figure-html/apartment-descriptive-3-1.png" width="672" /></p>
 <p>It appears that most buildings are in the 65 to 85 range. (Interesting point: at time of writing I am in the process of moving from one building to another; current building has a 66, new building has an 86 :D).</p>
 <p>Another common estimate of a distribution is a <strong>kernel density estimate</strong>, which can be viewed as a more “continuous” version of a histogram that actually draws a curve on the plot that is supposed to represent the (empirical) probability density of the data. We can add this to our plot very quickly:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1">score_histogram <span class="op">+</span></a>
-<a class="sourceLine" id="cb46-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">score_histogram <span class="op">+</span></a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
 <p><img src="book_files/figure-html/apartment-descriptive-4-1.png" width="672" /></p>
 </div>
 <div id="analysis-ii-do-different-wards-have-different-quality-housing" class="section level3">
@@ -654,12 +643,12 @@ above table of average scores.</li>
 </ul>
 <p>With these decisions made, we may proceed with our analysis using the <code>tidyverse</code>
 as follows:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="co"># Apply filter(s).</span></a>
-<a class="sourceLine" id="cb47-2" title="2">apartmentfiltered &lt;-<span class="st"> </span>apartmentclean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-3" title="3"><span class="st">  </span><span class="kw">filter</span>(property_type <span class="op">==</span><span class="st"> &quot;PRIVATE&quot;</span>)</a>
-<a class="sourceLine" id="cb47-4" title="4"><span class="co"># When filtering, always compare the filtered and unfiltered data to ensure</span></a>
-<a class="sourceLine" id="cb47-5" title="5"><span class="co"># the result is as expected:</span></a>
-<a class="sourceLine" id="cb47-6" title="6"><span class="kw">glimpse</span>(apartmentclean)</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="co"># Apply filter(s).</span></a>
+<a class="sourceLine" id="cb40-2" title="2">apartmentfiltered &lt;-<span class="st"> </span>apartmentclean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb40-3" title="3"><span class="st">  </span><span class="kw">filter</span>(property_type <span class="op">==</span><span class="st"> &quot;PRIVATE&quot;</span>)</a>
+<a class="sourceLine" id="cb40-4" title="4"><span class="co"># When filtering, always compare the filtered and unfiltered data to ensure</span></a>
+<a class="sourceLine" id="cb40-5" title="5"><span class="co"># the result is as expected:</span></a>
+<a class="sourceLine" id="cb40-6" title="6"><span class="kw">glimpse</span>(apartmentclean)</a></code></pre></div>
 <pre><code>## Observations: 3,437
 ## Variables: 5
 ## $ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;04&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;0…
@@ -667,7 +656,7 @@ as follows:</p>
 ## $ property_type &lt;chr&gt; &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;SOCIAL HOUSING&quot;,…
 ## $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 1920, 2017, 1967, 2015, 1970, 19…
 ## $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACP…</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1"><span class="kw">glimpse</span>(apartmentfiltered)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">glimpse</span>(apartmentfiltered)</a></code></pre></div>
 <pre><code>## Observations: 2,873
 ## Variables: 5
 ## $ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;08&quot;, &quot;1…
@@ -675,12 +664,12 @@ as follows:</p>
 ## $ property_type &lt;chr&gt; &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVA…
 ## $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 2017, 1967, 2015, 1970, 1976, 19…
 ## $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACP…</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1"><span class="kw">nrow</span>(apartmentclean) <span class="op">-</span><span class="st"> </span><span class="kw">nrow</span>(apartmentfiltered) <span class="co"># Dropped 567 rows.</span></a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="kw">nrow</span>(apartmentclean) <span class="op">-</span><span class="st"> </span><span class="kw">nrow</span>(apartmentfiltered) <span class="co"># Dropped 567 rows.</span></a></code></pre></div>
 <pre><code>## [1] 564</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="co"># Now create the table of averages:</span></a>
-<a class="sourceLine" id="cb53-2" title="2">apartmentfiltered <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb53-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb53-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score))</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1"><span class="co"># Now create the table of averages:</span></a>
+<a class="sourceLine" id="cb46-2" title="2">apartmentfiltered <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score))</a></code></pre></div>
 <pre><code>## # A tibble: 26 x 2
 ##    ward  avg_score
 ##    &lt;chr&gt;     &lt;dbl&gt;
@@ -701,10 +690,10 @@ rental apartment building’s <code>score</code> is missing <em>is not related</
 that is, we hope apartments with higher or lower scores aren’t missing more often.</p>
 <p>We will ignore missingness for now. To do this, use the <code>na.rm = TRUE</code> option in
 <code>mean</code>:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1">apartmentsummary &lt;-<span class="st"> </span>apartmentfiltered <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb55-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb55-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb55-4" title="4">apartmentsummary</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1">apartmentsummary &lt;-<span class="st"> </span>apartmentfiltered <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb48-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb48-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb48-4" title="4">apartmentsummary</a></code></pre></div>
 <pre><code>## # A tibble: 26 x 2
 ##    ward  avg_score
 ##    &lt;chr&gt;     &lt;dbl&gt;
@@ -745,13 +734,13 @@ any pattern in values of the continuous variable with respect to the categorical
 variable.</p>
 <p>We create a <strong>dot chart</strong> to visualize these summary statistics using the <code>ggplot2</code>
 package. This is also included with the <code>tidyverse</code> (surprise!):</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1">apartmentsummary <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb57-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ward,<span class="dt">y =</span> avg_score)) <span class="op">+</span><span class="st"> </span><span class="co"># Set up the variable mappings</span></a>
-<a class="sourceLine" id="cb57-3" title="3"><span class="st">  </span><span class="kw">theme_light</span>() <span class="op">+</span><span class="st"> </span><span class="co"># Make it pretty</span></a>
-<a class="sourceLine" id="cb57-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Add the bars</span></a>
-<a class="sourceLine" id="cb57-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Average ABS score shows moderate variability across wards in Toronto&quot;</span>,</a>
-<a class="sourceLine" id="cb57-6" title="6">       <span class="dt">x =</span> <span class="st">&quot;Ward&quot;</span>,</a>
-<a class="sourceLine" id="cb57-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;Average ABS Score&quot;</span>) <span class="co"># Informative title</span></a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">apartmentsummary <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb50-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ward,<span class="dt">y =</span> avg_score)) <span class="op">+</span><span class="st"> </span><span class="co"># Set up the variable mappings</span></a>
+<a class="sourceLine" id="cb50-3" title="3"><span class="st">  </span><span class="kw">theme_light</span>() <span class="op">+</span><span class="st"> </span><span class="co"># Make it pretty</span></a>
+<a class="sourceLine" id="cb50-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Add the bars</span></a>
+<a class="sourceLine" id="cb50-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Average ABS score shows moderate variability across wards in Toronto&quot;</span>,</a>
+<a class="sourceLine" id="cb50-6" title="6">       <span class="dt">x =</span> <span class="st">&quot;Ward&quot;</span>,</a>
+<a class="sourceLine" id="cb50-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;Average ABS Score&quot;</span>) <span class="co"># Informative title</span></a></code></pre></div>
 <p><img src="book_files/figure-html/barchart-apartment-1-1.png" width="672" /></p>
 <p>It looks like some wards are better than others. Or are they? Can we make any
 definitive conclusions based on this?</p>
@@ -773,23 +762,23 @@ scatterplot has continuous variables on the x- and y-axes, and draws a point (or
 bubble) at each place in the two-dimensional plane where a datapoint occurs. We
 can make this kind of plot in <code>ggplot2</code> as well. This time, we use the raw
 (well, cleaned and filtered) data:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1">apartmentfiltered <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb58-2" title="2"><span class="st">  </span><span class="kw">filter</span>(year_built <span class="op">&gt;</span><span class="st"> </span><span class="dv">1900</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb58-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year_built,<span class="dt">y =</span> score)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb58-4" title="4"><span class="st">  </span><span class="kw">theme_light</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb58-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># pch=21 makes the bubbles hollow, looks nice</span></a>
-<a class="sourceLine" id="cb58-6" title="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1900</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">10</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># Set the x-axis range</span></a>
-<a class="sourceLine" id="cb58-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Less rental buildings are being built recently, but they are of higher quality&quot;</span>,</a>
-<a class="sourceLine" id="cb58-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Year Built&quot;</span>,</a>
-<a class="sourceLine" id="cb58-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;ABS Score&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">apartmentfiltered <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-2" title="2"><span class="st">  </span><span class="kw">filter</span>(year_built <span class="op">&gt;</span><span class="st"> </span><span class="dv">1900</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year_built,<span class="dt">y =</span> score)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb51-4" title="4"><span class="st">  </span><span class="kw">theme_light</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb51-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># pch=21 makes the bubbles hollow, looks nice</span></a>
+<a class="sourceLine" id="cb51-6" title="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1900</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">10</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># Set the x-axis range</span></a>
+<a class="sourceLine" id="cb51-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Less rental buildings are being built recently, but they are of higher quality&quot;</span>,</a>
+<a class="sourceLine" id="cb51-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Year Built&quot;</span>,</a>
+<a class="sourceLine" id="cb51-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;ABS Score&quot;</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/apartment-plot-2-1.png" width="672" /></p>
 <p>Very interesting. You can clearly see the baby boom of the 1950’s to 1970’s, followed by a massive slowdown in construction during the economic slump in the 1980’s, and a complete stop when rent control was introduced in 1991 (remember, these are <em>rental</em> buildings only). Then, we see a new wave of
 rental building construction, and the new buildings seem to be of higher quality.</p>
 <p>What are the highest and lowest quality rental buildings in Toronto?</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="co"># Get the 10 highest scoring buildings</span></a>
-<a class="sourceLine" id="cb59-2" title="2">apartmentfiltered <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb59-3" title="3"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(score)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Sort the data, descending, by score</span></a>
-<a class="sourceLine" id="cb59-4" title="4"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="co"># Take the first ten- i.e. the top ten</span></a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1"><span class="co"># Get the 10 highest scoring buildings</span></a>
+<a class="sourceLine" id="cb52-2" title="2">apartmentfiltered <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb52-3" title="3"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(score)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Sort the data, descending, by score</span></a>
+<a class="sourceLine" id="cb52-4" title="4"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="co"># Take the first ten- i.e. the top ten</span></a></code></pre></div>
 <pre><code>## # A tibble: 10 x 5
 ##    ward  score property_type year_built address                 
 ##    &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;                   
