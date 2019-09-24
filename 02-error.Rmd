@@ -14,7 +14,206 @@ There are many different potential sources of error when analyzing data. A very 
 
 In this chapter we will primarily focus on **statistical error**, because this is the type of error that, in statistical sciences, we are usually able to *quantify*.
 
-## Which wards have the highest/lowest quality rental housing?
+## Statistical error under repeated sampling
+
+### The idea
+
+Data is often collected as a *random sample* from some population of interest. If you perform a scientific
+experiment in a lab, you don't measure every rat who has ever lived or ever will live; if you take a
+survey of Ontario residents to gauge political opinions, you don't ask *everybody*.
+
+When data is collected as a random sample, it is subject to **variability**. 
+Each datapoint collected is different than the one before it, and
+the one after it. Variability is a physical property of the universe. If I grow a plant with the
+intention of measuring its height, there isn't some predetermined height that it will be,
+with certainty. And if I measure the height of one plant, I don't automatically know the
+height of the next plant. And so on.
+
+When we compute summaries of our data---**statistics**---we are *not* saying that the value
+we compute from our data is exactly the truth. We hope that the summaries we compute are
+*useful representations* of the truth, which is a fancy way of saying we hope they are not
+too far off. But we understand that **if we collected another sample, we'd get different values**
+of these summaries.
+
+How do we know whether the summaries we compute are useful representations of the truth?
+We have to be sure we mitigate **human error** and **communication error** through our
+analysis. But they will still be subject to **statistical error**, because our data is a sample.
+
+The goal then becomes to mitigate---reduce as much as is reasonable, given the context---the
+statistical error in our summaries. In order to figure out how to do this, it is fundamental
+that we are able to **quantify the statistical error** in our summaries.
+
+### Example: coin flipping
+
+Let's start with a simple example. Suppose I am interested in whether a coin in my hand
+is "fair" or not. Specifically, I want to know: when I flip the coin, what is the 
+probability $p$ that it comes up heads? The probability that it comes up tails is
+then $1 - p$. The problem is: I don't know anything about this coin. All I can do is flip it.
+
+(Note: in a few chapters, I'll argue that in fact I *do* know *something* about this
+coin, and I can use this to inform my analysis. We'll build up to that though.)
+
+How can I make an educated guess at the value of $p$? All I can do is flip the coin.
+Flipping the coin will give me **data**, and I can summarize these data in a manner
+which gives me insight into the underlying *random process* which generated the data.
+Since $p$ represents the probability of the coin coming up heads, it seems logical
+that I should use the **sample proportion of heads**---the number of heads divided
+by the number of flips---for my educated guess at what $p$ is.
+
+Let's try this. First write a function to flip the coin once, then a function to
+flip the coin $n$ times. Then write a function to compute the sample proportion
+of heads as a result of flipping the coin $n$ times.
+
+```{r coin-1}
+# Function to flip the coin once, and return 1 if heads and 0 if tails.
+# To simulate a random variable which takes on values of 1 with probability
+# 1/2 and 0 with probability 1/2, I will simulate a U ~ Unif(0,1) random variable,
+# and then return an indicator of whether U > 1/2, which happens with probability
+# 1/2.
+flip_the_coin_once <- function() {
+  # This function takes no arguments.
+  # It uses random number generation to return 1 with probability 1/2
+  # and 0 with probability 1/2
+  as.numeric(runif(1) > 1/2)
+}
+
+# Function to flip the coin n times and return a vector containing
+# the results of each flip
+flip_the_coin_more_than_once <- function(n) {
+  # n: number of times to flip the coin.
+  # Returns a vector of length n containing the results of each flip.
+  out <- numeric(n)
+  for (i in 1:n) {
+    out[i] <- flip_the_coin_once()
+  }
+  out
+}
+
+# Function to flip the coin n times and compute the
+# sample proportion of heads
+sample_proportion_of_heads <- function(n) {
+  # n: number of times to flip the coin
+  # Returns a number representing the sample proportion of heads
+  # in n flips
+  mean(flip_the_coin_more_than_once(n))
+}
+
+```
+
+Okay, let's try it out. I'll flip the coin, I don't know, 10 times, and we'll
+see what kind of a value we get for $p$. Note that in this example, we know that
+the *true* value of $p$ is $p = 0.5$. We can use this to actually assess how 
+accurate our experiment is or isn't. In "the wild", when analyzing data, we don't
+know this, and can't fully assess the accuracy of our procedure.
+
+```{r coin-2}
+set.seed(4178032) # Pick some arbitrary number. Gives the same random numbers every time.
+# I do this for reproducibility, because this is a book.
+sample_proportion_of_heads(10)
+```
+
+We conclude that $p = 0.2$.
+
+What happened?
+
+Our procedure didn't give a very sensible summary. Given that we know that $p = 0.5$,
+knowing that, were this a real experiment, we would have concluded that there was
+a $20\%$ chance of heads, is not very encouraging.
+
+The key idea to remember is that *if we repeated this experiment again, we would get
+different data and hence a different estimate*. Actually, let's just do it:
+
+```{r coin-3}
+set.seed(469096)
+sample_proportion_of_heads(10)
+```
+
+That's certainly different, though just as bad. Let's try again:
+
+```{r coin-4}
+set.seed(80798)
+sample_proportion_of_heads(10)
+```
+
+So it does work, sometimes.
+
+Can we get a better idea of what types of values this procedure returns, *on average*?
+And *with high probability*? Let's try to visualize this. We'll perform our coin-flipping
+experiment many times, and then plot a histogram of the resulting sample proportions:
+
+```{r coin-plot-1}
+set.seed(41679)
+N <- 10000 # Number of times to repeat the experiment
+sample_proportions <- numeric(N) # Vector to store the results
+for (i in 1:N) sample_proportions[i] <- sample_proportion_of_heads(10) # Perform the experiments
+
+# Plot them
+tibble(x = sample_proportions) %>%
+  ggplot(aes(x = x)) +
+  theme_light() +
+  geom_histogram(aes(y = ..count../sum(..count..)),bins = 50,colour = "black",fill = "grey") +
+  labs(title = stringr::str_c("Sample proportions from 10 coin flips, repeated ",scales::comma(N)," times."),
+       x = "Proportion of heads",
+       y = "Proportion of experiments which had that proportion of heads"
+  ) +
+  scale_x_continuous(breaks = seq(0,1,by=.1)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  geom_vline(xintercept = .495,colour = "red",linetype = "dotdash")
+```
+
+I notice a few things:
+
+1. Only 10 values are actually possible. In particular, if we don't get
+$p = 0.5$, the closest we can come is $p = 0.4$ or $p = 0.6$, which aren't that close.
+
+1. While $p = 0.5$ occurs *most often*, values between $0.3$ and $0.7$ occur very frequently.
+
+1. We see, in a very small number of cases, values of $0$ or $1$, which make no sense 
+(we can look at a coin and see that it has no sides).
+
+While point $\# 3$ will take some more background to address, points $\# 1$ and $\# 2$ can
+be mitigated in a simple way: flip the coin more times.
+
+Let's see how the number of flips affects the distribution of sample proportions:
+
+```{r coin-plot-2,cache = TRUE}
+set.seed(45856)
+N <- 10000 # Number of times to repeat the experiment
+n <- c(10,50,100,1000) # Numbers of times to flip the coin
+sample_proportions <- tibble(
+  n = rep(n,N),
+  p = numeric(length(n))
+) # Dataframe to store the results
+for (i in 1:nrow(sample_proportions)) {
+  sample_proportions[i,"p"] <- sample_proportion_of_heads(
+    as.numeric(
+      sample_proportions[i,"n"]
+      )
+    )
+}
+
+# Plot them
+plotlst <- list()
+for (size in n) {
+  plotlst[[as.character(size)]] <- sample_proportions %>%
+    filter(n == size) %>%
+    ggplot(aes(x = p)) +
+    theme_light() +
+    geom_histogram(aes(y = ..count../sum(..count..)),bins = 50,colour = "black",fill = "grey") +
+    labs(title = stringr::str_c(scales::comma(size)," flips"),x = " ",y = " ") +
+    scale_x_continuous(breaks = seq(0,1,by=.1)) +
+    scale_y_continuous(labels = scales::percent_format()) +
+    geom_vline(xintercept = .495,colour = "red",linetype = "dotdash") +
+    coord_cartesian(xlim = c(0,1))
+}
+
+cowplot::plot_grid(plotlist = plotlst,nrow = 2)
+
+```
+
+Woah!
+
+## Case study: which wards have the highest/lowest quality rental housing?
 
 
 ```{r make-map-1,message=FALSE}
@@ -185,18 +384,18 @@ apartmentsummaryda %>%
        x = "Average score",
        y = "Number of DAs with that average score")
 
-toronto_apartments_avgscore_ct <- sp::merge(
-  torontoct,
-  apartmentsummaryct,
-  by.x = "CTUID",
-  by.y = "ct"
+toronto_apartments_avgscore_da <- sp::merge(
+  torontoda,
+  apartmentsummaryda,
+  by.x = "DAUID",
+  by.y = "da"
 )
 
 toronto_apartments_avgscore_ct@bbox <- toronto_apartments_avgscore@bbox
 
 tmap_mode("plot")
-tm_shape(toronto_apartments_avgscore_ct) +
-  tm_fill("score") +
-  tm_shape(apartmentpoints) +
-  tm_dots()
+tm_shape(toronto_apartments_avgscore_da) +
+  tm_fill("score")# +
+  # tm_shape(apartmentpoints) +
+  # tm_dots()
 ```
