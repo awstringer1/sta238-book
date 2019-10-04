@@ -295,7 +295,7 @@ you installed that package, you have it loaded.
 # variable. I am naming this variable 'apartmentdata'.
 # Type ?readr::read_csv if you want to read about this function.
 apartmentdata <- readr::read_csv(
-  file = "./data/apartment-data/toronto-apartment-building-evaluations.csv"
+  file = "data/apartment-data/toronto-apartment-building-evaluations.csv"
 )
 ```
 
