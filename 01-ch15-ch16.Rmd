@@ -1,0 +1,206 @@
+# Supplement to Chapters 15 and 16
+
+This chapter implements much of the analysis shown in chapters 15 and 16 of 
+A Modern Introduction to Probability and Statistics. R code is given for the
+simple textbook datasets used in the book, and then the concepts are
+illustrated on real data.
+
+All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
+
+## Old Faithful
+
+The Old Faithful data is stored in the `oldfaithful.txt` file in the book data
+folder. To read it in to `R`, first you need to look at its contents.
+
+### Read in the data
+
+You can either open it in a text editor (since it's small), or print out the
+first few lines on the command line. If you plan on ever doing any meaningful work
+with data, the latter is really your only choice, so let's do that. If you have
+a Mac or Linux-based system, open a terminal. If you have a Windows based system,
+get a Mac or Linux. Just kidding (not really though). Download Git Bash: https://git-scm.com/download/win 
+and open a new terminal window. 
+
+To look at a text file on the command line, use the `head` command. You have to
+tell it where to look on your computer. You can navigate to the folder where the
+data is stored and just type the name of the file, or you can type a whole filepath,
+or a relative filepath. Right now, I am in the working directory for this book,
+and relative to this location, the data is stored in `data/MIPSdata`. So I type:
+
+```{bash look-at-oldfaithful-1}
+head data/MIPSdata/oldfaithful.txt
+```
+
+A column of numbers is printed. This indicates that the text file `oldfaithdful.txt`
+contains a single column of numbers, and no header row. A header row is what it's
+called when the first row of the dataset contains the names of the columns.
+
+To read such a dataset into `R`, we'll use the `read_delim` function in the `readr`
+package. The `readr` package is automatically loaded when we load the `tidyverse`
+package, so we'll just do that:
+
+```{r read-oldfaithful-1,message=FALSE,warning=FALSE}
+library(tidyverse)
+oldfaithful <- readr::read_csv(
+  file = "data/MIPSdata/oldfaithful.txt", # Tell it where the file is
+  col_names = "time", # Tell it that the first row is NOT column names, and at the same time, tell it what name you want for the column.
+  col_types = "n" # Tell it that there is one column, and it is "numeric" (n)
+)
+# Check what was read in using the dplyr::glimpse() function
+dplyr::glimpse(oldfaithful)
+```
+
+By `glimpse`ing the data, we see that the format matches what we saw in the raw
+file, and we are given the number of rows too. Check that the number of rows matches
+what was in the raw file by printing out the number of rows on the command line
+using the `wc -l` command ("wc" = "word count" and "-l" means count "lines"):
+
+```{bash look-at-oldfaithful-2}
+wc -l data/MIPSdata/oldfaithful.txt
+```
+
+What happened, why don't they match? They do. The `wc -l` command actually counts
+the number of "newline" characters in the file. It is customary to end a data file
+with a newline character. This file doesn't, though. How do I know? Type the following:
+
+```{bash look-at-oldfaithful-3}
+tail data/MIPSdata/oldfaithful.txt
+```
+
+This prints out the last few lines of the file. In this book, these are printed 
+as normal. But if you do it on the command line, you'll see that the command
+prompt gets printed on the same line as the final number, `268`. This indicates
+that the file does not end with a newline character, and hence the total number
+of newlines in the file is `271`, corresponding to `272` actual lines of data.
+
+**Remark**: I would wager that you are currently surprised that this was so difficult.
+Even reading in the simplest possible dataset created subtle challenges that needed
+to be addressed. There is probabably a reason this stuff isn't taught as heavily
+in stats courses as it ought to be; it's difficult and tedious and not as fun
+as math. But to do meaningful work using data, you have to get good at this stuff.
+So it is worth struggling through.
+
+### Analysis
+
+Now that the data has been read in and checked, we can realized the fruits of 
+our labour! Chapter 15 analyzes these data using a tabular display, histogram, kernel density
+estimate, and empirical CDF. Here is how to do these things in `R`.
+
+```{r oldfaithful-analysis-1}
+# Tabular display
+print(oldfaithful$time)
+# Ugly! You can use the View() function to open the data in a spreadsheet
+# Not run:
+# View(oldfaithful)
+
+# Histogram using base R
+hist(oldfaithful$time)
+# Base R graphics are outdated and won't get you a job/will make your papers
+# look too classical. Use ggplot2, which is loaded automatically with the tidyverse:
+oldfaithful %>%
+  ggplot(aes(x = time)) +
+  theme_classic() +
+  geom_histogram(aes(y = ..density..),bins = 30,colour = "black",fill = "blue",alpha = .3) +
+  labs(title = "Eruption times for Old Faithful geyser",
+       x = "Eruption time",
+       y = "Density")
+
+# Try different numbers of bins and you might see different patterns. Do you think this is a
+# good or bad thing, or both?
+# Their "optimal" bin width:
+s <- sd(oldfaithful$time)
+n <- nrow(oldfaithful)
+b <- (24*sqrt(pi))^(1/3) * s * (n^(-1/3))
+b
+oldfaithful %>%
+  ggplot(aes(x = time)) +
+  theme_classic() +
+  geom_histogram(aes(y = ..density..),bins = round(b),colour = "black",fill = "blue",alpha = .3) +
+  labs(title = "Eruption times for Old Faithful geyser",
+       subtitle = stringr::str_c("'Optimal' bin width of b = ",round(b)),
+       x = "Eruption time",
+       y = "Density")
+
+```
+
+To get kernel density estimates, there are a couple different ways. The `density`
+function in `R` does the math for you, using a Gaussian kernel (the functions $K_{i}$
+are taken to be Gaussian density functions with mean and standard deviation
+determined by the data). You can plot the output of `density` using base `R` or
+`ggplot`. You can also use the `ggplot` `geom_density` function to do something
+similar automatically.
+
+```{r oldfaithfulanalysis-2}
+# Kernel density estimation in R
+dens <- density(oldfaithful$time)
+dens
+plot(dens)
+# Okay... ggplot?
+tibble(x = dens$x,y = dens$y) %>%
+  ggplot(aes(x = x,y = y)) +
+  theme_classic() + 
+  geom_line() +
+  labs(title = "Kernel density estimate, Old Faithful data",
+       subtitle = "Manually-calculated values",
+       x = "Eruption time",
+       y = "Density")
+# Can also do automatically:
+oldfaithful %>%
+  ggplot(aes(x = time)) +
+  theme_classic() + 
+  geom_density() +
+  labs(title = "Kernel density estimate, Old Faithful data",
+       subtitle = "Automatically-calculated values",
+       x = "Eruption time",
+       y = "Density")
+# The reason to manually calculate the values is because you have more control.
+# I don't know what's happening at the endpoints there, and it's too much work
+# to go and figure out how to make ggplot not do that.
+# When you calculate the plotting values yourself and then put them into ggplot,
+# you have total control!
+```
+
+For the empirical distribution function, we use the `ecdf` function in `R`. You
+would think this function should behave in a similar manner to the `density` function,
+but it doesn't. It returns a function which computes the ecdf. It still has a `plot`
+method, but to use it with `ggplot` we have to use `stat_function`:
+
+```{r oldfaithfulanalysis-3}
+faithful_ecdf <- ecdf(oldfaithful$time)
+plot(faithful_ecdf)
+# ggplot
+tibble(x = c(100,300)) %>% # Tell ggplot we want to plot the ecdf from 100 to 300
+  ggplot(aes(x = x)) +
+  theme_classic() +
+  stat_function(fun = faithful_ecdf) +
+  labs(title = "Empirical CDF for Old Faithful Eruption Times",
+       x = "Eruption Time",
+       y = "Empirical probability that an eruption time is less than x")
+```
+
+**Discussion point**: the CDF is the integrated pdf:
+$$
+F(x) = \int_{-\infty}{x}f(s)ds
+$$
+So why don't we integrate the kernel density estimate to get the empirical CDF?
+One of the great benefits of taking a computation-forward approach to statistical
+inference is that we can "shoot first and ask questions later"- just try it, and
+then (maybe) use math to explain the results.
+
+Here is the world's most naive numerical integration-based estimate of a CDF:
+
+```{r oldfaithfulanalysis-4}
+tibble(
+  x = dens$x[-1],
+  y = cumsum(dens$y[-1]) * diff(dens$x)
+) %>%
+  ggplot(aes(x = x,y = y)) +
+  theme_classic() +
+  geom_line() +
+  labs(title = "Numerical integration-based empirical CDF for Old Faithful data",
+       x = "Eruption time",
+       y = "Empirical probability that an eruption time is less than x")
+
+```
+
+What do you think? Is this better, worse, or just different than the ECDF?

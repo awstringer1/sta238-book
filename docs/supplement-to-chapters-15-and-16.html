@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Supplement to Chapters 15 and 16 | STA238: Probability, Statistics, and Data Analysis</title>
+  <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Supplement to Chapters 15 and 16 | STA238: Probability, Statistics, and Data Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Supplement to Chapters 15 and 16 | STA238: Probability, Statistics, and Data Analysis" />
+  
+  <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+<meta name="author" content="Alison Gibbs and Alex Stringer" />
+
+
+<meta name="date" content="2019-10-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="statistics-and-plots.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STA238 University of Toronto</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html"><i class="fa fa-check"></i><b>2</b> Supplement to Chapters 15 and 16</a><ul>
+<li class="chapter" data-level="2.1" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#analysis"><i class="fa fa-check"></i><b>2.1.2</b> Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html"><i class="fa fa-check"></i><b>3</b> Statistics and Plots</a><ul>
+<li class="chapter" data-level="3.1" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#descriptive-analysis"><i class="fa fa-check"></i><b>3.2</b> Descriptive analysis</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#exercises"><i class="fa fa-check"></i><b>3.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#exploratory-analysis"><i class="fa fa-check"></i><b>3.3</b> Exploratory analysis</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#exercises-1"><i class="fa fa-check"></i><b>3.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#prescriptive-analysis"><i class="fa fa-check"></i><b>3.4</b> Prescriptive analysis</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#exercises-2"><i class="fa fa-check"></i><b>3.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#rental-housing-in-toronto"><i class="fa fa-check"></i><b>3.5</b> Rental housing in Toronto</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#load-the-data"><i class="fa fa-check"></i><b>3.5.1</b> Load the data</a></li>
+<li class="chapter" data-level="3.5.2" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>3.5.2</b> Analysis I: what does the data look like?</a></li>
+<li class="chapter" data-level="3.5.3" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>3.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
+<li class="chapter" data-level="3.5.4" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#analysis-iii-trends-in-quality-over-time"><i class="fa fa-check"></i><b>3.5.4</b> Analysis III: trends in quality over time</a></li>
+<li class="chapter" data-level="3.5.5" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#summary"><i class="fa fa-check"></i><b>3.5.5</b> Summary</a></li>
+<li class="chapter" data-level="3.5.6" data-path="statistics-and-plots.html"><a href="statistics-and-plots.html#exercises-3"><i class="fa fa-check"></i><b>3.5.6</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="error.html"><a href="error.html"><i class="fa fa-check"></i><b>4</b> Error</a><ul>
+<li class="chapter" data-level="4.1" data-path="error.html"><a href="error.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="error.html"><a href="error.html#statistical-error-under-repeated-sampling"><i class="fa fa-check"></i><b>4.2</b> Statistical error under repeated sampling</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="error.html"><a href="error.html#the-idea"><i class="fa fa-check"></i><b>4.2.1</b> The idea</a></li>
+<li class="chapter" data-level="4.2.2" data-path="error.html"><a href="error.html#example-coin-flipping"><i class="fa fa-check"></i><b>4.2.2</b> Example: coin flipping</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mathematical-models.html"><a href="mathematical-models.html"><i class="fa fa-check"></i><b>5</b> Mathematical Models</a></li>
+<li class="chapter" data-level="6" data-path="computational-models.html"><a href="computational-models.html"><i class="fa fa-check"></i><b>6</b> Computational Models</a></li>
+<li class="chapter" data-level="7" data-path="incorporating-what-i-know-using-prior-information-to-inform-inferences.html"><a href="incorporating-what-i-know-using-prior-information-to-inform-inferences.html"><i class="fa fa-check"></i><b>7</b> Incorporating what I know: using prior information to inform inferences</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA238: Probability, Statistics, and Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="supplement-to-chapters-15-and-16" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Supplement to Chapters 15 and 16</h1>
+<p>This chapter implements much of the analysis shown in chapters 15 and 16 of
+A Modern Introduction to Probability and Statistics. R code is given for the
+simple textbook datasets used in the book, and then the concepts are
+illustrated on real data.</p>
+<p>All datasets from the book can be downloaded here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>.</p>
+<div id="old-faithful" class="section level2">
+<h2><span class="header-section-number">2.1</span> Old Faithful</h2>
+<p>The Old Faithful data is stored in the <code>oldfaithful.txt</code> file in the book data
+folder. To read it in to <code>R</code>, first you need to look at its contents.</p>
+<div id="read-in-the-data" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Read in the data</h3>
+<p>You can either open it in a text editor (since it’s small), or print out the
+first few lines on the command line. If you plan on ever doing any meaningful work
+with data, the latter is really your only choice, so let’s do that. If you have
+a Mac or Linux-based system, open a terminal. If you have a Windows based system,
+get a Mac or Linux. Just kidding (not really though). Download Git Bash: <a href="https://git-scm.com/download/win" class="uri">https://git-scm.com/download/win</a>
+and open a new terminal window.</p>
+<p>To look at a text file on the command line, use the <code>head</code> command. You have to
+tell it where to look on your computer. You can navigate to the folder where the
+data is stored and just type the name of the file, or you can type a whole filepath,
+or a relative filepath. Right now, I am in the working directory for this book,
+and relative to this location, the data is stored in <code>data/MIPSdata</code>. So I type:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">head</span> data/MIPSdata/oldfaithful.txt</a></code></pre></div>
+<pre><code>## 216  
+## 108  
+## 200  
+## 137  
+## 272  
+## 173  
+## 282  
+## 216  
+## 117  
+## 261 </code></pre>
+<p>A column of numbers is printed. This indicates that the text file <code>oldfaithdful.txt</code>
+contains a single column of numbers, and no header row. A header row is what it’s
+called when the first row of the dataset contains the names of the columns.</p>
+<p>To read such a dataset into <code>R</code>, we’ll use the <code>read_delim</code> function in the <code>readr</code>
+package. The <code>readr</code> package is automatically loaded when we load the <code>tidyverse</code>
+package, so we’ll just do that:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb3-2" title="2">oldfaithful &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/oldfaithful.txt&quot;</span>, <span class="co"># Tell it where the file is</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>, <span class="co"># Tell it that the first row is NOT column names, and at the same time, tell it what name you want for the column.</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span> <span class="co"># Tell it that there is one column, and it is &quot;numeric&quot; (n)</span></a>
+<a class="sourceLine" id="cb3-6" title="6">)</a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co"># Check what was read in using the dplyr::glimpse() function</span></a>
+<a class="sourceLine" id="cb3-8" title="8">dplyr<span class="op">::</span><span class="kw">glimpse</span>(oldfaithful)</a></code></pre></div>
+<pre><code>## Observations: 272
+## Variables: 1
+## $ time &lt;dbl&gt; 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235,…</code></pre>
+<p>By <code>glimpse</code>ing the data, we see that the format matches what we saw in the raw
+file, and we are given the number of rows too. Check that the number of rows matches
+what was in the raw file by printing out the number of rows on the command line
+using the <code>wc -l</code> command (“wc” = “word count” and “-l” means count “lines”):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="fu">wc</span> -l data/MIPSdata/oldfaithful.txt</a></code></pre></div>
+<pre><code>##      271 data/MIPSdata/oldfaithful.txt</code></pre>
+<p>What happened, why don’t they match? They do. The <code>wc -l</code> command actually counts
+the number of “newline” characters in the file. It is customary to end a data file
+with a newline character. This file doesn’t, though. How do I know? Type the following:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="fu">tail</span> data/MIPSdata/oldfaithful.txt</a></code></pre></div>
+<pre><code>## 111  
+## 255  
+## 119  
+## 135  
+## 285  
+## 247  
+## 129  
+## 265
+## 109  
+## 268</code></pre>
+<p>This prints out the last few lines of the file. In this book, these are printed
+as normal. But if you do it on the command line, you’ll see that the command
+prompt gets printed on the same line as the final number, <code>268</code>. This indicates
+that the file does not end with a newline character, and hence the total number
+of newlines in the file is <code>271</code>, corresponding to <code>272</code> actual lines of data.</p>
+<p><strong>Remark</strong>: I would wager that you are currently surprised that this was so difficult.
+Even reading in the simplest possible dataset created subtle challenges that needed
+to be addressed. There is probabably a reason this stuff isn’t taught as heavily
+in stats courses as it ought to be; it’s difficult and tedious and not as fun
+as math. But to do meaningful work using data, you have to get good at this stuff.
+So it is worth struggling through.</p>
+</div>
+<div id="analysis" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Analysis</h3>
+<p>Now that the data has been read in and checked, we can realized the fruits of
+our labour! Chapter 15 analyzes these data using a tabular display, histogram, kernel density
+estimate, and empirical CDF. Here is how to do these things in <code>R</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># Tabular display</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">print</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<pre><code>##   [1] 216 108 200 137 272 173 282 216 117 261 110 235 252 105 282 130 105
+##  [18] 288  96 255 108 105 207 184 272 216 118 245 231 266 258 268 202 242
+##  [35] 230 121 112 290 110 287 261 113 274 105 272 199 230 126 278 120 288
+##  [52] 283 110 290 104 293 223 100 274 259 134 270 105 288 109 264 250 282
+##  [69] 124 282 242 118 270 240 119 304 121 274 233 216 248 260 246 158 244
+##  [86] 296 237 271 130 240 132 260 112 289 110 258 280 225 112 294 149 262
+## [103] 126 270 243 112 282 107 291 221 284 138 294 265 102 278 139 276 109
+## [120] 265 157 244 255 118 276 226 115 270 136 279 112 250 168 260 110 263
+## [137] 113 296 122 224 254 134 272 289 260 119 278 121 306 108 302 240 144
+## [154] 276 214 240 270 245 108 238 132 249 120 230 210 275 142 300 116 277
+## [171] 115 125 275 200 250 260 270 145 240 250 113 275 255 226 122 266 245
+## [188] 110 265 131 288 110 288 246 238 254 210 262 135 280 126 261 248 112
+## [205] 276 107 262 231 116 270 143 282 112 230 205 254 144 288 120 249 112
+## [222] 256 105 269 240 247 245 256 235 273 245 145 251 133 267 113 111 257
+## [239] 237 140 249 141 296 174 275 230 125 262 128 261 132 267 214 270 249
+## [256] 229 235 267 120 257 286 272 111 255 119 135 285 247 129 265 109 268</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># Ugly! You can use the View() function to open the data in a spreadsheet</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="co"># Not run:</span></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="co"># View(oldfaithful)</span></a>
+<a class="sourceLine" id="cb11-4" title="4"></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="co"># Histogram using base R</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="kw">hist</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<p><img src="book_files/figure-html/oldfaithful-analysis-1-1.png" width="672" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># Base R graphics are outdated and won&#39;t get you a job/will make your papers</span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="co"># look too classical. Use ggplot2, which is loaded automatically with the tidyverse:</span></a>
+<a class="sourceLine" id="cb12-3" title="3">oldfaithful <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Eruption times for Old Faithful geyser&quot;</span>,</a>
+<a class="sourceLine" id="cb12-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
+<a class="sourceLine" id="cb12-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/oldfaithful-analysis-1-2.png" width="672" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># Try different numbers of bins and you might see different patterns. Do you think this is a</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="co"># good or bad thing, or both?</span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="co"># Their &quot;optimal&quot; bin width:</span></a>
+<a class="sourceLine" id="cb13-4" title="4">s &lt;-<span class="st"> </span><span class="kw">sd</span>(oldfaithful<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb13-5" title="5">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(oldfaithful)</a>
+<a class="sourceLine" id="cb13-6" title="6">b &lt;-<span class="st"> </span>(<span class="dv">24</span><span class="op">*</span><span class="kw">sqrt</span>(pi))<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>) <span class="op">*</span><span class="st"> </span>s <span class="op">*</span><span class="st"> </span>(n<span class="op">^</span>(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb13-7" title="7">b</a></code></pre></div>
+<pre><code>## [1] 36.89694</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">oldfaithful <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-4" title="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="kw">round</span>(b),<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Eruption times for Old Faithful geyser&quot;</span>,</a>
+<a class="sourceLine" id="cb15-6" title="6">       <span class="dt">subtitle =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;&#39;Optimal&#39; bin width of b = &quot;</span>,<span class="kw">round</span>(b)),</a>
+<a class="sourceLine" id="cb15-7" title="7">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
+<a class="sourceLine" id="cb15-8" title="8">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/oldfaithful-analysis-1-3.png" width="672" /></p>
+<p>To get kernel density estimates, there are a couple different ways. The <code>density</code>
+function in <code>R</code> does the math for you, using a Gaussian kernel (the functions <span class="math inline">\(K_{i}\)</span>
+are taken to be Gaussian density functions with mean and standard deviation
+determined by the data). You can plot the output of <code>density</code> using base <code>R</code> or
+<code>ggplot</code>. You can also use the <code>ggplot</code> <code>geom_density</code> function to do something
+similar automatically.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co"># Kernel density estimation in R</span></a>
+<a class="sourceLine" id="cb16-2" title="2">dens &lt;-<span class="st"> </span><span class="kw">density</span>(oldfaithful<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb16-3" title="3">dens</a></code></pre></div>
+<pre><code>## 
+## Call:
+##  density.default(x = oldfaithful$time)
+## 
+## Data: oldfaithful$time (272 obs.);   Bandwidth &#39;bw&#39; = 20.09
+## 
+##        x                y            
+##  Min.   : 35.74   Min.   :3.771e-06  
+##  1st Qu.:118.37   1st Qu.:8.571e-04  
+##  Median :201.00   Median :2.412e-03  
+##  Mean   :201.00   Mean   :3.022e-03  
+##  3rd Qu.:283.63   3rd Qu.:5.143e-03  
+##  Max.   :366.26   Max.   :8.070e-03</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">plot</span>(dens)</a></code></pre></div>
+<p><img src="book_files/figure-html/oldfaithfulanalysis-2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># Okay... ggplot?</span></a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="kw">tibble</span>(<span class="dt">x =</span> dens<span class="op">$</span>x,<span class="dt">y =</span> dens<span class="op">$</span>y) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-5" title="5"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Kernel density estimate, Old Faithful data&quot;</span>,</a>
+<a class="sourceLine" id="cb19-7" title="7">       <span class="dt">subtitle =</span> <span class="st">&quot;Manually-calculated values&quot;</span>,</a>
+<a class="sourceLine" id="cb19-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
+<a class="sourceLine" id="cb19-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/oldfaithfulanalysis-2-2.png" width="672" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># Can also do automatically:</span></a>
+<a class="sourceLine" id="cb20-2" title="2">oldfaithful <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-5" title="5"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Kernel density estimate, Old Faithful data&quot;</span>,</a>
+<a class="sourceLine" id="cb20-7" title="7">       <span class="dt">subtitle =</span> <span class="st">&quot;Automatically-calculated values&quot;</span>,</a>
+<a class="sourceLine" id="cb20-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
+<a class="sourceLine" id="cb20-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/oldfaithfulanalysis-2-3.png" width="672" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># The reason to manually calculate the values is because you have more control.</span></a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="co"># I don&#39;t know what&#39;s happening at the endpoints there, and it&#39;s too much work</span></a>
+<a class="sourceLine" id="cb21-3" title="3"><span class="co"># to go and figure out how to make ggplot not do that.</span></a>
+<a class="sourceLine" id="cb21-4" title="4"><span class="co"># When you calculate the plotting values yourself and then put them into ggplot,</span></a>
+<a class="sourceLine" id="cb21-5" title="5"><span class="co"># you have total control!</span></a></code></pre></div>
+<p>For the empirical distribution function, we use the <code>ecdf</code> function in <code>R</code>. You
+would think this function should behave in a similar manner to the <code>density</code> function,
+but it doesn’t. It returns a function which computes the ecdf. It still has a <code>plot</code>
+method, but to use it with <code>ggplot</code> we have to use <code>stat_function</code>:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">faithful_ecdf &lt;-<span class="st"> </span><span class="kw">ecdf</span>(oldfaithful<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="kw">plot</span>(faithful_ecdf)</a></code></pre></div>
+<p><img src="book_files/figure-html/oldfaithfulanalysis-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="co"># ggplot</span></a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">300</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Tell ggplot we want to plot the ecdf from 100 to 300</span></a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-5" title="5"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> faithful_ecdf) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Empirical CDF for Old Faithful Eruption Times&quot;</span>,</a>
+<a class="sourceLine" id="cb23-7" title="7">       <span class="dt">x =</span> <span class="st">&quot;Eruption Time&quot;</span>,</a>
+<a class="sourceLine" id="cb23-8" title="8">       <span class="dt">y =</span> <span class="st">&quot;Empirical probability that an eruption time is less than x&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/oldfaithfulanalysis-3-2.png" width="672" /></p>
+<p><strong>Discussion point</strong>: the CDF is the integrated pdf:
+<span class="math display">\[
+F(x) = \int_{-\infty}{x}f(s)ds
+\]</span>
+So why don’t we integrate the kernel density estimate to get the empirical CDF?
+One of the great benefits of taking a computation-forward approach to statistical
+inference is that we can “shoot first and ask questions later”- just try it, and
+then (maybe) use math to explain the results.</p>
+<p>Here is the world’s most naive numerical integration-based estimate of a CDF:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb24-2" title="2">  <span class="dt">x =</span> dens<span class="op">$</span>x[<span class="op">-</span><span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb24-3" title="3">  <span class="dt">y =</span> <span class="kw">cumsum</span>(dens<span class="op">$</span>y[<span class="op">-</span><span class="dv">1</span>]) <span class="op">*</span><span class="st"> </span><span class="kw">diff</span>(dens<span class="op">$</span>x)</a>
+<a class="sourceLine" id="cb24-4" title="4">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-6" title="6"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Numerical integration-based empirical CDF for Old Faithful data&quot;</span>,</a>
+<a class="sourceLine" id="cb24-9" title="9">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
+<a class="sourceLine" id="cb24-10" title="10">       <span class="dt">y =</span> <span class="st">&quot;Empirical probability that an eruption time is less than x&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/oldfaithfulanalysis-4-1.png" width="672" /></p>
+<p>What do you think? Is this better, worse, or just different than the ECDF?</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="statistics-and-plots.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
