@@ -1,0 +1,157 @@
+---
+title: "Error exercise for Alison"
+author: "Alex"
+date: '2019-10-11'
+output: html_document
+---
+```{r setup,include=FALSE,message=FALSE,warning=FALSE}
+library(tidyverse)
+```
+
+Functions to flip a coin, flip a coin a bunch of times, and return the sample
+proportion of heads when flipping a coin a bunch of times, respectively.
+
+```{r coin-1}
+# Function to flip the coin once, and return 1 if heads and 0 if tails.
+# To simulate a random variable which takes on values of 1 with probability
+# 1/2 and 0 with probability 1/2, I will simulate a U ~ Unif(0,1) random variable,
+# and then return an indicator of whether U > 1/2, which happens with probability
+# 1/2.
+flip_the_coin_once <- function() {
+  # This function takes no arguments.
+  # It uses random number generation to return 1 with probability 1/2
+  # and 0 with probability 1/2
+  as.numeric(runif(1) > 1/2)
+}
+
+# Function to flip the coin n times and return a vector containing
+# the results of each flip
+flip_the_coin_more_than_once <- function(n) {
+  # n: number of times to flip the coin.
+  # Returns a vector of length n containing the results of each flip.
+  out <- numeric(n)
+  for (i in 1:n) {
+    out[i] <- flip_the_coin_once()
+  }
+  out
+}
+
+# Function to flip the coin n times and compute the
+# sample proportion of heads
+sample_proportion_of_heads <- function(n) {
+  # n: number of times to flip the coin
+  # Returns a number representing the sample proportion of heads
+  # in n flips
+  mean(flip_the_coin_more_than_once(n))
+}
+
+```
+
+Try it out. The following three seeds give $\hat{p} = 0.2, 0.8,$ and $0.5$:
+
+```{r coin-2}
+set.seed(4178032) # Pick some arbitrary number. Gives the same random numbers every time.
+# I do this for reproducibility, because this is a book.
+sample_proportion_of_heads(10)
+```
+
+```{r coin-3}
+set.seed(469096)
+sample_proportion_of_heads(10)
+```
+
+```{r coin-4}
+set.seed(80798)
+sample_proportion_of_heads(10)
+```
+
+Now, have them flip it $10$ times, a bunch of times, and illustrate the
+empirical sampling distribution of $\hat{p}$:
+
+```{r coin-plot-1}
+set.seed(41679)
+N <- 1000 # Number of times to repeat the experiment
+sample_proportions <- numeric(N) # Vector to store the results
+for (i in 1:N) sample_proportions[i] <- sample_proportion_of_heads(10) # Perform the experiments
+
+# Plot them
+tibble(x = sample_proportions) %>%
+  ggplot(aes(x = x)) +
+  theme_light() +
+  geom_histogram(aes(y = ..count../sum(..count..)),bins = 50,colour = "black",fill = "grey") +
+  labs(title = stringr::str_c("Sample proportions from 10 coin flips, repeated ",scales::comma(N)," times."),
+       x = "Proportion of heads",
+       y = "Proportion of experiments which had that proportion of heads"
+  ) +
+  scale_x_continuous(breaks = seq(0,1,by=.1)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  geom_vline(xintercept = .495,colour = "red",linetype = "dotdash")
+```
+
+I notice a few things:
+
+1. Only 10 values are actually possible. In particular, if we don't get
+$p = 0.5$, the closest we can come is $p = 0.4$ or $p = 0.6$, which aren't that close.
+
+1. While $p = 0.5$ occurs *most often*, values between $0.3$ and $0.7$ occur very frequently.
+
+1. We see, in a very small number of cases, values of $0$ or $1$, which make no sense 
+(we can look at a coin and see that it has a head side and a tail side).
+
+This introduces the idea that a good way to measure how "good" an estimator is
+is by using properties of its sampling distribution to quantify how close it is
+to the true value, on average or in probability etc.
+
+Now have them run it again, for different numbers of flips per experiment. Use
+this to introduce the relationship between the size of the experiment and the
+sampling distribution of the estimator, and the precision of the resulting estimates.
+
+```{r coin-plot-2,cache = TRUE}
+set.seed(64239)
+N <- 1000 # Number of times to repeat the experiment
+n <- c(10,50,100,1000) # Numbers of times to flip the coin
+sample_proportions <- tibble(
+  n = rep(n,N),
+  p = numeric(length(n))
+) # Dataframe to store the results
+for (i in 1:nrow(sample_proportions)) {
+  sample_proportions[i,"p"] <- sample_proportion_of_heads(
+    as.numeric(
+      sample_proportions[i,"n"]
+      )
+    )
+}
+
+# Plot them
+plotlst <- list()
+for (size in n) {
+  plotlst[[as.character(size)]] <- sample_proportions %>%
+    filter(n == size) %>%
+    ggplot(aes(x = p)) +
+    theme_light() +
+    geom_histogram(aes(y = ..count../sum(..count..)),bins = 50,colour = "black",fill = "grey") +
+    labs(title = stringr::str_c(scales::comma(size)," flips"),x = " ",y = " ") +
+    scale_x_continuous(breaks = seq(0,1,by=.1)) +
+    scale_y_continuous(labels = scales::percent_format()) +
+    geom_vline(xintercept = .495,colour = "red",linetype = "dotdash") +
+    coord_cartesian(xlim = c(0,1))
+}
+
+cowplot::plot_grid(plotlist = plotlst,nrow = 2)
+
+```
+
+Compute how often $\hat{p}$ is more than $0.05$ away from $0.5$ for each sample size:
+
+```{r howfaraway-1}
+howfaristoofar <- .05
+sample_proportions %>%
+  mutate(howfaraway = abs(p - .5),
+         fartherthaniwant = as.numeric(howfaraway > howfaristoofar)) %>%
+  group_by(n) %>%
+  summarize(toofar = mean(fartherthaniwant)) %>%
+  mutate(toofar = scales::percent(toofar)) # Pretty
+
+```
+
+They can play around with this.
