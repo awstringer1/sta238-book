@@ -162,7 +162,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.1" data-path="supplement-to-chapters-13-and-14.html"><a href="supplement-to-chapters-13-and-14.html#extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html"><i class="fa fa-check"></i><b>4</b> Supplement to Chapters 17 and 19</a></li>
+<li class="chapter" data-level="4" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html"><i class="fa fa-check"></i><b>4</b> Supplement to Chapters 17 and 19</a><ul>
+<li class="chapter" data-level="4.1" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html#statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html#extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.1</b> Extended example: TTC ridership revenues</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -190,7 +194,246 @@ A Modern Introduction to Probability and Statistics. R code is given for the
 simple textbook datasets used in the book, and then the concepts are
 illustrated on real data.</p>
 <p>All datasets from the book can be downloaded here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>.</p>
+<div id="statistical-models-chapter-17" class="section level2">
+<h2><span class="header-section-number">4.1</span> Statistical models (Chapter 17)</h2>
+<p>Most of the material from chapter 17 is a review of that from chapters 15 and 16,
+but in an important new context. You should be doing all exercises from chapter
+17 <strong>using R</strong>, using the tools you have learned from chapters 15 and 16.</p>
+<p>Here we will focus on the linear regression model. This chapter doesn’t cover
+how these models are estimated, so here we will show how to use <code>R</code> to plot
+regression lines. We’ll use <code>ggplot2</code> to recreate Figure 17.8, and show how
+to add “smooth” non-linear regression lines to plots as well.</p>
+<p>The Janka Hardness dataset was already discussed in Chapter 15/16. Since you did
+the exercises from those chapters prescribed in this supplementary book, you
+have already read these data into <code>R</code>:</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb137-1" title="1"><span class="fu">head</span> data/MIPSdata/jankahardness.txt</a></code></pre></div>
+<pre><code>## 24.7 484
+## 24.8 427
+## 27.3 413
+## 28.4 517
+## 28.4 549
+## 29   648
+## 30.3 587
+## 32.7 704
+## 35.6 979
+## 38.5 914</code></pre>
+<p>By printing it out on the command line, you can tell that the file is <em>tab-delimited</em>.
+Use <code>readr::read_delim()</code> to read it in:</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb139-2" title="2">janka &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_delim</span>(</a>
+<a class="sourceLine" id="cb139-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/jankahardness.txt&quot;</span>,</a>
+<a class="sourceLine" id="cb139-4" title="4">  <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>,</a>
+<a class="sourceLine" id="cb139-5" title="5">  <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;density&quot;</span>,<span class="st">&quot;hardness&quot;</span>),</a>
+<a class="sourceLine" id="cb139-6" title="6">  <span class="dt">col_types =</span> <span class="st">&quot;nn&quot;</span></a>
+<a class="sourceLine" id="cb139-7" title="7">)</a>
+<a class="sourceLine" id="cb139-8" title="8"><span class="kw">glimpse</span>(janka)</a></code></pre></div>
+<pre><code>## Observations: 36
+## Variables: 2
+## $ density  &lt;dbl&gt; 24.7, 24.8, 27.3, 28.4, 28.4, 29.0, 30.3, 32.7, 35.6, 3…
+## $ hardness &lt;dbl&gt; 484, 427, 413, 517, 549, 648, 587, 704, 979, 914, 1070,…</code></pre>
+<p>Create a scatterplot with <code>ggplot2</code>:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1">jankascatter &lt;-<span class="st"> </span>janka <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb141-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> density,<span class="dt">y =</span> hardness)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb141-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb141-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb141-5" title="5"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">20</span>,<span class="dv">80</span>,<span class="dt">by=</span><span class="dv">10</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb141-6" title="6"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3500</span>,<span class="dt">by=</span><span class="dv">500</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb141-7" title="7"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">20</span>,<span class="dv">80</span>),<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">3500</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb141-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wood density&quot;</span>,</a>
+<a class="sourceLine" id="cb141-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Hardness&quot;</span>)</a>
+<a class="sourceLine" id="cb141-10" title="10">jankascatter</a></code></pre></div>
+<p><img src="book_files/figure-html/janka-2-1.png" width="672" /></p>
+<p>To add a line to a plot, use <code>geom_abline()</code>. We can use this to recreate the regression
+line from Figure 17.8:</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" title="1">jankascatter <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb142-2" title="2"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="fl">57.51</span>,<span class="dt">intercept =</span> <span class="fl">-1160.5</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/janka-3-1.png" width="672" /></p>
+<p>But how did the book calculate these values? We’ll answer this question in a later
+chapter. But for now, it would still be nice to get the computer to compute these
+values for us rather than typing them in manually. We can do this using the
+<code>geom_smooth()</code> function in <code>ggplot2</code>:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1">jankascatter <span class="op">+</span></a>
+<a class="sourceLine" id="cb143-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/janka-4-1.png" width="672" /></p>
+<p>The “lm” stands for “linear model” and the “se” stands for “standard error”; leaving
+this at its default of “TRUE” would add error bars to the line, which we’ll learn
+about later (give it a try though).</p>
+<p>We can also add a non-linear curve to the plot using this technique. Most of the
+approaches to doing non-linear regression involve breaking the data up into small
+chunks based on the x-axis values, and then doing linear regression in each chunk
+and joining the resulting lines. The “loess” non-linear regression line is an
+example of this approach. It roughly stands for “local regression and smoothing
+splines”. We can add this using <code>ggplot2</code> as well:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1">jankascatter <span class="op">+</span></a>
+<a class="sourceLine" id="cb144-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/janka-5-1.png" width="672" /></p>
+<p>See how it’s a bit more wiggly, but still pretty straight? The data really does
+look like it supports a linear relationship between density and hardness. This
+is not common in modern practice!</p>
+<div id="extended-example-ttc-ridership-revenues" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Extended example: TTC ridership revenues</h3>
+<p>Toronto’s population is growing over time. This puts strain on our outdated
+public transit system. But it should also lead to increased revenues. According to
+(<a href="https://globalnews.ca/news/1670796/how-does-the-ttcs-funding-compare-to-other-transit-agencies/" class="uri">https://globalnews.ca/news/1670796/how-does-the-ttcs-funding-compare-to-other-transit-agencies/</a>)[a news
+article from a few years back], the TTC is the least-subsidized major transit agency
+in North America, which means that its operating budget is the most dependent on
+fare revenue out of any in all of the US and Canada. Tracking how ridership
+revenues are changing over time is very important.</p>
+<p>The city does do this. Go to (<a href="https://www.toronto.ca/city-government/data-research-maps/toronto-progress-portal/" class="uri">https://www.toronto.ca/city-government/data-research-maps/toronto-progress-portal/</a>)[
+the City of Toronto Progress Portal] and type “TTC” and click on the box that says
+“TTC Ridership Revenues” to see a report. You can download the data from here, but
+since it’s a bit tricky to describe exactly how, I have posted the file
+<code>ttc-ridership-revenues.csv</code> on Quercus. We are going to read these data into <code>R</code>
+and analyze the relationship between <code>year</code> and <code>revenue</code>.</p>
+<p>If you’re thinking “that sounds really easy, we just did that!”… just keep reading.</p>
+<p>First, print the data out and count the number of rows on the command line:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb145-1" title="1"><span class="fu">head</span> data/ttc-ridership-revenues.csv</a>
+<a class="sourceLine" id="cb145-2" title="2"><span class="fu">wc</span> -l data/ttc-ridership-revenues.csv</a></code></pre></div>
+<pre><code>## Year,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec
+## 2007 YTD Actual,$70600000,$131200000,$204600000,$264900000,$322000000,$395100000,$452100000,$507500000,$585600000,$646900000,$712500000,$774700000
+## 2008 YTD Actual,$72700000,$137600000,$217500000,$278200000,$340600000,$419600000,$482400000,$544100000,$629000000,$696400000,$766600000,$837000000
+## 2009 YTD Actual,$69300000,$135400000,$216600000,$280500000,$344000000,$422100000,$483400000,$543500000,$627200000,$693900000,$762400000,$834900000
+## 2010 YTD Actual,$72200000,$143400000,$230700000,$302400000,$372500000,$459100000,$528800000,$595700000,$689100000,$764500000,$842000000,$929300000
+## 2011 YTD Actual,$75300000,$150800000,$244400000,$318300000,$392400000,$484800000,$557300000,$625500000,$722000000,$799500000,$879100000,$969900000
+## 2012 YTD Actual,$75500000,$154800000,$253900000,$331600000,$408300000,$507100000,$581800000,$654300000,$755800000,$835900000,$919100000,$1017600000
+## 2013 YTD Actual,$93200000,$176600000,$278200000,$360300000,$439700000,$539700000,$617400000,$693500000,$799600000,$882500000,$968900000,$1052100000
+## 2014 YTD Actual,$92200000,$178900000,$284400000,$367200000,$449700000,$552300000,$633200000,$712200000,$822000000,$907900000,$998200000,$1086500000
+## 2015 YTD Actual,$90600000,$178200000,$284100000,$370500000,$455300000,$559600000,$641700000,$721400000,$833200000,$920800000,$1011600000,$1107300000
+##       14 data/ttc-ridership-revenues.csv</code></pre>
+<p>Yikes! Real data is messy. This data isn’t even that messy and it still seems messy.</p>
+<p>We see that the file is comma-separated and has a header. The first column is
+text and the others are… well, they’re supposed to be numeric, but they are
+stored in the file with dollar signs. WHY! This kind of thing is super annoying
+and super common.</p>
+<p>We could remove the dollar signs from the text file directly using <code>sed</code> or a
+similar UNIX-based tool, but I prefer whenever possible to keep all my analysis
+on one platform. We’ll read it into <code>R</code> as-is and then parse and change datatypes
+there:</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1"><span class="co"># Read in the data</span></a>
+<a class="sourceLine" id="cb147-2" title="2">ridership &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb147-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/ttc-ridership-revenues.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb147-4" title="4">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>, <span class="co"># Tells readr to read the column names from the first line of the file.</span></a>
+<a class="sourceLine" id="cb147-5" title="5">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">13</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>) <span class="co"># Read all 13 columns as &quot;c&quot;haracter</span></a>
+<a class="sourceLine" id="cb147-6" title="6">)</a>
+<a class="sourceLine" id="cb147-7" title="7"><span class="kw">glimpse</span>(ridership)</a></code></pre></div>
+<pre><code>## Observations: 13
+## Variables: 13
+## $ Year &lt;chr&gt; &quot;2007 YTD Actual&quot;, &quot;2008 YTD Actual&quot;, &quot;2009 YTD Actual&quot;, &quot;2…
+## $ Jan  &lt;chr&gt; &quot;$70600000&quot;, &quot;$72700000&quot;, &quot;$69300000&quot;, &quot;$72200000&quot;, &quot;$75300…
+## $ Feb  &lt;chr&gt; &quot;$131200000&quot;, &quot;$137600000&quot;, &quot;$135400000&quot;, &quot;$143400000&quot;, &quot;$1…
+## $ Mar  &lt;chr&gt; &quot;$204600000&quot;, &quot;$217500000&quot;, &quot;$216600000&quot;, &quot;$230700000&quot;, &quot;$2…
+## $ Apr  &lt;chr&gt; &quot;$264900000&quot;, &quot;$278200000&quot;, &quot;$280500000&quot;, &quot;$302400000&quot;, &quot;$3…
+## $ May  &lt;chr&gt; &quot;$322000000&quot;, &quot;$340600000&quot;, &quot;$344000000&quot;, &quot;$372500000&quot;, &quot;$3…
+## $ Jun  &lt;chr&gt; &quot;$395100000&quot;, &quot;$419600000&quot;, &quot;$422100000&quot;, &quot;$459100000&quot;, &quot;$4…
+## $ Jul  &lt;chr&gt; &quot;$452100000&quot;, &quot;$482400000&quot;, &quot;$483400000&quot;, &quot;$528800000&quot;, &quot;$5…
+## $ Aug  &lt;chr&gt; &quot;$507500000&quot;, &quot;$544100000&quot;, &quot;$543500000&quot;, &quot;$595700000&quot;, &quot;$6…
+## $ Sep  &lt;chr&gt; &quot;$585600000&quot;, &quot;$629000000&quot;, &quot;$627200000&quot;, &quot;$689100000&quot;, &quot;$7…
+## $ Oct  &lt;chr&gt; &quot;$646900000&quot;, &quot;$696400000&quot;, &quot;$693900000&quot;, &quot;$764500000&quot;, &quot;$7…
+## $ Nov  &lt;chr&gt; &quot;$712500000&quot;, &quot;$766600000&quot;, &quot;$762400000&quot;, &quot;$842000000&quot;, &quot;$8…
+## $ Dec  &lt;chr&gt; &quot;$774700000&quot;, &quot;$837000000&quot;, &quot;$834900000&quot;, &quot;$929300000&quot;, &quot;$9…</code></pre>
+<p>This does not look like it’s in a form ready to analyze. Some problems:</p>
+<ol style="list-style-type: decimal">
+<li>The <code>Year</code> has unwanted text in it. We just want the number representing what
+year it is.</li>
+<li>The revenue is stored across 12 columns, one for each month. We want the annual
+revenue for our analysis.</li>
+<li>The actual numeric revenue is stored as text with a dollar sign. We need to
+parse out the number part and convert to a numeric datatype before we can analyze it.</li>
+</ol>
+<p>Problems 1 and 3 require a bit of text parsing; Problem 2 requires converting from
+“wide” to “long” format. Let’s do it:</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1"><span class="co"># PROBLEM 1: Year</span></a>
+<a class="sourceLine" id="cb149-2" title="2"><span class="co"># To parse out only the number part, use a regular expression.</span></a>
+<a class="sourceLine" id="cb149-3" title="3"><span class="co"># Our string starts with a four digit number which starts with 20. We want to capture this number</span></a>
+<a class="sourceLine" id="cb149-4" title="4"><span class="co"># and nothing else.</span></a>
+<a class="sourceLine" id="cb149-5" title="5"><span class="co"># The ^ means &quot;the start of the string&quot;.</span></a>
+<a class="sourceLine" id="cb149-6" title="6"><span class="co"># The [20]{2} means &quot;a 0 or a 2, exactly twice&quot;</span></a>
+<a class="sourceLine" id="cb149-7" title="7"><span class="co"># The [0-9]{2} means &quot;anything from 0 - 9, exactly twice&quot;</span></a>
+<a class="sourceLine" id="cb149-8" title="8">year_regex &lt;-<span class="st"> &quot;^[20]{2}[0-9]{2}&quot;</span></a>
+<a class="sourceLine" id="cb149-9" title="9"><span class="co"># Use stringr::str_extract to extract a substring matching the regular expression:</span></a>
+<a class="sourceLine" id="cb149-10" title="10">stringr<span class="op">::</span><span class="kw">str_extract</span>(<span class="st">&quot;2007 YTD Actual&quot;</span>,year_regex)</a></code></pre></div>
+<pre><code>## [1] &quot;2007&quot;</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1"><span class="co"># PROBLEM 2: wide to long</span></a>
+<a class="sourceLine" id="cb151-2" title="2"><span class="co"># Use the tidyr::gather() function for &quot;gather&quot;ing columns and putting them</span></a>
+<a class="sourceLine" id="cb151-3" title="3"><span class="co"># into one column:</span></a>
+<a class="sourceLine" id="cb151-4" title="4">ridership <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb151-5" title="5"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(month,revenue,Jan<span class="op">:</span>Dec)</a></code></pre></div>
+<pre><code>## # A tibble: 156 x 3
+##    Year            month revenue  
+##    &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;    
+##  1 2007 YTD Actual Jan   $70600000
+##  2 2008 YTD Actual Jan   $72700000
+##  3 2009 YTD Actual Jan   $69300000
+##  4 2010 YTD Actual Jan   $72200000
+##  5 2011 YTD Actual Jan   $75300000
+##  6 2012 YTD Actual Jan   $75500000
+##  7 2013 YTD Actual Jan   $93200000
+##  8 2014 YTD Actual Jan   $92200000
+##  9 2015 YTD Actual Jan   $90600000
+## 10 2016 YTD Actual Jan   $90800000
+## # … with 146 more rows</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1"><span class="co"># PROBLEM 3: removing the dollar sign</span></a>
+<a class="sourceLine" id="cb153-2" title="2"><span class="co"># Again, use text matching. Because $ is itself a special character,</span></a>
+<a class="sourceLine" id="cb153-3" title="3"><span class="co"># to match it, you have to &quot;escape&quot; it using a backslash</span></a>
+<a class="sourceLine" id="cb153-4" title="4">dollar_regex &lt;-<span class="st"> &quot;</span><span class="ch">\\</span><span class="st">$&quot;</span></a>
+<a class="sourceLine" id="cb153-5" title="5"><span class="co"># Remove matching strings using stringr::str_remove()</span></a>
+<a class="sourceLine" id="cb153-6" title="6">stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;$1234&quot;</span>,dollar_regex)</a></code></pre></div>
+<pre><code>## [1] &quot;1234&quot;</code></pre>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1"><span class="co"># Now, combine all these into one data cleaning pipeline.</span></a>
+<a class="sourceLine" id="cb155-2" title="2"><span class="co"># Remember we have monthly revenue, so to get yearly revenue, we sum</span></a>
+<a class="sourceLine" id="cb155-3" title="3"><span class="co"># over months.</span></a>
+<a class="sourceLine" id="cb155-4" title="4">ridership_clean &lt;-<span class="st"> </span>ridership <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb155-5" title="5"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(month,revenue,Jan<span class="op">:</span>Dec) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># &quot;transmute&quot; is like mutate, but it deletes all original columns</span></a>
+<a class="sourceLine" id="cb155-6" title="6"><span class="st">  </span><span class="kw">transmute</span>(<span class="dt">year =</span> stringr<span class="op">::</span><span class="kw">str_extract</span>(Year,year_regex),</a>
+<a class="sourceLine" id="cb155-7" title="7">            <span class="dt">revenue =</span> stringr<span class="op">::</span><span class="kw">str_remove</span>(revenue,dollar_regex)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb155-8" title="8"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;revenue&quot;</span>),as.numeric) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Turn both year and revenue into numeric variables</span></a>
+<a class="sourceLine" id="cb155-9" title="9"><span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Sum revenue for each year to get yearly revenue</span></a>
+<a class="sourceLine" id="cb155-10" title="10"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">revenue =</span> <span class="kw">sum</span>(revenue)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb155-11" title="11"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">&lt;</span><span class="st"> </span><span class="dv">2019</span>) <span class="co"># 2019 has incomplete data, so remove it</span></a>
+<a class="sourceLine" id="cb155-12" title="12"><span class="kw">glimpse</span>(ridership_clean)</a></code></pre></div>
+<pre><code>## Observations: 12
+## Variables: 2
+## $ year    &lt;dbl&gt; 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 20…
+## $ revenue &lt;dbl&gt; 5067700000, 5421700000, 5413200000, 5929700000, 62193000…</code></pre>
+<p>That looks a lot better! As usual, you should run each line of code one by one to
+understand what is happening.</p>
+<p>Because we went to the effort of cleaning the data, we can now plot it easily:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1">ridershipscatter &lt;-<span class="st"> </span>ridership_clean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb157-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> revenue)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb157-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb157-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb157-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Annual ridership revenues for the TTC&quot;</span>,</a>
+<a class="sourceLine" id="cb157-6" title="6">       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
+<a class="sourceLine" id="cb157-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;Revenue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb157-8" title="8"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">dollar_format</span>()) <span class="co"># Make the y-axis pretty</span></a>
+<a class="sourceLine" id="cb157-9" title="9">ridershipscatter</a></code></pre></div>
+<p><img src="book_files/figure-html/ttc-4-1.png" width="672" /></p>
+<p>Add a linear and non-linear regression line:</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1">leftplot &lt;-<span class="st"> </span>ridershipscatter <span class="op">+</span></a>
+<a class="sourceLine" id="cb158-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb158-3" title="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Linear regression line&quot;</span>)</a>
+<a class="sourceLine" id="cb158-4" title="4">rightplot &lt;-<span class="st"> </span>ridershipscatter <span class="op">+</span></a>
+<a class="sourceLine" id="cb158-5" title="5"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb158-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Non-linear regression line&quot;</span>,<span class="dt">y =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb158-7" title="7"></a>
+<a class="sourceLine" id="cb158-8" title="8">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(leftplot,</a>
+<a class="sourceLine" id="cb158-9" title="9">                   rightplot <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>()), <span class="co"># Take away the second plot&#39;s y-axis</span></a>
+<a class="sourceLine" id="cb158-10" title="10">                   <span class="dt">nrow=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/ttc-5-1.png" width="672" /></p>
+<p><strong>Exercise</strong>: re-do this analysis but don’t sum over month. This will give 12
+points per year on the plot. Do one linear regression per month.
+Recreate the following plot yourself:</p>
+<p>To do this, you have to create a dataset that looks like this:</p>
+<p>You should make the following modifications:</p>
+<ol style="list-style-type: decimal">
+<li>Replace <code>transmute</code> with <code>mutate</code> so you don’t delete the <code>month</code> column.</li>
+<li>Replace <code>aes(x = year,y = revenue)</code> with <code>aes(x = year,y = revenue,group = month,colour = month)</code>
+in the call to <code>ggplot</code>.</li>
+<li>Don’t sum over months.</li>
+</ol>
 
+</div>
+</div>
 </div>
             </section>
 
