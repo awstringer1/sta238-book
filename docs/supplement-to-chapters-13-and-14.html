@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Supplement to Chapters 13 and 14 | STA238: Probability, Statistics, and Data Analysis</title>
+  <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Supplement to Chapters 13 and 14 | STA238: Probability, Statistics, and Data Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Supplement to Chapters 13 and 14 | STA238: Probability, Statistics, and Data Analysis" />
+  
+  <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+<meta name="author" content="Alison Gibbs and Alex Stringer" />
+
+
+<meta name="date" content="2019-10-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="supplement-to-chapters-15-and-16.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STA238 University of Toronto</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html"><i class="fa fa-check"></i><b>2</b> Supplement to Chapters 15 and 16</a><ul>
+<li class="chapter" data-level="2.1" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="2.1.3" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#numerical-summaries-ch-16"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries (Ch 16)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="2.2.3" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#numerical-summaries"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.4.2" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#exercises-2"><i class="fa fa-check"></i><b>2.4.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
+<li class="chapter" data-level="2.5.2" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
+<li class="chapter" data-level="2.5.3" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#analysis-iii-trends-in-quality-over-time"><i class="fa fa-check"></i><b>2.5.4</b> Analysis III: trends in quality over time</a></li>
+<li class="chapter" data-level="2.5.5" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#summary"><i class="fa fa-check"></i><b>2.5.5</b> Summary</a></li>
+<li class="chapter" data-level="2.5.6" data-path="supplement-to-chapters-15-and-16.html"><a href="supplement-to-chapters-15-and-16.html#exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="supplement-to-chapters-13-and-14.html"><a href="supplement-to-chapters-13-and-14.html"><i class="fa fa-check"></i><b>3</b> Supplement to Chapters 13 and 14</a><ul>
+<li class="chapter" data-level="3.1" data-path="supplement-to-chapters-13-and-14.html"><a href="supplement-to-chapters-13-and-14.html#law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="supplement-to-chapters-13-and-14.html"><a href="supplement-to-chapters-13-and-14.html#extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="supplement-to-chapters-13-and-14.html"><a href="supplement-to-chapters-13-and-14.html#central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA238: Probability, Statistics, and Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="supplement-to-chapters-13-and-14" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Supplement to Chapters 13 and 14</h1>
+<p>This chapter implements much of the analysis shown in chapters 13 and 14 of
+A Modern Introduction to Probability and Statistics. R code is given for the
+simple textbook datasets used in the book, and then the concepts are
+illustrated on real data.</p>
+<p>All datasets from the book can be downloaded here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>.</p>
+<div id="law-of-large-numbers-chapter-13" class="section level2">
+<h2><span class="header-section-number">3.1</span> Law of Large Numbers (Chapter 13)</h2>
+<p>Load the packages we need:</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<p>To simulate from a <span class="math inline">\(\text{Gamma}(\alpha,\beta)\)</span> distribution in , use the
+<code>rgamma</code> function:</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" title="1"><span class="co"># Simulate from a gamma</span></a>
+<a class="sourceLine" id="cb117-2" title="2"><span class="co"># Type ?rgamma to get information on the parametrization</span></a>
+<a class="sourceLine" id="cb117-3" title="3"><span class="co"># There are three named parameters: shape, scale, and rate. Rate = 1/scale.</span></a>
+<a class="sourceLine" id="cb117-4" title="4"><span class="co"># The distribution has mean shape * scale, or shape / rate.</span></a>
+<a class="sourceLine" id="cb117-5" title="5"><span class="co"># The parametrization in the book is the &quot;rate&quot; parametrization.</span></a>
+<a class="sourceLine" id="cb117-6" title="6"><span class="co"># Always read the docs to understand what the parameters are.</span></a>
+<a class="sourceLine" id="cb117-7" title="7"><span class="co"># </span></a>
+<a class="sourceLine" id="cb117-8" title="8"><span class="co"># Simulate with shape = 2 and rate = 1, so mean = 2 and variance = ? (exercise)</span></a>
+<a class="sourceLine" id="cb117-9" title="9"><span class="kw">rgamma</span>(<span class="dv">1</span>,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## [1] 5.004758</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1"><span class="co"># The first &quot;1&quot; in the call gives the number of values to simulate:</span></a>
+<a class="sourceLine" id="cb119-2" title="2"><span class="kw">rgamma</span>(<span class="dv">10</span>,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>)</a></code></pre></div>
+<pre><code>##  [1] 1.1393204 2.5053557 2.9577079 2.8645820 3.3229295 1.1151051 0.9871104
+##  [8] 2.9298656 0.8579137 1.9653924</code></pre>
+<p>Plot the density of the gamma sample mean for various <span class="math inline">\(n\)</span>, recreating the left
+side of Figure 13.1:</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" title="1"><span class="co"># Define a function to compute the density</span></a>
+<a class="sourceLine" id="cb121-2" title="2"><span class="co"># Fix the scale and shape arguments at defaults of what&#39;s used in the book</span></a>
+<a class="sourceLine" id="cb121-3" title="3"><span class="co"># You can play around with these.</span></a>
+<a class="sourceLine" id="cb121-4" title="4">gamma_samplemean_density &lt;-<span class="st"> </span><span class="cf">function</span>(x,n,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb121-5" title="5">  <span class="co"># x: point to evaluate the density at</span></a>
+<a class="sourceLine" id="cb121-6" title="6">  <span class="co"># n: sample size</span></a>
+<a class="sourceLine" id="cb121-7" title="7">  </a>
+<a class="sourceLine" id="cb121-8" title="8">  <span class="co"># Just use the dgamma function</span></a>
+<a class="sourceLine" id="cb121-9" title="9">  <span class="kw">dgamma</span>(x,<span class="dt">shape =</span> n <span class="op">*</span><span class="st"> </span>shape,<span class="dt">rate =</span> n<span class="op">*</span>rate)</a>
+<a class="sourceLine" id="cb121-10" title="10">}</a>
+<a class="sourceLine" id="cb121-11" title="11"></a>
+<a class="sourceLine" id="cb121-12" title="12"><span class="co"># Plot it for various n</span></a>
+<a class="sourceLine" id="cb121-13" title="13"><span class="co"># Define a function to make the plot</span></a>
+<a class="sourceLine" id="cb121-14" title="14">plot_for_n &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb121-15" title="15">  <span class="co"># Create a function with the n argument fixed</span></a>
+<a class="sourceLine" id="cb121-16" title="16">  densfun &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">partial</span>(gamma_samplemean_density,<span class="dt">n =</span> n)</a>
+<a class="sourceLine" id="cb121-17" title="17">  <span class="co"># Plot using ggplot</span></a>
+<a class="sourceLine" id="cb121-18" title="18">  <span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">4</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb121-19" title="19"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb121-20" title="20"><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb121-21" title="21"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> densfun) <span class="op">+</span></a>
+<a class="sourceLine" id="cb121-22" title="22"><span class="st">    </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">1.5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb121-23" title="23"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;n = &quot;</span>,n))</a>
+<a class="sourceLine" id="cb121-24" title="24">}</a>
+<a class="sourceLine" id="cb121-25" title="25"><span class="co"># Create the plots</span></a>
+<a class="sourceLine" id="cb121-26" title="26">purrr<span class="op">::</span><span class="kw">map</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">9</span>,<span class="dv">16</span>,<span class="dv">400</span>),plot_for_n) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb121-27" title="27"><span class="st">  </span>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> .,<span class="dt">nrow =</span> <span class="dv">3</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/dens-gamma-1-1.png" width="672" /></p>
+<p>Simulate the running average of experiments of size <span class="math inline">\(n\)</span> from a <span class="math inline">\(\text{Gamma}(2,1)\)</span>
+for <span class="math inline">\(n = 1,\ldots,500\)</span> and plot them, recreating Figure 13.2:</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1"><span class="kw">set.seed</span>(<span class="dv">54768798</span>) <span class="co"># So I can reproduce these results</span></a>
+<a class="sourceLine" id="cb122-2" title="2"><span class="co"># Simulate one experiment of size 500</span></a>
+<a class="sourceLine" id="cb122-3" title="3">n &lt;-<span class="st"> </span><span class="dv">500</span></a>
+<a class="sourceLine" id="cb122-4" title="4">alpha &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb122-5" title="5">beta &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb122-6" title="6">gamma_experiment &lt;-<span class="st"> </span><span class="kw">rgamma</span>(<span class="dt">n =</span> n,<span class="dt">shape =</span> alpha,<span class="dt">rate =</span> beta)</a>
+<a class="sourceLine" id="cb122-7" title="7"></a>
+<a class="sourceLine" id="cb122-8" title="8"><span class="co"># Compute the running average- a vector where the nth component is the average</span></a>
+<a class="sourceLine" id="cb122-9" title="9"><span class="co"># of the first n terms in gamma_experiment</span></a>
+<a class="sourceLine" id="cb122-10" title="10">runningaverage &lt;-<span class="st"> </span><span class="kw">cumsum</span>(gamma_experiment) <span class="op">/</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(gamma_experiment)</a>
+<a class="sourceLine" id="cb122-11" title="11"></a>
+<a class="sourceLine" id="cb122-12" title="12"><span class="co"># Plot, remembering that the true mean is 2 / 1 = 2</span></a>
+<a class="sourceLine" id="cb122-13" title="13"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(runningaverage),</a>
+<a class="sourceLine" id="cb122-14" title="14">       <span class="dt">y =</span> runningaverage) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb122-15" title="15"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb122-16" title="16"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb122-17" title="17"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="st">&quot;.&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb122-18" title="18"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> alpha <span class="op">/</span><span class="st"> </span>beta,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotted&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/sim-gamma-2-1.png" width="672" /></p>
+<p>What happens when you increase the number? Try it for <span class="math inline">\(n = 1,000, n = 10,000\)</span>, and so on.</p>
+<p>Now try this for the Cauchy distribution, the left panel of Figure 13.3:</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" title="1"><span class="kw">set.seed</span>(<span class="dv">4235</span>) <span class="co"># So I can reproduce these results</span></a>
+<a class="sourceLine" id="cb123-2" title="2"><span class="co"># Simulate one experiment of size 500</span></a>
+<a class="sourceLine" id="cb123-3" title="3">n &lt;-<span class="st"> </span><span class="dv">500</span></a>
+<a class="sourceLine" id="cb123-4" title="4">mu &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb123-5" title="5">sigma &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb123-6" title="6">cauchy_experiment &lt;-<span class="st"> </span><span class="kw">rcauchy</span>(<span class="dt">n =</span> n,<span class="dt">location =</span> mu,<span class="dt">scale =</span> sigma)</a>
+<a class="sourceLine" id="cb123-7" title="7"></a>
+<a class="sourceLine" id="cb123-8" title="8"><span class="co"># Compute the running average- a vector where the nth component is the average</span></a>
+<a class="sourceLine" id="cb123-9" title="9"><span class="co"># of the first n terms in gamma_experiment</span></a>
+<a class="sourceLine" id="cb123-10" title="10">runningaverage &lt;-<span class="st"> </span><span class="kw">cumsum</span>(cauchy_experiment) <span class="op">/</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(cauchy_experiment)</a>
+<a class="sourceLine" id="cb123-11" title="11"></a>
+<a class="sourceLine" id="cb123-12" title="12"><span class="co"># Plot, remembering that the true mean is 2 / 1 = 2</span></a>
+<a class="sourceLine" id="cb123-13" title="13"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(runningaverage),</a>
+<a class="sourceLine" id="cb123-14" title="14">       <span class="dt">y =</span> runningaverage) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb123-15" title="15"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb123-16" title="16"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb123-17" title="17"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="st">&quot;.&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb123-18" title="18"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> alpha <span class="op">/</span><span class="st"> </span>beta,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotted&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/sim-cauchy-1-1.png" width="672" /></p>
+<p>Yikes! The Cauchy distribution is the worst.</p>
+<p><strong>Exercise</strong>: repeat this for the Pareto distribution, recreating the right panel
+of Figure 13.3. You can simulate from the Pareto distribution using the <code>rpareto</code>
+function in the <code>actuar</code> package. Type <code>install.packages(&quot;actuar&quot;)</code> and then
+<code>actuar::rpareto</code>. Type <code>?actuar::rpareto</code> to get help on using this function.
+Figuring out how to use the function is part of the exercise.</p>
+<div id="extended-example-the-probability-of-heads" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Extended example: the probability of heads</h3>
+<p>As an extended example, consider trying to figure out what the probability of
+heads is for a fair coin, just based on flipping the coin a bunch of times. We
+can use the material of Section 13.4 to address this challenge.</p>
+<p>Let <span class="math inline">\(X\)</span> be a random variable which takes values <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span> if the coin comes up
+tails or heads on any given flip. Let <span class="math inline">\(C = \left\{ 1\right\}\)</span>, so the specific
+event that we are interested in
+is whether the coin comes up heads on any given flip. <span class="math inline">\(p = \text{P}(X\in C)\)</span> is
+hence the probability of heads.</p>
+<p>To estimate <span class="math inline">\(p\)</span> using the LLN, we will take a coin which has probability <span class="math inline">\(p\)</span> of
+coming up heads and flip it a bunch of times and calculate the proportion of flips
+that come up heads.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1"><span class="co"># Function to flip the coin n times, and return a sequence of 1 if heads and 0 if tails</span></a>
+<a class="sourceLine" id="cb124-2" title="2"><span class="co"># for each flip.</span></a>
+<a class="sourceLine" id="cb124-3" title="3"><span class="co"># Use the rbinom function to simulate from a bernoulli/binomial distribution.</span></a>
+<a class="sourceLine" id="cb124-4" title="4">flip_the_coin &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</a>
+<a class="sourceLine" id="cb124-5" title="5">  <span class="co"># n: number of times to flip the coin.</span></a>
+<a class="sourceLine" id="cb124-6" title="6">  <span class="co"># p: probability of heads</span></a>
+<a class="sourceLine" id="cb124-7" title="7">  <span class="co"># Returns a vector of length n containing the results of each flip.</span></a>
+<a class="sourceLine" id="cb124-8" title="8">  <span class="kw">rbinom</span>(n,<span class="dv">1</span>,p)</a>
+<a class="sourceLine" id="cb124-9" title="9">}</a>
+<a class="sourceLine" id="cb124-10" title="10"></a>
+<a class="sourceLine" id="cb124-11" title="11"><span class="co"># Function to flip the coin n times and compute the</span></a>
+<a class="sourceLine" id="cb124-12" title="12"><span class="co"># sample proportion of heads</span></a>
+<a class="sourceLine" id="cb124-13" title="13">sample_proportion_of_heads &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</a>
+<a class="sourceLine" id="cb124-14" title="14">  <span class="co"># Returns a number representing the sample proportion of heads</span></a>
+<a class="sourceLine" id="cb124-15" title="15">  <span class="co"># in n flips</span></a>
+<a class="sourceLine" id="cb124-16" title="16">  <span class="kw">mean</span>(<span class="kw">flip_the_coin</span>(n,p))</a>
+<a class="sourceLine" id="cb124-17" title="17">}</a>
+<a class="sourceLine" id="cb124-18" title="18"></a>
+<a class="sourceLine" id="cb124-19" title="19"><span class="co"># Try it out:</span></a>
+<a class="sourceLine" id="cb124-20" title="20"><span class="kw">sample_proportion_of_heads</span>(<span class="dv">10</span>,.<span class="dv">5</span>)</a></code></pre></div>
+<pre><code>## [1] 0.4</code></pre>
+<p><strong>Exercise</strong>: create a plot of the running average of sample proportions of heads,
+similar to the above plots for the Gamma and Cauchy (Figure 13.3). How many times
+do you think you need to flip the coin before the result is an accurate estimate?
+Does this change for different values of <span class="math inline">\(p\)</span>?</p>
+</div>
+</div>
+<div id="central-limit-theorem-chapter-14" class="section level2">
+<h2><span class="header-section-number">3.2</span> Central Limit Theorem (Chapter 14)</h2>
+<p>Let’s investigate the scaling power on <span class="math inline">\(n\)</span> when standardizing averages. The book
+shows in Figure 14.1 that multiplying <span class="math inline">\((\bar{X} - \mu)\)</span> by <span class="math inline">\(n^{1/4}\)</span> isn’t enough
+to stabilize the variance in the distribution, <span class="math inline">\(n^{1}\)</span> is too much, and <span class="math inline">\(n^{1/2}\)</span>
+is just right.</p>
+<p><strong>Exercise</strong>: derive the probability density of <span class="math inline">\(Y = n^{p}(\bar{X} - \mu)\)</span> when
+<span class="math inline">\(X_{1},\ldots,X_{n}\overset{iid}{\sim}\text{Gamma}(2,1)\)</span>. <em>Hint</em>: look at the code
+below. How do I compute this? What formula am I using?</p>
+<p>We can recreate Figure 14.1 as follows:</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1">scalingdensity &lt;-<span class="st"> </span><span class="cf">function</span>(y,n,p) {</a>
+<a class="sourceLine" id="cb126-2" title="2">  <span class="kw">dgamma</span>(</a>
+<a class="sourceLine" id="cb126-3" title="3">    <span class="dt">x =</span> y<span class="op">*</span>n<span class="op">^</span>(<span class="op">-</span>p) <span class="op">+</span><span class="st"> </span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb126-4" title="4">    <span class="dt">shape =</span> <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n,</a>
+<a class="sourceLine" id="cb126-5" title="5">    <span class="dt">rate =</span> n</a>
+<a class="sourceLine" id="cb126-6" title="6">  ) <span class="op">*</span><span class="st"> </span>n<span class="op">^</span>(<span class="op">-</span>p)</a>
+<a class="sourceLine" id="cb126-7" title="7">}</a>
+<a class="sourceLine" id="cb126-8" title="8"></a>
+<a class="sourceLine" id="cb126-9" title="9">plotscalingdensity &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</a>
+<a class="sourceLine" id="cb126-10" title="10">  dens &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">partial</span>(scalingdensity,<span class="dt">n =</span> n,<span class="dt">p =</span> p)</a>
+<a class="sourceLine" id="cb126-11" title="11">  <span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb126-12" title="12"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb126-13" title="13"><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb126-14" title="14"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dens) <span class="op">+</span></a>
+<a class="sourceLine" id="cb126-15" title="15"><span class="st">    </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>),<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">4</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb126-16" title="16"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;n = &quot;</span>,n,<span class="st">&quot;; scaling = &quot;</span>,p)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb126-17" title="17"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">8</span>))</a>
+<a class="sourceLine" id="cb126-18" title="18">}</a>
+<a class="sourceLine" id="cb126-19" title="19"></a>
+<a class="sourceLine" id="cb126-20" title="20"><span class="co"># Plot them all! This code is somewhat advanced; you should run it</span></a>
+<a class="sourceLine" id="cb126-21" title="21"><span class="co"># line by line and figure out what each step does. It&#39;s a pretty concise</span></a>
+<a class="sourceLine" id="cb126-22" title="22"><span class="co"># way of doing a lot of operations. This type of &quot;list comprehension&quot; is fundamental</span></a>
+<a class="sourceLine" id="cb126-23" title="23"><span class="co"># to learning to program with data.</span></a>
+<a class="sourceLine" id="cb126-24" title="24">pltlist &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">n =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">16</span>,<span class="dv">100</span>),</a>
+<a class="sourceLine" id="cb126-25" title="25">            <span class="dt">p =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb126-26" title="26"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(n,p) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb126-27" title="27"><span class="st">  </span><span class="kw">as.list</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb126-28" title="28"><span class="st">  </span>purrr<span class="op">::</span><span class="kw">transpose</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb126-29" title="29"><span class="st">  </span>purrr<span class="op">::</span><span class="kw">map</span>(<span class="op">~</span><span class="kw">plotscalingdensity</span>(<span class="dt">n =</span> .x[[<span class="st">&quot;n&quot;</span>]],<span class="dt">p =</span> .x[[<span class="st">&quot;p&quot;</span>]])) </a>
+<a class="sourceLine" id="cb126-30" title="30"></a>
+<a class="sourceLine" id="cb126-31" title="31">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> pltlist,</a>
+<a class="sourceLine" id="cb126-32" title="32">                   <span class="dt">nrow =</span> <span class="dv">5</span>,<span class="dt">ncol =</span> <span class="dv">3</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/scaling-1-1.png" width="672" /></p>
+<p>You can play around with different scaling values and sample sizes.</p>
+<p>Figure 14.2 is like the centre column of Figure 14.1 with a normal density
+curve overlayed.</p>
+<p><strong>Exercise</strong>: recreate the left column of Figure 14.2 by doing the following:</p>
+<ol style="list-style-type: decimal">
+<li>Replace <code>expand.grid(n = c(1,2,4,16,100),p = c(1/4,1/2,1))</code> by
+<code>expand.grid(n = c(1,2,4,16,100),p = c(1/2))</code> in the above code that generates
+the plots (and set the values of <code>nrow</code> and <code>ncol</code> appropriately as well).</li>
+<li>Add a normal density line. You have to modify the <code>plotscalingdensity</code>. Add
+a layer as follows: <code>stat_function(fun = dnorm,linetype = &quot;dotted&quot;)</code>.</li>
+</ol>
+<p>We can compute probabilities involving the standard normal distribution function
+in <code>R</code> using the <code>pnorm</code> function. Let’s compute the approximate probability
+described in a couple of the textbook’s examples, and compare it to simulated
+and true values.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" title="1"><span class="co"># &quot;Did we have bad luck?&quot;.</span></a>
+<a class="sourceLine" id="cb127-2" title="2"><span class="co"># The actual probability is (why?):</span></a>
+<a class="sourceLine" id="cb127-3" title="3">n &lt;-<span class="st"> </span><span class="dv">500</span></a>
+<a class="sourceLine" id="cb127-4" title="4"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgamma</span>(<span class="fl">2.06</span>,<span class="dt">shape =</span> <span class="dv">2</span><span class="op">*</span>n,<span class="dt">rate =</span> <span class="dv">1</span><span class="op">*</span>n)</a></code></pre></div>
+<pre><code>## [1] 0.1710881</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" title="1"><span class="co"># The CLT probability is:</span></a>
+<a class="sourceLine" id="cb129-2" title="2"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(.<span class="dv">95</span>)</a></code></pre></div>
+<pre><code>## [1] 0.1710561</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" title="1"><span class="co"># Why are we doing 1 - pnorm()? pnorm() gives P(X &lt; x) for X ~ N(0,1)</span></a>
+<a class="sourceLine" id="cb131-2" title="2"><span class="co"># To get P(X &gt; x), you can do</span></a>
+<a class="sourceLine" id="cb131-3" title="3"><span class="kw">pnorm</span>(.<span class="dv">95</span>,<span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## [1] 0.1710561</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" title="1"><span class="co"># but it&#39;s easier to just do P(X &gt; x) = 1 - P(X &lt; x)</span></a>
+<a class="sourceLine" id="cb133-2" title="2"><span class="co"># We can also simulate this probability by generating a bunch of gamma random</span></a>
+<a class="sourceLine" id="cb133-3" title="3"><span class="co"># samples and seeing how often their averages are &gt; 2.06:</span></a>
+<a class="sourceLine" id="cb133-4" title="4">N &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb133-5" title="5">exceeded &lt;-<span class="st"> </span><span class="kw">numeric</span>(N)</a>
+<a class="sourceLine" id="cb133-6" title="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</a>
+<a class="sourceLine" id="cb133-7" title="7">  samp &lt;-<span class="st"> </span><span class="kw">rgamma</span>(n,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb133-8" title="8">  mn &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)</a>
+<a class="sourceLine" id="cb133-9" title="9">  exceeded[i] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(mn <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.06</span>)</a>
+<a class="sourceLine" id="cb133-10" title="10">}</a>
+<a class="sourceLine" id="cb133-11" title="11"><span class="kw">mean</span>(exceeded)</a></code></pre></div>
+<pre><code>## [1] 0.1714</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1"><span class="co"># Pretty good. Can you experiment with the number of simulations? How</span></a>
+<a class="sourceLine" id="cb135-2" title="2"><span class="co"># many experiments do you need to simulate in order to get an accurate value?</span></a></code></pre></div>
+<p><strong>Exercise</strong>: recreate the “Normal Approximation of the Binomial Distribution”
+calculations using</p>
+<ol style="list-style-type: decimal">
+<li>The CLT</li>
+<li>The exact values, using the <code>rbinom</code> function (look up the help file)</li>
+<li>A simulation</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="supplement-to-chapters-15-and-16.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
