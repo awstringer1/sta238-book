@@ -228,7 +228,7 @@ cowplot::plot_grid(leftplot,
 points per year on the plot. Do one linear regression per month. 
 Recreate the following plot yourself:
 
-```{r ttc-6,include=FALSE}
+```{r ttc-6,echo=FALSE}
 ridership_month <- ridership %>%
   tidyr::gather(month,revenue,Jan:Dec) %>% # "transmute" is like mutate, but it deletes all original columns
   mutate(year = stringr::str_extract(Year,year_regex),
@@ -251,7 +251,7 @@ ridership_month %>%
 
 To do this, you have to create a dataset that looks like this:
 
-```{r ttc-7,include=FALSE}
+```{r ttc-7,echo=FALSE}
 glimpse(ridership_month)
 ```
 
