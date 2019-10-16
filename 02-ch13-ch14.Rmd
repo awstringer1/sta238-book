@@ -263,7 +263,52 @@ mean(exceeded)
 # many experiments do you need to simulate in order to get an accurate value?
 ```
 
-**Exercise**: recreate the "Normal Approximation of the Binomial Distribution"
+### Extended example: the probability of heads
+
+In our coin example from the LLN section, we investigated how many flips
+were needed to get an average number of heads that was close (in probability) to the true
+probability of heads. Using the CLT, we can get a *probabilistic quantification*
+of the error rate-- how far away from the truth the proportion of heads is likely to be.
+
+Similar to the LLN experiment, we're goin to flip the coin a bunch of times and
+calculate the sample proportion of heads; then we're going to do *that* a bunch
+of times and plot a histogram of the sample proportions. The CLT tells us that
+as long as each experiment has enough flips, the resulting probability density
+of the sample proportion of heads should be approximately Normal.
+
+```{r clt-1}
+N <- 1000 # Number of experiments to do
+n <- 100 # Number of times to flip the coin in each experiment
+p <- .5 # True probability of heads
+experiments <- numeric(N)
+for (i in 1:N) {
+  experiments[i] <- sample_proportion_of_heads(n,p)
+}
+
+# Plot them
+tibble(x = experiments) %>%
+  ggplot(aes(x = x)) +
+  theme_classic() +
+  geom_histogram(aes(y = ..density..),bins=30,colour="black",fill="orange",alpha = .5) +
+  stat_function(fun = dnorm,args = list(mean = p,sd = sqrt(p*(1-p)/n)),colour = "purple") +
+  labs(title = "Empirical distribution of sample proportions of heads",
+       subtitle = stringr::str_c("# of flips: ",n,", true probability of heads: ",p),
+       x = "Proportion of heads",
+       y = "Empirical Density") +
+  scale_x_continuous(breaks = seq(0,1,by=.1))
+```
+
+
+
+**Exercises**: 
+1. Recreate the above plot with $n = 10, 50, 100, 1000$ and $p = .4, .2, .8, .01, .99$.
+What do you see? Is the accuracy of the normal approximation to this distribution
+affected by $n$ or $p$?
+1. What are the mean and variance of the distribution of sample proportions of heads?
+(Hint: what are the mean and variance of a $\text{Binom}(n,p)$ random variable?)
+1. Recreate the above plot, but scale the sample proportion of heads appropriately such
+that it has mean $0$ and variance $1$.
+1. Recreate the "Normal Approximation of the Binomial Distribution"
 calculations using
 
   1. The CLT

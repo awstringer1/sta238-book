@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="supplement-to-chapters-15-and-16.html"/>
-
+<link rel="next" href="supplement-to-chapters-17-and-19.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -158,8 +158,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="supplement-to-chapters-13-and-14.html"><a href="supplement-to-chapters-13-and-14.html#law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="supplement-to-chapters-13-and-14.html"><a href="supplement-to-chapters-13-and-14.html#extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="supplement-to-chapters-13-and-14.html"><a href="supplement-to-chapters-13-and-14.html#central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a></li>
+<li class="chapter" data-level="3.2" data-path="supplement-to-chapters-13-and-14.html"><a href="supplement-to-chapters-13-and-14.html#central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="supplement-to-chapters-13-and-14.html"><a href="supplement-to-chapters-13-and-14.html#extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html"><i class="fa fa-check"></i><b>4</b> Supplement to Chapters 17 and 19</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -202,11 +205,11 @@ illustrated on real data.</p>
 <a class="sourceLine" id="cb117-7" title="7"><span class="co"># </span></a>
 <a class="sourceLine" id="cb117-8" title="8"><span class="co"># Simulate with shape = 2 and rate = 1, so mean = 2 and variance = ? (exercise)</span></a>
 <a class="sourceLine" id="cb117-9" title="9"><span class="kw">rgamma</span>(<span class="dv">1</span>,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>)</a></code></pre></div>
-<pre><code>## [1] 5.004758</code></pre>
+<pre><code>## [1] 3.967194</code></pre>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1"><span class="co"># The first &quot;1&quot; in the call gives the number of values to simulate:</span></a>
 <a class="sourceLine" id="cb119-2" title="2"><span class="kw">rgamma</span>(<span class="dv">10</span>,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>)</a></code></pre></div>
-<pre><code>##  [1] 1.1393204 2.5053557 2.9577079 2.8645820 3.3229295 1.1151051 0.9871104
-##  [8] 2.9298656 0.8579137 1.9653924</code></pre>
+<pre><code>##  [1] 0.1786034 2.4177606 3.5701327 3.8154802 0.4178380 5.0346527 1.3068047
+##  [8] 0.1732470 2.6013728 3.4851533</code></pre>
 <p>Plot the density of the gamma sample mean for various <span class="math inline">\(n\)</span>, recreating the left
 side of Figure 13.1:</p>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" title="1"><span class="co"># Define a function to compute the density</span></a>
@@ -409,7 +412,46 @@ and true values.</p>
 <pre><code>## [1] 0.1714</code></pre>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1"><span class="co"># Pretty good. Can you experiment with the number of simulations? How</span></a>
 <a class="sourceLine" id="cb135-2" title="2"><span class="co"># many experiments do you need to simulate in order to get an accurate value?</span></a></code></pre></div>
-<p><strong>Exercise</strong>: recreate the “Normal Approximation of the Binomial Distribution”
+<div id="extended-example-the-probability-of-heads-1" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Extended example: the probability of heads</h3>
+<p>In our coin example from the LLN section, we investigated how many flips
+were needed to get an average number of heads that was close (in probability) to the true
+probability of heads. Using the CLT, we can get a <em>probabilistic quantification</em>
+of the error rate– how far away from the truth the proportion of heads is likely to be.</p>
+<p>Similar to the LLN experiment, we’re goin to flip the coin a bunch of times and
+calculate the sample proportion of heads; then we’re going to do <em>that</em> a bunch
+of times and plot a histogram of the sample proportions. The CLT tells us that
+as long as each experiment has enough flips, the resulting probability density
+of the sample proportion of heads should be approximately Normal.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1">N &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of experiments to do</span></a>
+<a class="sourceLine" id="cb136-2" title="2">n &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># Number of times to flip the coin in each experiment</span></a>
+<a class="sourceLine" id="cb136-3" title="3">p &lt;-<span class="st"> </span><span class="fl">.5</span> <span class="co"># True probability of heads</span></a>
+<a class="sourceLine" id="cb136-4" title="4">experiments &lt;-<span class="st"> </span><span class="kw">numeric</span>(N)</a>
+<a class="sourceLine" id="cb136-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</a>
+<a class="sourceLine" id="cb136-6" title="6">  experiments[i] &lt;-<span class="st"> </span><span class="kw">sample_proportion_of_heads</span>(n,p)</a>
+<a class="sourceLine" id="cb136-7" title="7">}</a>
+<a class="sourceLine" id="cb136-8" title="8"></a>
+<a class="sourceLine" id="cb136-9" title="9"><span class="co"># Plot them</span></a>
+<a class="sourceLine" id="cb136-10" title="10"><span class="kw">tibble</span>(<span class="dt">x =</span> experiments) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb136-11" title="11"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb136-12" title="12"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb136-13" title="13"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins=</span><span class="dv">30</span>,<span class="dt">colour=</span><span class="st">&quot;black&quot;</span>,<span class="dt">fill=</span><span class="st">&quot;orange&quot;</span>,<span class="dt">alpha =</span> <span class="fl">.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb136-14" title="14"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> p,<span class="dt">sd =</span> <span class="kw">sqrt</span>(p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">/</span>n)),<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb136-15" title="15"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Empirical distribution of sample proportions of heads&quot;</span>,</a>
+<a class="sourceLine" id="cb136-16" title="16">       <span class="dt">subtitle =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;# of flips: &quot;</span>,n,<span class="st">&quot;, true probability of heads: &quot;</span>,p),</a>
+<a class="sourceLine" id="cb136-17" title="17">       <span class="dt">x =</span> <span class="st">&quot;Proportion of heads&quot;</span>,</a>
+<a class="sourceLine" id="cb136-18" title="18">       <span class="dt">y =</span> <span class="st">&quot;Empirical Density&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb136-19" title="19"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span>.<span class="dv">1</span>))</a></code></pre></div>
+<p><img src="book_files/figure-html/clt-1-1.png" width="672" /></p>
+<p><strong>Exercises</strong>:
+1. Recreate the above plot with <span class="math inline">\(n = 10, 50, 100, 1000\)</span> and <span class="math inline">\(p = .4, .2, .8, .01, .99\)</span>.
+What do you see? Is the accuracy of the normal approximation to this distribution
+affected by <span class="math inline">\(n\)</span> or <span class="math inline">\(p\)</span>?
+1. What are the mean and variance of the distribution of sample proportions of heads?
+(Hint: what are the mean and variance of a <span class="math inline">\(\text{Binom}(n,p)\)</span> random variable?)
+1. Recreate the above plot, but scale the sample proportion of heads appropriately such
+that it has mean <span class="math inline">\(0\)</span> and variance <span class="math inline">\(1\)</span>.
+1. Recreate the “Normal Approximation of the Binomial Distribution”
 calculations using</p>
 <ol style="list-style-type: decimal">
 <li>The CLT</li>
@@ -419,13 +461,14 @@ calculations using</p>
 
 </div>
 </div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="supplement-to-chapters-15-and-16.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="supplement-to-chapters-15-and-16.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="supplement-to-chapters-17-and-19.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

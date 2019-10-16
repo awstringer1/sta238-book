@@ -1,0 +1,8 @@
+# Supplement to Chapters 17 and 19
+
+This chapter implements much of the analysis shown in chapters 13 and 14 of 
+A Modern Introduction to Probability and Statistics. R code is given for the
+simple textbook datasets used in the book, and then the concepts are
+illustrated on real data.
+
+All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
