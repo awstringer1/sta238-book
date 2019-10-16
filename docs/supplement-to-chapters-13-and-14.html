@@ -164,7 +164,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html"><i class="fa fa-check"></i><b>4</b> Supplement to Chapters 17 and 19</a><ul>
 <li class="chapter" data-level="4.1" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html#statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html#extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.1</b> Extended example: TTC ridership revenues</a></li>
+<li class="chapter" data-level="4.1.1" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html#janka-hardness-data"><i class="fa fa-check"></i><b>4.1.1</b> Janka Hardness data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html#extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html#unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="supplement-to-chapters-17-and-19.html"><a href="supplement-to-chapters-17-and-19.html#simulated-network-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated network data</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -209,11 +213,11 @@ illustrated on real data.</p>
 <a class="sourceLine" id="cb117-7" title="7"><span class="co"># </span></a>
 <a class="sourceLine" id="cb117-8" title="8"><span class="co"># Simulate with shape = 2 and rate = 1, so mean = 2 and variance = ? (exercise)</span></a>
 <a class="sourceLine" id="cb117-9" title="9"><span class="kw">rgamma</span>(<span class="dv">1</span>,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>)</a></code></pre></div>
-<pre><code>## [1] 3.967194</code></pre>
+<pre><code>## [1] 0.2424111</code></pre>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1"><span class="co"># The first &quot;1&quot; in the call gives the number of values to simulate:</span></a>
 <a class="sourceLine" id="cb119-2" title="2"><span class="kw">rgamma</span>(<span class="dv">10</span>,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>)</a></code></pre></div>
-<pre><code>##  [1] 0.1786034 2.4177606 3.5701327 3.8154802 0.4178380 5.0346527 1.3068047
-##  [8] 0.1732470 2.6013728 3.4851533</code></pre>
+<pre><code>##  [1] 3.4454192 1.8968565 1.9144545 1.6533151 0.5979659 2.4224391 0.5208065
+##  [8] 2.9122484 1.1447158 1.9581624</code></pre>
 <p>Plot the density of the gamma sample mean for various <span class="math inline">\(n\)</span>, recreating the left
 side of Figure 13.1:</p>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" title="1"><span class="co"># Define a function to compute the density</span></a>

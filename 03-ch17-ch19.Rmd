@@ -18,6 +18,8 @@ how these models are estimated, so here we will show how to use `R` to plot
 regression lines. We'll use `ggplot2` to recreate Figure 17.8, and show how 
 to add "smooth" non-linear regression lines to plots as well.
 
+### Janka Hardness data
+
 The Janka Hardness dataset was already discussed in Chapter 15/16. Since you did
 the exercises from those chapters prescribed in this supplementary book, you
 have already read these data into `R`:
@@ -262,4 +264,124 @@ You should make the following modifications:
 in the call to `ggplot`.
 1. Don't sum over months.
 
+## Unbiased Estimators (Chapter 19)
+
+Unbiasedness is one property of an estimator that the book claims is attractive.
+Let's investigate this by recreating some of their simulations.
+
+### Simulated network data
+
+Figure 19.1 shows histograms of simulations of samples $X_{1},\ldots,X_{n}$ of size $n=30$ from a
+$X\sim\text{Poisson}(\log 10)$ distribution. We want to estimate the parameter $p_{0}$,
+which is the probability that $X = 0$:
+\begin{equation}
+p_{0} = P(X = 0) = e^{-\lambda}
+\end{equation}
+where $\lambda = E(X) = \log 10$ in this example. The book suggests two estimators,
+$S = \sum_{i=1}^{n}\mathbb{1}(X_{i} = 0)$ and $T = e^{-\bar{X}_{n}}$. $S$ corresponds
+to calculating the sample proportion of times $X_{i}=0$, and $T$ corresponds to
+estimating the population mean $\lambda$ using the sample mean $\bar{X}_{n}$ and
+then plugging this in to the actual formula for the value $p_{0}$. These both come
+from somewhere, and we'll see this when we talk about Maximum Likelihood. For now,
+just take them as both being candidates for an estimator of $p_{0}$.
+
+Let's investigate their sampling distributions by recreating the simulation from
+the book:
+
+```{r poisson-1}
+set.seed(6574564)
+# Simulate 500 random samples of size 30 from a poisson(log(10))
+# You need the purrr package, part of the tidyverse, for the map() function
+N <- 500
+n <- 30
+lambda <- log(10)
+p0 <- exp(-lambda) # True value of p0
+
+# Simulate the samples
+samplelist <- 1:N %>%
+  map(~rpois(n,lambda))
+
+# Write functions to compute each estimator
+compute_S <- function(samp) mean(samp == 0)
+compute_T <- function(samp) exp(-mean(samp))
+
+# Compute them and then store the results in a tibble()
+estimators <- samplelist %>%
+  map(~c(S = compute_S(.x),T = compute_T(.x))) %>%
+  reduce(bind_rows)
+glimpse(estimators)
+
+# Create the plots
+plt_S <- estimators %>%
+  ggplot(aes(x = S)) +
+  theme_classic() +
+  geom_histogram(colour = "black",fill = "transparent",bins = 7) +
+  coord_cartesian(ylim = c(0,250)) +
+  geom_vline(xintercept = p0,colour = "red",linetype = "dotdash")
+
+plt_T <- estimators %>%
+  ggplot(aes(x = T)) +
+  theme_classic() +
+  geom_histogram(colour = "black",fill = "transparent",bins = 7) +
+  coord_cartesian(ylim = c(0,250)) +
+  geom_vline(xintercept = p0,colour = "red",linetype = "dotdash")
+
+cowplot::plot_grid(plt_S,plt_T,nrow=1)
+
+# Compute the mean of each:
+estimators %>%
+  summarize_all(mean)
+```
+
+**Exercise**: $S$ is unbiased and $T$ is biased, as shown in the book. Which estimator
+would you prefer? Compute a five number summary for $S$ and $T$ from our simulations,
+recreating the following:
+
+```{r poisson-2,echo=FALSE}
+summary(estimators$S)
+summary(estimators$T)
+```
+
+Do you see any meaningful differences? Do the sampling distributions of $S$ and $T$
+concentrate around $p0$ in the same way?
+
+Now, compute the mode (most frequently-observed value) of $S$ and $T$. You should get the following:
+
+```{r poisson-3}
+mode_S <- estimators %>%
+  group_by(S) %>%
+  summarize(cnt = n()) %>%
+  arrange(desc(cnt)) %>%
+  slice(1) %>%
+  pull(S)
+
+mode_T <- estimators %>%
+  group_by(T) %>%
+  summarize(cnt = n()) %>%
+  arrange(desc(cnt)) %>%
+  slice(1) %>%
+  pull(T)
+
+cat("The mode of S is ",mode_S,"\n")
+cat("The mode of T is ",mode_T,"\n")
+```
+
+(You're going to have to figure out how to compute a mode in `R`. That's part of
+the exercise).
+
+What do you think about this? Does this contradict $S$ being unbiased and $T$ being
+biased? Does it change your opinion about which is a better estimator?
+
+Finally, compute the square root of the average squared distance of $S$ and $T$
+from the true value $p_{0}$. You should get:
+
+```{r poisson-4,echo = FALSE}
+estimators %>%
+  map_df(~sqrt(mean((.x - p0)^2)))
+```
+
+We will see shortly that this quantity, the **mean-squared error** of an estimator,
+is much more representative of the quality of an estimator than the bias on its own.
+Note, of course, that since it depends on the true value, it can't ever be computed
+in a real data analysis. It's a mathematical construct.
 
