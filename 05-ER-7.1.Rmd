@@ -1,0 +1,54 @@
+--- 
+title: "STA238: Probability, Statistics, and Data Analysis"
+author: "Alison Gibbs and Alex Stringer"
+date: "`r Sys.Date()`"
+runtime: shiny
+---
+
+
+# Supplement to Evans & Rosenthal Section 7.1
+
+This chapter is a supplement to Chapter 7: Bayesian Inference, section 1:
+The Prior and Posterior Distributions. This is to support the Bayesian Inference
+sections of STA238.
+
+## Example: Bayesian coin flipping
+
+In this example we will implement an interactive illustration of the relationship
+between the prior and sample size, and the posterior, for the Beta-Bernoulli example
+from section 7.1. The purpose is to let you get a feel for how the data updates
+your beliefs about the parameters in Bayesian inference, and how this relationship
+depends on how much data you have and how strong your beliefs were to start.
+
+Go to the app: https://awstringer1.shinyapps.io/bayesian-tutorial/
+
+The app lets you flip coins and estimate the probability of heads using Frequentist
+and Bayesian methods. We haven't covered estimation yet, but we have covered the
+model for coin flipping in both contexts now, so you should be able to tell what's
+happening. Also shown are *interval estimates*, which measure the strength of
+the conclusions about $p$ that are made based on the data and model. Narrower
+interval estimates mean we're more sure about the value of $p$, after seeing the
+data.
+
+The app lets you change the following:
+
+- The number of times you flip the coin,
+- The true probability of heads, $p$,
+- Your prior belief about the probability of heads, the "prior mean", and
+- The *strength* of your prior beliefs, as measured by the prior standard deviation.
+Lower standard deviation means you're *more sure* about the value of $p$, before
+seeing any flips.
+
+You should answer the following questions:
+
+1. How many flips do you need before the Bayesian and frequentist inferences
+agree closely? Does this depend on the true value of $p$, your prior belief,
+and the strength of your prior belief?
+
+1. Intuitively: why are the Bayesian interval estimates narrower than the
+frequentist ones? Is this always the case?
+
+1. Can you "break" the Bayesian answer by expressing really strong and wrong
+prior beliefs? Can you "fix" it by flipping the coin more times?
+
+

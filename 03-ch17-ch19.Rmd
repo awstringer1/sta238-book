@@ -1,6 +1,6 @@
 # Supplement to Chapters 17 and 19
 
-This chapter implements much of the analysis shown in chapters 13 and 14 of 
+This chapter implements much of the analysis shown in chapters 17 and 19 of 
 A Modern Introduction to Probability and Statistics. R code is given for the
 simple textbook datasets used in the book, and then the concepts are
 illustrated on real data.

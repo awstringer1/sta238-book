@@ -9,6 +9,7 @@ bibliography: [book.bib,packages.bib]
 biblio-style: apalike
 link-citations: yes
 description: "This book represents part of the course materials for STA238 at the University of Toronto"
+runtime: shiny
 ---
 
 # Introduction
