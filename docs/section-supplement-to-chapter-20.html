@@ -264,7 +264,10 @@ looking at my answer as follows:</p>
 <a class="sourceLine" id="cb174-13" title="13"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb174-14" title="14"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb174-15" title="15"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">300</span>,<span class="dv">700</span>,<span class="dv">1000</span>,<span class="dv">1300</span>,<span class="dv">1600</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb174-16" title="16"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">300</span>,<span class="dv">1600</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb174-16" title="16"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">300</span>,<span class="dv">1600</span>))</a>
+<a class="sourceLine" id="cb174-17" title="17"></a>
+<a class="sourceLine" id="cb174-18" title="18">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(leftplot,rightplot,<span class="dt">nrow =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/german-1-1.png" width="672" /></p>
 <p>Why does <span class="math inline">\(T2\)</span> seem to have a maximum possible value? Can you compute this mathematically?</p>
 
 </div>

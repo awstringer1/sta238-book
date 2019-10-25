@@ -60,6 +60,8 @@ rightplot <- out %>%
   geom_histogram(aes(y = ..density..),bins = 30,colour = "black",fill = "transparent") +
   scale_x_continuous(breaks = c(300,700,1000,1300,1600)) +
   coord_cartesian(xlim = c(300,1600))
+
+cowplot::plot_grid(leftplot,rightplot,nrow = 1)
 ```
 
 Why does $T2$ seem to have a maximum possible value? Can you compute this mathematically?
