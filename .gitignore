@@ -11,3 +11,5 @@
 .rdata
 .Rdata
 data/*
+.xls
+.xlsx
