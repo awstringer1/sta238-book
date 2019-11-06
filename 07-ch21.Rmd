@@ -132,7 +132,7 @@ L(p;x = 1) = p, \ L(p;x = 0) = 1 - p
 \end{equation}
 or more generally,
 \begin{equation}
-L(p;x) = p^x (1-p)^(1-x)
+L(p;x) = p^x (1-p)^{1-x}
 \end{equation}
 
 How do we use the observed data to estimate $p$? We find the value of $p$ which
@@ -266,7 +266,7 @@ and plots the likelihood for $p$ for this sample.
 To do this, you need to generate the sample with a known value of $p$ which we will
 call $p_{0}$. You can then
 compare how your likelihood and MLE (Maximum Likelihood Estimator) look to the true
-value of $p$ that you're trying to estimate, $p0$.
+value of $p$ that you're trying to estimate, $p_{0}$.
 
 Start with the following:
 
@@ -322,4 +322,76 @@ or larger?
 1. How does the shape and location of the likelihood change when you change $p_{0}$?
 What happens when you push $p_{0}$ really close to $0$ or $1$?
 
+### Extended example: rental housing in Toronto
 
+Recall the Toronto Rental Housing dataset from Section 2.5 of these supplementary
+materials. We were interested in estimating the quality of rental housing for the 
+different wards in Toronto, where "quality" is measured by the RentSafeTO score,
+which is composed of 20 sub-scores on various qualities of each building. We did
+this by computing the sample mean score in each ward, as follows:
+
+```{r rental-1}
+# Read in the data from disk
+apartmentdata <- readr::read_csv(
+  file = "data/apartment-data/toronto-apartment-building-evaluations.csv"
+)
+# Clean it up
+apartmentclean <- apartmentdata %>% 
+  filter(!is.na(SCORE)) %>% # Remove apartments with missing scores
+  dplyr::select(ward = WARD,
+                score = SCORE,
+                property_type = PROPERTY_TYPE,
+                year_built = YEAR_BUILT,
+                address = SITE_ADDRESS
+  )
+glimpse(apartmentclean)
+
+# Make a table of average scores for private residences (i.e. not social housing)
+apartmentclean %>%
+  filter(property_type == "PRIVATE") %>%
+  group_by(ward) %>%
+  summarize(avg_score = mean(score))
+
+```
+
+**Exercise**: suppose the data from any single ward follows a Normal model,
+\begin{equation}
+X_{i} \overset{iid}{\sim}\text{Normal}\left(\mu,\sigma^{2}\right)
+\end{equation}
+Prove that the **maximum likelihood estimator** of $\mu$ is $\hat{\mu} = \bar{X}$,
+the sample mean. This justifies the use of the sample mean as an estimate of the
+average score of all buildings in the ward.
+
+**Exercise**: now prove that the maximum likelihood estimator for $\sigma^{2}$ under
+this model is
+\begin{equation}
+\hat{\sigma}^{2} = \frac{1}{n}\sum_{i=1}^{n}\left(X_{i} - \bar{X} \right)^{2}
+\end{equation}
+Argue that based on the "invariance" property of the MLE, this implies that the
+MLE for the \textit{standard deviation} $\sigma = \sqrt{\sigma^{2}}$ is
+\begin{equation}
+\hat{\sigma} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(X_{i} - \bar{X} \right)^{2}}
+\end{equation}
+
+**Exercise**: use the `sd()` function in `R` to modify the above code to 
+compute the MLE for the standard deviation for
+each ward.
+
+**Exercise**: why are we considering each ward separately? Now let $X_{ij}$ be
+the score of the $i^{th}$ building in the $j^{th}$ ward. Suppose the data follows
+the model
+\begin{equation}\begin{aligned}
+X_{ij} &\overset{ind}{\sim}\text{Normal}\left(\mu_{j},\sigma^{2} \right) \\
+i &= 1\ldots n_{j} \\
+j &= 1\ldots 25
+\end{aligned}\end{equation}
+Note that "iid" has been replaced by "ind", to indicate that the data are **ind**ependent
+but not **id**entically distributed, because they have different means $\mu_{j}$.
+Note that I have taken the variance $\sigma^{2}$ to be the same for each ward,
+which may or may not be a reasonable thing to do.
+
+Prove that the MLE's for the means and standard deviations are:
+\begin{equation}\begin{aligned}
+\hat{\mu}_{j} &= \frac{1}{n_{j}}\sum_{i=1}^{n_{j}}X_{ij} \\
+\hat{\sigma} &= \sqrt{\frac{\sum_{j=1}^{25}\sum_{i=1}^{n_{j}}\left(X_{ij} - \hat{\mu}_{j} \right)^{2}}{\sum_{j=1}^{25}n_{j}}}
+\end{aligned}\end{equation}

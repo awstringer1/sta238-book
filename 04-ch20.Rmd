@@ -68,4 +68,3 @@ Why does $T2$ seem to have a maximum possible value? Can you compute this mathem
 
 
 
-

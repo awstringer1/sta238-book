@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2019-10-30" />
+<meta name="date" content="2019-11-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -189,6 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1.1" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
 <li class="chapter" data-level="8.1.2" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
 <li class="chapter" data-level="8.1.3" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
+<li class="chapter" data-level="8.1.4" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.1.4</b> Extended example: rental housing in Toronto</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -322,7 +323,7 @@ L(p;x = 1) = p, \ L(p;x = 0) = 1 - p
 \end{equation}\]</span>
 or more generally,
 <span class="math display">\[\begin{equation}
-L(p;x) = p^x (1-p)^(1-x)
+L(p;x) = p^x (1-p)^{1-x}
 \end{equation}\]</span></p>
 <p>How do we use the observed data to estimate <span class="math inline">\(p\)</span>? We find the value of <span class="math inline">\(p\)</span> which
 would generate the sample we saw with the highest relative frequency. We <strong>maximize</strong>
@@ -426,7 +427,7 @@ and plots the likelihood for <span class="math inline">\(p\)</span> for this sam
 <p>To do this, you need to generate the sample with a known value of <span class="math inline">\(p\)</span> which we will
 call <span class="math inline">\(p_{0}\)</span>. You can then
 compare how your likelihood and MLE (Maximum Likelihood Estimator) look to the true
-value of <span class="math inline">\(p\)</span> that you’re trying to estimate, <span class="math inline">\(p0\)</span>.</p>
+value of <span class="math inline">\(p\)</span> that you’re trying to estimate, <span class="math inline">\(p_{0}\)</span>.</p>
 <p>Start with the following:</p>
 <div class="sourceCode" id="section-cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" title="1">plotlikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(n,p0) {</a>
 <a class="sourceLine" id="cb213-2" title="2">  <span class="co"># Code goes here</span></a>
@@ -457,6 +458,101 @@ or larger?</li>
 <li>How does the shape and location of the likelihood change when you change <span class="math inline">\(p_{0}\)</span>?
 What happens when you push <span class="math inline">\(p_{0}\)</span> really close to <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>?</li>
 </ol>
+</div>
+<div id="section-extended-example-rental-housing-in-toronto" class="section level3">
+<h3><span class="header-section-number">8.1.4</span> Extended example: rental housing in Toronto</h3>
+<p>Recall the Toronto Rental Housing dataset from Section 2.5 of these supplementary
+materials. We were interested in estimating the quality of rental housing for the
+different wards in Toronto, where “quality” is measured by the RentSafeTO score,
+which is composed of 20 sub-scores on various qualities of each building. We did
+this by computing the sample mean score in each ward, as follows:</p>
+<div class="sourceCode" id="section-cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1"><span class="co"># Read in the data from disk</span></a>
+<a class="sourceLine" id="cb216-2" title="2">apartmentdata &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb216-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/apartment-data/toronto-apartment-building-evaluations.csv&quot;</span></a>
+<a class="sourceLine" id="cb216-4" title="4">)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   EVALUATION_COMPLETED_ON = col_character(),
+##   PROPERTY_TYPE = col_character(),
+##   RESULTS_OF_SCORE = col_character(),
+##   SITE_ADDRESS = col_character(),
+##   WARD = col_character()
+## )</code></pre>
+<pre><code>## See spec(...) for full column specifications.</code></pre>
+<div class="sourceCode" id="section-cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" title="1"><span class="co"># Clean it up</span></a>
+<a class="sourceLine" id="cb219-2" title="2">apartmentclean &lt;-<span class="st"> </span>apartmentdata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb219-3" title="3"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(SCORE)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Remove apartments with missing scores</span></a>
+<a class="sourceLine" id="cb219-4" title="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="dt">ward =</span> WARD,</a>
+<a class="sourceLine" id="cb219-5" title="5">                <span class="dt">score =</span> SCORE,</a>
+<a class="sourceLine" id="cb219-6" title="6">                <span class="dt">property_type =</span> PROPERTY_TYPE,</a>
+<a class="sourceLine" id="cb219-7" title="7">                <span class="dt">year_built =</span> YEAR_BUILT,</a>
+<a class="sourceLine" id="cb219-8" title="8">                <span class="dt">address =</span> SITE_ADDRESS</a>
+<a class="sourceLine" id="cb219-9" title="9">  )</a>
+<a class="sourceLine" id="cb219-10" title="10"><span class="kw">glimpse</span>(apartmentclean)</a></code></pre></div>
+<pre><code>## Observations: 3,437
+## Variables: 5
+## $ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;04&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;0…
+## $ score         &lt;dbl&gt; 71, 77, 71, 78, 98, 76, 93, 72, 74, 78, 73, 76, 57…
+## $ property_type &lt;chr&gt; &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;SOCIAL HOUSING&quot;,…
+## $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 1920, 2017, 1967, 2015, 1970, 19…
+## $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACP…</code></pre>
+<div class="sourceCode" id="section-cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" title="1"><span class="co"># Make a table of average scores for private residences (i.e. not social housing)</span></a>
+<a class="sourceLine" id="cb221-2" title="2">apartmentclean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb221-3" title="3"><span class="st">  </span><span class="kw">filter</span>(property_type <span class="op">==</span><span class="st"> &quot;PRIVATE&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb221-4" title="4"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb221-5" title="5"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score))</a></code></pre></div>
+<pre><code>## # A tibble: 26 x 2
+##    ward  avg_score
+##    &lt;chr&gt;     &lt;dbl&gt;
+##  1 01         71.5
+##  2 02         73.0
+##  3 03         70.5
+##  4 04         68.2
+##  5 05         71.7
+##  6 06         72.1
+##  7 07         69.8
+##  8 08         73.5
+##  9 09         67.5
+## 10 10         72.2
+## # … with 16 more rows</code></pre>
+<p><strong>Exercise</strong>: suppose the data from any single ward follows a Normal model,
+<span class="math display">\[\begin{equation}
+X_{i} \overset{iid}{\sim}\text{Normal}\left(\mu,\sigma^{2}\right)
+\end{equation}\]</span>
+Prove that the <strong>maximum likelihood estimator</strong> of <span class="math inline">\(\mu\)</span> is <span class="math inline">\(\hat{\mu} = \bar{X}\)</span>,
+the sample mean. This justifies the use of the sample mean as an estimate of the
+average score of all buildings in the ward.</p>
+<p><strong>Exercise</strong>: now prove that the maximum likelihood estimator for <span class="math inline">\(\sigma^{2}\)</span> under
+this model is
+<span class="math display">\[\begin{equation}
+\hat{\sigma}^{2} = \frac{1}{n}\sum_{i=1}^{n}\left(X_{i} - \bar{X} \right)^{2}
+\end{equation}\]</span>
+Argue that based on the “invariance” property of the MLE, this implies that the
+MLE for the  <span class="math inline">\(\sigma = \sqrt{\sigma^{2}}\)</span> is
+<span class="math display">\[\begin{equation}
+\hat{\sigma} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(X_{i} - \bar{X} \right)^{2}}
+\end{equation}\]</span></p>
+<p><strong>Exercise</strong>: use the <code>sd()</code> function in <code>R</code> to modify the above code to
+compute the MLE for the standard deviation for
+each ward.</p>
+<p><strong>Exercise</strong>: why are we considering each ward separately? Now let <span class="math inline">\(X_{ij}\)</span> be
+the score of the <span class="math inline">\(i^{th}\)</span> building in the <span class="math inline">\(j^{th}\)</span> ward. Suppose the data follows
+the model
+<span class="math display">\[\begin{equation}\begin{aligned}
+X_{ij} &amp;\overset{ind}{\sim}\text{Normal}\left(\mu_{j},\sigma^{2} \right) \\
+i &amp;= 1\ldots n_{j} \\
+j &amp;= 1\ldots 25
+\end{aligned}\end{equation}\]</span>
+Note that “iid” has been replaced by “ind”, to indicate that the data are <strong>ind</strong>ependent
+but not <strong>id</strong>entically distributed, because they have different means <span class="math inline">\(\mu_{j}\)</span>.
+Note that I have taken the variance <span class="math inline">\(\sigma^{2}\)</span> to be the same for each ward,
+which may or may not be a reasonable thing to do.</p>
+<p>Prove that the MLE’s for the means and standard deviations are:
+<span class="math display">\[\begin{equation}\begin{aligned}
+\hat{\mu}_{j} &amp;= \frac{1}{n_{j}}\sum_{i=1}^{n_{j}}X_{ij} \\
+\hat{\sigma} &amp;= \sqrt{\frac{\sum_{j=1}^{25}\sum_{i=1}^{n_{j}}\left(X_{ij} - \hat{\mu}_{j} \right)^{2}}{\sum_{j=1}^{25}n_{j}}}
+\end{aligned}\end{equation}\]</span></p>
 
 </div>
 </div>
