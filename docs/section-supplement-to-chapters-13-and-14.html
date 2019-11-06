@@ -192,6 +192,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1.4" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.1.4</b> Extended example: rental housing in Toronto</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html"><i class="fa fa-check"></i><b>9</b> Supplement to Chapter 23 and 24</a><ul>
+<li class="chapter" data-level="9.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-simulation"><i class="fa fa-check"></i><b>9.1.1</b> Simulation</a></li>
+<li class="chapter" data-level="9.1.2" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
+<li class="chapter" data-level="9.1.3" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-gross-calorific-value-measurements-for-daw-mill-258gb41"><i class="fa fa-check"></i><b>9.1.3</b> Gross calorific value measurements for Daw Mill 258GB41</a></li>
+<li class="chapter" data-level="9.1.4" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.4</b> Bootstrap Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-more-on-confidence-intervals-chapter-24"><i class="fa fa-check"></i><b>9.2</b> More on confidence intervals (Chapter 24)</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-binomial-distribution"><i class="fa fa-check"></i><b>9.2.1</b> Binomial distribution</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -234,11 +245,11 @@ illustrated on real data.</p>
 <a class="sourceLine" id="cb117-7" title="7"><span class="co"># </span></a>
 <a class="sourceLine" id="cb117-8" title="8"><span class="co"># Simulate with shape = 2 and rate = 1, so mean = 2 and variance = ? (exercise)</span></a>
 <a class="sourceLine" id="cb117-9" title="9"><span class="kw">rgamma</span>(<span class="dv">1</span>,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>)</a></code></pre></div>
-<pre><code>## [1] 0.5418538</code></pre>
+<pre><code>## [1] 1.340344</code></pre>
 <div class="sourceCode" id="section-cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1"><span class="co"># The first &quot;1&quot; in the call gives the number of values to simulate:</span></a>
 <a class="sourceLine" id="cb119-2" title="2"><span class="kw">rgamma</span>(<span class="dv">10</span>,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>)</a></code></pre></div>
-<pre><code>##  [1] 1.2163353 5.4728575 1.3490082 3.8080684 3.4339936 1.3190486 0.8016093
-##  [8] 0.4972518 0.7235683 1.2347772</code></pre>
+<pre><code>##  [1] 2.1644507 0.7349027 6.0536174 1.0655849 2.3760052 7.8096707 3.6147887
+##  [8] 0.7908200 1.3570800 2.4763934</code></pre>
 <p>Plot the density of the gamma sample mean for various <span class="math inline">\(n\)</span>, recreating the left
 side of Figure 13.1:</p>
 <div class="sourceCode" id="section-cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" title="1"><span class="co"># Define a function to compute the density</span></a>

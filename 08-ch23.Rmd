@@ -1,6 +1,6 @@
-# Supplement to Chapter 23
+# Supplement to Chapter 23 and 24
 
-This chapter implements much of the analysis shown in chapter 23 of 
+This chapter implements much of the analysis shown in chapters 23 and 24 of 
 A Modern Introduction to Probability and Statistics. R code is given for the
 simple textbook datasets used in the book, and then the concepts are
 illustrated on real data.
@@ -236,3 +236,105 @@ c(
 ```
 
 Does this lead to different conclusions in practice than the bootstrap interval?
+
+## More on confidence intervals (Chapter 24)
+
+### Binomial distribution
+
+The binomial example is a very good one for understanding how confidence intervals
+work.
+
+Consider the form of the confidence interval for $p$ when $X\sim\text{Bin}(n,p)$:
+\begin{equation}
+\left(\frac{X}{n} - p \right)^{2} - \left( z_{\alpha/2}\right)^{2}\frac{p(1-p)}{n} < 0
+\end{equation}
+The book says the solution is "awkward". As a self-annointed expert on all things
+awkward, I am not sure I agree. I do, however, also not want to do the math. It
+is less tedious and more illustrative to plot this interval and see how it changes
+with $X$:
+
+```{r binom-1}
+set.seed(876098978)
+the_quadratic <- function(p,X,n,alpha = 0.05) {
+  # p: a vector of values at which to plot the quadratic
+  (X/n - p)^2 - qnorm(1 - alpha/2) * (p*(1-p)/n)
+}
+# Generate some data from a distribution with a known p
+p0 <- .3
+n <- 10
+X <- rbinom(1,n,p0)
+
+tibble(p = c(0,1)) %>%
+  ggplot(aes(x = p)) +
+  theme_classic() +
+  stat_function(fun = the_quadratic,args = list(X = X,n = n)) +
+  geom_hline(yintercept = 0,colour = "lightgrey",linetype = "dotdash")
+```
+
+**Exercise**: put vertical lines on this plot at the locations where the parabola touch
+zero. This means use the quadratic formula to find the roots and plot them using
+`geom_vline(xintercept = ???)`.
+
+Consider Remark 24.1, which discusses why we can't get confidence intervals with
+exact coverage probabilities for discrete distributions. For $n = 10$, $X = 6$, 
+$\alpha = .05$, let's investigate the coverage probability of our confidence
+interval using a parametric bootstrap.
+
+We are going to simulate values from a $\text{Bin}(10,.3)$ distribution,
+compute the confidence interval for each, and then assess whether it contains
+the true value $p_{0} = .3$. The proportion of intervals in our $B$ bootstrap samples
+that contain the true value is the bootstrapped estimate of the interval's coverage
+probability.
+
+```{r boot-3,echo = FALSE}
+set.seed(8798)
+B <- 1000
+n <- 10
+p0 <- .3
+
+# Simulate B values from a binomial distribution:
+samps <- rbinom(B,n,p0)
+
+# Write a function for computing the interval for each X
+# I am going to use a numerical root-finding program
+# You will replace this part with the formula you derived
+# in the previous exercise
+compute_interval <- function(X) {
+  optfun <- function(p) the_quadratic(p,X,10)
+  rootSolve::uniroot.all(optfun,c(0,1))
+}
+
+# Do the bootstrap
+samps %>%
+  map(compute_interval) %>% # Compute the interval for each sample
+  map(~as.numeric(.x[1] < p0 & .x[2] > p0)) %>% # Create a 0/1 indicator of whether the interval contains p0
+  reduce(c) %>% # Combine the results in a vector
+  mean() %>% # The proportion of 1's (the mean) is the proportion of intervals which contained the true value, i.e. the coverage probability
+  scales::percent() # Format as a percentage
+```
+
+**Exercise**: I put the above procedure into a function:
+
+```{r boot-4-1}
+bootstrap_coverage <- function(B = 1000,n = 10,p0 = .3) {
+  samps <- rbinom(B,n,p0)
+  
+  compute_interval <- function(X) {
+    optfun <- function(p) the_quadratic(p,X,10)
+    rootSolve::uniroot.all(optfun,c(0,1))
+  }
+  
+  samps %>%
+  map(compute_interval) %>% 
+  map(~as.numeric(.x[1] < p0 & .x[2] > p0)) %>%
+  reduce(c) %>%
+  mean()
+}
+```
+
+Run this function many times and make a histogram of the results. You can use
+`myruns <- 1:1000 %>% map(bootstrap_coverage) %>% reduce(c)` to do this, and then
+refer to previous code for how to make the histogram. What value is in the centre?
+Is the stated coverage probability accurate?
+
+

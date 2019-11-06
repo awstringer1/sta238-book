@@ -1,5 +1,4 @@
 base
-faraway
 tidyverse
 ggplot2
 tibble
@@ -9,7 +8,4 @@ purrr
 dplyr
 stringr
 forcats
-ggmap
-tmap
-sf
-sp
+faraway
