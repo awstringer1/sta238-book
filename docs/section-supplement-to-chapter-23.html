@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Supplement to Chapter 23 | STA238: Probability, Statistics, and Data Analysis</title>
+  <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Supplement to Chapter 23 | STA238: Probability, Statistics, and Data Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Supplement to Chapter 23 | STA238: Probability, Statistics, and Data Analysis" />
+  
+  <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+<meta name="author" content="Alison Gibbs and Alex Stringer" />
+
+
+<meta name="date" content="2019-11-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="section-supplement-to-chapter-21.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STA238 University of Toronto</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html"><i class="fa fa-check"></i><b>2</b> Supplement to Chapters 15 and 16</a><ul>
+<li class="chapter" data-level="2.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="2.1.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-numerical-summaries-ch-16"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries (Ch 16)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="2.2.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.4.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
+<li class="chapter" data-level="2.5.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
+<li class="chapter" data-level="2.5.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-iii-trends-in-quality-over-time"><i class="fa fa-check"></i><b>2.5.4</b> Analysis III: trends in quality over time</a></li>
+<li class="chapter" data-level="2.5.5" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-summary"><i class="fa fa-check"></i><b>2.5.5</b> Summary</a></li>
+<li class="chapter" data-level="2.5.6" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html"><i class="fa fa-check"></i><b>3</b> Supplement to Chapters 13 and 14</a><ul>
+<li class="chapter" data-level="3.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html"><i class="fa fa-check"></i><b>4</b> Supplement to Chapters 17 and 19</a><ul>
+<li class="chapter" data-level="4.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-janka-hardness-data"><i class="fa fa-check"></i><b>4.1.1</b> Janka Hardness data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-simulated-network-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated network data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-supplement-to-chapter-20.html"><a href="section-supplement-to-chapter-20.html"><i class="fa fa-check"></i><b>5</b> Supplement to Chapter 20</a><ul>
+<li class="chapter" data-level="5.1" data-path="section-supplement-to-chapter-20.html"><a href="section-supplement-to-chapter-20.html#section-efficiency-and-mean-square-error-chapter-20"><i class="fa fa-check"></i><b>5.1</b> Efficiency and Mean Square Error (Chapter 20)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html"><i class="fa fa-check"></i><b>6</b> Supplement to Evans &amp; Rosenthal Section 7.1</a><ul>
+<li class="chapter" data-level="6.1" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html#section-example-bayesian-coin-flipping"><i class="fa fa-check"></i><b>6.1</b> Example: Bayesian coin flipping</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html"><i class="fa fa-check"></i><b>7</b> Supplement to Chapter 18</a><ul>
+<li class="chapter" data-level="7.1" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-empirical-bootstrap-old-faithful-data"><i class="fa fa-check"></i><b>7.1.1</b> Empirical bootstrap: Old Faithful data</a></li>
+<li class="chapter" data-level="7.1.2" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-parametric-bootstrap-software-data"><i class="fa fa-check"></i><b>7.1.2</b> Parametric Bootstrap: software data</a></li>
+<li class="chapter" data-level="7.1.3" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-extended-example-the-standard-error-of-a-proportion"><i class="fa fa-check"></i><b>7.1.3</b> Extended example: the standard error of a proportion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html"><i class="fa fa-check"></i><b>8</b> Supplement to Chapter 21</a><ul>
+<li class="chapter" data-level="8.1" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
+<li class="chapter" data-level="8.1.2" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
+<li class="chapter" data-level="8.1.3" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
+<li class="chapter" data-level="8.1.4" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.1.4</b> Extended example: rental housing in Toronto</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="section-supplement-to-chapter-23.html"><a href="section-supplement-to-chapter-23.html"><i class="fa fa-check"></i><b>9</b> Supplement to Chapter 23</a><ul>
+<li class="chapter" data-level="9.1" data-path="section-supplement-to-chapter-23.html"><a href="section-supplement-to-chapter-23.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="section-supplement-to-chapter-23.html"><a href="section-supplement-to-chapter-23.html#section-simulation"><i class="fa fa-check"></i><b>9.1.1</b> Simulation</a></li>
+<li class="chapter" data-level="9.1.2" data-path="section-supplement-to-chapter-23.html"><a href="section-supplement-to-chapter-23.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
+<li class="chapter" data-level="9.1.3" data-path="section-supplement-to-chapter-23.html"><a href="section-supplement-to-chapter-23.html#section-gross-calorific-value-measurements-for-daw-mill-258gb41"><i class="fa fa-check"></i><b>9.1.3</b> Gross calorific value measurements for Daw Mill 258GB41</a></li>
+<li class="chapter" data-level="9.1.4" data-path="section-supplement-to-chapter-23.html"><a href="section-supplement-to-chapter-23.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.4</b> Bootstrap Confidence Intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA238: Probability, Statistics, and Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section-supplement-to-chapter-23" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Supplement to Chapter 23</h1>
+<p>This chapter implements much of the analysis shown in chapter 23 of
+A Modern Introduction to Probability and Statistics. R code is given for the
+simple textbook datasets used in the book, and then the concepts are
+illustrated on real data.</p>
+<p>All datasets from the book can be downloaded here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>.</p>
+<div class="sourceCode" id="section-cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div id="section-confidence-intervals-for-the-mean-chapter-23" class="section level2">
+<h2><span class="header-section-number">9.1</span> Confidence Intervals for the Mean (Chapter 23)</h2>
+<div id="section-simulation" class="section level3">
+<h3><span class="header-section-number">9.1.1</span> Simulation</h3>
+<p>Let’s first implement the simulation from page 344. We’ll generate a bunch of samples
+from a <span class="math inline">\(\text{N}(0,1)\)</span> distribution, compute their confidence intervals, and plot them</p>
+<div class="sourceCode" id="section-cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">set.seed</span>(<span class="dv">432432432</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co"># How many samples to generate</span></a>
+<a class="sourceLine" id="cb2-3" title="3">B &lt;-<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co"># Sample size of each</span></a>
+<a class="sourceLine" id="cb2-5" title="5">n &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co"># Confidence level</span></a>
+<a class="sourceLine" id="cb2-7" title="7">conf &lt;-<span class="st"> </span><span class="fl">.9</span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co"># Critical value- the book just gives this as 1.729</span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co"># This actually took me a minute to figure out... so make sure</span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co"># you get what I&#39;m doing here:</span></a>
+<a class="sourceLine" id="cb2-11" title="11">critval &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>conf)<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> n<span class="dv">-1</span>)</a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co"># Perform the simulation</span></a>
+<a class="sourceLine" id="cb2-13" title="13">confints &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="st">  </span><span class="co"># Generate the samples</span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-16" title="16"><span class="st">  </span><span class="co"># Compute the confidence intervals</span></a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">c</span>(<span class="st">&quot;mean&quot;</span> =<span class="st"> </span><span class="kw">mean</span>(.x),</a>
+<a class="sourceLine" id="cb2-18" title="18">         <span class="st">&quot;lower&quot;</span> =<span class="st"> </span><span class="kw">mean</span>(.x) <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span><span class="kw">sd</span>(.x)<span class="op">/</span><span class="kw">sqrt</span>(n),</a>
+<a class="sourceLine" id="cb2-19" title="19">         <span class="st">&quot;upper&quot;</span> =<span class="st"> </span><span class="kw">mean</span>(.x) <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span><span class="kw">sd</span>(.x)<span class="op">/</span><span class="kw">sqrt</span>(n))</a>
+<a class="sourceLine" id="cb2-20" title="20">      ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-21" title="21"><span class="st">  </span><span class="co"># Put them in a dataframe</span></a>
+<a class="sourceLine" id="cb2-22" title="22"><span class="st">  </span><span class="kw">reduce</span>(bind_rows) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-23" title="23"><span class="st">  </span><span class="co"># Add a row index, for purposes of plotting</span></a>
+<a class="sourceLine" id="cb2-24" title="24"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span>B)</a>
+<a class="sourceLine" id="cb2-25" title="25"></a>
+<a class="sourceLine" id="cb2-26" title="26"><span class="co"># Compute the proportion that don&#39;t contain zero</span></a>
+<a class="sourceLine" id="cb2-27" title="27">scales<span class="op">::</span><span class="kw">percent</span>(<span class="kw">mean</span>(confints<span class="op">$</span>upper <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">|</span><span class="st"> </span>confints<span class="op">$</span>lower <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>))</a></code></pre></div>
+<pre><code>## [1] &quot;12.0%&quot;</code></pre>
+<div class="sourceCode" id="section-cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># Plot them. Run this code layer by layer</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co"># to understand what each part does.</span></a>
+<a class="sourceLine" id="cb4-3" title="3">confints <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> id)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> mean),<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>,<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower,<span class="dt">ymax =</span> upper),<span class="dt">size =</span> <span class="fl">.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span>.<span class="dv">2</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(),<span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>(),<span class="dt">axis.ticks.y =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/normsim-1-1.png" width="672" /></p>
+<p><strong>Exercise</strong>: re-run this experiment several times with different random seeds. What
+kind of empirical coverage probabilities—the proportion of intervals that don’t contain zero—do you
+get? What about if you raise the sample size to <code>n = 100</code>? What about if you raise the
+number of simulations to <code>B = 1000</code>?</p>
+</div>
+<div id="section-gross-calorific-value-measurements-for-osterfeld-262de27" class="section level3">
+<h3><span class="header-section-number">9.1.2</span> Gross calorific value measurements for Osterfeld 262DE27</h3>
+<p>The Osterfield data is made available with the book. Its file name is misspelled,
+so be careful:</p>
+<div class="sourceCode" id="section-cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="fu">head</span> data/MIPSdata/grosscalOsterfeld.txt</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="fu">wc</span> -l data/MIPSdata/grosscalOsterfeld.txt</a></code></pre></div>
+<pre><code>## 23.870
+## 23.730
+## 23.712
+## 23.760
+## 23.640
+## 23.850
+## 23.840
+## 23.860
+## 23.940
+## 23.830
+##       23 data/MIPSdata/grosscalOsterfeld.txt</code></pre>
+<p>Read it in. I’m leaving this as an exericse (note: not because I’m lazy, I still had to
+write the code. It’s for your “learning” or whatever). You should get the following:</p>
+<div class="sourceCode" id="section-cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">glimpse</span>(osterfield)</a></code></pre></div>
+<pre><code>## Observations: 23
+## Variables: 1
+## $ calorific_value &lt;dbl&gt; 23.870, 23.730, 23.712, 23.760, 23.640, 23.850, …</code></pre>
+<p>Recreate the confidence interval in the book:</p>
+<div class="sourceCode" id="section-cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># Compute the sample mean and size</span></a>
+<a class="sourceLine" id="cb9-2" title="2">xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(osterfield<span class="op">$</span>calorific_value)</a>
+<a class="sourceLine" id="cb9-3" title="3">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(osterfield)</a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co"># The population standard deviation, and the critical value/confidence level</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co"># are given as:</span></a>
+<a class="sourceLine" id="cb9-6" title="6">sigma &lt;-<span class="st"> </span><span class="fl">.1</span></a>
+<a class="sourceLine" id="cb9-7" title="7">conf &lt;-<span class="st"> </span><span class="fl">.95</span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="co"># Make sure to UNDERSTAND this calculation:</span></a>
+<a class="sourceLine" id="cb9-9" title="9">critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>conf)<span class="op">/</span><span class="dv">2</span>) <span class="co"># 1.96</span></a>
+<a class="sourceLine" id="cb9-10" title="10"><span class="co"># Compute the interval</span></a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb9-12" title="12">  <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>xbar <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n),</a>
+<a class="sourceLine" id="cb9-13" title="13">  <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>xbar <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n)</a>
+<a class="sourceLine" id="cb9-14" title="14">)</a></code></pre></div>
+<pre><code>##    lower    upper 
+## 23.74691 23.82865</code></pre>
+</div>
+<div id="section-gross-calorific-value-measurements-for-daw-mill-258gb41" class="section level3">
+<h3><span class="header-section-number">9.1.3</span> Gross calorific value measurements for Daw Mill 258GB41</h3>
+<p>As an exercise, now recreate the confidence interval in the book for the
+Daw Mill sample. Read the data in from file <code>grosscalDawMill.txt</code>, call it
+<code>dawmill</code>. You can compute the sample standard deviation and appropriate
+critical value as follows:</p>
+<div class="sourceCode" id="section-cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">s &lt;-<span class="st"> </span><span class="kw">sd</span>(dawmill<span class="op">$</span>calorific_value)</a>
+<a class="sourceLine" id="cb11-2" title="2">critval &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>conf)<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> <span class="kw">nrow</span>(dawmill) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<p>You should get:</p>
+<pre><code>##    lower    upper 
+## 30.95422 31.06896</code></pre>
+</div>
+<div id="section-bootstrap-confidence-intervals" class="section level3">
+<h3><span class="header-section-number">9.1.4</span> Bootstrap Confidence Intervals</h3>
+<p>First, let’s simulate a dataset to illustrate this idea and so we can compare
+the bootstrap and analytical answers.</p>
+<div class="sourceCode" id="section-cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">set.seed</span>(<span class="dv">43547803</span>)</a>
+<a class="sourceLine" id="cb13-2" title="2">B &lt;-<span class="st"> </span><span class="dv">2000</span></a>
+<a class="sourceLine" id="cb13-3" title="3">n &lt;-<span class="st"> </span><span class="dv">5000</span></a>
+<a class="sourceLine" id="cb13-4" title="4"><span class="co"># Simulate one dataset</span></a>
+<a class="sourceLine" id="cb13-5" title="5">ds &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb13-6" title="6"><span class="co"># Values</span></a>
+<a class="sourceLine" id="cb13-7" title="7">conf &lt;-<span class="st"> </span><span class="fl">.95</span></a>
+<a class="sourceLine" id="cb13-8" title="8">critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>conf)<span class="op">/</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb13-9" title="9"><span class="co"># Now resample from it and calculate studentized statistics</span></a>
+<a class="sourceLine" id="cb13-10" title="10">resampledstats &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-11" title="11"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">sample</span>(ds,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-12" title="12"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">c</span>(<span class="kw">mean</span>(.x) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(ds))<span class="op">/</span>(<span class="kw">sd</span>(.x)<span class="op">/</span><span class="kw">sqrt</span>(n))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-13" title="13"><span class="st">  </span><span class="kw">reduce</span>(c)</a>
+<a class="sourceLine" id="cb13-14" title="14"></a>
+<a class="sourceLine" id="cb13-15" title="15"><span class="co"># The confidence limits are obtained from the sample quantiles:</span></a>
+<a class="sourceLine" id="cb13-16" title="16">conflim &lt;-<span class="st"> </span><span class="kw">quantile</span>(resampledstats,<span class="dt">probs =</span> <span class="kw">c</span>((<span class="dv">1</span><span class="op">-</span>conf)<span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>conf)<span class="op">/</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb13-17" title="17"><span class="co"># Here&#39;s a plot that illustrates what these look like:</span></a>
+<a class="sourceLine" id="cb13-18" title="18"><span class="kw">tibble</span>(<span class="dt">x =</span> resampledstats) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-19" title="19"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-20" title="20"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-21" title="21"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightgrey&quot;</span>,<span class="dt">bins =</span> <span class="dv">100</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-22" title="22"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> conflim[<span class="dv">1</span>],<span class="dt">colour =</span> <span class="st">&quot;orange&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-23" title="23"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> conflim[<span class="dv">2</span>],<span class="dt">colour =</span> <span class="st">&quot;orange&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-24" title="24"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(ds),<span class="dt">sd =</span> <span class="kw">sd</span>(ds)),<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-25" title="25"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Resampled student statistics and empirical confidence limits&quot;</span>,</a>
+<a class="sourceLine" id="cb13-26" title="26">       <span class="dt">subtitle =</span> <span class="st">&quot;A normal distribution (blue curve) fits well&quot;</span>,</a>
+<a class="sourceLine" id="cb13-27" title="27">       <span class="dt">x =</span> <span class="st">&quot;&quot;</span>,<span class="dt">y =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/boot-1-1.png" width="672" /></p>
+<p>I deliberately chose a large sample size and number of bootstrap samples to make the
+results look good. I encourage you to change these numbers to try and break this
+simulation.</p>
+<p>The bootstrap-resampled confidence limits are close to the truth:</p>
+<div class="sourceCode" id="section-cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">conflim</a></code></pre></div>
+<pre><code>##      2.5%     97.5% 
+## -1.999947  2.005969</code></pre>
+<div class="sourceCode" id="section-cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">qnorm</span>(<span class="kw">c</span>((<span class="dv">1</span><span class="op">-</span>conf)<span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>conf)<span class="op">/</span><span class="dv">2</span>))</a></code></pre></div>
+<pre><code>## [1] -1.959964  1.959964</code></pre>
+<p>Let’s apply this to the software data. Oddly, I get different values for the mean,
+standard deviation, and sample size than the book reports. If you figure out why,
+I will give you a <span class="math inline">\(\$10\)</span> Tim card. The differences aren’t meaningful enough to
+affect the presentation of these ideas.</p>
+<div class="sourceCode" id="section-cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="co"># Read it in:</span></a>
+<a class="sourceLine" id="cb18-2" title="2">software &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb18-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/software.txt&quot;</span>,</a>
+<a class="sourceLine" id="cb18-4" title="4">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>,</a>
+<a class="sourceLine" id="cb18-5" title="5">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span></a>
+<a class="sourceLine" id="cb18-6" title="6">)</a>
+<a class="sourceLine" id="cb18-7" title="7"></a>
+<a class="sourceLine" id="cb18-8" title="8">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Same as book</span></a>
+<a class="sourceLine" id="cb18-9" title="9">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(software)</a>
+<a class="sourceLine" id="cb18-10" title="10">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(software<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb18-11" title="11">ss &lt;-<span class="st"> </span><span class="kw">sd</span>(software<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb18-12" title="12">conf &lt;-<span class="st"> </span><span class="fl">.9</span></a>
+<a class="sourceLine" id="cb18-13" title="13"><span class="kw">set.seed</span>(<span class="dv">821940379</span>)</a>
+<a class="sourceLine" id="cb18-14" title="14">resampledstats &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-15" title="15"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">sample</span>(software<span class="op">$</span>time,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-16" title="16"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">c</span>(<span class="kw">mean</span>(.x) <span class="op">-</span><span class="st"> </span>mn)<span class="op">/</span>(<span class="kw">sd</span>(.x)<span class="op">/</span><span class="kw">sqrt</span>(n))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-17" title="17"><span class="st">  </span><span class="kw">reduce</span>(c)</a>
+<a class="sourceLine" id="cb18-18" title="18"></a>
+<a class="sourceLine" id="cb18-19" title="19"><span class="co"># The confidence limits are obtained from the sample quantiles:</span></a>
+<a class="sourceLine" id="cb18-20" title="20">conflim &lt;-<span class="st"> </span><span class="kw">quantile</span>(resampledstats,<span class="dt">probs =</span> <span class="kw">c</span>((<span class="dv">1</span><span class="op">-</span>conf)<span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>conf)<span class="op">/</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb18-21" title="21"><span class="co"># The confidence interval:</span></a>
+<a class="sourceLine" id="cb18-22" title="22"><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb18-23" title="23">  <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>mn <span class="op">+</span><span class="st"> </span>conflim[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span>ss<span class="op">/</span><span class="kw">sqrt</span>(n),</a>
+<a class="sourceLine" id="cb18-24" title="24">  <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>mn <span class="op">+</span><span class="st"> </span>conflim[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>ss<span class="op">/</span><span class="kw">sqrt</span>(n)</a>
+<a class="sourceLine" id="cb18-25" title="25">)</a></code></pre></div>
+<pre><code>##  lower.5% upper.95% 
+##  474.9540  781.4853</code></pre>
+<p><strong>Exercise</strong>: compute a <span class="math inline">\(90\%\)</span> confidence interval for the mean for the software
+data assuming the data is normally distributed. This does NOT mean that you should
+use a normal distribution for calculating the critical values– if you don’t understand
+why, go back and read the “Variance Unknown” section on page 348. I got the following:</p>
+<div class="sourceCode" id="section-cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">critval &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>conf)<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> n <span class="dv">-1</span>)</a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb20-3" title="3">  <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>mn <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>ss<span class="op">/</span><span class="kw">sqrt</span>(n),</a>
+<a class="sourceLine" id="cb20-4" title="4">  <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>mn <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>ss<span class="op">/</span><span class="kw">sqrt</span>(n)</a>
+<a class="sourceLine" id="cb20-5" title="5">)</a></code></pre></div>
+<pre><code>##    lower    lower 
+## 502.0045 796.2749</code></pre>
+<p>Does this lead to different conclusions in practice than the bootstrap interval?</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="section-supplement-to-chapter-21.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
