@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2019-11-06" />
+<meta name="date" content="2019-11-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -203,6 +203,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-binomial-distribution"><i class="fa fa-check"></i><b>9.2.1</b> Binomial distribution</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
+<li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
+<li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
+<li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -245,11 +254,11 @@ illustrated on real data.</p>
 <a class="sourceLine" id="cb117-7" title="7"><span class="co"># </span></a>
 <a class="sourceLine" id="cb117-8" title="8"><span class="co"># Simulate with shape = 2 and rate = 1, so mean = 2 and variance = ? (exercise)</span></a>
 <a class="sourceLine" id="cb117-9" title="9"><span class="kw">rgamma</span>(<span class="dv">1</span>,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>)</a></code></pre></div>
-<pre><code>## [1] 1.340344</code></pre>
+<pre><code>## [1] 0.8394638</code></pre>
 <div class="sourceCode" id="section-cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1"><span class="co"># The first &quot;1&quot; in the call gives the number of values to simulate:</span></a>
 <a class="sourceLine" id="cb119-2" title="2"><span class="kw">rgamma</span>(<span class="dv">10</span>,<span class="dt">shape =</span> <span class="dv">2</span>,<span class="dt">rate =</span> <span class="dv">1</span>)</a></code></pre></div>
-<pre><code>##  [1] 2.1644507 0.7349027 6.0536174 1.0655849 2.3760052 7.8096707 3.6147887
-##  [8] 0.7908200 1.3570800 2.4763934</code></pre>
+<pre><code>##  [1] 5.1717443 3.4433016 2.3055071 1.1205534 2.7083110 1.8246335 1.8900560
+##  [8] 0.3998290 0.2514431 0.2035302</code></pre>
 <p>Plot the density of the gamma sample mean for various <span class="math inline">\(n\)</span>, recreating the left
 side of Figure 13.1:</p>
 <div class="sourceCode" id="section-cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" title="1"><span class="co"># Define a function to compute the density</span></a>

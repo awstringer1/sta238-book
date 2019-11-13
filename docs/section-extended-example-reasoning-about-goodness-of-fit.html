@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Extended Example: Reasoning About Goodness of Fit | STA238: Probability, Statistics, and Data Analysis</title>
+  <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Extended Example: Reasoning About Goodness of Fit | STA238: Probability, Statistics, and Data Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Extended Example: Reasoning About Goodness of Fit | STA238: Probability, Statistics, and Data Analysis" />
+  
+  <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+<meta name="author" content="Alison Gibbs and Alex Stringer" />
+
+
+<meta name="date" content="2019-11-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="section-supplement-to-chapter-23-and-24.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STA238 University of Toronto</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html"><i class="fa fa-check"></i><b>2</b> Supplement to Chapters 15 and 16</a><ul>
+<li class="chapter" data-level="2.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="2.1.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-numerical-summaries-ch-16"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries (Ch 16)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="2.2.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.4.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
+<li class="chapter" data-level="2.5.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
+<li class="chapter" data-level="2.5.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-iii-trends-in-quality-over-time"><i class="fa fa-check"></i><b>2.5.4</b> Analysis III: trends in quality over time</a></li>
+<li class="chapter" data-level="2.5.5" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-summary"><i class="fa fa-check"></i><b>2.5.5</b> Summary</a></li>
+<li class="chapter" data-level="2.5.6" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html"><i class="fa fa-check"></i><b>3</b> Supplement to Chapters 13 and 14</a><ul>
+<li class="chapter" data-level="3.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html"><i class="fa fa-check"></i><b>4</b> Supplement to Chapters 17 and 19</a><ul>
+<li class="chapter" data-level="4.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-janka-hardness-data"><i class="fa fa-check"></i><b>4.1.1</b> Janka Hardness data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-simulated-network-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated network data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-supplement-to-chapter-20.html"><a href="section-supplement-to-chapter-20.html"><i class="fa fa-check"></i><b>5</b> Supplement to Chapter 20</a><ul>
+<li class="chapter" data-level="5.1" data-path="section-supplement-to-chapter-20.html"><a href="section-supplement-to-chapter-20.html#section-efficiency-and-mean-square-error-chapter-20"><i class="fa fa-check"></i><b>5.1</b> Efficiency and Mean Square Error (Chapter 20)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html"><i class="fa fa-check"></i><b>6</b> Supplement to Evans &amp; Rosenthal Section 7.1</a><ul>
+<li class="chapter" data-level="6.1" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html#section-example-bayesian-coin-flipping"><i class="fa fa-check"></i><b>6.1</b> Example: Bayesian coin flipping</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html"><i class="fa fa-check"></i><b>7</b> Supplement to Chapter 18</a><ul>
+<li class="chapter" data-level="7.1" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-empirical-bootstrap-old-faithful-data"><i class="fa fa-check"></i><b>7.1.1</b> Empirical bootstrap: Old Faithful data</a></li>
+<li class="chapter" data-level="7.1.2" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-parametric-bootstrap-software-data"><i class="fa fa-check"></i><b>7.1.2</b> Parametric Bootstrap: software data</a></li>
+<li class="chapter" data-level="7.1.3" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-extended-example-the-standard-error-of-a-proportion"><i class="fa fa-check"></i><b>7.1.3</b> Extended example: the standard error of a proportion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html"><i class="fa fa-check"></i><b>8</b> Supplement to Chapter 21</a><ul>
+<li class="chapter" data-level="8.1" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
+<li class="chapter" data-level="8.1.2" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
+<li class="chapter" data-level="8.1.3" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
+<li class="chapter" data-level="8.1.4" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.1.4</b> Extended example: rental housing in Toronto</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html"><i class="fa fa-check"></i><b>9</b> Supplement to Chapter 23 and 24</a><ul>
+<li class="chapter" data-level="9.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-simulation"><i class="fa fa-check"></i><b>9.1.1</b> Simulation</a></li>
+<li class="chapter" data-level="9.1.2" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
+<li class="chapter" data-level="9.1.3" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-gross-calorific-value-measurements-for-daw-mill-258gb41"><i class="fa fa-check"></i><b>9.1.3</b> Gross calorific value measurements for Daw Mill 258GB41</a></li>
+<li class="chapter" data-level="9.1.4" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.4</b> Bootstrap Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-more-on-confidence-intervals-chapter-24"><i class="fa fa-check"></i><b>9.2</b> More on confidence intervals (Chapter 24)</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-binomial-distribution"><i class="fa fa-check"></i><b>9.2.1</b> Binomial distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
+<li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
+<li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
+<li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA238: Probability, Statistics, and Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section-extended-example-reasoning-about-goodness-of-fit" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Extended Example: Reasoning About Goodness of Fit</h1>
+<p>This chapter is a bit different: we introduce the idea of “goodness of fit” through
+implementing the analysis in a blog post discussing a disputed paper in a
+Psychology journal. You can find the article here: <a href="http://datacolada.org/74">http://datacolada.org/74</a></p>
+<div class="sourceCode" id="section-cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div id="section-go-and-read-the-blog-post" class="section level2">
+<h2><span class="header-section-number">10.1</span> Go and read the blog post</h2>
+<p>To start, go read this blog post: <a href="http://datacolada.org/74">http://datacolada.org/74</a>.
+This should take you at least an hour or so to do in detail, if not longer. It
+is a major part of this week’s materials, effectively replacing textbook readings.
+It is not optional, and will be tested on assignments and tests.</p>
+<p><strong>Exercise</strong>: summarize this study in your own words. Two or three sentences
+should suffice. What did they do, how did they do it, and what were they trying
+to find out? It is important that you understand this before you move on.</p>
+</div>
+<div id="section-distribution-of-last-digits" class="section level2">
+<h2><span class="header-section-number">10.2</span> Distribution of last digits</h2>
+<p>The distribution of digits in numeric data is of considerable interest in certain
+fields. In forensic accounting, where investigators try to identify fraudulent
+accounting practice by identifying systematic anomalies in financial records,
+the relative frequency with which different digits occur can indicate potential
+fraud if it differs from what you would expect. It is well-established that the
+last digit, in particular, of numeric data should be distributed pretty evenly
+between the numbers <span class="math inline">\(0 - 9\)</span> in any given set of data.</p>
+<p>So, let’s look at the last digit of the measurements from the hand sanitizer study.
+The data is available from <a href="http://datacolada.org/appendix/74/">http://datacolada.org/appendix/74/</a> and their <code>R</code> code can be found at <a href="http://datacolada.org/appendix/74/74%20-%20DataColada%20-%20Decoy%20Sanitizer%20-%202018%2008%2023.R">http://datacolada.org/appendix/74/74%20-%20DataColada%20-%20Decoy%20Sanitizer%20-%202018%2008%2023.R</a>. Here we
+use our own <code>R</code> code but I borrow parts from theirs.</p>
+<div id="section-read-in-the-data-1" class="section level3">
+<h3><span class="header-section-number">10.2.1</span> Read in the data</h3>
+<p>First, read in the data as usual:</p>
+<div class="sourceCode" id="section-cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" title="1">study1 &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb249-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;http://datacolada.org/appendix/74/Study%201%20-%20Decoy%20Effect.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb249-3" title="3">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb249-4" title="4">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">42</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb249-5" title="5">)</a>
+<a class="sourceLine" id="cb249-6" title="6"><span class="kw">glimpse</span>(study1)</a></code></pre></div>
+<pre><code>## Observations: 40
+## Variables: 42
+## $ Subject                                                   &lt;dbl&gt; 1, 2, …
+## $ `Group (1=experimental condition, 0 = control condition)` &lt;dbl&gt; 1, 1, …
+## $ Day1                                                      &lt;dbl&gt; 55, 60…
+## $ Day2                                                      &lt;dbl&gt; 45, 55…
+## $ Day3                                                      &lt;dbl&gt; 45, 55…
+## $ Day4                                                      &lt;dbl&gt; 40, 55…
+## $ Day5                                                      &lt;dbl&gt; 45, 50…
+## $ Day6                                                      &lt;dbl&gt; 45, 45…
+## $ Day7                                                      &lt;dbl&gt; 55, 45…
+## $ Day8                                                      &lt;dbl&gt; 60, 40…
+## $ Day9                                                      &lt;dbl&gt; 45, 40…
+## $ Day10                                                     &lt;dbl&gt; 67, 40…
+## $ Day11                                                     &lt;dbl&gt; 65, 56…
+## $ Day12                                                     &lt;dbl&gt; 70, 40…
+## $ Day13                                                     &lt;dbl&gt; 80, 40…
+## $ Day14                                                     &lt;dbl&gt; 75, 45…
+## $ Day15                                                     &lt;dbl&gt; 70, 50…
+## $ Day16                                                     &lt;dbl&gt; 80, 55…
+## $ Day17                                                     &lt;dbl&gt; 70, 55…
+## $ Day18                                                     &lt;dbl&gt; 75, 50…
+## $ Day19                                                     &lt;dbl&gt; 70, 45…
+## $ Day20                                                     &lt;dbl&gt; 65, 50…
+## $ `Day21 (Beginning of intervention)`                       &lt;dbl&gt; 85, 55…
+## $ Day22                                                     &lt;dbl&gt; 85, 75…
+## $ Day23                                                     &lt;dbl&gt; 90, 45…
+## $ Day24                                                     &lt;dbl&gt; 85, 60…
+## $ Day25                                                     &lt;dbl&gt; 75, 50…
+## $ Day26                                                     &lt;dbl&gt; 75, 50…
+## $ Day27                                                     &lt;dbl&gt; 65, 35…
+## $ Day28                                                     &lt;dbl&gt; 75, 55…
+## $ Day29                                                     &lt;dbl&gt; 75, 60…
+## $ Day30                                                     &lt;dbl&gt; 80, 55…
+## $ Day31                                                     &lt;dbl&gt; 75, 65…
+## $ Day32                                                     &lt;dbl&gt; 50, 45…
+## $ Day33                                                     &lt;dbl&gt; 70, 40…
+## $ Day34                                                     &lt;dbl&gt; 75, 55…
+## $ Day35                                                     &lt;dbl&gt; 65, 55…
+## $ Day36                                                     &lt;dbl&gt; 75, 60…
+## $ Day37                                                     &lt;dbl&gt; 70, 50…
+## $ Day38                                                     &lt;dbl&gt; 75, 45…
+## $ Day39                                                     &lt;dbl&gt; 90, 65…
+## $ Day40                                                     &lt;dbl&gt; 85, 70…</code></pre>
+<p><strong>Exercise</strong>: download the data by pasting the link into a web browser.
+Print out the header on the command line or open the <code>.csv</code> file in Excel or
+otherwise. Verify that the <code>col_names</code> and <code>col_types</code> arguments I provided
+are correct.</p>
+<p>The data is in “wide” format– each day has its own column. We want one column
+for subject ID, one for Day, and one for measurement. Let’s reformat the data:</p>
+<div class="sourceCode" id="section-cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1">study1_long &lt;-<span class="st"> </span>study1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb251-2" title="2"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(day,measurement,Day1<span class="op">:</span>Day40)</a>
+<a class="sourceLine" id="cb251-3" title="3"><span class="kw">glimpse</span>(study1_long)</a></code></pre></div>
+<pre><code>## Observations: 1,600
+## Variables: 4
+## $ Subject                                                   &lt;dbl&gt; 1, 2, …
+## $ `Group (1=experimental condition, 0 = control condition)` &lt;dbl&gt; 1, 1, …
+## $ day                                                       &lt;chr&gt; &quot;Day1&quot;…
+## $ measurement                                               &lt;dbl&gt; 55, 60…</code></pre>
+<p>We previously had <span class="math inline">\(40\)</span> subjects each with <span class="math inline">\(40\)</span> columns of measurements; now we
+have <span class="math inline">\(1,600\)</span> rows, which looks good to me. Let’s further clean up the data: we
+need to</p>
+<ol style="list-style-type: decimal">
+<li>Rename the colums so they are pleasant (yes, this is important!),</li>
+<li>Extract the last digit of each measurement and save it in a new column.</li>
+</ol>
+<p>Let’s do this. We’ll use the <code>substr</code> function to choose the last digit of each
+number. Type <code>?substr</code> to learn about this function.</p>
+<div class="sourceCode" id="section-cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" title="1">study1_clean &lt;-<span class="st"> </span>study1_long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb253-2" title="2"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">subject =</span> Subject,</a>
+<a class="sourceLine" id="cb253-3" title="3">         <span class="dt">group =</span> <span class="st">`</span><span class="dt">Group (1=experimental condition, 0 = control condition)</span><span class="st">`</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb253-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">last_digit =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(measurement,<span class="kw">nchar</span>(measurement),<span class="kw">nchar</span>(measurement))))</a>
+<a class="sourceLine" id="cb253-5" title="5"></a>
+<a class="sourceLine" id="cb253-6" title="6"><span class="kw">glimpse</span>(study1_clean)</a></code></pre></div>
+<pre><code>## Observations: 1,600
+## Variables: 5
+## $ subject     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1…
+## $ group       &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+## $ day         &lt;chr&gt; &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day…
+## $ measurement &lt;dbl&gt; 55, 60, 63, 55, 60, 60, 35, 55, 45, 75, 50, 70, 60, …
+## $ last_digit  &lt;dbl&gt; 5, 0, 3, 5, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 5, 0, 0, 0…</code></pre>
+<p>Looks clean to me!</p>
+</div>
+<div id="section-make-the-histogram" class="section level3">
+<h3><span class="header-section-number">10.2.2</span> Make the histogram</h3>
+<p>Okay, now consider Figure 1 in the blog post. They filter out observations not
+ending in <span class="math inline">\(0\)</span> or <span class="math inline">\(5\)</span>, because the authors of the disputed paper claim to have
+occasionally used a scale with <span class="math inline">\(5\)</span>-gram precision, and occasionally one with
+<span class="math inline">\(1\)</span>-gram precision (this alone is suspect…). They then make a histogram
+of all the last digits. We can do this too:</p>
+<div class="sourceCode" id="section-cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" title="1">study1_clean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb255-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">5</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb255-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> last_digit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb255-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb255-5" title="5"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb255-6" title="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb255-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Study 1: Last digit strikingly not uniform&quot;</span>,</a>
+<a class="sourceLine" id="cb255-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Last Digit (0&#39;s and 5&#39;s removed)&quot;</span>,</a>
+<a class="sourceLine" id="cb255-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Frequency&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/digits-hist-1-1.png" width="672" /></p>
+<p>I called this plot a “histogram” (which it is), but I used <code>geom_bar(stat = &quot;count&quot;)</code> to create
+it. I did this because I wanted the bins to be at specific values. It’s still a histogram (why?).</p>
+</div>
+<div id="section-testing-goodness-of-fit-simulation" class="section level3">
+<h3><span class="header-section-number">10.2.3</span> Testing goodness of fit: simulation</h3>
+<p>If you expect the last digits of a set of numbers to be evenly-distributed across
+the values <span class="math inline">\(0 - 9\)</span>, then this plot might look surprising. But can we conclude
+that something is wrong, just by looking at a plot? What if the real underlying
+distribution of digits is actually evenly-distributed, and we just got a weird
+sample– we’d be making an incorrect harsh judgement.</p>
+<p>We’re going to ask the question: <strong>if the underlying distribution of last digits
+really was evenly distributed, what is the probability of seeing the data that
+we saw, or a dataset that is even more extreme under this hypothesis?</strong>.</p>
+<p>That’s a mouthful! But it’s a good question to ask. If it’s really, really unlikely
+that we see what we saw (or something even further) if the claim of even distribution
+is true, then this provides <strong>evidence</strong> against the notion that the digits are
+actually evenly distributed. And this provides evidence that there is something
+funny in the data.</p>
+<p>We are going to do a simulation to investigate this claim. We are going to</p>
+<ol style="list-style-type: decimal">
+<li>Generate a bunch of datasets the same size as ours but where the distribution of the last digit
+actually is evenly distributed across <span class="math inline">\(0 - 9\)</span>, and</li>
+<li>Record the proportion of digits in each that are <span class="math inline">\(3\)</span> or <span class="math inline">\(7\)</span>, and</li>
+<li>Compute the proportion of our simulated datasets that have a proportion
+of 3’s or 7’s as high, or higher, as what we saw in our sample.</li>
+</ol>
+<p>There are a few details that we can’t get exactly right here: the real data was
+generated by sampling a bunch of values that ended in <span class="math inline">\(0&#39;s\)</span> or <span class="math inline">\(5&#39;s\)</span> and then filtering
+these out, which is behaviour that I don’t know how to replicate exactly. We also
+could consider the distribution of <span class="math inline">\(3&#39;s\)</span> and <span class="math inline">\(7&#39;s\)</span> separately, or jointly (using
+“and” instead of “or”). I order to keep this idea simple and big-picture, we’re
+going to ignore these details here.</p>
+<p>The first question is, how do we generate data that has last digits evenly distributed?
+Well, <em>any</em> random numbers should work, but to keep things consistent with the real
+data, let’s try generating from a normal distribution with mean and variance equal
+to the sample mean and variance of our data, rounded to the nearest integer:</p>
+<div class="sourceCode" id="section-cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(study1_clean<span class="op">$</span>measurement)</a>
+<a class="sourceLine" id="cb256-2" title="2">ss &lt;-<span class="st"> </span><span class="kw">sd</span>(study1_clean<span class="op">$</span>measurement)</a>
+<a class="sourceLine" id="cb256-3" title="3">testnumbers &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>,mn,ss))</a>
+<a class="sourceLine" id="cb256-4" title="4"><span class="co"># Plot a chart of the last digits</span></a>
+<a class="sourceLine" id="cb256-5" title="5"><span class="kw">tibble</span>(<span class="dt">x =</span> testnumbers) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-6" title="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">last_digit =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(x,<span class="kw">nchar</span>(x),<span class="kw">nchar</span>(x)))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> last_digit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb256-8" title="8"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb256-9" title="9"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb256-10" title="10"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb256-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Last digits of normal random sample&quot;</span>,</a>
+<a class="sourceLine" id="cb256-12" title="12">       <span class="dt">x =</span> <span class="st">&quot;Last Digit&quot;</span>,</a>
+<a class="sourceLine" id="cb256-13" title="13">       <span class="dt">y =</span> <span class="st">&quot;Frequency&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/even-dist-1-1.png" width="672" /></p>
+<p>Looks pretty uniform to me! Let’s proceed with our simulation:</p>
+<div class="sourceCode" id="section-cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" title="1"><span class="kw">set.seed</span>(<span class="dv">789685</span>)</a>
+<a class="sourceLine" id="cb257-2" title="2"><span class="co"># Create a function that simulates a dataset</span></a>
+<a class="sourceLine" id="cb257-3" title="3"><span class="co"># and returns the proportion of last digits</span></a>
+<a class="sourceLine" id="cb257-4" title="4"><span class="co"># that are either 3 or 7</span></a>
+<a class="sourceLine" id="cb257-5" title="5">N &lt;-<span class="st"> </span><span class="kw">nrow</span>(study1_clean <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>)))) <span class="co"># Size of dataset to simulate</span></a>
+<a class="sourceLine" id="cb257-6" title="6">B &lt;-<span class="st"> </span><span class="fl">1e04</span> <span class="co"># Number of simulations to do- 1 million (!)</span></a>
+<a class="sourceLine" id="cb257-7" title="7">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(study1_clean<span class="op">$</span>measurement)</a>
+<a class="sourceLine" id="cb257-8" title="8">ss &lt;-<span class="st"> </span><span class="kw">sd</span>(study1_clean<span class="op">$</span>measurement)</a>
+<a class="sourceLine" id="cb257-9" title="9">simulate_proportion &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb257-10" title="10">  ds &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(N,mn,ss))</a>
+<a class="sourceLine" id="cb257-11" title="11">  last_digits &lt;-<span class="st"> </span><span class="kw">substr</span>(ds,<span class="kw">nchar</span>(ds),<span class="kw">nchar</span>(ds))</a>
+<a class="sourceLine" id="cb257-12" title="12">  <span class="kw">mean</span>(last_digits <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;3&quot;</span>,<span class="st">&quot;7&quot;</span>))</a>
+<a class="sourceLine" id="cb257-13" title="13">}</a>
+<a class="sourceLine" id="cb257-14" title="14"><span class="co"># What is the proportion of 3&#39;s and 7&#39;s in our data,</span></a>
+<a class="sourceLine" id="cb257-15" title="15"><span class="co"># after filtering out 5&#39;s and 0&#39;s?</span></a>
+<a class="sourceLine" id="cb257-16" title="16">study_proportion &lt;-<span class="st"> </span>study1_clean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb257-17" title="17"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb257-18" title="18"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">7</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb257-19" title="19"><span class="st">  </span><span class="kw">pull</span>(p) </a>
+<a class="sourceLine" id="cb257-20" title="20">study_proportion</a></code></pre></div>
+<pre><code>## [1] 0.8814815</code></pre>
+<div class="sourceCode" id="section-cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" title="1"><span class="co"># 88.1%. Wow.</span></a>
+<a class="sourceLine" id="cb259-2" title="2"></a>
+<a class="sourceLine" id="cb259-3" title="3"><span class="co"># Perform the simulation:</span></a>
+<a class="sourceLine" id="cb259-4" title="4">sim_results &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-5" title="5"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">simulate_proportion</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-6" title="6"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">as.numeric</span>(.x <span class="op">&gt;=</span><span class="st"> </span>study_proportion)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-7" title="7"><span class="st">  </span><span class="kw">reduce</span>(c)</a>
+<a class="sourceLine" id="cb259-8" title="8"></a>
+<a class="sourceLine" id="cb259-9" title="9"><span class="co"># This is a vector of 0/1 which says whether each simulation&#39;s proportion of</span></a>
+<a class="sourceLine" id="cb259-10" title="10"><span class="co"># 3&#39;s and 7&#39;s exceeded the study proportion. Its mean is the simulated probability</span></a>
+<a class="sourceLine" id="cb259-11" title="11"><span class="co"># of seeing what we saw in the study, if the digits are actually evenly distributed:</span></a>
+<a class="sourceLine" id="cb259-12" title="12"><span class="kw">mean</span>(sim_results)</a></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="section-cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" title="1"><span class="co"># Okay... how many?</span></a>
+<a class="sourceLine" id="cb261-2" title="2"><span class="kw">sum</span>(sim_results)</a></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>In <span class="math inline">\(B = 10,000\)</span> simulations, I didn’t even get a single dataset that was as extreme
+as ours. This provides strong evidence against the notion that the digits are, in
+fact, evenly distributed.</p>
+<p><strong>Exercise</strong>: how many simulations do you need before you get even one that is as
+extreme as our dataset?</p>
+</div>
+<div id="section-testing-goodness-of-fit-math" class="section level3">
+<h3><span class="header-section-number">10.2.4</span> Testing goodness of fit: math</h3>
+<p>We may also use mathematics and statistical modelling to answer the question:
+<strong>if the underlying distribution of last digits
+really was evenly distributed, what is the probability of seeing the data that
+we saw, or a dataset that is even more extreme under this hypothesis?</strong>.</p>
+<p>We do this in a clever way: we construct a statistical model that represents the
+truth, <em>if</em> the truth is what we say it is. Namely, we will define a probability
+distribution that <em>should</em> represent the distribution of the last digits of our
+measurements, <em>if</em> the last digits are evenly distributed. We then see how probable
+our data is under this model. If, under this model, it is very unlikely to see
+a dataset like ours, then this provides evidence that the model isn’t representative
+of the truth. And since the model was built under the premise that the digits are
+evenly distributed, a lack of fit of the model to the observed data provides
+evidence against the notion that the digits are evenly distributed.</p>
+<p>Let’s develop a model. Define <span class="math inline">\(y_{ij} = 1\)</span> if the last digit of the <span class="math inline">\(i^{th}\)</span> measurement
+equals <span class="math inline">\(j\)</span>, for <span class="math inline">\(j \in J = \left\{1,2,3,4,6,7,8,9\right\}\)</span>, and equals <span class="math inline">\(0\)</span> otherwise. So for example,
+if the <span class="math inline">\(i^{th}\)</span> measurement is <span class="math inline">\(42\)</span> then <span class="math inline">\(y_{i1} = 0\)</span> and <span class="math inline">\(y_{i2} = 1\)</span> and <span class="math inline">\(y_{i3} = 0\)</span>
+and so on. Define <span class="math inline">\(y_{i} = (y_{i1},\ldots,y_{i9})\)</span>, a vector containing all zeroes
+except for exactly one <span class="math inline">\(1\)</span>. Then the <span class="math inline">\(y_{i}\)</span> are independent draws from a <strong>Multinomial</strong>
+distribution, <span class="math inline">\(y_{i}\overset{iid}{\sim}\text{Multinomial}(1,p_{1},\ldots,p_{9})\)</span>,
+with <span class="math inline">\(\mathbb{E}(y_{ij}) = \mathbb{P}(y_{ij} = 1) = p_{j}\)</span> and <span class="math inline">\(\sum_{j\in J}p_{j} = 1\)</span>.
+The vectors <span class="math inline">\(y_{i}\)</span> have the following (joint) density function:
+<span class="math display">\[\begin{equation}
+\mathbb{P}(y_{i} = (y_{i1},\ldots,y_{i9})) = p_{1}^{y_{i1}}\times\cdots\times p_{9}^{y_{i9}}
+\end{equation}\]</span>
+The multinomial is the generalization of the binomial/bernoulli to multiple possible
+outcomes on each trial. If the bernoulli is thought of as flipping a coin (two possible
+outcomes), then the multinomial should be thought of as rolling a die (six possible outcomes).</p>
+<p>How does this help us answer the question? If the digits are actually evenly distributed,
+then this means <span class="math inline">\(p_{1} = \cdots = p_{9} = 1/8\)</span> (why?).</p>
+<p>However, the data might tell us something different. We estimate the <span class="math inline">\(p_{j}\)</span> from
+out data <span class="math inline">\(y_{1},\ldots,y_{n}\)</span> by computing the maximum likelihood estimator:
+<span class="math display">\[\begin{equation}
+\hat{p}_{j} \ \frac{1}{n}\sum_{i=1}^{n}y_{ij}
+\end{equation}\]</span>
+which are simply the sample proportions of digits that equal each value of <span class="math inline">\(j\)</span>.</p>
+<p>We assess how close the MLEs are to what the true values <em>ought</em> to be using the
+<strong>likelihood ratio</strong>. For <span class="math inline">\(p_{0} = (1/8,\ldots,1/8)\)</span>, <span class="math inline">\(\hat{p} = (\hat{p}_{1},\ldots,\hat{p}_{9})\)</span>,
+and <span class="math inline">\(L(\cdot)\)</span> the likelihood based off of the multinomial density,
+<span class="math display">\[\begin{equation}
+\Lambda = \frac{L(p_{0})}{L(\hat{p})}
+\end{equation}\]</span>
+Remember the definition of the likelihood, for discrete data: for any <span class="math inline">\(p\)</span>, <span class="math inline">\(L(p)\)</span> is the relative
+frequency with which the observed data would be seen in repeated sampling, if the true
+parameter value were <span class="math inline">\(p\)</span>. The likelihood ratio <span class="math inline">\(\Lambda\)</span> is the ratio of how often
+our data would be seen if <span class="math inline">\(p = p_{0}\)</span>, against how often it would be seen if <span class="math inline">\(p = \hat{p}\)</span>.
+If <span class="math inline">\(\Lambda = 0.5\)</span>, for example, that means that our data would occur half as often
+if <span class="math inline">\(p = p_{0}\)</span>, compared to if <span class="math inline">\(p = \hat{p}\)</span>. Note that <span class="math inline">\(0 &lt; \Lambda \leq 1\)</span> (why?).</p>
+<p>Lower values of <span class="math inline">\(\Lambda\)</span> mean that there is stronger evidence <em>against</em> the notion
+that <span class="math inline">\(p_{0}\)</span> is a plausible value for <span class="math inline">\(p\)</span>– that is, that the digits are evenly
+distributed. But how do we quantify how much less likely is less likely enough?
+Here is where our previous question comes back. We ask: <strong>if the digits were
+evenly distributed, what is the probability of seeing the data we saw, or something
+with an even more extreme distribution of digits</strong>? To compute this, we need to
+be able to compute probabilities involving <span class="math inline">\(\Lambda\)</span>.</p>
+<p>It turns out that using <span class="math inline">\(\Lambda\)</span> is very clever, because well, we can do this.
+There is a Big Theorem which states that if <span class="math inline">\(p\in\mathbb{R}^{d}\)</span> and <span class="math inline">\(p = p_{0}\)</span>,
+<span class="math display">\[\begin{equation}
+-2\log\Lambda \overset{\cdot}{\sim} \chi_{d-1}^{2}
+\end{equation}\]</span>
+So, if the digits are evenly distributed, then <em>our</em> value of <span class="math inline">\(-2\log\Lambda\)</span> should
+be a realization of a <span class="math inline">\(\chi^{2}_{7}\)</span> random variable. We therefore compute
+<span class="math display">\[\begin{equation}
+\nu = \mathbb{P}\left(\chi^{2}_{7} \geq -2\log\Lambda\right)
+\end{equation}\]</span>
+The quantity <span class="math inline">\(\nu\)</span> is the probability of observing a distribution of digits
+as or more extreme than the one we observed in our data, <em>if the distribution
+of digits truly is even</em>. It’s called a <strong>p-value</strong>, and it’s one helpful
+summary statistic in problems where the research question concerns comparing
+observations to some sort of reference, like we’re doing here.</p>
+<p>Let’s compute the likelihood ratio for our data:</p>
+<div class="sourceCode" id="section-cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" title="1"><span class="co"># Compute the MLEs</span></a>
+<a class="sourceLine" id="cb263-2" title="2">study1_filtered &lt;-<span class="st"> </span>study1_clean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb263-3" title="3"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>))) <span class="co"># Should have done this before...</span></a>
+<a class="sourceLine" id="cb263-4" title="4">pmledat &lt;-<span class="st"> </span>study1_filtered <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb263-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(last_digit) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb263-6" title="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">cnt =</span> <span class="kw">n</span>(),</a>
+<a class="sourceLine" id="cb263-7" title="7">            <span class="dt">pp =</span> <span class="kw">n</span>() <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(study1_filtered))</a>
+<a class="sourceLine" id="cb263-8" title="8"></a>
+<a class="sourceLine" id="cb263-9" title="9">obsvec &lt;-<span class="st"> </span>pmledat<span class="op">$</span>cnt</a>
+<a class="sourceLine" id="cb263-10" title="10"><span class="kw">names</span>(obsvec) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</a>
+<a class="sourceLine" id="cb263-11" title="11"></a>
+<a class="sourceLine" id="cb263-12" title="12">pmle &lt;-<span class="st"> </span>pmledat<span class="op">$</span>pp</a>
+<a class="sourceLine" id="cb263-13" title="13"><span class="kw">names</span>(pmle) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</a>
+<a class="sourceLine" id="cb263-14" title="14">pmle</a></code></pre></div>
+<pre><code>##           2           3           4           6           7           8 
+## 0.007407407 0.525925926 0.014814815 0.022222222 0.355555556 0.051851852 
+##           9 
+## 0.022222222</code></pre>
+<div class="sourceCode" id="section-cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="co"># Truth, if digits evenly distributed</span></a>
+<a class="sourceLine" id="cb265-2" title="2">p0 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(pmle)) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(pmle)</a>
+<a class="sourceLine" id="cb265-3" title="3"><span class="kw">names</span>(p0) &lt;-<span class="st"> </span><span class="kw">names</span>(pmle)</a>
+<a class="sourceLine" id="cb265-4" title="4">p0</a></code></pre></div>
+<pre><code>##         2         3         4         6         7         8         9 
+## 0.1428571 0.1428571 0.1428571 0.1428571 0.1428571 0.1428571 0.1428571</code></pre>
+<div class="sourceCode" id="section-cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1"><span class="co"># Compute minus twice the likelihood ratio</span></a>
+<a class="sourceLine" id="cb267-2" title="2">multinom_log_likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(x,p) {</a>
+<a class="sourceLine" id="cb267-3" title="3">  <span class="co"># x: named vector where the name is j and the value is the count of </span></a>
+<a class="sourceLine" id="cb267-4" title="4">  <span class="co"># times y_ij = 1 in the sample</span></a>
+<a class="sourceLine" id="cb267-5" title="5">  <span class="co"># p: named vector with names equal to the unique values of x,</span></a>
+<a class="sourceLine" id="cb267-6" title="6">  <span class="co"># containing probabilities of each</span></a>
+<a class="sourceLine" id="cb267-7" title="7">  <span class="kw">sum</span>(x <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(p[<span class="kw">names</span>(x)]))</a>
+<a class="sourceLine" id="cb267-8" title="8">}</a>
+<a class="sourceLine" id="cb267-9" title="9"></a>
+<a class="sourceLine" id="cb267-10" title="10">lr &lt;-<span class="st"> </span><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span>(<span class="kw">multinom_log_likelihood</span>(obsvec,p0) <span class="op">-</span><span class="st"> </span><span class="kw">multinom_log_likelihood</span>(obsvec,pmle))</a>
+<a class="sourceLine" id="cb267-11" title="11">lr</a></code></pre></div>
+<pre><code>## [1] 221.1061</code></pre>
+<div class="sourceCode" id="section-cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1"><span class="co"># Compute the probability that a chisquare random variable is greater than this</span></a>
+<a class="sourceLine" id="cb269-2" title="2"><span class="co"># value:</span></a>
+<a class="sourceLine" id="cb269-3" title="3"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pchisq</span>(lr,<span class="dt">df =</span> <span class="kw">length</span>(pmle) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># zero.</span></a></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p><strong>Exercise</strong>: write your own function to implement the multinomial loglikelihood,
+using the <code>dmultinom</code> function and a <code>for</code> loop. Compare your results to mine.</p>
+<p>We would interpret this result as: the observed data provides strong evidence against the notion
+that the digits are evenly distributed.</p>
+<p>The fact that there is essentially <em>zero chance</em> of seeing what we saw if our
+claim that the digits are evenly distributed agrees with our simulation. We just
+did some statistical forensics! Pretty cool. This type of reasoning is abundant
+in the scientific literature, as are these p-value things. They are useful, but
+we want you, as stats majors and specialists, to leave this course understanding
+than statistics is so very much more than just a ritual or toolbox!</p>
+<p><strong>Exercise</strong>:</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="section-supplement-to-chapter-23-and-24.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

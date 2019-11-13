@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2019-11-06" />
+<meta name="date" content="2019-11-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="section-supplement-to-chapter-21.html"/>
-
+<link rel="next" href="section-extended-example-reasoning-about-goodness-of-fit.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -201,6 +201,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="9.2" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-more-on-confidence-intervals-chapter-24"><i class="fa fa-check"></i><b>9.2</b> More on confidence intervals (Chapter 24)</a><ul>
 <li class="chapter" data-level="9.2.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-binomial-distribution"><i class="fa fa-check"></i><b>9.2.1</b> Binomial distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
+<li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
+<li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
+<li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -464,22 +473,46 @@ compute the confidence interval for each, and then assess whether it contains
 the true value <span class="math inline">\(p_{0} = .3\)</span>. The proportion of intervals in our <span class="math inline">\(B\)</span> bootstrap samples
 that contain the true value is the bootstrapped estimate of the interval’s coverage
 probability.</p>
+<div class="sourceCode" id="section-cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1"><span class="kw">set.seed</span>(<span class="dv">8798</span>)</a>
+<a class="sourceLine" id="cb245-2" title="2">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb245-3" title="3">n &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb245-4" title="4">p0 &lt;-<span class="st"> </span><span class="fl">.3</span></a>
+<a class="sourceLine" id="cb245-5" title="5"></a>
+<a class="sourceLine" id="cb245-6" title="6"><span class="co"># Simulate B values from a binomial distribution:</span></a>
+<a class="sourceLine" id="cb245-7" title="7">samps &lt;-<span class="st"> </span><span class="kw">rbinom</span>(B,n,p0)</a>
+<a class="sourceLine" id="cb245-8" title="8"></a>
+<a class="sourceLine" id="cb245-9" title="9"><span class="co"># Write a function for computing the interval for each X</span></a>
+<a class="sourceLine" id="cb245-10" title="10"><span class="co"># I am going to use a numerical root-finding program</span></a>
+<a class="sourceLine" id="cb245-11" title="11"><span class="co"># You will replace this part with the formula you derived</span></a>
+<a class="sourceLine" id="cb245-12" title="12"><span class="co"># in the previous exercise</span></a>
+<a class="sourceLine" id="cb245-13" title="13">compute_interval &lt;-<span class="st"> </span><span class="cf">function</span>(X) {</a>
+<a class="sourceLine" id="cb245-14" title="14">  optfun &lt;-<span class="st"> </span><span class="cf">function</span>(p) <span class="kw">the_quadratic</span>(p,X,<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb245-15" title="15">  rootSolve<span class="op">::</span><span class="kw">uniroot.all</span>(optfun,<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb245-16" title="16">}</a>
+<a class="sourceLine" id="cb245-17" title="17"></a>
+<a class="sourceLine" id="cb245-18" title="18"><span class="co"># Do the bootstrap</span></a>
+<a class="sourceLine" id="cb245-19" title="19">samps <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb245-20" title="20"><span class="st">  </span><span class="kw">map</span>(compute_interval) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Compute the interval for each sample</span></a>
+<a class="sourceLine" id="cb245-21" title="21"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">as.numeric</span>(.x[<span class="dv">1</span>] <span class="op">&lt;</span><span class="st"> </span>p0 <span class="op">&amp;</span><span class="st"> </span>.x[<span class="dv">2</span>] <span class="op">&gt;</span><span class="st"> </span>p0)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Create a 0/1 indicator of whether the interval contains p0</span></a>
+<a class="sourceLine" id="cb245-22" title="22"><span class="st">  </span><span class="kw">reduce</span>(c) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Combine the results in a vector</span></a>
+<a class="sourceLine" id="cb245-23" title="23"><span class="st">  </span><span class="kw">mean</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># The proportion of 1&#39;s (the mean) is the proportion of intervals which contained the true value, i.e. the coverage probability</span></a>
+<a class="sourceLine" id="cb245-24" title="24"><span class="st">  </span>scales<span class="op">::</span><span class="kw">percent</span>() <span class="co"># Format as a percentage</span></a></code></pre></div>
 <pre><code>## [1] &quot;92.3%&quot;</code></pre>
 <p><strong>Exercise</strong>: I put the above procedure into a function:</p>
-<div class="sourceCode" id="section-cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1">bootstrap_coverage &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">B =</span> <span class="dv">1000</span>,<span class="dt">n =</span> <span class="dv">10</span>,<span class="dt">p0 =</span> <span class="fl">.3</span>) {</a>
-<a class="sourceLine" id="cb246-2" title="2">  samps &lt;-<span class="st"> </span><span class="kw">rbinom</span>(B,n,p0)</a>
-<a class="sourceLine" id="cb246-3" title="3">  </a>
-<a class="sourceLine" id="cb246-4" title="4">  compute_interval &lt;-<span class="st"> </span><span class="cf">function</span>(X) {</a>
-<a class="sourceLine" id="cb246-5" title="5">    optfun &lt;-<span class="st"> </span><span class="cf">function</span>(p) <span class="kw">the_quadratic</span>(p,X,<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb246-6" title="6">    rootSolve<span class="op">::</span><span class="kw">uniroot.all</span>(optfun,<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb246-7" title="7">  }</a>
-<a class="sourceLine" id="cb246-8" title="8">  </a>
-<a class="sourceLine" id="cb246-9" title="9">  samps <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb246-10" title="10"><span class="st">  </span><span class="kw">map</span>(compute_interval) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb246-11" title="11"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">as.numeric</span>(.x[<span class="dv">1</span>] <span class="op">&lt;</span><span class="st"> </span>p0 <span class="op">&amp;</span><span class="st"> </span>.x[<span class="dv">2</span>] <span class="op">&gt;</span><span class="st"> </span>p0)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb246-12" title="12"><span class="st">  </span><span class="kw">reduce</span>(c) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb246-13" title="13"><span class="st">  </span><span class="kw">mean</span>()</a>
-<a class="sourceLine" id="cb246-14" title="14">}</a></code></pre></div>
+<div class="sourceCode" id="section-cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" title="1">bootstrap_coverage &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">B =</span> <span class="dv">1000</span>,<span class="dt">n =</span> <span class="dv">10</span>,<span class="dt">p0 =</span> <span class="fl">.3</span>) {</a>
+<a class="sourceLine" id="cb247-2" title="2">  samps &lt;-<span class="st"> </span><span class="kw">rbinom</span>(B,n,p0)</a>
+<a class="sourceLine" id="cb247-3" title="3">  </a>
+<a class="sourceLine" id="cb247-4" title="4">  compute_interval &lt;-<span class="st"> </span><span class="cf">function</span>(X) {</a>
+<a class="sourceLine" id="cb247-5" title="5">    optfun &lt;-<span class="st"> </span><span class="cf">function</span>(p) <span class="kw">the_quadratic</span>(p,X,<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb247-6" title="6">    rootSolve<span class="op">::</span><span class="kw">uniroot.all</span>(optfun,<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb247-7" title="7">  }</a>
+<a class="sourceLine" id="cb247-8" title="8">  </a>
+<a class="sourceLine" id="cb247-9" title="9">  samps <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb247-10" title="10"><span class="st">  </span><span class="kw">map</span>(compute_interval) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb247-11" title="11"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">as.numeric</span>(.x[<span class="dv">1</span>] <span class="op">&lt;</span><span class="st"> </span>p0 <span class="op">&amp;</span><span class="st"> </span>.x[<span class="dv">2</span>] <span class="op">&gt;</span><span class="st"> </span>p0)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb247-12" title="12"><span class="st">  </span><span class="kw">reduce</span>(c) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb247-13" title="13"><span class="st">  </span><span class="kw">mean</span>()</a>
+<a class="sourceLine" id="cb247-14" title="14">}</a></code></pre></div>
 <p>Run this function many times and make a histogram of the results. You can use
 <code>myruns &lt;- 1:1000 %&gt;% map(bootstrap_coverage) %&gt;% reduce(c)</code> to do this, and then
 refer to previous code for how to make the histogram. What value is in the centre?
@@ -493,8 +526,8 @@ Is the stated coverage probability accurate?</p>
           </div>
         </div>
       </div>
-<a href="section-supplement-to-chapter-21.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="section-supplement-to-chapter-21.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-extended-example-reasoning-about-goodness-of-fit.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

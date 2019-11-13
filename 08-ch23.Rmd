@@ -286,7 +286,7 @@ the true value $p_{0} = .3$. The proportion of intervals in our $B$ bootstrap sa
 that contain the true value is the bootstrapped estimate of the interval's coverage
 probability.
 
-```{r boot-3,echo = FALSE}
+```{r boot-3}
 set.seed(8798)
 B <- 1000
 n <- 10

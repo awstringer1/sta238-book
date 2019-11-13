@@ -29,4 +29,4 @@ measured statements about the data on hand (*descriptive statistics*); how to
 use the data on hand to make statements about the underlying world, and how to
 quantify the uncertainty in your statements (*inferential statistics*), and how
 to use the data on hand to make judgements, with uncertainty quantification,
-about what data you will see next (*predective statistics*).
+about what data you will see next (*predictive statistics*).
