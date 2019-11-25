@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 Supplement to Evans &amp; Rosenthal Section 7.2 | STA238: Probability, Statistics, and Data Analysis</title>
+  <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 Supplement to Evans &amp; Rosenthal Section 7.2 | STA238: Probability, Statistics, and Data Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Supplement to Evans &amp; Rosenthal Section 7.2 | STA238: Probability, Statistics, and Data Analysis" />
+  
+  <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+<meta name="author" content="Alison Gibbs and Alex Stringer" />
+
+
+<meta name="date" content="2019-11-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="section-extended-example-reasoning-about-goodness-of-fit.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STA238 University of Toronto</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html"><i class="fa fa-check"></i><b>2</b> Supplement to Chapters 15 and 16</a><ul>
+<li class="chapter" data-level="2.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="2.1.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-numerical-summaries-ch-16"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries (Ch 16)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="2.2.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.4.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
+<li class="chapter" data-level="2.5.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
+<li class="chapter" data-level="2.5.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-iii-trends-in-quality-over-time"><i class="fa fa-check"></i><b>2.5.4</b> Analysis III: trends in quality over time</a></li>
+<li class="chapter" data-level="2.5.5" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-summary"><i class="fa fa-check"></i><b>2.5.5</b> Summary</a></li>
+<li class="chapter" data-level="2.5.6" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html"><i class="fa fa-check"></i><b>3</b> Supplement to Chapters 13 and 14</a><ul>
+<li class="chapter" data-level="3.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html"><i class="fa fa-check"></i><b>4</b> Supplement to Chapters 17 and 19</a><ul>
+<li class="chapter" data-level="4.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-janka-hardness-data"><i class="fa fa-check"></i><b>4.1.1</b> Janka Hardness data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-simulated-network-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated network data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-supplement-to-chapter-20.html"><a href="section-supplement-to-chapter-20.html"><i class="fa fa-check"></i><b>5</b> Supplement to Chapter 20</a><ul>
+<li class="chapter" data-level="5.1" data-path="section-supplement-to-chapter-20.html"><a href="section-supplement-to-chapter-20.html#section-efficiency-and-mean-square-error-chapter-20"><i class="fa fa-check"></i><b>5.1</b> Efficiency and Mean Square Error (Chapter 20)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html"><i class="fa fa-check"></i><b>6</b> Supplement to Evans &amp; Rosenthal Section 7.1</a><ul>
+<li class="chapter" data-level="6.1" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html#section-frequentistlikelihood-perspective"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist/Likelihood Perspective</a></li>
+<li class="chapter" data-level="6.1.2" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html#section-bayesian-inference-introduction"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Inference: introduction</a></li>
+<li class="chapter" data-level="6.1.3" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html#section-flipping-more-coins"><i class="fa fa-check"></i><b>6.1.3</b> Flipping More Coins</a></li>
+<li class="chapter" data-level="6.1.4" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html#section-visualization"><i class="fa fa-check"></i><b>6.1.4</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html#section-interactive-app"><i class="fa fa-check"></i><b>6.2</b> Interactive App</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html"><i class="fa fa-check"></i><b>7</b> Supplement to Chapter 18</a><ul>
+<li class="chapter" data-level="7.1" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-empirical-bootstrap-old-faithful-data"><i class="fa fa-check"></i><b>7.1.1</b> Empirical bootstrap: Old Faithful data</a></li>
+<li class="chapter" data-level="7.1.2" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-parametric-bootstrap-software-data"><i class="fa fa-check"></i><b>7.1.2</b> Parametric Bootstrap: software data</a></li>
+<li class="chapter" data-level="7.1.3" data-path="section-supplement-to-chapter-18.html"><a href="section-supplement-to-chapter-18.html#section-extended-example-the-standard-error-of-a-proportion"><i class="fa fa-check"></i><b>7.1.3</b> Extended example: the standard error of a proportion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html"><i class="fa fa-check"></i><b>8</b> Supplement to Chapter 21</a><ul>
+<li class="chapter" data-level="8.1" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
+<li class="chapter" data-level="8.1.2" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
+<li class="chapter" data-level="8.1.3" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
+<li class="chapter" data-level="8.1.4" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.1.4</b> Extended example: rental housing in Toronto</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html"><i class="fa fa-check"></i><b>9</b> Supplement to Chapter 23 and 24</a><ul>
+<li class="chapter" data-level="9.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-simulation"><i class="fa fa-check"></i><b>9.1.1</b> Simulation</a></li>
+<li class="chapter" data-level="9.1.2" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
+<li class="chapter" data-level="9.1.3" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-gross-calorific-value-measurements-for-daw-mill-258gb41"><i class="fa fa-check"></i><b>9.1.3</b> Gross calorific value measurements for Daw Mill 258GB41</a></li>
+<li class="chapter" data-level="9.1.4" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.4</b> Bootstrap Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-more-on-confidence-intervals-chapter-24"><i class="fa fa-check"></i><b>9.2</b> More on confidence intervals (Chapter 24)</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-binomial-distribution"><i class="fa fa-check"></i><b>9.2.1</b> Binomial distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
+<li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
+<li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
+<li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html"><i class="fa fa-check"></i><b>11</b> Supplement to Evans &amp; Rosenthal Section 7.2</a><ul>
+<li class="chapter" data-level="11.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-the-prior"><i class="fa fa-check"></i><b>11.1.1</b> The Prior</a></li>
+<li class="chapter" data-level="11.1.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-the-posterior"><i class="fa fa-check"></i><b>11.1.2</b> The Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-estimation-in-bayesian-inference-point-and-interval-estimation"><i class="fa fa-check"></i><b>11.2</b> Estimation in Bayesian Inference: point and interval estimation</a></li>
+<li class="chapter" data-level="11.3" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-conjugate-priors"><i class="fa fa-check"></i><b>11.3.1</b> Conjugate Priors</a></li>
+<li class="chapter" data-level="11.3.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA238: Probability, Statistics, and Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section-supplement-to-evans-rosenthal-section-7.2" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Supplement to Evans &amp; Rosenthal Section 7.2</h1>
+<p>This chapter is a supplement to Chapter 7: Bayesian Inference, section 2:
+Estimation. This is to support the Bayesian Inference
+sections of STA238. Materials in this tutorial are taken from Alex’s <a href="https://awstringer1.github.io/leaf2018/intro-to-bayesian.html">comprehensive tutorial on Bayesian Inference</a>, which is very long and outside the scope of this course.</p>
+<div id="section-estimation-in-bayesian-inference-general-ideas" class="section level2">
+<h2><span class="header-section-number">11.1</span> Estimation in Bayesian Inference: general ideas</h2>
+<p>The case where there are only two possible parameter values is useful for examples, but not common in practice. More realistic is the case where <span class="math inline">\(0 &lt; \theta &lt; 1\)</span>, and we need to use the observed data to <em>estimate</em> <span class="math inline">\(\theta\)</span>.</p>
+<p>Intuition and frequentist results dictate that a “good” estimator of <span class="math inline">\(\theta\)</span> is the sample proportion number of heads,
+<span class="math display">\[
+\hat{\theta}_{freq} = \frac{1}{n}\sum_{i=1}^{n}X_{i}
+\]</span>
+This makes sense; of course the best guess of the value of the <em>probability</em> of heads based on one sample is just the relative frequency with which <span class="math inline">\(X\)</span> is heads in that sample. It’s also the maximum likelihood estimator, and the unbiased estimator with minimum variance. Let’s see how this estimator, which is optimal from a frequentist perspective, behaves compared to what we come up with using Bayesian estimation.</p>
+<div id="section-the-prior" class="section level3">
+<h3><span class="header-section-number">11.1.1</span> The Prior</h3>
+<p>The new parameter space is <span class="math inline">\(\Theta = (0,1)\)</span>. Bayesian inference proceeds as above, with the modification that our prior must be continuous and defined on the unit interval <span class="math inline">\((0,1)\)</span>. This reflects the fact that our parameter can take any value on the interval <span class="math inline">\((0,1)\)</span>. Choosing the prior is a subjective decision, and is slightly more difficult in the continuous case because interpreting densities is harder than interpreting discrete probability mass functions.</p>
+<p>In a nutshell, we should choose our prior distribution such that values of <span class="math inline">\(\theta\)</span> that we think are reasonable have high probability under the prior, and values of <span class="math inline">\(\theta\)</span> that we think are not reasonable have low probability under the prior. There is a lot more that goes into the choice of prior in more complicated applied problems, but this is always the basic idea.</p>
+<p>A popular choice for a prior for a binomial likelihood like we have here is the <strong>beta distribution</strong>,
+<span class="math display">\[
+\begin{aligned}
+\theta &amp;\sim Beta(a,b) \\
+f(\theta;a,b) &amp;= \theta^{a-1}(1-\theta)^{b-1}, 0 &lt; \theta &lt; 1, a &gt; 0, b &gt; 0 \\
+E(\theta) &amp;= \frac{a}{a+b} \\
+Var(\theta) &amp;= \frac{ab}{(a+b)^2 (a+b+1)}
+\end{aligned}
+\]</span>
+The Beta distribution is defined on <span class="math inline">\(0,1\)</span> and itself has two parameters <span class="math inline">\(a,b\)</span> which control the shape of the distribution, and its moments. If a parameter having a mean and variance makes you uncomfortable at first, try interpreting these quantities less literally; the mean is just the “centre” of the possible values of <span class="math inline">\(\theta\)</span> as weighted by their probabilities, and the variance (or more accurately, the standard deviation) roughly describes the size of the region around the mean in which <span class="math inline">\(\theta\)</span> is likely to fall. This just gives a measure of how “sure” we are, before seeing the results of any coin flips, that <span class="math inline">\(\theta\)</span> is near the centre of its possible values.</p>
+<p>Let’s visualize the prior distribution in order to help us specify the parameters <span class="math inline">\(a,b\)</span> that will give us a reasonable prior:</p>
+<div class="sourceCode" id="section-cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" title="1"><span class="co"># Generate plot data- dbeta evaluated at x and a,b for x on a grid between 0 and 1 and various values of a,b</span></a>
+<a class="sourceLine" id="cb276-2" title="2"></a>
+<a class="sourceLine" id="cb276-3" title="3"><span class="kw">expand.grid</span>(<span class="dt">a =</span> <span class="kw">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">b =</span> <span class="kw">c</span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb276-4" title="4"><span class="st">  </span><span class="kw">pmap_dfr</span>(<span class="op">~</span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>),<span class="dt">y =</span> <span class="kw">dbeta</span>(<span class="dt">x =</span> x,<span class="dt">shape1=</span>.x,<span class="dt">shape2=</span>.y),<span class="dt">a =</span> .x,<span class="dt">b =</span> .y)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb276-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-6" title="6"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-7" title="7"><span class="st">  </span><span class="kw">facet_wrap</span>(a<span class="op">~</span>b) <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-8" title="8"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-9" title="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Beta Distribution, various a and b&quot;</span>,</a>
+<a class="sourceLine" id="cb276-10" title="10">       <span class="dt">subtitle =</span> <span class="st">&quot;Top value is a, bottom is b&quot;</span>,</a>
+<a class="sourceLine" id="cb276-11" title="11">       <span class="dt">x =</span> <span class="st">&quot;Datapoint x&quot;</span>,</a>
+<a class="sourceLine" id="cb276-12" title="12">       <span class="dt">y =</span> <span class="st">&quot;Density f(x;a,b)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb276-13" title="13"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">22</span>))</a></code></pre></div>
+<p><img src="book_files/figure-html/betaprior-vis1-1.png" width="1920" /></p>
+<p>The Beta distribution is very flexible; different values of a and b give very different shapes. If we thought extreme values (close to 0 or 1) of <span class="math inline">\(\theta\)</span> were likely, we could choose a prior with a and b both less than 1; if we think middle values are more likely, we can choose a and b to be greater than 1.</p>
+<p>For our example, we will choose a Beta(12,12) distribution, for reasons we will discuss below in the section on <strong>choosing prior distributions</strong>. This looks like this:</p>
+<div class="sourceCode" id="section-cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1"><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb277-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb277-4" title="4"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta,</a>
+<a class="sourceLine" id="cb277-5" title="5">                <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">12</span>,<span class="dt">shape2 =</span> <span class="dv">12</span>),</a>
+<a class="sourceLine" id="cb277-6" title="6">                <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb277-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Beta Prior for Theta&quot;</span>,</a>
+<a class="sourceLine" id="cb277-8" title="8">       <span class="dt">subtitle =</span> <span class="st">&quot;Bayesian Coin Flipping Example&quot;</span>,</a>
+<a class="sourceLine" id="cb277-9" title="9">       <span class="dt">x =</span> <span class="st">&quot;Theta&quot;</span>,</a>
+<a class="sourceLine" id="cb277-10" title="10">       <span class="dt">y =</span> <span class="st">&quot;Prior Density, p(Theta)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb277-11" title="11"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>))</a></code></pre></div>
+<p><img src="book_files/figure-html/betaprior-vis2-1.png" width="672" /></p>
+<p>This prior puts strong weight on the coin being close to fair; values below <span class="math inline">\(\theta = 0.3\)</span> and <span class="math inline">\(\theta = 0.7\)</span> have very little prior probability. This can be verified:</p>
+<div class="sourceCode" id="section-cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" title="1"><span class="co"># Prior probability of theta being between 0.3 and 0.7</span></a>
+<a class="sourceLine" id="cb278-2" title="2"><span class="kw">pbeta</span>(<span class="fl">0.7</span>,<span class="dt">shape1=</span><span class="dv">12</span>,<span class="dt">shape2=</span><span class="dv">12</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pbeta</span>(<span class="fl">0.3</span>,<span class="dt">shape1=</span><span class="dv">12</span>,<span class="dt">shape2=</span><span class="dv">12</span>)</a></code></pre></div>
+<pre><code>## [1] 0.957104</code></pre>
+<p>Most of the mass of the distribution is between <span class="math inline">\(0.3\)</span> and <span class="math inline">\(0.7\)</span>.</p>
+</div>
+<div id="section-the-posterior" class="section level3">
+<h3><span class="header-section-number">11.1.2</span> The Posterior</h3>
+<p>Our prior has density
+<span class="math display">\[
+p(\theta;a,b) = \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\theta^{a-1}(1-\theta)^{b-1}
+\]</span>
+Our likelihood remains the same as before:
+<span class="math display">\[
+p(X|\theta) = \theta^{\sum_{i=1}^{n}x_{i}}(1-\theta)^{n - \sum_{i=1}^{n}x_{i}}
+\]</span>
+Bayes’ Rule is still used to compute the posterior from these quantities; however, it looks slightly different now:
+<span class="math display">\[
+\begin{aligned}
+p(\theta|X) &amp;= \frac{p(X|\theta)p(\theta)}{p(X)} \\
+&amp;= \frac{p(X|\theta)p(\theta)}{\int_{0}^{1}p(X|\theta)p(\theta)d\theta}
+\end{aligned}
+\]</span></p>
+<p>Now, because <span class="math inline">\(\theta\)</span> is defined on a continuous interval, the marginal likelihood/model evidence/normalizing constant is computed via integrating the joint distributionn of <span class="math inline">\(X\)</span> and <span class="math inline">\(\theta\)</span> over the range of <span class="math inline">\(\theta\)</span>.</p>
+<p>In this example, the marginal likelihood and the posterior can be computed explicitly as follows:
+<span class="math display">\[
+\begin{aligned}
+p(X) &amp;= \int_{0}^{1}p(X|\theta)p(\theta)d\theta \\
+&amp;= \int_{0}^{1} \theta^{\sum_{i=1}^{n}x_{i}}(1-\theta)^{n - \sum_{i=1}^{n}x_{i}} \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\theta^{a-1}(1-\theta)^{b-1} d\theta \\
+&amp;= \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \times \int_{0}^{1} \theta^{\sum_{i=1}^{n}x_{i} + a - 1}(1-\theta)^{n - \sum_{i=1}^{n}x_{i} + b - 1} d\theta \\
+&amp;= \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \times \frac{\Gamma(\sum_{i=1}^{n}x_{i} + a)\Gamma(n - \sum_{i=1}^{n}x_{i} + b)}{\Gamma(n + a + b)}
+\end{aligned}
+\]</span></p>
+<p>How did we evaluate that integral and get to the last line? We recognized the integrand as being the <span class="math inline">\(\theta\)</span>-dependent part of a <span class="math inline">\(Beta(\sum_{i=1}^{n}x_{i} + a,n - \sum_{i=1}^{n}x_{i} + b)\)</span> density; hence it integrates to the reciprocal of the appropriate normalizing constant. This trick is commonly used in examples illustrating Bayesian inference; it shouldn’t be taken from this, though, that this integral is always easy to evaluate like this. It is almost never easy, or even possible, to evaluate this integral in anything beyond these simple examples- more on this later.</p>
+<p><strong>Exercise</strong>: use this trick to “show” that
+<span class="math display">\[\begin{equation}
+\int_{-\infty}^{\infty}e^{-x^{2}}dx = \sqrt{\pi}
+\end{equation}\]</span>
+and
+<span class="math display">\[\begin{equation}
+\int_{0}^{\infty}x^{\alpha}e^{-\beta x} = \frac{\Gamma(\alpha + 1)}{\beta^{(\alpha + 1)}}
+\end{equation}\]</span>
+where <span class="math inline">\(\Gamma(\cdot)\)</span> is the <a href="https://en.wikipedia.org/wiki/Gamma_function">Gamma function</a>. <em>Hint</em>: the wikipedia articles on the <a href="https://en.wikipedia.org/wiki/Normal_distribution">Normal</a> and <a href="https://en.wikipedia.org/wiki/Gamma_distribution">Gamma</a> distributions will be helpful.</p>
+<p>With <span class="math inline">\(p(X)\)</span> available, we can explicitly compute the posterior:
+<span class="math display">\[
+\begin{aligned}
+p(\theta|X) &amp;= \frac{p(X|\theta)p(\theta)}{p(X)} \\
+&amp;= \frac{\theta^{\sum_{i=1}^{n}x_{i}}(1-\theta)^{n - \sum_{i=1}^{n}x_{i}} \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\theta^{a-1}(1-\theta)^{b-1}}{\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \times \frac{\Gamma(\sum_{i=1}^{n}x_{i} + a)\Gamma(n - \sum_{i=1}^{n}x_{i} + b)}{\Gamma(n + a + b)}} \\
+&amp;= \frac{\Gamma(n + a + b)}{\Gamma(\sum_{i=1}^{n}x_{i} + a)\Gamma(n - \sum_{i=1}^{n}x_{i} + b)} \times \theta^{\sum_{i=1}^{n}x_{i} + a - 1}(1-\theta)^{n - \sum_{i=1}^{n}x_{i} + b - 1}
+\end{aligned}
+\]</span>
+which we recognize as a <span class="math inline">\(Beta(a + \sum_{i=1}^{n}x_{i},b + n - \sum_{i=1}^{n}x_{i})\)</span> distribution. Priors where the posterior belongs to the same family of distributions as the prior are called <strong>conjugate priors</strong>, and while they represent the minority of practical applications, they are very useful for examples.</p>
+<p>In this scenario, we can interpret the likelihood as directly updating the prior parameters, from <span class="math inline">\((a,b)\)</span> to <span class="math inline">\((a + \sum_{i=1}^{n}x_{i},b + n - \sum_{i=1}^{n}x_{i})\)</span>. Let’s visualize this for a few different datasets and sample sizes, for our chosen prior:</p>
+<div class="sourceCode" id="section-cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" title="1">prior &lt;-<span class="st"> </span><span class="cf">function</span>(theta) <span class="kw">dbeta</span>(theta,<span class="dt">shape1 =</span> <span class="dv">12</span>,<span class="dt">shape2 =</span> <span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb280-2" title="2">posterior &lt;-<span class="st"> </span><span class="cf">function</span>(theta,sumx,n) <span class="kw">dbeta</span>(theta,<span class="dt">shape1 =</span> <span class="dv">12</span> <span class="op">+</span><span class="st"> </span>sumx,<span class="dt">shape2 =</span> <span class="dv">12</span> <span class="op">+</span><span class="st"> </span>n <span class="op">-</span><span class="st"> </span>sumx)</a>
+<a class="sourceLine" id="cb280-3" title="3"></a>
+<a class="sourceLine" id="cb280-4" title="4"><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb280-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb280-6" title="6"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb280-7" title="7"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> prior,</a>
+<a class="sourceLine" id="cb280-8" title="8">                <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb280-9" title="9"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> posterior,</a>
+<a class="sourceLine" id="cb280-10" title="10">                <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">sumx =</span> <span class="dv">5</span>,<span class="dt">n =</span> <span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb280-11" title="11">                <span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb280-12" title="12"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> posterior,</a>
+<a class="sourceLine" id="cb280-13" title="13">                <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">sumx =</span> <span class="dv">0</span>,<span class="dt">n =</span> <span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb280-14" title="14">                <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb280-15" title="15"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> posterior,</a>
+<a class="sourceLine" id="cb280-16" title="16">                <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">sumx =</span> <span class="dv">10</span>,<span class="dt">n =</span> <span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb280-17" title="17">                <span class="dt">colour =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb280-18" title="18"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Beta Prior vs Posterior for Theta, 10 coin flips&quot;</span>,</a>
+<a class="sourceLine" id="cb280-19" title="19">       <span class="dt">subtitle =</span> <span class="st">&quot;Blue: Prior. Purple: 5 heads. Red: 0 heads. Orange: 10 heads&quot;</span>,</a>
+<a class="sourceLine" id="cb280-20" title="20">       <span class="dt">x =</span> <span class="st">&quot;Theta&quot;</span>,</a>
+<a class="sourceLine" id="cb280-21" title="21">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb280-22" title="22"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>))</a></code></pre></div>
+<p><img src="book_files/figure-html/betaprior-vis3-1.png" width="672" /></p>
+<p>Some interesting points can be seen from this plot:</p>
+<ul>
+<li>When the observed data “matches” the prior, in the sense that we observe a dataset for which the original frequentist estimate of <span class="math inline">\(\theta\)</span> is very probable under the prior, the posterior becomes more peaked around that value.</li>
+<li>When the observed data are extreme, as in the case of 0 or 10 heads in 10 flips, the frequestist inference would also be extreme. In these cases, we would have estimated <span class="math inline">\(\hat{\theta}_{freq} = 0\)</span> or <span class="math inline">\(1\)</span>. Because our prior distribution is not extreme, though, the posterior is more moderate, and ends up being peaked at the low/high end of the range of values that were reasonable under the prior.</li>
+</ul>
+<p><strong>Exercise</strong>: Now is a good time to go back to the <a href="https://awstringer1.shinyapps.io/bayesian-tutorial/">Shiny App</a> you saw a few weeks ago, and see if you can elucidate the behaviour I describe above using your own simulations.</p>
+</div>
+</div>
+<div id="section-estimation-in-bayesian-inference-point-and-interval-estimation" class="section level2">
+<h2><span class="header-section-number">11.2</span> Estimation in Bayesian Inference: point and interval estimation</h2>
+<p>With the posterior in hand, what do we actually do? We’re used to immediately having a point estimate from frequentist inference, and there we typically proceed to derive a confidence interval for the parameter using the sampling distribution of the estimator.</p>
+<p>The situation isn’t so different here. The posterior is analagous to the sampling distribution in the frequentist case, although the interpretation is different. In frequentist inference, we make statements about probable values for estimates in repeated sampling at fixed parameter values, and use this to infer the value of the parameter under which our observed data was most likely. In Bayesian inference, the posterior distribution is intepreted literally as the conditional distribution of the parameter given the data. We can just directly say things like “there is a <span class="math inline">\(95\%\)</span> chance that <span class="math inline">\(\theta\)</span> is between <span class="math inline">\(0.4\)</span> and <span class="math inline">\(0.5\)</span>”.</p>
+<p>Specifically, to obtain <strong>point estimates</strong> of parameters, we may use either the <em>posterior mean</em>:
+<span class="math display">\[
+\hat{\theta}_{post. mean} = E(\theta|X) = \int_{\theta}\theta p(\theta|X)d\theta
+\]</span>
+interpreted as a weighted average of possible values of <span class="math inline">\(\theta\)</span>, with weights corresponding to their posterior probabilities (densities); or, we may use the <em>posterior mode</em>:
+<span class="math display">\[
+\hat{\theta}_{post. mode} = \mbox{argmax}_{\theta} p(\theta|X)
+\]</span>
+which is the most probable value of <span class="math inline">\(\theta\)</span>, given the observed data. In simple examples the posterior may be symmetric or nearly symmetric, so the two are nearly the same; in more complicated applications, either one is directly preferred, or both are computed and compared.</p>
+<p>For interval estimation, the frequentist notion of a <em>confidence interval</em> is replaced by a <strong>credible interval</strong>: an interval which has a specified probability of containing the parameter, given the observed data. Contrast this interpretation to that of the frequentist confidence interval, which states that a certain proportion of the intervals computed in the same manner from repeatedly sampled datasets would contain the parameter. The Bayesian credible interval interpretation is closer to how many people would interpret such an interval intuitively.</p>
+<p><em>Remark</em>: technically, any interval <span class="math inline">\(I\)</span> with <span class="math inline">\(P(\theta\in I|X) = 1 - \alpha\)</span> is a <span class="math inline">\((1-\alpha)\times 100\%\)</span> credible interval for <span class="math inline">\(\theta\)</span>, having observed <span class="math inline">\(X\)</span>. In practical applications and certainly in this course, we choose the “Highest Posterior Density” credible interval– the <em>shortest</em> possible <span class="math inline">\((1-\alpha)\times 100\%\)</span> credible interval. This is the one that falls in the “centre” of the distribution, and is computed using quantiles, much in the same was as a confidence interval. It’s important that you know this, but going forward you can just assume we’re using credible intervals derived in this manner and don’t have to think about it each time.</p>
+<p>Computing such a credible interval is a matter of finding the corresponding quantiles of the posterior, which is either simple or complicated depending on what the posterior is. In our example the posterior is known completely, and we can get a <span class="math inline">\(95\%\)</span> credible interval using the <code>qbeta</code> function:</p>
+<div class="sourceCode" id="section-cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1"><span class="co"># E.g. for n = 10 and sumx = 5</span></a>
+<a class="sourceLine" id="cb281-2" title="2"><span class="kw">c</span>(<span class="kw">qbeta</span>(<span class="fl">0.025</span>,<span class="dt">shape1=</span><span class="dv">12</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span>,<span class="dt">shape2 =</span> <span class="dv">12</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span>),<span class="kw">qbeta</span>(<span class="fl">0.975</span>,<span class="dt">shape1=</span><span class="dv">12</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span>,<span class="dt">shape2 =</span> <span class="dv">12</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span>))</a></code></pre></div>
+<pre><code>## [1] 0.3354445 0.6645555</code></pre>
+<p>The point estimate based off the posterior mode is the same as the frequentist estimate for these data, <span class="math inline">\(\hat{\theta}_{freq} = \hat{\theta}_{post. mode} = 0.5\)</span>, as can be seen from the plot above. The corresponding frequentist confidence interval is given by</p>
+<div class="sourceCode" id="section-cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" title="1"><span class="kw">c</span>(.<span class="dv">5</span> <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(.<span class="dv">5</span><span class="op">*</span>.<span class="dv">5</span><span class="op">/</span><span class="dv">10</span>)<span class="op">*</span><span class="fl">1.96</span>,.<span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="kw">sqrt</span>(.<span class="dv">5</span><span class="op">*</span>.<span class="dv">5</span><span class="op">/</span><span class="dv">10</span>)<span class="op">*</span><span class="fl">1.96</span>)</a></code></pre></div>
+<pre><code>## [1] 0.1900968 0.8099032</code></pre>
+<p>which is much wider. The Bayesian approach gives a more accurate estimate here, because we assumed strong prior information that ended up agreeing with the data.</p>
+<p>If the data had been more extreme, say <span class="math inline">\(X = 1\)</span> heads in <span class="math inline">\(n = 10\)</span> flips, then the situation is different. The frequentist point estimate would be <span class="math inline">\(\hat{\theta}_{freq} = 0.1\)</span> with confidence interval:</p>
+<div class="sourceCode" id="section-cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1"><span class="kw">c</span>(.<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(.<span class="dv">1</span><span class="op">*</span>.<span class="dv">9</span><span class="op">/</span><span class="dv">10</span>)<span class="op">*</span><span class="fl">1.96</span>,.<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">sqrt</span>(.<span class="dv">1</span><span class="op">*</span>.<span class="dv">9</span><span class="op">/</span><span class="dv">10</span>)<span class="op">*</span><span class="fl">1.96</span>)</a></code></pre></div>
+<pre><code>## [1] -0.08594193  0.28594193</code></pre>
+<p>Observing a single head in <span class="math inline">\(10\)</span> tosses leads us to believe strongly that <span class="math inline">\(\theta\)</span> must be small, and the corresponding confidence interval actually goes beyond the parameter space. It is true that if the coin were fair (<span class="math inline">\(\theta = 0.5\)</span>), the observed data had about a <span class="math inline">\(1\%\)</span> chance of occurring. But, if this <em>did</em> occur, we’d still want to make sensible inferences!</p>
+<p>If we had a prior belief that the coin had a probability of heads that is anywhere between <span class="math inline">\(0.3\)</span> and <span class="math inline">\(0.7\)</span>, as above, we can compute the point and interval estimates obtained in a Bayesian setting:</p>
+<div class="sourceCode" id="section-cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1"><span class="co"># Point estimate- find the posterior mode, which is a critical point</span></a>
+<a class="sourceLine" id="cb287-2" title="2"><span class="co"># Use R&#39;s built in optimization tools, function nlminb() performs constrained minimization</span></a>
+<a class="sourceLine" id="cb287-3" title="3"><span class="co"># Pass it a function that returns minus the posterior; minimizing -f(x) is the same as maximizing f(x)</span></a>
+<a class="sourceLine" id="cb287-4" title="4">minus_posterior &lt;-<span class="st"> </span><span class="cf">function</span>(theta,sumx,n) <span class="dv">-1</span> <span class="op">*</span><span class="st"> </span><span class="kw">posterior</span>(theta,sumx,n)</a>
+<a class="sourceLine" id="cb287-5" title="5">opt &lt;-<span class="st"> </span><span class="kw">nlminb</span>(<span class="dt">objective =</span> minus_posterior,<span class="dt">start =</span> <span class="fl">0.3</span>,<span class="dt">sumx =</span> <span class="dv">1</span>,<span class="dt">n =</span> <span class="dv">10</span>,<span class="dt">lower =</span> <span class="fl">0.01</span>,<span class="dt">upper =</span> <span class="fl">0.99</span>)</a>
+<a class="sourceLine" id="cb287-6" title="6">opt<span class="op">$</span>par <span class="co"># Return the value at which the maximum occurs, i.e. the posterior mode</span></a></code></pre></div>
+<pre><code>## [1] 0.375</code></pre>
+<div class="sourceCode" id="section-cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1"><span class="co"># Credible interval</span></a>
+<a class="sourceLine" id="cb289-2" title="2"><span class="kw">c</span>(<span class="kw">qbeta</span>(<span class="fl">0.025</span>,<span class="dt">shape1=</span><span class="dv">12</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,<span class="dt">shape2 =</span> <span class="dv">12</span> <span class="op">+</span><span class="st"> </span><span class="dv">9</span>),<span class="kw">qbeta</span>(<span class="fl">0.975</span>,<span class="dt">shape1=</span><span class="dv">12</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,<span class="dt">shape2 =</span> <span class="dv">12</span> <span class="op">+</span><span class="st"> </span><span class="dv">9</span>))</a></code></pre></div>
+<pre><code>## [1] 0.2290662 0.5487546</code></pre>
+<p>This interval is much more reasonable, stays within the parameter space, and still even includes the possibility that the coin is fair– good, since we only flipped the coin <span class="math inline">\(n = 10\)</span> times! Had we increased the sample size and observed a similarly extreme result, the posterior would become more centered in that region of the parameter space- that is, observing an equally extreme result with more data would diminish the effect of the prior on the resulting inferences.</p>
+<p>You can play around once more in the <a href="https://awstringer1.shinyapps.io/bayesian-tutorial/">Shiny App</a> to get a feel for the comparison between frequentist confidence intervals and bayesian credible intervals works in this example.</p>
+</div>
+<div id="section-choosing-a-prior" class="section level2">
+<h2><span class="header-section-number">11.3</span> Choosing a Prior</h2>
+<p>The following section on choosing a prior distribution is more subjective, and doesn’t include any calculations. It is still part of the course material and important to understand.</p>
+<p>The choice of prior distribution is up to the analyst. There is no <em>formula</em> for doing this that will work in every problem; we can, though, discuss a few <em>guidelines</em> for doing so. When choosing a prior, you should consider at a minimum:</p>
+<ul>
+<li><strong>Reasonability</strong>: does the chosen prior give <em>reasonable</em> prior estimates for parameters, having observed no data? Put another way, does it put mass in regions of the parameter space where the parameter is likely to be, and does it put mass in regions where it is not likely to be?</li>
+<li><strong>Sensitivity</strong>: how much does the prior we choose actually affect the posterior, and in what ways? Does a given prior get “swamped” by the data, and how much data does it take for the prior to have negligible effect on the posterior? Does the prior affect the posterior differently for more “extreme” data than for less “extreme” data?</li>
+<li><strong>Tractability</strong>: do the prior and likelihood combine to give a posterior for which we can compute point estimates and credible intervals (quantiles)? Can we evaluate the integral required to compute the normalization constant? Can the posterior density/distribution (with or without the constant) be evaluated with a reasonable computational complexity?</li>
+</ul>
+<p>These are just some of the questions to ask when choosing a prior. It may sound like more work that in the frequentist paradigm, but an advantage of the Bayesian approach is that it makes it relatively simple for us to ask these questions of our modelling procedure.</p>
+<p>How did we choose our prior for the coin-flipping example? To begin, we knew that the parameter of interest, <span class="math inline">\(\theta\)</span>, was bounded on <span class="math inline">\((0,1)\)</span> and could take any real value in that region, so we considered only distributions that were continuous and defined on <span class="math inline">\((0,1)\)</span>. That alone narrowed it down- then we thought about what shape we wanted the distribution to have. We didn’t really have any idea about this, so we picked a distribution with a very flexible shape. We then chose hyperparameters (the parameters of the prior distribution, that we specify in advance) that gave us a reasonable location and spread of this distribution (more on this below). We then did a sensitivity analysis, showing the prior/posterior for various potential observed datasets, and even used a simple Shiny App to get a feel for how different priors and datasets would combine in the posterior. All this was to ensure that our choice gives reasonable inferences for datasets that we could possibly/are likely to see.</p>
+<p>If this is sounding like it should be easy, it isn’t. I used a concept we haven’t learned yet that renders a Beta distribution an “obvious” choice for a prior on <span class="math inline">\(\theta\)</span> for a <span class="math inline">\(Bern(\theta)\)</span> distribution: the Beta is the <strong>conjugate prior</strong> for the Bernoulli.</p>
+<div id="section-conjugate-priors" class="section level3">
+<h3><span class="header-section-number">11.3.1</span> Conjugate Priors</h3>
+<p>A <strong>conjugate prior</strong>, in relation to a specific likelihood, is a prior that when combined with that likelihood gives a posterior with the same functional form as that prior. The Beta/Bernoulli we saw above is an example of this, because we found:
+<span class="math display">\[
+\begin{aligned}
+\mbox{Prior: } &amp; p(\theta) \propto \theta^{a-1}(1-\theta)^{b-1} \\
+\mbox{Likelihood: } &amp; \ell(X|\theta) \propto \theta^{\sum_{i=1}^{n}x_{i}}(1-\theta)^{n - \sum_{i=1}^{n}x_{i}} \\
+\implies \mbox{ Posterior: } &amp; p(\theta | X) \propto \theta^{a + \sum_{i=1}^{n}x_{i} - 1}(1-\theta)^{b + n - \sum_{i=1}^{n}x_{i} - 1}
+\end{aligned}
+\]</span>
+The prior has the form <span class="math inline">\(\theta^{a-1}(1-\theta)^{b - 1}\)</span>, and the posterior has the form <span class="math inline">\(\theta^{c-1}(1-\theta)^{d - 1}\)</span>, with <span class="math inline">\(c\)</span> and <span class="math inline">\(d\)</span> depending on <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> as well as the data. The posterior has the same <em>functional form</em> as the prior, with parameters that are <em>updated</em> after the data is observed.</p>
+<p>Conjugate priors are great because they are mathematically tractible, and allow us to easily evaluate the impact of the prior distribution on the posterior under different datasets. It is often not possible, though, to find a conjugate prior for a given likelihood in anything but the most simple examples.</p>
+<p><strong>Exercise</strong>: Here are some common likelihoods and their conjugate priors; as an exercise, verify that each posterior is in the same family as the prior, and find expressions for the updated parameters:</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Likelihood</th>
+<th>Prior</th>
+<th>Posterior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bernoulli or Binomial, <span class="math inline">\(P(X = x) = \theta^{x}(1-\theta)^{1-x}\)</span></td>
+<td><span class="math inline">\(\theta \sim Beta(a,b)\)</span></td>
+<td>???</td>
+</tr>
+<tr class="even">
+<td>Poisson, <span class="math inline">\(P(X = x) = \frac{\lambda^{x} e^{-\lambda}}{x!}\)</span></td>
+<td><span class="math inline">\(\lambda \sim Gamma(a,b)\)</span></td>
+<td>???</td>
+</tr>
+<tr class="odd">
+<td>Normal, <span class="math inline">\(f(x|\mu,\tau) = \sqrt{\frac{\tau}{2\pi}}\exp\left( -\frac{\tau}{2} (x - \mu)^{2} \right)\)</span> (note <span class="math inline">\(\tau = 1/\sigma^{2}\)</span> is called the <em>precision</em>, and is the inverse of the variance)</td>
+<td><span class="math inline">\(\mu \sim Normal(m,v)\)</span>, <span class="math inline">\(\tau \sim Gamma(a,b)\)</span></td>
+<td>???</td>
+</tr>
+</tbody>
+</table>
+<p>Wikipedia has a <a href="https://en.wikipedia.org/wiki/Conjugate_prior">great list</a> containing many more examples.</p>
+</div>
+<div id="section-setting-hyperparameters-by-moment-matching" class="section level3">
+<h3><span class="header-section-number">11.3.2</span> Setting Hyperparameters by moment-matching</h3>
+<p>When using a conjugate prior (or any prior), once a family of distributions like Beta, Normal, Gamma, etc is chosen, the analyst still needs to set hyperparameter values. We did this above- first we chose a <span class="math inline">\(Beta(a,b)\)</span> <em>family</em> of distributions, then we went a step further and actually specified <span class="math inline">\(a = 12\)</span> and <span class="math inline">\(b = 12\)</span>. How did we come up with such wonky looking values of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>? We will discuss two ways here.</p>
+<p>A very direct way to encode your prior beliefs about the range of reasonable values of a parameter into a prior distribution is by setting hyperparameters via <em>moment-matching</em>. Analagous to the Method of Moments in frequentist estimation, we pick prior moments (mean, variance, etc) that give us a sensible range of values for the parameter, then find the prior hyperparameters that give us those moments.</p>
+<p>This is where we got the <span class="math inline">\((12,12)\)</span> in the above example. Suppose we think that, prior to seeing any data, <span class="math inline">\(\theta\)</span> is most likely to be around <span class="math inline">\(0.5\)</span>, with values on in either direction away from this being equally likely, and that <span class="math inline">\(\theta\)</span> is most likely between <span class="math inline">\(0.3\)</span> and <span class="math inline">\(0.7\)</span>. Translate this statement into mathematical terms: we think the prior should be peaked at <span class="math inline">\(0.5\)</span> and be symmetric about that value, which implies that its mean is also <span class="math inline">\(0.5\)</span>. We think that “most” of the mass should be between <span class="math inline">\(0.3\)</span> and <span class="math inline">\(0.7\)</span>, so let’s say that <span class="math inline">\(0.3\)</span> and <span class="math inline">\(0.7\)</span> should be two standard deviations away from <span class="math inline">\(E(\theta) = 0.5\)</span>. This gives <span class="math inline">\(SD(\theta) = 0.1\)</span>.</p>
+<p>A <span class="math inline">\(Beta(a,b)\)</span> distribution has mean <span class="math inline">\(E(\theta) = \frac{a}{a+b}\)</span> and <span class="math inline">\(Var(\theta) = \frac{ab}{(a+b)^{2}(a+b+1)}\)</span>. Moment-matching proceeds by setting these equal to the values we decided on above, and solving for <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>:
+<span class="math display">\[
+\begin{aligned}
+E(\theta) = \frac{a}{a+b} &amp;= 0.5 \\
+Var(\theta) = \frac{ab}{(a+b)^{2}(a+b+1)} &amp;= 0.1^{2} \\
+\implies (a,b) &amp;= (12,12)
+\end{aligned}
+\]</span>
+As an exercise, verify the solutions to the above equations. We can verify that our answer is correct <em>computationally</em> by taking a sample from a Beta distribution with these parameters, and checking that the mean and standard deviation are close to what we want:</p>
+<div class="sourceCode" id="section-cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" title="1">x &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dv">1000</span>,<span class="dv">12</span>,<span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb291-2" title="2"><span class="kw">c</span>(<span class="kw">mean</span>(x),<span class="kw">sd</span>(x))</a></code></pre></div>
+<pre><code>## [1] 0.5008392 0.1017135</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="section-extended-example-reasoning-about-goodness-of-fit.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
