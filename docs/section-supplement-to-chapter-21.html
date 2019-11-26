@@ -229,6 +229,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.3.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a><ul>
+<li class="chapter" data-level="12.1" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-overview"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
+<li class="chapter" data-level="12.2" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-plug-in-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.2</b> Plug-in prediction: coin flipping</a></li>
+<li class="chapter" data-level="12.3" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-bayesian-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.3</b> Bayesian Prediction: coin flipping</a></li>
+<li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.4</b> Extended example: predicting call centre wait times</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -256,7 +262,7 @@ A Modern Introduction to Probability and Statistics. R code is given for the
 simple textbook datasets used in the book, and then the concepts are
 illustrated on real data.</p>
 <p>All datasets from the book can be downloaded here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>.</p>
-<div class="sourceCode" id="section-cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div class="sourceCode" id="section-cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
 <div id="section-maximum-likelihood-chapter-21" class="section level2">
 <h2><span class="header-section-number">8.1</span> Maximum Likelihood (Chapter 21)</h2>
 <p>The concept of Maximum Likelihood, and the Likelihood function itself, is one of
@@ -292,40 +298,40 @@ L(p_{1};x = 1) = 0.7, \ L(p_{2}; x = 1) = 0.4
 value <span class="math inline">\(X = x\)</span> would be observed in repeated sampling <em>at that value of the parameter</em> <span class="math inline">\(p\)</span>.
 This is kind of a mouthful. Because the likelihood function is defined in terms of a relative frequency, we can write a simulation that illustrates it. I will do this for <span class="math inline">\(X = 1\)</span>
 and then you can do it for <span class="math inline">\(X = 0\)</span>.</p>
-<div class="sourceCode" id="section-cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" title="1"><span class="co"># Simulation to recreate the likelihood function for the two-coin example.</span></a>
-<a class="sourceLine" id="cb207-2" title="2"><span class="co"># The likelihood function is the relative frequency with which your sample</span></a>
-<a class="sourceLine" id="cb207-3" title="3"><span class="co"># would occur in repeated sampling, for a particular value of the parameter.</span></a>
-<a class="sourceLine" id="cb207-4" title="4"><span class="co"># </span></a>
-<a class="sourceLine" id="cb207-5" title="5"><span class="co"># Suppose you flip the coin and get heads. The likelihood function at p1 = 0.7</span></a>
-<a class="sourceLine" id="cb207-6" title="6"><span class="co"># is the relative frequency with which you would get heads if you flipped the coin</span></a>
-<a class="sourceLine" id="cb207-7" title="7"><span class="co"># over and over, if p really equalled 0.7.</span></a>
-<a class="sourceLine" id="cb207-8" title="8"><span class="co"># </span></a>
-<a class="sourceLine" id="cb207-9" title="9"><span class="co"># The likelihood function at p1 = 0.4 is the relative frequency with which you </span></a>
-<a class="sourceLine" id="cb207-10" title="10"><span class="co"># would get heads if you flipped the coin over and over, if p really equalled 0.4.</span></a>
-<a class="sourceLine" id="cb207-11" title="11"><span class="co"># </span></a>
-<a class="sourceLine" id="cb207-12" title="12"><span class="co"># Let&#39;s do it:</span></a>
-<a class="sourceLine" id="cb207-13" title="13">simulate_likelihood_x1 &lt;-<span class="st"> </span><span class="cf">function</span>(p) {</a>
-<a class="sourceLine" id="cb207-14" title="14">  <span class="co"># Make sure p is in the range of possible values</span></a>
-<a class="sourceLine" id="cb207-15" title="15">  <span class="cf">if</span> (<span class="op">!</span>(p <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(.<span class="dv">7</span>,.<span class="dv">4</span>))) <span class="kw">stop</span>(stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;Wrong value for p. p should be .7 or .4. You gave p = &quot;</span>,p))</a>
-<a class="sourceLine" id="cb207-16" title="16">  <span class="co"># Sample the data repeatedly according to this p</span></a>
-<a class="sourceLine" id="cb207-17" title="17">  N &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb207-18" title="18">  repeatedsampling &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),N,<span class="dt">replace =</span> <span class="ot">TRUE</span>,<span class="dt">prob =</span> <span class="kw">c</span>(p,<span class="dv">1</span><span class="op">-</span>p)) <span class="co"># Sample 1/0 with prob p/(1-p), N times</span></a>
-<a class="sourceLine" id="cb207-19" title="19">  <span class="co"># Return the relative frequency with which x == 1</span></a>
-<a class="sourceLine" id="cb207-20" title="20">  <span class="kw">mean</span>(repeatedsampling <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb207-21" title="21">}</a>
-<a class="sourceLine" id="cb207-22" title="22"></a>
-<a class="sourceLine" id="cb207-23" title="23"><span class="co"># Check it out:</span></a>
-<a class="sourceLine" id="cb207-24" title="24"><span class="kw">set.seed</span>(<span class="dv">478032749</span>)</a>
-<a class="sourceLine" id="cb207-25" title="25"><span class="kw">simulate_likelihood_x1</span>(.<span class="dv">7</span>) <span class="co"># Should be around .7</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" title="1"><span class="co"># Simulation to recreate the likelihood function for the two-coin example.</span></a>
+<a class="sourceLine" id="cb206-2" title="2"><span class="co"># The likelihood function is the relative frequency with which your sample</span></a>
+<a class="sourceLine" id="cb206-3" title="3"><span class="co"># would occur in repeated sampling, for a particular value of the parameter.</span></a>
+<a class="sourceLine" id="cb206-4" title="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb206-5" title="5"><span class="co"># Suppose you flip the coin and get heads. The likelihood function at p1 = 0.7</span></a>
+<a class="sourceLine" id="cb206-6" title="6"><span class="co"># is the relative frequency with which you would get heads if you flipped the coin</span></a>
+<a class="sourceLine" id="cb206-7" title="7"><span class="co"># over and over, if p really equalled 0.7.</span></a>
+<a class="sourceLine" id="cb206-8" title="8"><span class="co"># </span></a>
+<a class="sourceLine" id="cb206-9" title="9"><span class="co"># The likelihood function at p1 = 0.4 is the relative frequency with which you </span></a>
+<a class="sourceLine" id="cb206-10" title="10"><span class="co"># would get heads if you flipped the coin over and over, if p really equalled 0.4.</span></a>
+<a class="sourceLine" id="cb206-11" title="11"><span class="co"># </span></a>
+<a class="sourceLine" id="cb206-12" title="12"><span class="co"># Let&#39;s do it:</span></a>
+<a class="sourceLine" id="cb206-13" title="13">simulate_likelihood_x1 &lt;-<span class="st"> </span><span class="cf">function</span>(p) {</a>
+<a class="sourceLine" id="cb206-14" title="14">  <span class="co"># Make sure p is in the range of possible values</span></a>
+<a class="sourceLine" id="cb206-15" title="15">  <span class="cf">if</span> (<span class="op">!</span>(p <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(.<span class="dv">7</span>,.<span class="dv">4</span>))) <span class="kw">stop</span>(stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;Wrong value for p. p should be .7 or .4. You gave p = &quot;</span>,p))</a>
+<a class="sourceLine" id="cb206-16" title="16">  <span class="co"># Sample the data repeatedly according to this p</span></a>
+<a class="sourceLine" id="cb206-17" title="17">  N &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb206-18" title="18">  repeatedsampling &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),N,<span class="dt">replace =</span> <span class="ot">TRUE</span>,<span class="dt">prob =</span> <span class="kw">c</span>(p,<span class="dv">1</span><span class="op">-</span>p)) <span class="co"># Sample 1/0 with prob p/(1-p), N times</span></a>
+<a class="sourceLine" id="cb206-19" title="19">  <span class="co"># Return the relative frequency with which x == 1</span></a>
+<a class="sourceLine" id="cb206-20" title="20">  <span class="kw">mean</span>(repeatedsampling <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb206-21" title="21">}</a>
+<a class="sourceLine" id="cb206-22" title="22"></a>
+<a class="sourceLine" id="cb206-23" title="23"><span class="co"># Check it out:</span></a>
+<a class="sourceLine" id="cb206-24" title="24"><span class="kw">set.seed</span>(<span class="dv">478032749</span>)</a>
+<a class="sourceLine" id="cb206-25" title="25"><span class="kw">simulate_likelihood_x1</span>(.<span class="dv">7</span>) <span class="co"># Should be around .7</span></a></code></pre></div>
 <pre><code>## [1] 0.695</code></pre>
-<div class="sourceCode" id="section-cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" title="1"><span class="kw">simulate_likelihood_x1</span>(.<span class="dv">4</span>) <span class="co"># Should be around .4</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" title="1"><span class="kw">simulate_likelihood_x1</span>(.<span class="dv">4</span>) <span class="co"># Should be around .4</span></a></code></pre></div>
 <pre><code>## [1] 0.389</code></pre>
 <p><strong>Exercise</strong>: write a simulation for the likelihood function for <span class="math inline">\(x = 0\)</span>. Call it
 <code>simulate_likelihood_x0</code>. You should get the following:</p>
-<div class="sourceCode" id="section-cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" title="1"><span class="kw">set.seed</span>(<span class="dv">8907968</span>)</a>
-<a class="sourceLine" id="cb211-2" title="2"><span class="kw">simulate_likelihood_x0</span>(.<span class="dv">7</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" title="1"><span class="kw">set.seed</span>(<span class="dv">8907968</span>)</a>
+<a class="sourceLine" id="cb210-2" title="2"><span class="kw">simulate_likelihood_x0</span>(.<span class="dv">7</span>)</a></code></pre></div>
 <pre><code>## [1] 0.301</code></pre>
-<div class="sourceCode" id="section-cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" title="1"><span class="kw">simulate_likelihood_x0</span>(.<span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" title="1"><span class="kw">simulate_likelihood_x0</span>(.<span class="dv">4</span>)</a></code></pre></div>
 <pre><code>## [1] 0.613</code></pre>
 </div>
 <div id="section-example-unknown-coins-n-2" class="section level3">
@@ -376,19 +382,19 @@ flipping the coin only once doesn’t really give us enough information to accur
 estimate the probability of heads. If you get heads, your best guess is intuitively
 just going to be <span class="math inline">\(p = 1\)</span>!</p>
 <p>We can see this by plotting the likelihood function:</p>
-<div class="sourceCode" id="section-cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" title="1">likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(p,x) (p<span class="op">^</span>x) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">^</span>(<span class="dv">1</span><span class="op">-</span>x)</a>
-<a class="sourceLine" id="cb215-2" title="2">baseplot &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb215-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb215-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb215-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;p&quot;</span>,<span class="dt">y =</span> <span class="st">&quot;Likelihood&quot;</span>)</a>
-<a class="sourceLine" id="cb215-6" title="6">leftplot &lt;-<span class="st"> </span>baseplot <span class="op">+</span></a>
-<a class="sourceLine" id="cb215-7" title="7"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">x =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb215-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;x = 1&quot;</span>)</a>
-<a class="sourceLine" id="cb215-9" title="9">rightplot &lt;-<span class="st"> </span>baseplot <span class="op">+</span></a>
-<a class="sourceLine" id="cb215-10" title="10"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">x =</span> <span class="dv">0</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb215-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;x = 0&quot;</span>)</a>
-<a class="sourceLine" id="cb215-12" title="12"></a>
-<a class="sourceLine" id="cb215-13" title="13">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(leftplot,rightplot,<span class="dt">nrow =</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" title="1">likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(p,x) (p<span class="op">^</span>x) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">^</span>(<span class="dv">1</span><span class="op">-</span>x)</a>
+<a class="sourceLine" id="cb214-2" title="2">baseplot &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb214-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb214-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb214-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;p&quot;</span>,<span class="dt">y =</span> <span class="st">&quot;Likelihood&quot;</span>)</a>
+<a class="sourceLine" id="cb214-6" title="6">leftplot &lt;-<span class="st"> </span>baseplot <span class="op">+</span></a>
+<a class="sourceLine" id="cb214-7" title="7"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">x =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb214-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;x = 1&quot;</span>)</a>
+<a class="sourceLine" id="cb214-9" title="9">rightplot &lt;-<span class="st"> </span>baseplot <span class="op">+</span></a>
+<a class="sourceLine" id="cb214-10" title="10"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">x =</span> <span class="dv">0</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb214-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;x = 0&quot;</span>)</a>
+<a class="sourceLine" id="cb214-12" title="12"></a>
+<a class="sourceLine" id="cb214-13" title="13">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(leftplot,rightplot,<span class="dt">nrow =</span><span class="dv">1</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/likplot-1-1.png" width="672" /></p>
 <p>The likelihood is maximized on the closed interval <span class="math inline">\([0,1]\)</span> at <span class="math inline">\(p = 1\)</span> when <span class="math inline">\(x = 1\)</span>
 and <span class="math inline">\(p = 0\)</span> when <span class="math inline">\(x = 0\)</span>. This is the mathematical encoding of your intuition that
@@ -431,23 +437,23 @@ L(p;y_{2}) &amp;= p^{2} \\
 <p>We can plot these four (three?) likelihood functions as follows. I’m using some
 more advanced code here; you should run it slowly, line-by-line, and get a feel
 for what’s happening.</p>
-<div class="sourceCode" id="section-cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1"><span class="co"># Store the four samples in a (named) list</span></a>
-<a class="sourceLine" id="cb216-2" title="2">ylist &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb216-3" title="3">  <span class="st">&quot;y1&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb216-4" title="4">  <span class="st">&quot;y2&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb216-5" title="5">  <span class="st">&quot;y3&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb216-6" title="6">  <span class="st">&quot;y4&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb216-7" title="7">)</a>
-<a class="sourceLine" id="cb216-8" title="8">likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(p,y) p<span class="op">^</span>(<span class="kw">sum</span>(y)) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">^</span>(<span class="kw">sum</span>(<span class="dv">1</span><span class="op">-</span>y))</a>
-<a class="sourceLine" id="cb216-9" title="9">makeplot &lt;-<span class="st"> </span><span class="cf">function</span>(s) {</a>
-<a class="sourceLine" id="cb216-10" title="10">  plotname &lt;-<span class="st"> </span><span class="kw">as.character</span>(ylist[[s]]) <span class="op">%&gt;%</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;,&quot;</span>)</a>
-<a class="sourceLine" id="cb216-11" title="11">  baseplot <span class="op">+</span></a>
-<a class="sourceLine" id="cb216-12" title="12"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">y =</span> ylist[[s]])) <span class="op">+</span></a>
-<a class="sourceLine" id="cb216-13" title="13"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;y = &quot;</span>,plotname))</a>
-<a class="sourceLine" id="cb216-14" title="14">}</a>
-<a class="sourceLine" id="cb216-15" title="15"><span class="kw">names</span>(ylist) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb216-16" title="16"><span class="st">  </span><span class="kw">map</span>(makeplot) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb216-17" title="17"><span class="st">  </span>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> .,<span class="dt">nrow =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" title="1"><span class="co"># Store the four samples in a (named) list</span></a>
+<a class="sourceLine" id="cb215-2" title="2">ylist &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb215-3" title="3">  <span class="st">&quot;y1&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb215-4" title="4">  <span class="st">&quot;y2&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb215-5" title="5">  <span class="st">&quot;y3&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb215-6" title="6">  <span class="st">&quot;y4&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb215-7" title="7">)</a>
+<a class="sourceLine" id="cb215-8" title="8">likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(p,y) p<span class="op">^</span>(<span class="kw">sum</span>(y)) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">^</span>(<span class="kw">sum</span>(<span class="dv">1</span><span class="op">-</span>y))</a>
+<a class="sourceLine" id="cb215-9" title="9">makeplot &lt;-<span class="st"> </span><span class="cf">function</span>(s) {</a>
+<a class="sourceLine" id="cb215-10" title="10">  plotname &lt;-<span class="st"> </span><span class="kw">as.character</span>(ylist[[s]]) <span class="op">%&gt;%</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;,&quot;</span>)</a>
+<a class="sourceLine" id="cb215-11" title="11">  baseplot <span class="op">+</span></a>
+<a class="sourceLine" id="cb215-12" title="12"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">y =</span> ylist[[s]])) <span class="op">+</span></a>
+<a class="sourceLine" id="cb215-13" title="13"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;y = &quot;</span>,plotname))</a>
+<a class="sourceLine" id="cb215-14" title="14">}</a>
+<a class="sourceLine" id="cb215-15" title="15"><span class="kw">names</span>(ylist) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb215-16" title="16"><span class="st">  </span><span class="kw">map</span>(makeplot) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb215-17" title="17"><span class="st">  </span>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> .,<span class="dt">nrow =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/plotlik-4-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: compute the value of <span class="math inline">\(\hat{p}\)</span> for each sample. Add a verticle line
 to each plot at this point, using <code>geom_vline(xintercept = ?,colour = &quot;red&quot;,linetype = &quot;dotdash&quot;)</code>
@@ -466,22 +472,22 @@ call <span class="math inline">\(p_{0}\)</span>. You can then
 compare how your likelihood and MLE (Maximum Likelihood Estimator) look to the true
 value of <span class="math inline">\(p\)</span> that you’re trying to estimate, <span class="math inline">\(p_{0}\)</span>.</p>
 <p>Start with the following:</p>
-<div class="sourceCode" id="section-cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" title="1">plotlikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(n,p0) {</a>
-<a class="sourceLine" id="cb217-2" title="2">  <span class="co"># Code goes here</span></a>
-<a class="sourceLine" id="cb217-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="section-cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1">plotlikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(n,p0) {</a>
+<a class="sourceLine" id="cb216-2" title="2">  <span class="co"># Code goes here</span></a>
+<a class="sourceLine" id="cb216-3" title="3">}</a></code></pre></div>
 <p>You can generate the sample using the statement above. Call it <code>samp</code>. You can then
 make the plot using</p>
-<div class="sourceCode" id="section-cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" title="1">baseplot <span class="op">+</span></a>
-<a class="sourceLine" id="cb218-2" title="2"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">y =</span> samp)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb218-3" title="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;n = &quot;</span>,n)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb218-4" title="4"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> p0,<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb218-5" title="5"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="kw">mean</span>(samp),<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) </a></code></pre></div>
+<div class="sourceCode" id="section-cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" title="1">baseplot <span class="op">+</span></a>
+<a class="sourceLine" id="cb217-2" title="2"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">y =</span> samp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb217-3" title="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;n = &quot;</span>,n)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb217-4" title="4"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> p0,<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb217-5" title="5"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="kw">mean</span>(samp),<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) </a></code></pre></div>
 <p>Notice I changed the title too. I also added two verticle lines: one for the true
 value of <span class="math inline">\(p\)</span>, <span class="math inline">\(p_{0}\)</span>, and one for the MLE from the sample, <span class="math inline">\(\hat{p}\)</span>.</p>
 <p>Put these two code chunks together into the above skeleton of a function. Then
 call your function as follows, and you should get the following output:</p>
-<div class="sourceCode" id="section-cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" title="1"><span class="kw">set.seed</span>(<span class="dv">56576</span>)</a>
-<a class="sourceLine" id="cb219-2" title="2"><span class="kw">plotlikelihood</span>(<span class="dv">10</span>,.<span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" title="1"><span class="kw">set.seed</span>(<span class="dv">56576</span>)</a>
+<a class="sourceLine" id="cb218-2" title="2"><span class="kw">plotlikelihood</span>(<span class="dv">10</span>,.<span class="dv">5</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/func-4-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: write the function necessary to produce this output. Then with your
 new function, run it repeatedly, and with different values of <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>. Make sure
@@ -503,10 +509,10 @@ materials. We were interested in estimating the quality of rental housing for th
 different wards in Toronto, where “quality” is measured by the RentSafeTO score,
 which is composed of 20 sub-scores on various qualities of each building. We did
 this by computing the sample mean score in each ward, as follows:</p>
-<div class="sourceCode" id="section-cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="co"># Read in the data from disk</span></a>
-<a class="sourceLine" id="cb220-2" title="2">apartmentdata &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb220-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/apartment-data/toronto-apartment-building-evaluations.csv&quot;</span></a>
-<a class="sourceLine" id="cb220-4" title="4">)</a></code></pre></div>
+<div class="sourceCode" id="section-cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" title="1"><span class="co"># Read in the data from disk</span></a>
+<a class="sourceLine" id="cb219-2" title="2">apartmentdata &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb219-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/apartment-data/toronto-apartment-building-evaluations.csv&quot;</span></a>
+<a class="sourceLine" id="cb219-4" title="4">)</a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   .default = col_double(),
@@ -517,16 +523,16 @@ this by computing the sample mean score in each ward, as follows:</p>
 ##   WARD = col_character()
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
-<div class="sourceCode" id="section-cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" title="1"><span class="co"># Clean it up</span></a>
-<a class="sourceLine" id="cb223-2" title="2">apartmentclean &lt;-<span class="st"> </span>apartmentdata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb223-3" title="3"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(SCORE)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Remove apartments with missing scores</span></a>
-<a class="sourceLine" id="cb223-4" title="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="dt">ward =</span> WARD,</a>
-<a class="sourceLine" id="cb223-5" title="5">                <span class="dt">score =</span> SCORE,</a>
-<a class="sourceLine" id="cb223-6" title="6">                <span class="dt">property_type =</span> PROPERTY_TYPE,</a>
-<a class="sourceLine" id="cb223-7" title="7">                <span class="dt">year_built =</span> YEAR_BUILT,</a>
-<a class="sourceLine" id="cb223-8" title="8">                <span class="dt">address =</span> SITE_ADDRESS</a>
-<a class="sourceLine" id="cb223-9" title="9">  )</a>
-<a class="sourceLine" id="cb223-10" title="10"><span class="kw">glimpse</span>(apartmentclean)</a></code></pre></div>
+<div class="sourceCode" id="section-cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1"><span class="co"># Clean it up</span></a>
+<a class="sourceLine" id="cb222-2" title="2">apartmentclean &lt;-<span class="st"> </span>apartmentdata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb222-3" title="3"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(SCORE)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Remove apartments with missing scores</span></a>
+<a class="sourceLine" id="cb222-4" title="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="dt">ward =</span> WARD,</a>
+<a class="sourceLine" id="cb222-5" title="5">                <span class="dt">score =</span> SCORE,</a>
+<a class="sourceLine" id="cb222-6" title="6">                <span class="dt">property_type =</span> PROPERTY_TYPE,</a>
+<a class="sourceLine" id="cb222-7" title="7">                <span class="dt">year_built =</span> YEAR_BUILT,</a>
+<a class="sourceLine" id="cb222-8" title="8">                <span class="dt">address =</span> SITE_ADDRESS</a>
+<a class="sourceLine" id="cb222-9" title="9">  )</a>
+<a class="sourceLine" id="cb222-10" title="10"><span class="kw">glimpse</span>(apartmentclean)</a></code></pre></div>
 <pre><code>## Observations: 3,437
 ## Variables: 5
 ## $ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;04&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;0…
@@ -534,11 +540,11 @@ this by computing the sample mean score in each ward, as follows:</p>
 ## $ property_type &lt;chr&gt; &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;SOCIAL HOUSING&quot;,…
 ## $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 1920, 2017, 1967, 2015, 1970, 19…
 ## $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACP…</code></pre>
-<div class="sourceCode" id="section-cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" title="1"><span class="co"># Make a table of average scores for private residences (i.e. not social housing)</span></a>
-<a class="sourceLine" id="cb225-2" title="2">apartmentclean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb225-3" title="3"><span class="st">  </span><span class="kw">filter</span>(property_type <span class="op">==</span><span class="st"> &quot;PRIVATE&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb225-4" title="4"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb225-5" title="5"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score))</a></code></pre></div>
+<div class="sourceCode" id="section-cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="co"># Make a table of average scores for private residences (i.e. not social housing)</span></a>
+<a class="sourceLine" id="cb224-2" title="2">apartmentclean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb224-3" title="3"><span class="st">  </span><span class="kw">filter</span>(property_type <span class="op">==</span><span class="st"> &quot;PRIVATE&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb224-4" title="4"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb224-5" title="5"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score))</a></code></pre></div>
 <pre><code>## # A tibble: 26 x 2
 ##    ward  avg_score
 ##    &lt;chr&gt;     &lt;dbl&gt;
