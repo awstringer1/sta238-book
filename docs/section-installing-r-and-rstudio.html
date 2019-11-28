@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>STA238: Probability, Statistics, and Data Analysis</title>
+  <title>Chapter 13 Installing R and RStudio | STA238: Probability, Statistics, and Data Analysis</title>
   <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="STA238: Probability, Statistics, and Data Analysis" />
+  <meta property="og:title" content="Chapter 13 Installing R and RStudio | STA238: Probability, Statistics, and Data Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="STA238: Probability, Statistics, and Data Analysis" />
+  <meta name="twitter:title" content="Chapter 13 Installing R and RStudio | STA238: Probability, Statistics, and Data Analysis" />
   
   <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="section-predictive-modelling.html"/>
 
-<link rel="next" href="section-supplement-to-chapters-15-and-16.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -261,30 +261,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="section-header">
-<h1 class="title">STA238: Probability, Statistics, and Data Analysis</h1>
-<p class="author"><em>Alison Gibbs and Alex Stringer</em></p>
-<p class="date"><em>2019-11-28</em></p>
+<div id="section-installing-r-and-rstudio" class="section level1">
+<h1><span class="header-section-number">Chapter 13</span> Installing R and RStudio</h1>
+<p>This supplementary document contains a guided tutorial on how to install <code>R</code>
+and <code>RStudio</code>, and create a simple document with <code>RMarkdown</code>. It is <strong>your responsibility</strong> to have access to a computer on which
+you can use these tools. We want to help! However, us providing this help should in
+no way be interpreted as us taking on the responsibility of getting these tools
+working. In particular, you have an assignment due in the <strong>second week of classes</strong>
+that requires these tools, and it is 100% your responsibility to complete it on time.</p>
+<p>Most of these screenshots are taken from <a href="https://rstudio.com/products/rstudio/">https://rstudio.com/products/rstudio/</a>.</p>
+<div id="section-installing-r" class="section level2">
+<h2><span class="header-section-number">13.1</span> Installing R</h2>
+<p><code>R</code> is the scientific computing language that we will use in this course to perform
+statistical compuations– reading and manipulating data, performing scientific
+computations, and creating automated reports.</p>
+<p>Install <code>R</code> on your Windows, MacOS or Linux platform by going to <a href="https://cran.rstudio.com/">https://cran.rstudio.com/</a>. Choose the correct
+link based on your operating system:</p>
+<p><img src="screenshots/ss1.png" /></p>
+<p>This tutorial proceeds with Windows and Mac; if you’re a Linux user (good for you!),
+I’m assuming you’re familiar with how to install software like this.</p>
+<p><strong>Windows</strong>: click “base”:</p>
+<p><img src="screenshots/ss2.png" /></p>
+<p><strong>Mac</strong>: scroll down and click on the link for the “latest version”. At the time of
+this writing, it’s 3.6.1, but don’t worry if it’s increased when you’re doing this.</p>
+<p><img src="screenshots/ss3.png" /></p>
+<p>Follow the instructions for your operating system to install the software. There
+should be a new icon for <code>R</code>, like this on a Mac:</p>
+<p><img src="screenshots/ss4.png" /></p>
+<p>and similar on Windows. Click it to open the software. You should see something
+like:</p>
+<p><img src="screenshots/ss5.png" /></p>
+<p>on a Mac, and again similar on Windows. Type <code>print(&quot;Hello world!&quot;)</code> in the console and press <code>Enter</code>:</p>
+<p><img src="screenshots/ss6.png" /></p>
+<p>If it runs without errors, good job, you’ve installed <code>R</code>!</p>
 </div>
-<div id="section-introduction" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>Data only becomes information after it is analyzed. Analyzing data is extraordinarily difficult,
-but is the only way to learn meaningfully about the world.</p>
-<p>In this book, you will learn about analyzing data. You will learn how to make principled,
-measured statements about the data on hand (<em>descriptive statistics</em>); how to
-use the data on hand to make statements about the underlying world, and how to
-quantify the uncertainty in your statements (<em>inferential statistics</em>), and how
-to use the data on hand to make judgements, with uncertainty quantification,
-about what data you will see next (<em>predictive statistics</em>).</p>
+<div id="section-installing-rstudio" class="section level2">
+<h2><span class="header-section-number">13.2</span> Installing RStudio</h2>
+<p><code>R</code> is the underlying platform that executes code that you write and returns results. However, you won’t usually use <code>R</code> directly. You will use <code>R</code> through <code>RStudio</code>, the most popular Integrated Development Environment (IDE) for <code>R</code>.</p>
+<p>You can download <code>RStudio</code> for your platform <a href="https://rstudio.com/products/rstudio/download/#download">here</a>. Select RStudio Desktop, free version, and make sure to install the correct one for your platform. I think this is displayed automatically; when I go there on my Mac, I see:</p>
+<p><img src="screenshots/ss7.png" /></p>
+<p>Download the installation file and follow the instructions for your system. An icon will appear:</p>
+<p><img src="screenshots/ss8.png" /></p>
+<p>Click this icon to open RStudio. You should see something like this (note: I have set my favourite visual settings, so yours will look slightly different):</p>
+<p><img src="screenshots/ss9.png" /></p>
+<p>The IDE contains four panels. The two important ones for now are:</p>
+<ol style="list-style-type: decimal">
+<li><p>The <strong>console</strong>. You can type <code>R</code> code here, and press <code>Enter</code> to run it. It is the same as the console from <code>R</code> that you saw in the previous step.</p></li>
+<li><p>The <strong>editor</strong>. This is where you will write your programs which involve more than one command– so, all of your programs. This is where I am currently writing this tutorial! It is just a text editor. You can write code, highlight it, and then press <code>Cmd+Enter</code> or <code>Shift+Enter</code> to run it. Give it a try: click the <code>+</code> icon in the top right corner of <code>RStudio</code>, and click “R script”:</p></li>
+</ol>
+<p><img src="screenshots/ss10.png" /></p>
+<p>A blank script will open. Type <code>print(&quot;Hello World!&quot;)</code>, highlight the code, and press <code>Cmd+Enter</code> (mac) or <code>Ctrl+Enter</code> (windows):</p>
+<p><img src="screenshots/ss11.png" /></p>
+<p>If this works, you are successfully using <code>RStudio</code>!</p>
+</div>
+<div id="section-using-rmarkdown" class="section level2">
+<h2><span class="header-section-number">13.3</span> Using RMarkdown</h2>
+<p>One of the real powers of using <code>R</code> and <code>RStudio</code> is the ability to automatically create typeset documents containing the results of running your code combined with text.</p>
+<p>First, make sure the <code>rmarkdown</code> package is installed. Open <code>RStudio</code> and in the Console, type <code>install.packages(&quot;rmarkdown&quot;)</code>. The <code>rmarkdown</code> package will be installed.</p>
+<p>Now, click the <code>+</code> icon in the top-right corner, and select “R Markdown”:</p>
+<p><img src="screenshots/ss12.png" />
+<img src="screenshots/ss13.png" /></p>
+<p>Leave all the default settings as they are. You should see a new script open up, prepopulated with some text and code:</p>
+<p><img src="screenshots/ss14.png" /></p>
+<p>Click anywhere in this document (so the cursor is in the editor) and press <code>Cmd+Shift+K</code> or <code>Ctrl+Shift+K</code>. You’ll be prompted to save the script; do this, and wait a moment, and then a document will magically be created and appear in the <code>Viewer</code> pane:</p>
+<p><img src="screenshots/ss15.png" /></p>
+<p>This document is itself a tutorial for using <code>RMarkdown</code>. Read this; it explains how to add text, and code, right in the editor, and then magically create a report. When you change the code or the text, you create the report again, and everything is typeset properly. Not only does this save you time, but it ensures that all your output matches the code that was used to create it, reducing human error. This notion is part of the broader concept of <strong>reproducibility</strong>, which is very important in modern scientific practice.</p>
+<p>As a test of your use of <code>RMarkdown</code>, try to add the following three items to this report:</p>
+<ol style="list-style-type: decimal">
+<li><p>The title “My First RMarkdown Report”. Look up at the top where it says “title”.</p></li>
+<li><p>The first few rows of the <code>cars</code> dataset. You can get this with the <code>head(cars)</code> command. My output looks like:</p></li>
+</ol>
+<p><img src="screenshots/ss16.png" /></p>
+<ol style="list-style-type: decimal">
+<li>A pairs plot of the <code>iris</code> dataset. You can add this with <code>pairs(iris)</code>. My output looks like:</li>
+</ol>
+<p><img src="screenshots/ss17.png" /></p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="section-predictive-modelling.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="section-supplement-to-chapters-15-and-16.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

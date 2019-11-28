@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2019-11-25" />
+<meta name="date" content="2019-11-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="section-supplement-to-evans-rosenthal-section-7-2.html"/>
-
+<link rel="next" href="section-installing-r-and-rstudio.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -233,7 +233,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.1" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-overview"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
 <li class="chapter" data-level="12.2" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-plug-in-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.2</b> Plug-in prediction: coin flipping</a></li>
 <li class="chapter" data-level="12.3" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-bayesian-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.3</b> Bayesian Prediction: coin flipping</a></li>
-<li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.4</b> Extended example: predicting call centre wait times</a></li>
+<li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-income-and-advertsing-datasets"><i class="fa fa-check"></i><b>12.4</b> Extended example: Income and Advertsing datasets</a></li>
+<li class="chapter" data-level="12.5" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.5</b> Extended example: predicting call centre wait times</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="13.1" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-r"><i class="fa fa-check"></i><b>13.1</b> Installing R</a></li>
+<li class="chapter" data-level="13.2" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-rstudio"><i class="fa fa-check"></i><b>13.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="13.3" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-using-rmarkdown"><i class="fa fa-check"></i><b>13.3</b> Using RMarkdown</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -426,8 +432,12 @@ Consider the setup from chapter 11 of these supplementary notes, where we put a 
 <p>Notice anything odd about these results compared to what we got using the frequentist approach?</p>
 <p>It turns out that if the prior is symmetric (<span class="math inline">\(\alpha = \beta\)</span>), then the posterior mode <em>exactly equals</em> the prediction rule we obtained by minimizing the MSPE. If the prior is not symmetric, they won’t be the same– so which do you expect to be better?</p>
 </div>
+<div id="section-extended-example-income-and-advertsing-datasets" class="section level2">
+<h2><span class="header-section-number">12.4</span> Extended example: Income and Advertsing datasets</h2>
+<p>Let’s recreate the examples from chapter 2 of ISLR.</p>
+</div>
 <div id="section-extended-example-predicting-call-centre-wait-times" class="section level2">
-<h2><span class="header-section-number">12.4</span> Extended example: predicting call centre wait times</h2>
+<h2><span class="header-section-number">12.5</span> Extended example: predicting call centre wait times</h2>
 <p>The coin-flipping example is illustrative, but too simple to be interesting.
 For a given dataset, we either predict heads, or tails, the same for all future
 coins!</p>
@@ -626,8 +636,8 @@ in the model– and this leads to bad predictions on new data.</p>
           </div>
         </div>
       </div>
-<a href="section-supplement-to-evans-rosenthal-section-7-2.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="section-supplement-to-evans-rosenthal-section-7-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-installing-r-and-rstudio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
