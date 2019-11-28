@@ -223,6 +223,10 @@ Notice anything odd about these results compared to what we got using the freque
 
 It turns out that if the prior is symmetric ($\alpha = \beta$), then the posterior mode *exactly equals* the prediction rule we obtained by minimizing the MSPE. If the prior is not symmetric, they won't be the same-- so which do you expect to be better?
 
+## Extended example: Income and Advertsing datasets
+
+Let's recreate the examples from chapter 2 of ISLR.
+
 ## Extended example: predicting call centre wait times
 
 The coin-flipping example is illustrative, but too simple to be interesting.
