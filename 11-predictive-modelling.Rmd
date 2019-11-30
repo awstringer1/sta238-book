@@ -7,7 +7,7 @@ library(tidyverse)
 
 This chapter is a supplementary tutorial on predictive modelling for STA238. The readings on this topic are *An Introduction to Statistical Learning with Applications in R* (ISLR), sections 2.1, 2.1.1, 2.2, 2.2.1, and 2.2.2; and *Probability and Statistics: the Science of Uncertainty*, section 7.2.4. The former has an overview of predictive modelling; the latter treats the Bayesian perspective.
 
-This week's exercises are from ISLR Section 2.4. Do questions 1, 2, 3, 4, 5, 8, 9, 10.
+The assigned exercises associated with this material are from ISLR Section 2.4. Do questions 1, 2, 3, 4, 5, 8, 9, 10.
 
 ## Overview
 
