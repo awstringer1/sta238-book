@@ -9,6 +9,8 @@ This chapter is a supplement to Chapter 7: Bayesian Inference, section 2:
 Estimation. This is to support the Bayesian Inference
 sections of STA238. Materials in this tutorial are taken from Alex's [comprehensive tutorial on Bayesian Inference](https://awstringer1.github.io/leaf2018/intro-to-bayesian.html), which is very long and outside the scope of this course.
 
+This week's assigned exercises are from Evans and Rosenthal (E\&R), as follows: E&R 7.2.1, 7.2.2, 7.2.3, 7.2.4, 7.2.5, 7.2.6; 7.2.12a; 7.2.14
+
 ## Estimation in Bayesian Inference: general ideas
 
 The case where there are only two possible parameter values is useful for examples, but not common in practice. More realistic is the case where $0 < \theta < 1$, and we need to use the observed data to *estimate* $\theta$.

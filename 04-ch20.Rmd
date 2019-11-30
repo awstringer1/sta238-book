@@ -7,6 +7,11 @@ illustrated on real data.
 
 All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
 
+This week's assigned exercises are from MIPS, as follows: 20.1; 20.2; 20.3; 20.4; 20.5; 20.8; 20.9; 20.11. Answers to selected exercises are in the 
+back of the book. You should also do all the "quick exercises" within chapter 20 
+(solutions are at the end of the chapter). Use `R` as much as possible when answering the
+questions.
+
 ## Efficiency and Mean Square Error (Chapter 20)
 
 This chapter compares estimators using the Mean Squared Error (MSE). The 

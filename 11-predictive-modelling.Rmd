@@ -7,6 +7,8 @@ library(tidyverse)
 
 This chapter is a supplementary tutorial on predictive modelling for STA238. The readings on this topic are *An Introduction to Statistical Learning with Applications in R* (ISLR), sections 2.1, 2.1.1, 2.2, 2.2.1, and 2.2.2; and *Probability and Statistics: the Science of Uncertainty*, section 7.2.4. The former has an overview of predictive modelling; the latter treats the Bayesian perspective.
 
+This week's exercises are from ISLR Section 2.4. Do questions 1, 2, 3, 4, 5, 8, 9, 10.
+
 ## Overview
 
 Up to this point in the course, we have been focussing on data analysis and inference. Analyzing the specific data that you have available helps answer the question "what happened?". Combining the available data with computational and mathematical modelling helps answer the question "what can be learned about the world, based on what happened?".

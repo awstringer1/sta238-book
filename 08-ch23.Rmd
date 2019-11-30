@@ -7,6 +7,12 @@ illustrated on real data.
 
 All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
 
+This week's assigned exercises are from MIPS, as follows: 23.1, 23.2, 23.3; 23.5; 23.6; 23.7; 23.10; 23.11
+24.1, 24.2; 24.3; 24.4; 24.6; 24.9; 24.10. Answers to selected exercises are in the 
+back of the book. You should also do all the "quick exercises" within chapters 23 and 24  
+(solutions are at the end of the chapter). Use `R` as much as possible when answering the
+questions.
+
 ```{r load-tidy-1,message=FALSE,warning=FALSE}
 library(tidyverse)
 ```

@@ -7,6 +7,12 @@ illustrated on real data.
 
 All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
 
+This week's assigned exercises are from MIPS, as follows: 13.1; 13.2; 13.3; 13.4; 13.5, 13.6; 13.9; 13.10, 13.12
+14.1, 14.2; 14.3; 14.5; 14.6; 14.9. Answers to selected exercises are in the 
+back of the book. You should also do all the "quick exercises" within chapters 13 and 14
+(solutions are at the end of the chapter). Use `R` as much as possible when answering the
+questions.
+
 ## Law of Large Numbers (Chapter 13)
 
 Load the packages we need:
