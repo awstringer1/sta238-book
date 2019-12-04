@@ -21,12 +21,30 @@ knitr::write_bib(c(
 ), 'packages.bib')
 ```
 
-Data only becomes information after it is analyzed. Analyzing data is extraordinarily difficult,
-but is the only way to learn meaningfully about the world.
+This "book" serves as supplementary materials for the assigned readings from the
+course textbooks for STA238: Probability, Statistics and Data Analysis, Winter 2020
+at the University of Toronto, taught by Alison Gibbs and Alex Stringer. The course
+textbooks are as follows:
 
-In this book, you will learn about analyzing data. You will learn how to make principled,
-measured statements about the data on hand (*descriptive statistics*); how to 
-use the data on hand to make statements about the underlying world, and how to
-quantify the uncertainty in your statements (*inferential statistics*), and how
-to use the data on hand to make judgements, with uncertainty quantification,
-about what data you will see next (*predictive statistics*).
+- **[MIPS]** F.M. Dekking,  C. Kraaikamp H.P. Lopuha ̈a and L.E. Meester (2005).  A ModernIntroduction  to  Probability  and  Statistics:   Understanding  How  and  Why.   Springer-Verlag.This is the primary reference for the course.  This book is available in the Universityof  Toronto  bookstore.   A  pdf  version  of  this  textbook  is  freely  available  through  theUniversity of Toronto library website.
+
+- **[E&R]** M.J. Evans and J.S. Rosenthal (2003).  Probability and Statistics:  The Science ofUncertainty.  W.H. Freeman and Co.Available in pdf here:http://www.utstat.toronto.edu/mikevans/jeffrosenthal.
+
+- **[ISL]** G. James, D. Witten, T. Hastie and R. Tibshirani (2013). An Introduction to StatisticalLearning with Applications in R. Springer.Available in pdf here:http://faculty.marshall.usc.edu/gareth-james/ISL
+
+The primary course text is **MIPS**. The other two are included because they contain
+certain important sections that **MIPS** is missing; we won't go over them in nearly
+as much detail as we will **MIPS**.
+
+These supplementary materials are structured as follows. Each "chapter" corresponds
+to a chapter in one of the course texts, usually **MIPS**. You should read the chapter
+in the course text **before** reading the supplementary notes, and you should do
+both of these things **before** coming to lecture. 
+
+Each chapter of supplementary
+notes contains required practice problems from the relevant textbook chapters, which
+you should attempt before lecture and then solve in detail after lecture. Also 
+do all of the "quick exercises" in **MIPS** and all of the exercises within these
+supplementary notes. Answers to selected exercises are available in the back of
+**MIPS**.
+
