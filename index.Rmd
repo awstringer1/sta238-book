@@ -48,3 +48,7 @@ do all of the "quick exercises" in **MIPS** and all of the exercises within thes
 supplementary notes. Answers to selected exercises are available in the back of
 **MIPS**.
 
+You can find the code used to create this book [here](https://github.com/awstringer1/sta238-book).
+All of the data is stored in the `data` folder in this repository. You can look at
+the code for each chapter and copy bits and run them, though of course
+we recommend typing them out yourself!

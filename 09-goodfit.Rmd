@@ -84,7 +84,7 @@ Looks clean to me!
 
 ### Make the histogram
 
-Okay, now consider Figure 1 in the blog post. They filter out observations not
+Okay, now consider Figure 1 in the blog post. They filter out observations
 ending in $0$ or $5$, because the authors of the disputed paper claim to have
 occasionally used a scale with $5$-gram precision, and occasionally one with 
 $1$-gram precision (this alone is suspect...). They then make a histogram
@@ -336,4 +336,3 @@ in the scientific literature, as are these p-value things. They are useful, but
 we want you, as stats majors and specialists, to leave this course understanding
 than statistics is so very much more than just a ritual or toolbox!
 
-**Exercise**: 

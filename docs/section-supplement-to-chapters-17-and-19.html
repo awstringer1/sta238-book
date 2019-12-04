@@ -361,11 +361,10 @@ article from a few years back], the TTC is the least-subsidized major transit ag
 in North America, which means that its operating budget is the most dependent on
 fare revenue out of any in all of the US and Canada. Tracking how ridership
 revenues are changing over time is very important.</p>
-<p>The city does do this. Go to (<a href="https://www.toronto.ca/city-government/data-research-maps/toronto-progress-portal/" class="uri">https://www.toronto.ca/city-government/data-research-maps/toronto-progress-portal/</a>)[
-the City of Toronto Progress Portal] and type “TTC” and click on the box that says
+<p>The city does do this. Go to <a href="https://www.toronto.ca/city-government/data-research-maps/toronto-progress-portal/">the City of Toronto Progress Portal</a> and type “TTC” and click on the box that says
 “TTC Ridership Revenues” to see a report. You can download the data from here, but
-since it’s a bit tricky to describe exactly how, I have posted the file
-<code>ttc-ridership-revenues.csv</code> on Quercus. We are going to read these data into <code>R</code>
+since it’s a bit tricky to describe exactly how, I have put the file
+<code>ttc-ridership-revenues.csv</code> in the <code>data</code> folder. We are going to read these data into <code>R</code>
 and analyze the relationship between <code>year</code> and <code>revenue</code>.</p>
 <p>If you’re thinking “that sounds really easy, we just did that!”… just keep reading.</p>
 <p>First, print the data out and count the number of rows on the command line:</p>
@@ -385,7 +384,7 @@ and analyze the relationship between <code>year</code> and <code>revenue</code>.
 <p>Yikes! Real data is messy. This data isn’t even that messy and it still seems messy.</p>
 <p>We see that the file is comma-separated and has a header. The first column is
 text and the others are… well, they’re supposed to be numeric, but they are
-stored in the file with dollar signs. WHY! This kind of thing is super annoying
+stored in the file with dollar signs. WHY?! This kind of thing is super annoying
 and super common.</p>
 <p>We could remove the dollar signs from the text file directly using <code>sed</code> or a
 similar UNIX-based tool, but I prefer whenever possible to keep all my analysis
@@ -534,7 +533,7 @@ which is the probability that <span class="math inline">\(X = 0\)</span>:
 p_{0} = P(X = 0) = e^{-\lambda}
 \end{equation}\]</span>
 where <span class="math inline">\(\lambda = E(X) = \log 10\)</span> in this example. The book suggests two estimators,
-<span class="math inline">\(S = \sum_{i=1}^{n}\mathbb{1}(X_{i} = 0)\)</span> and <span class="math inline">\(T = e^{-\bar{X}_{n}}\)</span>. <span class="math inline">\(S\)</span> corresponds
+<span class="math inline">\(S = (1/n)\times\sum_{i=1}^{n}\mathbb{1}(X_{i} = 0)\)</span> and <span class="math inline">\(T = e^{-\bar{X}_{n}}\)</span>. <span class="math inline">\(S\)</span> corresponds
 to calculating the sample proportion of times <span class="math inline">\(X_{i}=0\)</span>, and <span class="math inline">\(T\)</span> corresponds to
 estimating the population mean <span class="math inline">\(\lambda\)</span> using the sample mean <span class="math inline">\(\bar{X}_{n}\)</span> and
 then plugging this in to the actual formula for the value <span class="math inline">\(p_{0}\)</span>. These both come
@@ -601,23 +600,7 @@ recreating the following:</p>
 <p>Do you see any meaningful differences? Do the sampling distributions of <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>
 concentrate around <span class="math inline">\(p0\)</span> in the same way?</p>
 <p>Now, compute the mode (most frequently-observed value) of <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>. You should get the following:</p>
-<div class="sourceCode" id="section-cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1">mode_S &lt;-<span class="st"> </span>estimators <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb167-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(S) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb167-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">cnt =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb167-4" title="4"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cnt)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb167-5" title="5"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb167-6" title="6"><span class="st">  </span><span class="kw">pull</span>(S)</a>
-<a class="sourceLine" id="cb167-7" title="7"></a>
-<a class="sourceLine" id="cb167-8" title="8">mode_T &lt;-<span class="st"> </span>estimators <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb167-9" title="9"><span class="st">  </span><span class="kw">group_by</span>(T) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb167-10" title="10"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">cnt =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb167-11" title="11"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cnt)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb167-12" title="12"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb167-13" title="13"><span class="st">  </span><span class="kw">pull</span>(T)</a>
-<a class="sourceLine" id="cb167-14" title="14"></a>
-<a class="sourceLine" id="cb167-15" title="15"><span class="kw">cat</span>(<span class="st">&quot;The mode of S is &quot;</span>,mode_S,<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
 <pre><code>## The mode of S is  0.06666667</code></pre>
-<div class="sourceCode" id="section-cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1"><span class="kw">cat</span>(<span class="st">&quot;The mode of T is &quot;</span>,mode_T,<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
 <pre><code>## The mode of T is  0.09697197</code></pre>
 <p>(You’re going to have to figure out how to compute a mode in <code>R</code>. That’s part of
 the exercise).</p>

@@ -85,7 +85,7 @@ wc -l data/MIPSdata/grosscalOsterfeld.txt
 ```
 
 Read it in. I'm leaving this as an exericse (note: not because I'm lazy, I still had to
-write the code. It's for your "learning" or whatever). You should get the following:
+write the code. It's for your learning). You should get the following:
 
 ```{r oster-2,echo = FALSE}
 osterfield <- readr::read_csv(
@@ -196,7 +196,8 @@ qnorm(c((1-conf)/2,1 - (1-conf)/2))
 ```
 
 Let's apply this to the software data. Oddly, I get different values for the mean,
-standard deviation, and sample size than the book reports. If you figure out why,
+standard deviation, and sample size than the book reports. If you are the first 
+person to figure out why,
 I will give you a $\$10$ Tim card. The differences aren't meaningful enough to 
 affect the presentation of these ideas.
 
@@ -233,7 +234,7 @@ data assuming the data is normally distributed. This does NOT mean that you shou
 use a normal distribution for calculating the critical values-- if you don't understand
 why, go back and read the "Variance Unknown" section on page 348. I got the following:
 
-```{r boot-4}
+```{r boot-4,echo = FALSE}
 critval <- qt(1 - (1-conf)/2,df = n -1)
 c(
   "lower" = mn - critval * ss/sqrt(n),

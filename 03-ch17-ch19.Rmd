@@ -111,11 +111,10 @@ in North America, which means that its operating budget is the most dependent on
 fare revenue out of any in all of the US and Canada. Tracking how ridership
 revenues are changing over time is very important.
 
-The city does do this. Go to (https://www.toronto.ca/city-government/data-research-maps/toronto-progress-portal/)[
-the City of Toronto Progress Portal] and type "TTC" and click on the box that says
+The city does do this. Go to [the City of Toronto Progress Portal](https://www.toronto.ca/city-government/data-research-maps/toronto-progress-portal/) and type "TTC" and click on the box that says
 "TTC Ridership Revenues" to see a report. You can download the data from here, but
-since it's a bit tricky to describe exactly how, I have posted the file
-`ttc-ridership-revenues.csv` on Quercus. We are going to read these data into `R`
+since it's a bit tricky to describe exactly how, I have put the file
+`ttc-ridership-revenues.csv` in the `data` folder. We are going to read these data into `R`
 and analyze the relationship between `year` and `revenue`.
 
 If you're thinking "that sounds really easy, we just did that!"... just keep reading.
@@ -131,7 +130,7 @@ Yikes! Real data is messy. This data isn't even that messy and it still seems me
 
 We see that the file is comma-separated and has a header. The first column is
 text and the others are... well, they're supposed to be numeric, but they are
-stored in the file with dollar signs. WHY! This kind of thing is super annoying 
+stored in the file with dollar signs. WHY?! This kind of thing is super annoying 
 and super common.
 
 We could remove the dollar signs from the text file directly using `sed` or a
@@ -284,7 +283,7 @@ which is the probability that $X = 0$:
 p_{0} = P(X = 0) = e^{-\lambda}
 \end{equation}
 where $\lambda = E(X) = \log 10$ in this example. The book suggests two estimators,
-$S = \sum_{i=1}^{n}\mathbb{1}(X_{i} = 0)$ and $T = e^{-\bar{X}_{n}}$. $S$ corresponds
+$S = (1/n)\times\sum_{i=1}^{n}\mathbb{1}(X_{i} = 0)$ and $T = e^{-\bar{X}_{n}}$. $S$ corresponds
 to calculating the sample proportion of times $X_{i}=0$, and $T$ corresponds to
 estimating the population mean $\lambda$ using the sample mean $\bar{X}_{n}$ and
 then plugging this in to the actual formula for the value $p_{0}$. These both come
@@ -353,7 +352,7 @@ concentrate around $p0$ in the same way?
 
 Now, compute the mode (most frequently-observed value) of $S$ and $T$. You should get the following:
 
-```{r poisson-3}
+```{r poisson-3,echo = FALSE}
 mode_S <- estimators %>%
   group_by(S) %>%
   summarize(cnt = n()) %>%

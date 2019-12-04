@@ -266,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This chapter is a bit different: we introduce the idea of “goodness of fit” through
 implementing the analysis in a blog post discussing a disputed paper in a
 Psychology journal. You can find the article here: <a href="http://datacolada.org/74">http://datacolada.org/74</a></p>
-<div class="sourceCode" id="section-cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div class="sourceCode" id="section-cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
 <div id="section-go-and-read-the-blog-post" class="section level2">
 <h2><span class="header-section-number">10.1</span> Go and read the blog post</h2>
 <p>To start, go read this blog post: <a href="http://datacolada.org/74">http://datacolada.org/74</a>.
@@ -292,12 +292,12 @@ use our own <code>R</code> code but I borrow parts from theirs.</p>
 <div id="section-read-in-the-data-1" class="section level3">
 <h3><span class="header-section-number">10.2.1</span> Read in the data</h3>
 <p>First, read in the data as usual:</p>
-<div class="sourceCode" id="section-cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" title="1">study1 &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb252-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;http://datacolada.org/appendix/74/Study%201%20-%20Decoy%20Effect.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb252-3" title="3">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb252-4" title="4">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">42</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb252-5" title="5">)</a>
-<a class="sourceLine" id="cb252-6" title="6"><span class="kw">glimpse</span>(study1)</a></code></pre></div>
+<div class="sourceCode" id="section-cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" title="1">study1 &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb249-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;http://datacolada.org/appendix/74/Study%201%20-%20Decoy%20Effect.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb249-3" title="3">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb249-4" title="4">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">42</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb249-5" title="5">)</a>
+<a class="sourceLine" id="cb249-6" title="6"><span class="kw">glimpse</span>(study1)</a></code></pre></div>
 <pre><code>## Observations: 40
 ## Variables: 42
 ## $ Subject                                                   &lt;dbl&gt; 1, 2, …
@@ -348,9 +348,9 @@ otherwise. Verify that the <code>col_names</code> and <code>col_types</code> arg
 are correct.</p>
 <p>The data is in “wide” format– each day has its own column. We want one column
 for subject ID, one for Day, and one for measurement. Let’s reformat the data:</p>
-<div class="sourceCode" id="section-cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1">study1_long &lt;-<span class="st"> </span>study1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb254-2" title="2"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(day,measurement,Day1<span class="op">:</span>Day40)</a>
-<a class="sourceLine" id="cb254-3" title="3"><span class="kw">glimpse</span>(study1_long)</a></code></pre></div>
+<div class="sourceCode" id="section-cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1">study1_long &lt;-<span class="st"> </span>study1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb251-2" title="2"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(day,measurement,Day1<span class="op">:</span>Day40)</a>
+<a class="sourceLine" id="cb251-3" title="3"><span class="kw">glimpse</span>(study1_long)</a></code></pre></div>
 <pre><code>## Observations: 1,600
 ## Variables: 4
 ## $ Subject                                                   &lt;dbl&gt; 1, 2, …
@@ -366,12 +366,12 @@ need to</p>
 </ol>
 <p>Let’s do this. We’ll use the <code>substr</code> function to choose the last digit of each
 number. Type <code>?substr</code> to learn about this function.</p>
-<div class="sourceCode" id="section-cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1">study1_clean &lt;-<span class="st"> </span>study1_long <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb256-2" title="2"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">subject =</span> Subject,</a>
-<a class="sourceLine" id="cb256-3" title="3">         <span class="dt">group =</span> <span class="st">`</span><span class="dt">Group (1=experimental condition, 0 = control condition)</span><span class="st">`</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb256-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">last_digit =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(measurement,<span class="kw">nchar</span>(measurement),<span class="kw">nchar</span>(measurement))))</a>
-<a class="sourceLine" id="cb256-5" title="5"></a>
-<a class="sourceLine" id="cb256-6" title="6"><span class="kw">glimpse</span>(study1_clean)</a></code></pre></div>
+<div class="sourceCode" id="section-cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" title="1">study1_clean &lt;-<span class="st"> </span>study1_long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb253-2" title="2"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">subject =</span> Subject,</a>
+<a class="sourceLine" id="cb253-3" title="3">         <span class="dt">group =</span> <span class="st">`</span><span class="dt">Group (1=experimental condition, 0 = control condition)</span><span class="st">`</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb253-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">last_digit =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(measurement,<span class="kw">nchar</span>(measurement),<span class="kw">nchar</span>(measurement))))</a>
+<a class="sourceLine" id="cb253-5" title="5"></a>
+<a class="sourceLine" id="cb253-6" title="6"><span class="kw">glimpse</span>(study1_clean)</a></code></pre></div>
 <pre><code>## Observations: 1,600
 ## Variables: 5
 ## $ subject     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1…
@@ -383,20 +383,20 @@ number. Type <code>?substr</code> to learn about this function.</p>
 </div>
 <div id="section-make-the-histogram" class="section level3">
 <h3><span class="header-section-number">10.2.2</span> Make the histogram</h3>
-<p>Okay, now consider Figure 1 in the blog post. They filter out observations not
+<p>Okay, now consider Figure 1 in the blog post. They filter out observations
 ending in <span class="math inline">\(0\)</span> or <span class="math inline">\(5\)</span>, because the authors of the disputed paper claim to have
 occasionally used a scale with <span class="math inline">\(5\)</span>-gram precision, and occasionally one with
 <span class="math inline">\(1\)</span>-gram precision (this alone is suspect…). They then make a histogram
 of all the last digits. We can do this too:</p>
-<div class="sourceCode" id="section-cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" title="1">study1_clean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb258-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">5</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb258-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> last_digit)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb258-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb258-5" title="5"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb258-6" title="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb258-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Study 1: Last digit strikingly not uniform&quot;</span>,</a>
-<a class="sourceLine" id="cb258-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Last Digit (0&#39;s and 5&#39;s removed)&quot;</span>,</a>
-<a class="sourceLine" id="cb258-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Frequency&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" title="1">study1_clean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb255-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">5</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb255-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> last_digit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb255-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb255-5" title="5"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb255-6" title="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb255-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Study 1: Last digit strikingly not uniform&quot;</span>,</a>
+<a class="sourceLine" id="cb255-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Last Digit (0&#39;s and 5&#39;s removed)&quot;</span>,</a>
+<a class="sourceLine" id="cb255-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Frequency&quot;</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/digits-hist-1-1.png" width="672" /></p>
 <p>I called this plot a “histogram” (which it is), but I used <code>geom_bar(stat = &quot;count&quot;)</code> to create
 it. I did this because I wanted the bins to be at specific values. It’s still a histogram (why?).</p>
@@ -434,57 +434,57 @@ going to ignore these details here.</p>
 Well, <em>any</em> random numbers should work, but to keep things consistent with the real
 data, let’s try generating from a normal distribution with mean and variance equal
 to the sample mean and variance of our data, rounded to the nearest integer:</p>
-<div class="sourceCode" id="section-cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" title="1">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(study1_clean<span class="op">$</span>measurement)</a>
-<a class="sourceLine" id="cb259-2" title="2">ss &lt;-<span class="st"> </span><span class="kw">sd</span>(study1_clean<span class="op">$</span>measurement)</a>
-<a class="sourceLine" id="cb259-3" title="3">testnumbers &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>,mn,ss))</a>
-<a class="sourceLine" id="cb259-4" title="4"><span class="co"># Plot a chart of the last digits</span></a>
-<a class="sourceLine" id="cb259-5" title="5"><span class="kw">tibble</span>(<span class="dt">x =</span> testnumbers) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb259-6" title="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">last_digit =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(x,<span class="kw">nchar</span>(x),<span class="kw">nchar</span>(x)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb259-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> last_digit)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb259-8" title="8"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb259-9" title="9"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb259-10" title="10"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb259-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Last digits of normal random sample&quot;</span>,</a>
-<a class="sourceLine" id="cb259-12" title="12">       <span class="dt">x =</span> <span class="st">&quot;Last Digit&quot;</span>,</a>
-<a class="sourceLine" id="cb259-13" title="13">       <span class="dt">y =</span> <span class="st">&quot;Frequency&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(study1_clean<span class="op">$</span>measurement)</a>
+<a class="sourceLine" id="cb256-2" title="2">ss &lt;-<span class="st"> </span><span class="kw">sd</span>(study1_clean<span class="op">$</span>measurement)</a>
+<a class="sourceLine" id="cb256-3" title="3">testnumbers &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>,mn,ss))</a>
+<a class="sourceLine" id="cb256-4" title="4"><span class="co"># Plot a chart of the last digits</span></a>
+<a class="sourceLine" id="cb256-5" title="5"><span class="kw">tibble</span>(<span class="dt">x =</span> testnumbers) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-6" title="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">last_digit =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(x,<span class="kw">nchar</span>(x),<span class="kw">nchar</span>(x)))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> last_digit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb256-8" title="8"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb256-9" title="9"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb256-10" title="10"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb256-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Last digits of normal random sample&quot;</span>,</a>
+<a class="sourceLine" id="cb256-12" title="12">       <span class="dt">x =</span> <span class="st">&quot;Last Digit&quot;</span>,</a>
+<a class="sourceLine" id="cb256-13" title="13">       <span class="dt">y =</span> <span class="st">&quot;Frequency&quot;</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/even-dist-1-1.png" width="672" /></p>
 <p>Looks pretty uniform to me! Let’s proceed with our simulation:</p>
-<div class="sourceCode" id="section-cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" title="1"><span class="kw">set.seed</span>(<span class="dv">789685</span>)</a>
-<a class="sourceLine" id="cb260-2" title="2"><span class="co"># Create a function that simulates a dataset</span></a>
-<a class="sourceLine" id="cb260-3" title="3"><span class="co"># and returns the proportion of last digits</span></a>
-<a class="sourceLine" id="cb260-4" title="4"><span class="co"># that are either 3 or 7</span></a>
-<a class="sourceLine" id="cb260-5" title="5">N &lt;-<span class="st"> </span><span class="kw">nrow</span>(study1_clean <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>)))) <span class="co"># Size of dataset to simulate</span></a>
-<a class="sourceLine" id="cb260-6" title="6">B &lt;-<span class="st"> </span><span class="fl">1e04</span> <span class="co"># Number of simulations to do- 1 million (!)</span></a>
-<a class="sourceLine" id="cb260-7" title="7">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(study1_clean<span class="op">$</span>measurement)</a>
-<a class="sourceLine" id="cb260-8" title="8">ss &lt;-<span class="st"> </span><span class="kw">sd</span>(study1_clean<span class="op">$</span>measurement)</a>
-<a class="sourceLine" id="cb260-9" title="9">simulate_proportion &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb260-10" title="10">  ds &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(N,mn,ss))</a>
-<a class="sourceLine" id="cb260-11" title="11">  last_digits &lt;-<span class="st"> </span><span class="kw">substr</span>(ds,<span class="kw">nchar</span>(ds),<span class="kw">nchar</span>(ds))</a>
-<a class="sourceLine" id="cb260-12" title="12">  <span class="kw">mean</span>(last_digits <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;3&quot;</span>,<span class="st">&quot;7&quot;</span>))</a>
-<a class="sourceLine" id="cb260-13" title="13">}</a>
-<a class="sourceLine" id="cb260-14" title="14"><span class="co"># What is the proportion of 3&#39;s and 7&#39;s in our data,</span></a>
-<a class="sourceLine" id="cb260-15" title="15"><span class="co"># after filtering out 5&#39;s and 0&#39;s?</span></a>
-<a class="sourceLine" id="cb260-16" title="16">study_proportion &lt;-<span class="st"> </span>study1_clean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb260-17" title="17"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb260-18" title="18"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">7</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb260-19" title="19"><span class="st">  </span><span class="kw">pull</span>(p) </a>
-<a class="sourceLine" id="cb260-20" title="20">study_proportion</a></code></pre></div>
+<div class="sourceCode" id="section-cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" title="1"><span class="kw">set.seed</span>(<span class="dv">789685</span>)</a>
+<a class="sourceLine" id="cb257-2" title="2"><span class="co"># Create a function that simulates a dataset</span></a>
+<a class="sourceLine" id="cb257-3" title="3"><span class="co"># and returns the proportion of last digits</span></a>
+<a class="sourceLine" id="cb257-4" title="4"><span class="co"># that are either 3 or 7</span></a>
+<a class="sourceLine" id="cb257-5" title="5">N &lt;-<span class="st"> </span><span class="kw">nrow</span>(study1_clean <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>)))) <span class="co"># Size of dataset to simulate</span></a>
+<a class="sourceLine" id="cb257-6" title="6">B &lt;-<span class="st"> </span><span class="fl">1e04</span> <span class="co"># Number of simulations to do- 1 million (!)</span></a>
+<a class="sourceLine" id="cb257-7" title="7">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(study1_clean<span class="op">$</span>measurement)</a>
+<a class="sourceLine" id="cb257-8" title="8">ss &lt;-<span class="st"> </span><span class="kw">sd</span>(study1_clean<span class="op">$</span>measurement)</a>
+<a class="sourceLine" id="cb257-9" title="9">simulate_proportion &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb257-10" title="10">  ds &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(N,mn,ss))</a>
+<a class="sourceLine" id="cb257-11" title="11">  last_digits &lt;-<span class="st"> </span><span class="kw">substr</span>(ds,<span class="kw">nchar</span>(ds),<span class="kw">nchar</span>(ds))</a>
+<a class="sourceLine" id="cb257-12" title="12">  <span class="kw">mean</span>(last_digits <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;3&quot;</span>,<span class="st">&quot;7&quot;</span>))</a>
+<a class="sourceLine" id="cb257-13" title="13">}</a>
+<a class="sourceLine" id="cb257-14" title="14"><span class="co"># What is the proportion of 3&#39;s and 7&#39;s in our data,</span></a>
+<a class="sourceLine" id="cb257-15" title="15"><span class="co"># after filtering out 5&#39;s and 0&#39;s?</span></a>
+<a class="sourceLine" id="cb257-16" title="16">study_proportion &lt;-<span class="st"> </span>study1_clean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb257-17" title="17"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb257-18" title="18"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">7</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb257-19" title="19"><span class="st">  </span><span class="kw">pull</span>(p) </a>
+<a class="sourceLine" id="cb257-20" title="20">study_proportion</a></code></pre></div>
 <pre><code>## [1] 0.8814815</code></pre>
-<div class="sourceCode" id="section-cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" title="1"><span class="co"># 88.1%. Wow.</span></a>
-<a class="sourceLine" id="cb262-2" title="2"></a>
-<a class="sourceLine" id="cb262-3" title="3"><span class="co"># Perform the simulation:</span></a>
-<a class="sourceLine" id="cb262-4" title="4">sim_results &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb262-5" title="5"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">simulate_proportion</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb262-6" title="6"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">as.numeric</span>(.x <span class="op">&gt;=</span><span class="st"> </span>study_proportion)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb262-7" title="7"><span class="st">  </span><span class="kw">reduce</span>(c)</a>
-<a class="sourceLine" id="cb262-8" title="8"></a>
-<a class="sourceLine" id="cb262-9" title="9"><span class="co"># This is a vector of 0/1 which says whether each simulation&#39;s proportion of</span></a>
-<a class="sourceLine" id="cb262-10" title="10"><span class="co"># 3&#39;s and 7&#39;s exceeded the study proportion. Its mean is the simulated probability</span></a>
-<a class="sourceLine" id="cb262-11" title="11"><span class="co"># of seeing what we saw in the study, if the digits are actually evenly distributed:</span></a>
-<a class="sourceLine" id="cb262-12" title="12"><span class="kw">mean</span>(sim_results)</a></code></pre></div>
+<div class="sourceCode" id="section-cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" title="1"><span class="co"># 88.1%. Wow.</span></a>
+<a class="sourceLine" id="cb259-2" title="2"></a>
+<a class="sourceLine" id="cb259-3" title="3"><span class="co"># Perform the simulation:</span></a>
+<a class="sourceLine" id="cb259-4" title="4">sim_results &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-5" title="5"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">simulate_proportion</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-6" title="6"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">as.numeric</span>(.x <span class="op">&gt;=</span><span class="st"> </span>study_proportion)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-7" title="7"><span class="st">  </span><span class="kw">reduce</span>(c)</a>
+<a class="sourceLine" id="cb259-8" title="8"></a>
+<a class="sourceLine" id="cb259-9" title="9"><span class="co"># This is a vector of 0/1 which says whether each simulation&#39;s proportion of</span></a>
+<a class="sourceLine" id="cb259-10" title="10"><span class="co"># 3&#39;s and 7&#39;s exceeded the study proportion. Its mean is the simulated probability</span></a>
+<a class="sourceLine" id="cb259-11" title="11"><span class="co"># of seeing what we saw in the study, if the digits are actually evenly distributed:</span></a>
+<a class="sourceLine" id="cb259-12" title="12"><span class="kw">mean</span>(sim_results)</a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="section-cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" title="1"><span class="co"># Okay... how many?</span></a>
-<a class="sourceLine" id="cb264-2" title="2"><span class="kw">sum</span>(sim_results)</a></code></pre></div>
+<div class="sourceCode" id="section-cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" title="1"><span class="co"># Okay... how many?</span></a>
+<a class="sourceLine" id="cb261-2" title="2"><span class="kw">sum</span>(sim_results)</a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>In <span class="math inline">\(B = 10,000\)</span> simulations, I didn’t even get a single dataset that was as extreme
 as ours. This provides strong evidence against the notion that the digits are, in
@@ -564,45 +564,45 @@ of digits truly is even</em>. It’s called a <strong>p-value</strong>, and it�
 summary statistic in problems where the research question concerns comparing
 observations to some sort of reference, like we’re doing here.</p>
 <p>Let’s compute the likelihood ratio for our data:</p>
-<div class="sourceCode" id="section-cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" title="1"><span class="co"># Compute the MLEs</span></a>
-<a class="sourceLine" id="cb266-2" title="2">study1_filtered &lt;-<span class="st"> </span>study1_clean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb266-3" title="3"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>))) <span class="co"># Should have done this before...</span></a>
-<a class="sourceLine" id="cb266-4" title="4">pmledat &lt;-<span class="st"> </span>study1_filtered <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb266-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(last_digit) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb266-6" title="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">cnt =</span> <span class="kw">n</span>(),</a>
-<a class="sourceLine" id="cb266-7" title="7">            <span class="dt">pp =</span> <span class="kw">n</span>() <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(study1_filtered))</a>
-<a class="sourceLine" id="cb266-8" title="8"></a>
-<a class="sourceLine" id="cb266-9" title="9">obsvec &lt;-<span class="st"> </span>pmledat<span class="op">$</span>cnt</a>
-<a class="sourceLine" id="cb266-10" title="10"><span class="kw">names</span>(obsvec) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</a>
-<a class="sourceLine" id="cb266-11" title="11"></a>
-<a class="sourceLine" id="cb266-12" title="12">pmle &lt;-<span class="st"> </span>pmledat<span class="op">$</span>pp</a>
-<a class="sourceLine" id="cb266-13" title="13"><span class="kw">names</span>(pmle) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</a>
-<a class="sourceLine" id="cb266-14" title="14">pmle</a></code></pre></div>
+<div class="sourceCode" id="section-cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" title="1"><span class="co"># Compute the MLEs</span></a>
+<a class="sourceLine" id="cb263-2" title="2">study1_filtered &lt;-<span class="st"> </span>study1_clean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb263-3" title="3"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>))) <span class="co"># Should have done this before...</span></a>
+<a class="sourceLine" id="cb263-4" title="4">pmledat &lt;-<span class="st"> </span>study1_filtered <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb263-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(last_digit) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb263-6" title="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">cnt =</span> <span class="kw">n</span>(),</a>
+<a class="sourceLine" id="cb263-7" title="7">            <span class="dt">pp =</span> <span class="kw">n</span>() <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(study1_filtered))</a>
+<a class="sourceLine" id="cb263-8" title="8"></a>
+<a class="sourceLine" id="cb263-9" title="9">obsvec &lt;-<span class="st"> </span>pmledat<span class="op">$</span>cnt</a>
+<a class="sourceLine" id="cb263-10" title="10"><span class="kw">names</span>(obsvec) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</a>
+<a class="sourceLine" id="cb263-11" title="11"></a>
+<a class="sourceLine" id="cb263-12" title="12">pmle &lt;-<span class="st"> </span>pmledat<span class="op">$</span>pp</a>
+<a class="sourceLine" id="cb263-13" title="13"><span class="kw">names</span>(pmle) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</a>
+<a class="sourceLine" id="cb263-14" title="14">pmle</a></code></pre></div>
 <pre><code>##           2           3           4           6           7           8 
 ## 0.007407407 0.525925926 0.014814815 0.022222222 0.355555556 0.051851852 
 ##           9 
 ## 0.022222222</code></pre>
-<div class="sourceCode" id="section-cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" title="1"><span class="co"># Truth, if digits evenly distributed</span></a>
-<a class="sourceLine" id="cb268-2" title="2">p0 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(pmle)) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(pmle)</a>
-<a class="sourceLine" id="cb268-3" title="3"><span class="kw">names</span>(p0) &lt;-<span class="st"> </span><span class="kw">names</span>(pmle)</a>
-<a class="sourceLine" id="cb268-4" title="4">p0</a></code></pre></div>
+<div class="sourceCode" id="section-cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="co"># Truth, if digits evenly distributed</span></a>
+<a class="sourceLine" id="cb265-2" title="2">p0 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(pmle)) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(pmle)</a>
+<a class="sourceLine" id="cb265-3" title="3"><span class="kw">names</span>(p0) &lt;-<span class="st"> </span><span class="kw">names</span>(pmle)</a>
+<a class="sourceLine" id="cb265-4" title="4">p0</a></code></pre></div>
 <pre><code>##         2         3         4         6         7         8         9 
 ## 0.1428571 0.1428571 0.1428571 0.1428571 0.1428571 0.1428571 0.1428571</code></pre>
-<div class="sourceCode" id="section-cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" title="1"><span class="co"># Compute minus twice the likelihood ratio</span></a>
-<a class="sourceLine" id="cb270-2" title="2">multinom_log_likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(x,p) {</a>
-<a class="sourceLine" id="cb270-3" title="3">  <span class="co"># x: named vector where the name is j and the value is the count of </span></a>
-<a class="sourceLine" id="cb270-4" title="4">  <span class="co"># times y_ij = 1 in the sample</span></a>
-<a class="sourceLine" id="cb270-5" title="5">  <span class="co"># p: named vector with names equal to the unique values of x,</span></a>
-<a class="sourceLine" id="cb270-6" title="6">  <span class="co"># containing probabilities of each</span></a>
-<a class="sourceLine" id="cb270-7" title="7">  <span class="kw">sum</span>(x <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(p[<span class="kw">names</span>(x)]))</a>
-<a class="sourceLine" id="cb270-8" title="8">}</a>
-<a class="sourceLine" id="cb270-9" title="9"></a>
-<a class="sourceLine" id="cb270-10" title="10">lr &lt;-<span class="st"> </span><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span>(<span class="kw">multinom_log_likelihood</span>(obsvec,p0) <span class="op">-</span><span class="st"> </span><span class="kw">multinom_log_likelihood</span>(obsvec,pmle))</a>
-<a class="sourceLine" id="cb270-11" title="11">lr</a></code></pre></div>
+<div class="sourceCode" id="section-cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1"><span class="co"># Compute minus twice the likelihood ratio</span></a>
+<a class="sourceLine" id="cb267-2" title="2">multinom_log_likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(x,p) {</a>
+<a class="sourceLine" id="cb267-3" title="3">  <span class="co"># x: named vector where the name is j and the value is the count of </span></a>
+<a class="sourceLine" id="cb267-4" title="4">  <span class="co"># times y_ij = 1 in the sample</span></a>
+<a class="sourceLine" id="cb267-5" title="5">  <span class="co"># p: named vector with names equal to the unique values of x,</span></a>
+<a class="sourceLine" id="cb267-6" title="6">  <span class="co"># containing probabilities of each</span></a>
+<a class="sourceLine" id="cb267-7" title="7">  <span class="kw">sum</span>(x <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(p[<span class="kw">names</span>(x)]))</a>
+<a class="sourceLine" id="cb267-8" title="8">}</a>
+<a class="sourceLine" id="cb267-9" title="9"></a>
+<a class="sourceLine" id="cb267-10" title="10">lr &lt;-<span class="st"> </span><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span>(<span class="kw">multinom_log_likelihood</span>(obsvec,p0) <span class="op">-</span><span class="st"> </span><span class="kw">multinom_log_likelihood</span>(obsvec,pmle))</a>
+<a class="sourceLine" id="cb267-11" title="11">lr</a></code></pre></div>
 <pre><code>## [1] 221.1061</code></pre>
-<div class="sourceCode" id="section-cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" title="1"><span class="co"># Compute the probability that a chisquare random variable is greater than this</span></a>
-<a class="sourceLine" id="cb272-2" title="2"><span class="co"># value:</span></a>
-<a class="sourceLine" id="cb272-3" title="3"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pchisq</span>(lr,<span class="dt">df =</span> <span class="kw">length</span>(pmle) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># zero.</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1"><span class="co"># Compute the probability that a chisquare random variable is greater than this</span></a>
+<a class="sourceLine" id="cb269-2" title="2"><span class="co"># value:</span></a>
+<a class="sourceLine" id="cb269-3" title="3"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pchisq</span>(lr,<span class="dt">df =</span> <span class="kw">length</span>(pmle) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># zero.</span></a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p><strong>Exercise</strong>: write your own function to implement the multinomial loglikelihood,
 using the <code>dmultinom</code> function and a <code>for</code> loop. Compare your results to mine.</p>
@@ -614,9 +614,8 @@ did some statistical forensics! Pretty cool. This type of reasoning is abundant
 in the scientific literature, as are these p-value things. They are useful, but
 we want you, as stats majors and specialists, to leave this course understanding
 than statistics is so very much more than just a ritual or toolbox!</p>
-<p><strong>Exercise</strong>:</p>
 
-<div class="sourceCode" id="section-cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div class="sourceCode" id="section-cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
 </div>
 </div>
 </div>

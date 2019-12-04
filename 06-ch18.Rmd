@@ -1,6 +1,6 @@
 # Supplement to Chapter 18
 
-This chapter implements much of the analysis shown in chapter 20 of 
+This chapter implements much of the analysis shown in chapter 18 of 
 A Modern Introduction to Probability and Statistics. R code is given for the
 simple textbook datasets used in the book, and then the concepts are
 illustrated on real data.
@@ -187,8 +187,8 @@ of surveys. Because most news articles don't link to the raw data (another reaso
 not to believe the stuff that these for-profit companies push), we'll use a general
 budget survey from the Government of Canada, with responses from Alberta residents.
 You can get the data in excel format [https://open.canada.ca/data/en/dataset/2a5992c4-a050-46b8-b735-641cbc799a8e](here).
-You should open the file in excel and save it as a .csv, or if you don't have excel,
-I posted it on the course website for you.
+You should open the file in excel and save it as a `.csv`, or if you don't have excel,
+I put the `.csv` file I used in the `data` folder.
 
 Let's read the data into `R`. We know it has a header row (because we opened it
 in excel). There is a numeric ID column, two date columns (which we don't need),
@@ -222,12 +222,12 @@ generate. I like the first one: "Q1: To what extent do you think low oil prices 
 of Albertans believe their province is unable to budget due to the low price of oil." Hey,
 it generates clicks!
 
-Here, let's estimate the proportion of Albertans who answered $1$ ("A Great Deal")
+Here, let's estimate the proportion of Albertans who would answer $1$ ("A Great Deal")
 to the above question.
 
-**Exercise**: there are `nrow(budget)` survey responses. The number who respond 1
+**Exercise**: there are `r nrow(budget)` survey responses. The number who respond 1
 can be modelled as a Binomial random variable. Derive and calculate the standard
-deviation of the sample proportion of respondents who answered 1. I got $0.0428$.
+deviation of the sample proportion of respondents who answered 1. I got $0.0025$.
 Is this higher or lower than you would expect with this number of respondents?
 
 ```{r budget-2}
@@ -240,7 +240,7 @@ phat <- mean(origsamp)
 phat
 # Standard error (you should DERIVE this formula):
 sqrt(phat*(1-phat)/n)
-# So the mean is .5378 and the standard error is about 0.0428 (theoretically).
+# So the mean is .5378 and the standard error is about 0.0025 (theoretically).
 # Bootstrap: repeatedly resample and calculate the mean. The estimated standard error
 # of the sample mean is then the standard error of these means.
 doboot <- function(B) {
@@ -304,8 +304,7 @@ B <- 1000
 What do you think about this? Is the newspaper's claim substantiated by the data?
 
 **Exercise**: surveys usually aren't this big. Repeat the above calculation but
-on a subset of only $n = 200$ people. What do you get now? Are you going to check
-the sample size next time you read a news article that reports survey results?
+on a subset of only $n = 200$ people. What do you get now? 
 Use `newsample <- sample(origsamp,200,replace = FALSE)` and then repeate the 
 bootstrapping on the `newsample`. Use the same random seed.
 
@@ -320,3 +319,6 @@ B <- 1000
   reduce(c) %>%
   mean()
 ```
+
+Are you going to check
+the sample size next time you read a news article that reports survey results?

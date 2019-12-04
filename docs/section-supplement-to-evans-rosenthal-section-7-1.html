@@ -346,51 +346,51 @@ p(\theta = 0.3 |X) = \frac{0.3^{6}0.7^{4}\times 0.2}{0.3^{6}0.7^{4}\times 0.8 + 
 <div id="section-visualization" class="section level3">
 <h3><span class="header-section-number">6.1.4</span> Visualization</h3>
 <p>It is helpful to visualize the prior and posterior, for the observed data. Because both prior and posterior only allow two values, we can do this using a simple bar chart:</p>
-<div class="sourceCode" id="section-cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1">visualize_binomial_priorposterior &lt;-<span class="st"> </span><span class="cf">function</span>(sumx,n) {</a>
-<a class="sourceLine" id="cb176-2" title="2">  prior &lt;-<span class="st"> </span><span class="cf">function</span>(theta) {</a>
-<a class="sourceLine" id="cb176-3" title="3">    <span class="cf">if</span> (theta <span class="op">==</span><span class="st"> </span><span class="fl">.3</span>) {</a>
-<a class="sourceLine" id="cb176-4" title="4">      <span class="kw">return</span>(.<span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb176-5" title="5">    }</a>
-<a class="sourceLine" id="cb176-6" title="6">    <span class="cf">else</span> <span class="cf">if</span> (theta <span class="op">==</span><span class="st"> </span><span class="fl">.7</span>) {</a>
-<a class="sourceLine" id="cb176-7" title="7">      <span class="kw">return</span>(.<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb176-8" title="8">    }</a>
-<a class="sourceLine" id="cb176-9" title="9">    <span class="dv">0</span></a>
-<a class="sourceLine" id="cb176-10" title="10">  }</a>
-<a class="sourceLine" id="cb176-11" title="11">  likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(theta) theta<span class="op">^</span>sumx <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>theta)<span class="op">^</span>(n <span class="op">-</span><span class="st"> </span>sumx)</a>
-<a class="sourceLine" id="cb176-12" title="12">  marginal_likelihood &lt;-<span class="st"> </span><span class="kw">prior</span>(.<span class="dv">7</span>) <span class="op">*</span><span class="st"> </span><span class="kw">likelihood</span>(.<span class="dv">7</span>) <span class="op">+</span><span class="st"> </span><span class="kw">prior</span>(.<span class="dv">3</span>) <span class="op">*</span><span class="st"> </span><span class="kw">likelihood</span>(.<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb176-13" title="13">  posterior &lt;-<span class="st"> </span><span class="cf">function</span>(theta) <span class="kw">likelihood</span>(theta) <span class="op">*</span><span class="st"> </span><span class="kw">prior</span>(theta) <span class="op">/</span><span class="st"> </span>marginal_likelihood</a>
-<a class="sourceLine" id="cb176-14" title="14">  </a>
-<a class="sourceLine" id="cb176-15" title="15">  <span class="co"># Plot of the prior and posterior distributions for these observed data</span></a>
-<a class="sourceLine" id="cb176-16" title="16">  <span class="kw">data_frame</span>(</a>
-<a class="sourceLine" id="cb176-17" title="17">    <span class="dt">theta =</span> <span class="kw">c</span>(.<span class="dv">3</span>,.<span class="dv">7</span>,.<span class="dv">3</span>,.<span class="dv">7</span>),</a>
-<a class="sourceLine" id="cb176-18" title="18">    <span class="dt">value =</span> <span class="kw">c</span>(<span class="kw">prior</span>(.<span class="dv">3</span>),<span class="kw">prior</span>(.<span class="dv">7</span>),<span class="kw">posterior</span>(.<span class="dv">3</span>),<span class="kw">posterior</span>(.<span class="dv">7</span>)),</a>
-<a class="sourceLine" id="cb176-19" title="19">    <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;Prior&quot;</span>,<span class="st">&quot;Prior&quot;</span>,<span class="st">&quot;Posterior&quot;</span>,<span class="st">&quot;Posterior&quot;</span>)</a>
-<a class="sourceLine" id="cb176-20" title="20">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb176-21" title="21"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> theta,<span class="dt">y =</span> value,<span class="dt">fill =</span> type)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-22" title="22"><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb176-23" title="23"><span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>,<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-24" title="24"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Prior and Posterior for theta&quot;</span>,</a>
-<a class="sourceLine" id="cb176-25" title="25">         <span class="dt">subtitle =</span> <span class="kw">str_c</span>(<span class="st">&quot;Observed data: &quot;</span>,sumx,<span class="st">&quot; flips in &quot;</span>,n,<span class="st">&quot; throws&quot;</span>),</a>
-<a class="sourceLine" id="cb176-26" title="26">         <span class="dt">x =</span> <span class="st">&quot;Theta, probability of heads&quot;</span>,</a>
-<a class="sourceLine" id="cb176-27" title="27">         <span class="dt">y =</span> <span class="st">&quot;Prior/Posterior Probability&quot;</span>,</a>
-<a class="sourceLine" id="cb176-28" title="28">         <span class="dt">fill =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-29" title="29"><span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="fl">0.30</span>,<span class="fl">0.70</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;0.30&quot;</span>,<span class="st">&quot;0.70&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-30" title="30"><span class="st">    </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>()) <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-31" title="31"><span class="st">    </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>)</a>
-<a class="sourceLine" id="cb176-32" title="32">  </a>
-<a class="sourceLine" id="cb176-33" title="33">}</a></code></pre></div>
+<div class="sourceCode" id="section-cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1">visualize_binomial_priorposterior &lt;-<span class="st"> </span><span class="cf">function</span>(sumx,n) {</a>
+<a class="sourceLine" id="cb174-2" title="2">  prior &lt;-<span class="st"> </span><span class="cf">function</span>(theta) {</a>
+<a class="sourceLine" id="cb174-3" title="3">    <span class="cf">if</span> (theta <span class="op">==</span><span class="st"> </span><span class="fl">.3</span>) {</a>
+<a class="sourceLine" id="cb174-4" title="4">      <span class="kw">return</span>(.<span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb174-5" title="5">    }</a>
+<a class="sourceLine" id="cb174-6" title="6">    <span class="cf">else</span> <span class="cf">if</span> (theta <span class="op">==</span><span class="st"> </span><span class="fl">.7</span>) {</a>
+<a class="sourceLine" id="cb174-7" title="7">      <span class="kw">return</span>(.<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb174-8" title="8">    }</a>
+<a class="sourceLine" id="cb174-9" title="9">    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb174-10" title="10">  }</a>
+<a class="sourceLine" id="cb174-11" title="11">  likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(theta) theta<span class="op">^</span>sumx <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>theta)<span class="op">^</span>(n <span class="op">-</span><span class="st"> </span>sumx)</a>
+<a class="sourceLine" id="cb174-12" title="12">  marginal_likelihood &lt;-<span class="st"> </span><span class="kw">prior</span>(.<span class="dv">7</span>) <span class="op">*</span><span class="st"> </span><span class="kw">likelihood</span>(.<span class="dv">7</span>) <span class="op">+</span><span class="st"> </span><span class="kw">prior</span>(.<span class="dv">3</span>) <span class="op">*</span><span class="st"> </span><span class="kw">likelihood</span>(.<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb174-13" title="13">  posterior &lt;-<span class="st"> </span><span class="cf">function</span>(theta) <span class="kw">likelihood</span>(theta) <span class="op">*</span><span class="st"> </span><span class="kw">prior</span>(theta) <span class="op">/</span><span class="st"> </span>marginal_likelihood</a>
+<a class="sourceLine" id="cb174-14" title="14">  </a>
+<a class="sourceLine" id="cb174-15" title="15">  <span class="co"># Plot of the prior and posterior distributions for these observed data</span></a>
+<a class="sourceLine" id="cb174-16" title="16">  <span class="kw">data_frame</span>(</a>
+<a class="sourceLine" id="cb174-17" title="17">    <span class="dt">theta =</span> <span class="kw">c</span>(.<span class="dv">3</span>,.<span class="dv">7</span>,.<span class="dv">3</span>,.<span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb174-18" title="18">    <span class="dt">value =</span> <span class="kw">c</span>(<span class="kw">prior</span>(.<span class="dv">3</span>),<span class="kw">prior</span>(.<span class="dv">7</span>),<span class="kw">posterior</span>(.<span class="dv">3</span>),<span class="kw">posterior</span>(.<span class="dv">7</span>)),</a>
+<a class="sourceLine" id="cb174-19" title="19">    <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;Prior&quot;</span>,<span class="st">&quot;Prior&quot;</span>,<span class="st">&quot;Posterior&quot;</span>,<span class="st">&quot;Posterior&quot;</span>)</a>
+<a class="sourceLine" id="cb174-20" title="20">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb174-21" title="21"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> theta,<span class="dt">y =</span> value,<span class="dt">fill =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb174-22" title="22"><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb174-23" title="23"><span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>,<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb174-24" title="24"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Prior and Posterior for theta&quot;</span>,</a>
+<a class="sourceLine" id="cb174-25" title="25">         <span class="dt">subtitle =</span> <span class="kw">str_c</span>(<span class="st">&quot;Observed data: &quot;</span>,sumx,<span class="st">&quot; flips in &quot;</span>,n,<span class="st">&quot; throws&quot;</span>),</a>
+<a class="sourceLine" id="cb174-26" title="26">         <span class="dt">x =</span> <span class="st">&quot;Theta, probability of heads&quot;</span>,</a>
+<a class="sourceLine" id="cb174-27" title="27">         <span class="dt">y =</span> <span class="st">&quot;Prior/Posterior Probability&quot;</span>,</a>
+<a class="sourceLine" id="cb174-28" title="28">         <span class="dt">fill =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb174-29" title="29"><span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="fl">0.30</span>,<span class="fl">0.70</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;0.30&quot;</span>,<span class="st">&quot;0.70&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb174-30" title="30"><span class="st">    </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb174-31" title="31"><span class="st">    </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>)</a>
+<a class="sourceLine" id="cb174-32" title="32">  </a>
+<a class="sourceLine" id="cb174-33" title="33">}</a></code></pre></div>
 <p>Plotting is nice as it lets us compare how different observed data, and different experiments (number of throws) affect the prior/posterior balance of belief:</p>
-<div class="sourceCode" id="section-cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" title="1">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(</a>
-<a class="sourceLine" id="cb177-2" title="2">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">6</span>,<span class="dv">6</span>),</a>
-<a class="sourceLine" id="cb177-3" title="3">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">6</span>,<span class="dv">10</span>),</a>
-<a class="sourceLine" id="cb177-4" title="4">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">6</span>,<span class="dv">20</span>),</a>
-<a class="sourceLine" id="cb177-5" title="5">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">6</span>,<span class="dv">50</span>),</a>
-<a class="sourceLine" id="cb177-6" title="6">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">0</span>,<span class="dv">10</span>),</a>
-<a class="sourceLine" id="cb177-7" title="7">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">1</span>,<span class="dv">10</span>),</a>
-<a class="sourceLine" id="cb177-8" title="8">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">7</span>,<span class="dv">10</span>),</a>
-<a class="sourceLine" id="cb177-9" title="9">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">10</span>,<span class="dv">10</span>),</a>
-<a class="sourceLine" id="cb177-10" title="10">  <span class="dt">ncol=</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb177-11" title="11">)</a></code></pre></div>
+<div class="sourceCode" id="section-cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(</a>
+<a class="sourceLine" id="cb175-2" title="2">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">6</span>,<span class="dv">6</span>),</a>
+<a class="sourceLine" id="cb175-3" title="3">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">6</span>,<span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb175-4" title="4">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">6</span>,<span class="dv">20</span>),</a>
+<a class="sourceLine" id="cb175-5" title="5">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">6</span>,<span class="dv">50</span>),</a>
+<a class="sourceLine" id="cb175-6" title="6">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">0</span>,<span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb175-7" title="7">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">1</span>,<span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb175-8" title="8">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">7</span>,<span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb175-9" title="9">  <span class="kw">visualize_binomial_priorposterior</span>(<span class="dv">10</span>,<span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb175-10" title="10">  <span class="dt">ncol=</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb175-11" title="11">)</a></code></pre></div>
 <p><img src="book_files/figure-html/binomial-vis2-1.png" width="672" /></p>
 </div>
 </div>

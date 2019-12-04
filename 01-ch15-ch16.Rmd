@@ -21,8 +21,13 @@ folder. To read it in to `R`, first you need to look at its contents.
 ### Read in the data
 
 You can either open it in a text editor (since it's small), or print out the
-first few lines on the command line. If you plan on ever doing any meaningful work
-with data, the latter is really your only choice, so let's do that. If you have
+first few lines on the command line. The latter is nicer: the data is printed
+properly, without added bits from notepad or whatever; and if you're working with
+large data stored in big text files, trying to open the whole thing in an editor
+will crash your computer. It's good to get in the habit of working a bit on the
+command line now.
+
+If you have
 a Mac or Linux-based system, open a terminal. If you have a Windows based system,
 get a Mac or Linux. Just kidding (not really though). Download Git Bash: https://git-scm.com/download/win 
 and open a new terminal window. 
@@ -31,19 +36,36 @@ To look at a text file on the command line, use the `head` command. You have to
 tell it where to look on your computer. You can navigate to the folder where the
 data is stored and just type the name of the file, or you can type a whole filepath,
 or a relative filepath. Right now, I am in the working directory for this book,
-and relative to this location, the data is stored in `data/MIPSdata`. So I type:
+and relative to this location, the data is stored in `data/MIPSdata`. 
+
+If you are
+not in this directory, you have to navigate there. The `pwd` command tells you
+where you are, the `ls -l` command tells you what's there, and the `cd` command
+lets you change to a new directory. So if you're in `/home/alex`, you would type
+`pwd` and it would print `/home/alex`. If this location contains a folder called
+`data`, you can type `ls -l` and there should be a list of stuff, including a folder
+called `data`. You can type `cd data` to go there, and repeat the process. Navigate
+to where you downloaded the data to-- it's kind of like a game!
+
+Anyways, once you're there, type:
 
 ```{bash look-at-oldfaithful-1}
 head data/MIPSdata/oldfaithful.txt
 ```
 
+Don't worry if you don't see the `\#\#`; those are
+added by the book. I don't see them when I do this right in the command line.
+
 A column of numbers is printed. This indicates that the text file `oldfaithdful.txt`
 contains a single column of numbers, and no header row. A header row is what it's
 called when the first row of the dataset contains the names of the columns.
 
-To read such a dataset into `R`, we'll use the `read_delim` function in the `readr`
+To read such a dataset into `R`, we'll use the `read_csv` function in the `readr`
 package. The `readr` package is automatically loaded when we load the `tidyverse`
-package, so we'll just do that:
+package. If this sentence is confusing (no worries!) I recommend you check out
+[my R tutorial](https://awstringer1.github.io/ssu-r-workshop/ssu-r-workshop.html).
+
+We'll just do that:
 
 ```{r read-oldfaithful-1,message=FALSE,warning=FALSE}
 library(tidyverse)
@@ -79,16 +101,12 @@ prompt gets printed on the same line as the final number, `268`. This indicates
 that the file does not end with a newline character, and hence the total number
 of newlines in the file is `271`, corresponding to `272` actual lines of data.
 
-**Remark**: I would wager that you are currently surprised that this was so difficult.
-Even reading in the simplest possible dataset created subtle challenges that needed
-to be addressed. There is probabably a reason this stuff isn't taught as heavily
-in stats courses as it ought to be; it's difficult and tedious and not as fun
-as math. But to do meaningful work using data, you have to get good at this stuff.
-So it is worth struggling through.
+**Remark**: subtle issues like this come up all the time in data analysis. The
+only way to get good at it is practice, so don't be discouraged!
 
 ### Graphical Summaries
 
-Now that the data has been read in and checked, we can realized the fruits of 
+Now that the data has been read in and checked, we can realize the fruits of 
 our labour! Chapter 15 analyzes these data using a tabular display, histogram, kernel density
 estimate, and empirical CDF. Here is how to do these things in `R`.
 
@@ -101,8 +119,7 @@ print(oldfaithful$time)
 
 # Histogram using base R
 hist(oldfaithful$time)
-# Base R graphics are outdated and won't get you a job/will make your papers
-# look too classical. Use ggplot2, which is loaded automatically with the tidyverse:
+# Base R graphics are outdated. Use ggplot2, which is loaded automatically with the tidyverse:
 oldfaithful %>%
   ggplot(aes(x = time)) +
   theme_classic() +
@@ -443,9 +460,7 @@ We see from the help page, and associated reference to the paper in the *America
 that the data comes from asking women in Whickham, England, whether they smoke or not, 
 and then following up in 20 years to see if they died.
 
-In *describing* the context surrouning the data---a quite natural step to take---we have achieved our first example of a descriptive analysis. We didn't even use and numbers or code. Just describing what the data *is* counts. And it's important, because as we learned in the introduction, information can't exist without *context*.
-
-To go further in our descriptive analysis, we need some more *quantitative* pieces of descriptive information. What might we want to know about our data? Some ideas:
+Let's perform a descriptive analysis of these data. We need some more *quantitative* pieces of descriptive information. What might we want to know about our data? Some ideas:
 
 - How many **observations** are there in the data, and what does an observation represent in the context of how the data was collected?
 - How many **variables** are present in the data, and what does each variable represent in the context of how the data was collected?
@@ -454,9 +469,6 @@ To go further in our descriptive analysis, we need some more *quantitative* piec
 Let's see how we can obtain these descriptive measures in `R`:
 
 ```{r descriptive-1}
-# install.packages("tidyverse")
-# install.packages("SMPracticals") # For datasets
-library(tidyverse) # We use a LOT of functions from this package.
 # Get the number of observations (rows), variables, and an idea
 # of what the data looks like:
 glimpse(femsmoke)
@@ -502,15 +514,8 @@ femsmoke %>%
   summarize(num_people = sum(y))
 ```
 
-Descriptive analyses are an important task any time you are working with data. However, they don't accomplish anything *new*; they just, well, *describe* what you have.
-
-An **exploratory analysis** involves looking for patterns or structure in the available data. We can use what we find to make decisions or come to conclusions.
-
-One thing we can *choose* to explore about these data is whether we
-observe any apparent *association* between smoking and mortality. To investigate any such associations, we can look at *the observed mortality rates*
-for smokers and non-smokers. This is *exploratory*---not *descriptive*---because we are going beyond simply saying what the data looks like. We are looking for a pattern, namely, "do smokers die more or less frequently than non-smokers?"
-
-Exploratory analyses involve decisions made by us, the investigator. They are naturally *subjective*. Different decisions can lead to uncovering different patterns. For example:
+Let's go into a bit more detail. I want to see if there is any apparent association
+between smoking and mortality.
 
 ```{r mort-rate-1,warning=FALSE,message=FALSE}
 # Compute the mortality rate for smokers and non-smokers.
@@ -567,14 +572,6 @@ However, examining the raw counts of people in each group, we also see that
 *in these data*, less smokers died, because less smokers were old, and more
 old people died.
 
-But was our first analysis wrong? No. Our first analysis was fine: we computed
-the mortality rate in each group. The problem was in the reporting, or the way
-we told the story. We didn't provide enough information when we said "the mortality
-rate for smokers was lower than for non-smokers". We should have mentioned that
-this is *averaging over all age groups*. Even when we include age in the analysis,
-we ought to mention the fact that there are a whole lot of variables we *could*
-have measured but didn't, and we are implicitly averaging over these too.
-
 Before moving on, get some practice doing exploratory analysis with the following
 exercises:
   
@@ -600,7 +597,8 @@ rates_by_age <- smoker_numbers_age %>%
   ungroup() # The data was previously grouped, we don't want this anymore
 ```
 
-Use `dplyr::select()` to remove and rename columns, see `?dplyr::select`.
+Use `dplyr::select()` to remove and rename columns, see `?dplyr::select`. You
+should get the following:
 
 ```{r rel-mort-rate-1,echo = FALSE}
 smokers <- rates_by_age %>%

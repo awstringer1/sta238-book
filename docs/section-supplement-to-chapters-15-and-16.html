@@ -280,8 +280,12 @@ folder. To read it in to <code>R</code>, first you need to look at its contents.
 <div id="section-read-in-the-data" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Read in the data</h3>
 <p>You can either open it in a text editor (since it’s small), or print out the
-first few lines on the command line. If you plan on ever doing any meaningful work
-with data, the latter is really your only choice, so let’s do that. If you have
+first few lines on the command line. The latter is nicer: the data is printed
+properly, without added bits from notepad or whatever; and if you’re working with
+large data stored in big text files, trying to open the whole thing in an editor
+will crash your computer. It’s good to get in the habit of working a bit on the
+command line now.</p>
+<p>If you have
 a Mac or Linux-based system, open a terminal. If you have a Windows based system,
 get a Mac or Linux. Just kidding (not really though). Download Git Bash: <a href="https://git-scm.com/download/win" class="uri">https://git-scm.com/download/win</a>
 and open a new terminal window.</p>
@@ -289,7 +293,16 @@ and open a new terminal window.</p>
 tell it where to look on your computer. You can navigate to the folder where the
 data is stored and just type the name of the file, or you can type a whole filepath,
 or a relative filepath. Right now, I am in the working directory for this book,
-and relative to this location, the data is stored in <code>data/MIPSdata</code>. So I type:</p>
+and relative to this location, the data is stored in <code>data/MIPSdata</code>.</p>
+<p>If you are
+not in this directory, you have to navigate there. The <code>pwd</code> command tells you
+where you are, the <code>ls -l</code> command tells you what’s there, and the <code>cd</code> command
+lets you change to a new directory. So if you’re in <code>/home/alex</code>, you would type
+<code>pwd</code> and it would print <code>/home/alex</code>. If this location contains a folder called
+<code>data</code>, you can type <code>ls -l</code> and there should be a list of stuff, including a folder
+called <code>data</code>. You can type <code>cd data</code> to go there, and repeat the process. Navigate
+to where you downloaded the data to– it’s kind of like a game!</p>
+<p>Anyways, once you’re there, type:</p>
 <div class="sourceCode" id="section-cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">head</span> data/MIPSdata/oldfaithful.txt</a></code></pre></div>
 <pre><code>## 216  
 ## 108  
@@ -301,12 +314,16 @@ and relative to this location, the data is stored in <code>data/MIPSdata</code>.
 ## 216  
 ## 117  
 ## 261 </code></pre>
+<p>Don’t worry if you don’t see the <code>\#\#</code>; those are
+added by the book. I don’t see them when I do this right in the command line.</p>
 <p>A column of numbers is printed. This indicates that the text file <code>oldfaithdful.txt</code>
 contains a single column of numbers, and no header row. A header row is what it’s
 called when the first row of the dataset contains the names of the columns.</p>
-<p>To read such a dataset into <code>R</code>, we’ll use the <code>read_delim</code> function in the <code>readr</code>
+<p>To read such a dataset into <code>R</code>, we’ll use the <code>read_csv</code> function in the <code>readr</code>
 package. The <code>readr</code> package is automatically loaded when we load the <code>tidyverse</code>
-package, so we’ll just do that:</p>
+package. If this sentence is confusing (no worries!) I recommend you check out
+<a href="https://awstringer1.github.io/ssu-r-workshop/ssu-r-workshop.html">my R tutorial</a>.</p>
+<p>We’ll just do that:</p>
 <div class="sourceCode" id="section-cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(tidyverse)</a>
 <a class="sourceLine" id="cb3-2" title="2">oldfaithful &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
 <a class="sourceLine" id="cb3-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/oldfaithful.txt&quot;</span>, <span class="co"># Tell it where the file is</span></a>
@@ -317,7 +334,7 @@ package, so we’ll just do that:</p>
 <a class="sourceLine" id="cb3-8" title="8">dplyr<span class="op">::</span><span class="kw">glimpse</span>(oldfaithful)</a></code></pre></div>
 <pre><code>## Observations: 272
 ## Variables: 1
-## $ time &lt;dbl&gt; 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235,…</code></pre>
+## $ time [3m[38;5;246m&lt;dbl&gt;[39m[23m 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235,…</code></pre>
 <p>By <code>glimpse</code>ing the data, we see that the format matches what we saw in the raw
 file, and we are given the number of rows too. Check that the number of rows matches
 what was in the raw file by printing out the number of rows on the command line
@@ -343,16 +360,12 @@ as normal. But if you do it on the command line, you’ll see that the command
 prompt gets printed on the same line as the final number, <code>268</code>. This indicates
 that the file does not end with a newline character, and hence the total number
 of newlines in the file is <code>271</code>, corresponding to <code>272</code> actual lines of data.</p>
-<p><strong>Remark</strong>: I would wager that you are currently surprised that this was so difficult.
-Even reading in the simplest possible dataset created subtle challenges that needed
-to be addressed. There is probabably a reason this stuff isn’t taught as heavily
-in stats courses as it ought to be; it’s difficult and tedious and not as fun
-as math. But to do meaningful work using data, you have to get good at this stuff.
-So it is worth struggling through.</p>
+<p><strong>Remark</strong>: subtle issues like this come up all the time in data analysis. The
+only way to get good at it is practice, so don’t be discouraged!</p>
 </div>
 <div id="section-graphical-summaries" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Graphical Summaries</h3>
-<p>Now that the data has been read in and checked, we can realized the fruits of
+<p>Now that the data has been read in and checked, we can realize the fruits of
 our labour! Chapter 15 analyzes these data using a tabular display, histogram, kernel density
 estimate, and empirical CDF. Here is how to do these things in <code>R</code>.</p>
 <div class="sourceCode" id="section-cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># Tabular display</span></a>
@@ -380,15 +393,14 @@ estimate, and empirical CDF. Here is how to do these things in <code>R</code>.</
 <a class="sourceLine" id="cb11-5" title="5"><span class="co"># Histogram using base R</span></a>
 <a class="sourceLine" id="cb11-6" title="6"><span class="kw">hist</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithful-analysis-1-1.png" width="672" /></p>
-<div class="sourceCode" id="section-cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># Base R graphics are outdated and won&#39;t get you a job/will make your papers</span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="co"># look too classical. Use ggplot2, which is loaded automatically with the tidyverse:</span></a>
-<a class="sourceLine" id="cb12-3" title="3">oldfaithful <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-5" title="5"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-6" title="6"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Eruption times for Old Faithful geyser&quot;</span>,</a>
-<a class="sourceLine" id="cb12-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
-<a class="sourceLine" id="cb12-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># Base R graphics are outdated. Use ggplot2, which is loaded automatically with the tidyverse:</span></a>
+<a class="sourceLine" id="cb12-2" title="2">oldfaithful <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Eruption times for Old Faithful geyser&quot;</span>,</a>
+<a class="sourceLine" id="cb12-7" title="7">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
+<a class="sourceLine" id="cb12-8" title="8">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithful-analysis-1-2.png" width="672" /></p>
 <div class="sourceCode" id="section-cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># Try different numbers of bins and you might see different patterns. Do you think this is a</span></a>
 <a class="sourceLine" id="cb13-2" title="2"><span class="co"># good or bad thing, or both?</span></a>
@@ -595,9 +607,9 @@ standard deviation and mean absolute deviation, and quantiles.</p>
 <a class="sourceLine" id="cb56-8" title="8"><span class="kw">glimpse</span>(drilling)</a></code></pre></div>
 <pre><code>## Observations: 80
 ## Variables: 3
-## $ depth &lt;dbl&gt; 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,…
-## $ dry   &lt;dbl&gt; 640.67, 674.67, 708.00, 735.67, 754.33, 723.33, 664.33, 72…
-## $ wet   &lt;dbl&gt; 830.00, 800.00, 711.33, 867.67, 940.67, 941.33, 924.33, 87…</code></pre>
+## $ depth [3m[38;5;246m&lt;dbl&gt;[39m[23m 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,…
+## $ dry   [3m[38;5;246m&lt;dbl&gt;[39m[23m 640.67, 674.67, 708.00, 735.67, 754.33, 723.33, 664.33, 72…
+## $ wet   [3m[38;5;246m&lt;dbl&gt;[39m[23m 830.00, 800.00, 711.33, 867.67, 940.67, 941.33, 924.33, 87…</code></pre>
 </div>
 <div id="section-graphical-summaries-1" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> Graphical summaries</h3>
@@ -668,9 +680,9 @@ can re-format the data and have <code>ggplot</code> do it automatically:</p>
 <a class="sourceLine" id="cb61-14" title="14">dplyr<span class="op">::</span><span class="kw">glimpse</span>(drilling_long)</a></code></pre></div>
 <pre><code>## Observations: 160
 ## Variables: 3
-## $ depth &lt;dbl&gt; 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,…
-## $ type  &lt;chr&gt; &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry H…
-## $ time  &lt;dbl&gt; 640.67, 674.67, 708.00, 735.67, 754.33, 723.33, 664.33, 72…</code></pre>
+## $ depth [3m[38;5;246m&lt;dbl&gt;[39m[23m 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,…
+## $ type  [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry H…
+## $ time  [3m[38;5;246m&lt;dbl&gt;[39m[23m 640.67, 674.67, 708.00, 735.67, 754.33, 723.33, 664.33, 72…</code></pre>
 <div class="sourceCode" id="section-cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1">drilling_long <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb63-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> depth,<span class="dt">y =</span> time)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb63-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
@@ -743,20 +755,16 @@ and retrieve information on it as follows:</p>
 <p>We see from the help page, and associated reference to the paper in the <em>American Statistician</em>,
 that the data comes from asking women in Whickham, England, whether they smoke or not,
 and then following up in 20 years to see if they died.</p>
-<p>In <em>describing</em> the context surrouning the data—a quite natural step to take—we have achieved our first example of a descriptive analysis. We didn’t even use and numbers or code. Just describing what the data <em>is</em> counts. And it’s important, because as we learned in the introduction, information can’t exist without <em>context</em>.</p>
-<p>To go further in our descriptive analysis, we need some more <em>quantitative</em> pieces of descriptive information. What might we want to know about our data? Some ideas:</p>
+<p>Let’s perform a descriptive analysis of these data. We need some more <em>quantitative</em> pieces of descriptive information. What might we want to know about our data? Some ideas:</p>
 <ul>
 <li>How many <strong>observations</strong> are there in the data, and what does an observation represent in the context of how the data was collected?</li>
 <li>How many <strong>variables</strong> are present in the data, and what does each variable represent in the context of how the data was collected?</li>
 <li>How might we summarize each variable? We might compute a <strong>mean</strong> and a <strong>five-number summary</strong> for “continuous” variables, and a <strong>table of counts</strong> for “categorical” variables (more on this later…).</li>
 </ul>
 <p>Let’s see how we can obtain these descriptive measures in <code>R</code>:</p>
-<div class="sourceCode" id="section-cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="co"># install.packages(&quot;tidyverse&quot;)</span></a>
-<a class="sourceLine" id="cb69-2" title="2"><span class="co"># install.packages(&quot;SMPracticals&quot;) # For datasets</span></a>
-<a class="sourceLine" id="cb69-3" title="3"><span class="kw">library</span>(tidyverse) <span class="co"># We use a LOT of functions from this package.</span></a>
-<a class="sourceLine" id="cb69-4" title="4"><span class="co"># Get the number of observations (rows), variables, and an idea</span></a>
-<a class="sourceLine" id="cb69-5" title="5"><span class="co"># of what the data looks like:</span></a>
-<a class="sourceLine" id="cb69-6" title="6"><span class="kw">glimpse</span>(femsmoke)</a></code></pre></div>
+<div class="sourceCode" id="section-cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="co"># Get the number of observations (rows), variables, and an idea</span></a>
+<a class="sourceLine" id="cb69-2" title="2"><span class="co"># of what the data looks like:</span></a>
+<a class="sourceLine" id="cb69-3" title="3"><span class="kw">glimpse</span>(femsmoke)</a></code></pre></div>
 <pre><code>## Observations: 28
 ## Variables: 4
 ## $ y      &lt;dbl&gt; 2, 1, 3, 5, 14, 7, 27, 12, 51, 40, 29, 101, 13, 64, 53, 6…
@@ -810,12 +818,8 @@ and then following up in 20 years to see if they died.</p>
 ## 5 55-64        236
 ## 6 65-74        165
 ## 7 75+           77</code></pre>
-<p>Descriptive analyses are an important task any time you are working with data. However, they don’t accomplish anything <em>new</em>; they just, well, <em>describe</em> what you have.</p>
-<p>An <strong>exploratory analysis</strong> involves looking for patterns or structure in the available data. We can use what we find to make decisions or come to conclusions.</p>
-<p>One thing we can <em>choose</em> to explore about these data is whether we
-observe any apparent <em>association</em> between smoking and mortality. To investigate any such associations, we can look at <em>the observed mortality rates</em>
-for smokers and non-smokers. This is <em>exploratory</em>—not <em>descriptive</em>—because we are going beyond simply saying what the data looks like. We are looking for a pattern, namely, “do smokers die more or less frequently than non-smokers?”</p>
-<p>Exploratory analyses involve decisions made by us, the investigator. They are naturally <em>subjective</em>. Different decisions can lead to uncovering different patterns. For example:</p>
+<p>Let’s go into a bit more detail. I want to see if there is any apparent association
+between smoking and mortality.</p>
 <div class="sourceCode" id="section-cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" title="1"><span class="co"># Compute the mortality rate for smokers and non-smokers.</span></a>
 <a class="sourceLine" id="cb80-2" title="2"><span class="co"># To do this, create a dataframe containing the numbers of smokers</span></a>
 <a class="sourceLine" id="cb80-3" title="3"><span class="co"># and non-smokers</span></a>
@@ -891,13 +895,6 @@ However, examining the raw counts of people in each group, we also see that
 <em>in these data, older people are less likely to smoke</em> than younger people. So
 <em>in these data</em>, less smokers died, because less smokers were old, and more
 old people died.</p>
-<p>But was our first analysis wrong? No. Our first analysis was fine: we computed
-the mortality rate in each group. The problem was in the reporting, or the way
-we told the story. We didn’t provide enough information when we said “the mortality
-rate for smokers was lower than for non-smokers”. We should have mentioned that
-this is <em>averaging over all age groups</em>. Even when we include age in the analysis,
-we ought to mention the fact that there are a whole lot of variables we <em>could</em>
-have measured but didn’t, and we are implicitly averaging over these too.</p>
 <p>Before moving on, get some practice doing exploratory analysis with the following
 exercises:</p>
 </div>
@@ -923,7 +920,8 @@ each with only one row. For example, <code>smokers &lt;- femsmoke %&gt;% filter(
 <a class="sourceLine" id="cb88-2" title="2"><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb88-3" title="3"><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb88-4" title="4"><span class="kw">ungroup</span>() <span class="co"># The data was previously grouped, we don&#39;t want this anymore</span></a></code></pre></div>
-<p>Use <code>dplyr::select()</code> to remove and rename columns, see <code>?dplyr::select</code>.</p>
+<p>Use <code>dplyr::select()</code> to remove and rename columns, see <code>?dplyr::select</code>. You
+should get the following:</p>
 <pre><code>## # A tibble: 7 x 4
 ##   age   smoker_mort_rate nonsmoker_mort_rate relative_risk
 ##   &lt;fct&gt;            &lt;dbl&gt;               &lt;dbl&gt;         &lt;dbl&gt;
