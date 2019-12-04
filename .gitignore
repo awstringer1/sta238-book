@@ -6,10 +6,6 @@
 .zip
 .gz
 .tar
-.csv
 .rds
 .rdata
 .Rdata
-data/*
-.xls
-.xlsx

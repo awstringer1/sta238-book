@@ -26,11 +26,11 @@ course textbooks for STA238: Probability, Statistics and Data Analysis, Winter 2
 at the University of Toronto, taught by Alison Gibbs and Alex Stringer. The course
 textbooks are as follows:
 
-- **[MIPS]** F.M. Dekking,  C. Kraaikamp H.P. Lopuha ̈a and L.E. Meester (2005).  A ModernIntroduction  to  Probability  and  Statistics:   Understanding  How  and  Why.   Springer-Verlag.This is the primary reference for the course.  This book is available in the Universityof  Toronto  bookstore.   A  pdf  version  of  this  textbook  is  freely  available  through  theUniversity of Toronto library website.
+- **[MIPS]** F.M. Dekking, C. Kraaikamp H.P. Lopuha ̈a and L.E. Meester (2005). A modern Introduction to Probability and Statistics: Understanding  How  and  Why. Springer-Verlag. This is the primary reference for the course. This book is available in the University of Toronto bookstore. A pdf version of this textbook is freely available  through the University of Toronto library website.
 
-- **[E&R]** M.J. Evans and J.S. Rosenthal (2003).  Probability and Statistics:  The Science ofUncertainty.  W.H. Freeman and Co.Available in pdf here:http://www.utstat.toronto.edu/mikevans/jeffrosenthal.
+- **[E&R]** M.J. Evans and J.S. Rosenthal (2003). Probability and Statistics: The Science of Uncertainty. W.H. Freeman and Co.Available in pdf here:http://www.utstat.toronto.edu/mikevans/jeffrosenthal.
 
-- **[ISL]** G. James, D. Witten, T. Hastie and R. Tibshirani (2013). An Introduction to StatisticalLearning with Applications in R. Springer.Available in pdf here:http://faculty.marshall.usc.edu/gareth-james/ISL
+- **[ISL]** G. James, D. Witten, T. Hastie and R. Tibshirani (2013). An Introduction to Statistical Learning with Applications in R. Springer. Available in pdf here:http://faculty.marshall.usc.edu/gareth-james/ISL
 
 The primary course text is **MIPS**. The other two are included because they contain
 certain important sections that **MIPS** is missing; we won't go over them in nearly
