@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2019-12-04" />
+<meta name="date" content="2019-12-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -334,7 +334,7 @@ package. If this sentence is confusing (no worries!) I recommend you check out
 <a class="sourceLine" id="cb3-8" title="8">dplyr<span class="op">::</span><span class="kw">glimpse</span>(oldfaithful)</a></code></pre></div>
 <pre><code>## Observations: 272
 ## Variables: 1
-## $ time [3m[38;5;246m&lt;dbl&gt;[39m[23m 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235,…</code></pre>
+## $ time &lt;dbl&gt; 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235,…</code></pre>
 <p>By <code>glimpse</code>ing the data, we see that the format matches what we saw in the raw
 file, and we are given the number of rows too. Check that the number of rows matches
 what was in the raw file by printing out the number of rows on the command line
@@ -607,9 +607,9 @@ standard deviation and mean absolute deviation, and quantiles.</p>
 <a class="sourceLine" id="cb56-8" title="8"><span class="kw">glimpse</span>(drilling)</a></code></pre></div>
 <pre><code>## Observations: 80
 ## Variables: 3
-## $ depth [3m[38;5;246m&lt;dbl&gt;[39m[23m 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,…
-## $ dry   [3m[38;5;246m&lt;dbl&gt;[39m[23m 640.67, 674.67, 708.00, 735.67, 754.33, 723.33, 664.33, 72…
-## $ wet   [3m[38;5;246m&lt;dbl&gt;[39m[23m 830.00, 800.00, 711.33, 867.67, 940.67, 941.33, 924.33, 87…</code></pre>
+## $ depth &lt;dbl&gt; 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,…
+## $ dry   &lt;dbl&gt; 640.67, 674.67, 708.00, 735.67, 754.33, 723.33, 664.33, 72…
+## $ wet   &lt;dbl&gt; 830.00, 800.00, 711.33, 867.67, 940.67, 941.33, 924.33, 87…</code></pre>
 </div>
 <div id="section-graphical-summaries-1" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> Graphical summaries</h3>
@@ -680,9 +680,9 @@ can re-format the data and have <code>ggplot</code> do it automatically:</p>
 <a class="sourceLine" id="cb61-14" title="14">dplyr<span class="op">::</span><span class="kw">glimpse</span>(drilling_long)</a></code></pre></div>
 <pre><code>## Observations: 160
 ## Variables: 3
-## $ depth [3m[38;5;246m&lt;dbl&gt;[39m[23m 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,…
-## $ type  [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry H…
-## $ time  [3m[38;5;246m&lt;dbl&gt;[39m[23m 640.67, 674.67, 708.00, 735.67, 754.33, 723.33, 664.33, 72…</code></pre>
+## $ depth &lt;dbl&gt; 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,…
+## $ type  &lt;chr&gt; &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry Holes&quot;, &quot;Dry H…
+## $ time  &lt;dbl&gt; 640.67, 674.67, 708.00, 735.67, 754.33, 723.33, 664.33, 72…</code></pre>
 <div class="sourceCode" id="section-cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1">drilling_long <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb63-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> depth,<span class="dt">y =</span> time)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb63-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>

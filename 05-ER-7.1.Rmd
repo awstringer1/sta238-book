@@ -160,7 +160,7 @@ cowplot::plot_grid(
 
 ## Interactive App
 
-Go to the app: https://awstringer1.shinyapps.io/bayesian-tutorial/
+Go to the app: http://shiny.sta220.utstat.utoronto.ca:88/BayesianApp/
 
 The app lets you flip coins and estimate the probability of heads using Frequentist
 and Bayesian methods. We haven't covered estimation yet, but we have covered the

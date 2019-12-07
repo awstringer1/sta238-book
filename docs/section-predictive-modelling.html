@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2019-12-04" />
+<meta name="date" content="2019-12-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -291,13 +291,13 @@ To illustrate the idea of multiple sources of error, let’s briefly revist our 
 <p>This is an example of a <strong>classification</strong> problem: we are predicting a binary event, something that either happens or it doesn’t. We’re either completely right, or completely wrong. Note that the MSPE here has a special form, because <span class="math inline">\(|\hat{Y} - Y| \in \left\{ 0,1 \right\}\)</span>.</p>
 <p><strong>Exercise</strong>: show that the MSPE here is equal to the probability of making an incorrect prediction.</p>
 <p>First let’s draw a sample. We’ll leave the parameters to be specified at the top of the program so you can play around with them:</p>
-<div class="sourceCode" id="section-cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1"><span class="kw">set.seed</span>(<span class="dv">87886</span>)</a>
-<a class="sourceLine" id="cb290-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></a>
-<a class="sourceLine" id="cb290-3" title="3">p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></a>
-<a class="sourceLine" id="cb290-4" title="4"></a>
-<a class="sourceLine" id="cb290-5" title="5"><span class="co"># Draw the sample</span></a>
-<a class="sourceLine" id="cb290-6" title="6">samp &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n,<span class="dv">1</span>,p0)</a>
-<a class="sourceLine" id="cb290-7" title="7">samp</a></code></pre></div>
+<div class="sourceCode" id="section-cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" title="1"><span class="kw">set.seed</span>(<span class="dv">87886</span>)</a>
+<a class="sourceLine" id="cb291-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></a>
+<a class="sourceLine" id="cb291-3" title="3">p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></a>
+<a class="sourceLine" id="cb291-4" title="4"></a>
+<a class="sourceLine" id="cb291-5" title="5"><span class="co"># Draw the sample</span></a>
+<a class="sourceLine" id="cb291-6" title="6">samp &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n,<span class="dv">1</span>,p0)</a>
+<a class="sourceLine" id="cb291-7" title="7">samp</a></code></pre></div>
 <pre><code>##  [1] 1 0 0 0 1 0 1 0 0 1</code></pre>
 <p>We have drawn <span class="math inline">\(n = 10\)</span> samples from a <span class="math inline">\(\text{Bernoulli}(p)\)</span> distribution with parameter <span class="math inline">\(p = 0.5\)</span>. If <span class="math inline">\(Y_{i}\)</span> is a <span class="math inline">\(0/1\)</span> indicator of the <span class="math inline">\(i^{th}\)</span> toss being heads, the likelihood function for <span class="math inline">\(p\)</span> is given by:
 <span class="math display">\[\begin{equation}
@@ -305,8 +305,8 @@ L(p) = p^{\sum_{i=1}^{n}Y_{i}}(1-p)^{n - \sum_{i=1}^{n}Y_{i}}
 \end{equation}\]</span></p>
 <p><strong>Exercise</strong> (review): show that the maximum likelihood estimator is <span class="math inline">\(\hat{p} = \frac{1}{n}\sum_{i=1}^{n}Y_{i}\)</span>, the sample proportion of heads.</p>
 <p>We can compute the MLE for our sample:</p>
-<div class="sourceCode" id="section-cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1">pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)</a>
-<a class="sourceLine" id="cb292-2" title="2">pmle</a></code></pre></div>
+<div class="sourceCode" id="section-cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" title="1">pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)</a>
+<a class="sourceLine" id="cb293-2" title="2">pmle</a></code></pre></div>
 <pre><code>## [1] 0.4</code></pre>
 <p>How to use this to make predictions? We need a rule—a function <span class="math inline">\(\hat{Y}\)</span>—that takes in our sample and predicts the next value. This construction is very similar in spirit to constructing an estimate of a parameter; we want something that makes intuitive sense and that has “desirable” statistical properties.</p>
 <p>It can be shown that the prediction rule that minimizes the MSPE for this simple case of binary prediction is to simply predict the outcome (heads or tails, 0 or 1) that is the most probable under our estimated model. Our inferred model ascribes a <span class="math inline">\(40\%\)</span> chance of heads and <span class="math inline">\(60\%\)</span> chance of tails to each flip, so our prediction rule (for <em>this</em> sample) is simply <span class="math inline">\(\hat{Y} = 0\)</span>.</p>
@@ -318,55 +318,55 @@ L(p) = p^{\sum_{i=1}^{n}Y_{i}}(1-p)^{n - \sum_{i=1}^{n}Y_{i}}
 That is, you can first take the expectation with respect to one random variable <em>conditional</em> on another, and then take the expectation of this expression with respect to the second random variable. Use this to separate the model variability from the sampling variability.</p>
 Let’s assess the MSPE using a prediction. We’re going to repeat the following procedure a bunch of times:
 
-<div class="sourceCode" id="section-cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" title="1"><span class="kw">set.seed</span>(<span class="dv">874327086</span>)</a>
-<a class="sourceLine" id="cb294-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></a>
-<a class="sourceLine" id="cb294-3" title="3">p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></a>
-<a class="sourceLine" id="cb294-4" title="4">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of simulations to do</span></a>
-<a class="sourceLine" id="cb294-5" title="5"></a>
-<a class="sourceLine" id="cb294-6" title="6">do_simulation &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</a>
-<a class="sourceLine" id="cb294-7" title="7">  pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></a>
-<a class="sourceLine" id="cb294-8" title="8">  newy &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,p) <span class="co"># Draw a new value from the true distribution</span></a>
-<a class="sourceLine" id="cb294-9" title="9">  <span class="cf">if</span> (pmle <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
-<a class="sourceLine" id="cb294-10" title="10">    predy &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># Predict 1 if pmle &gt;= 0.5</span></a>
-<a class="sourceLine" id="cb294-11" title="11">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb294-12" title="12">    predy &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb294-13" title="13">  }</a>
-<a class="sourceLine" id="cb294-14" title="14">  (predy <span class="op">-</span><span class="st"> </span>newy)<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb294-15" title="15">}</a>
-<a class="sourceLine" id="cb294-16" title="16"></a>
-<a class="sourceLine" id="cb294-17" title="17"><span class="co"># Do the simulation </span></a>
-<a class="sourceLine" id="cb294-18" title="18">sim_mspe &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb294-19" title="19"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">do_simulation</span>(<span class="dt">n =</span> n,<span class="dt">p =</span> p0)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb294-20" title="20"><span class="st">  </span><span class="kw">reduce</span>(c) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb294-21" title="21"><span class="st">  </span><span class="kw">mean</span>()</a>
-<a class="sourceLine" id="cb294-22" title="22"></a>
-<a class="sourceLine" id="cb294-23" title="23">sim_mspe</a></code></pre></div>
+<div class="sourceCode" id="section-cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" title="1"><span class="kw">set.seed</span>(<span class="dv">874327086</span>)</a>
+<a class="sourceLine" id="cb295-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></a>
+<a class="sourceLine" id="cb295-3" title="3">p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></a>
+<a class="sourceLine" id="cb295-4" title="4">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of simulations to do</span></a>
+<a class="sourceLine" id="cb295-5" title="5"></a>
+<a class="sourceLine" id="cb295-6" title="6">do_simulation &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</a>
+<a class="sourceLine" id="cb295-7" title="7">  pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></a>
+<a class="sourceLine" id="cb295-8" title="8">  newy &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,p) <span class="co"># Draw a new value from the true distribution</span></a>
+<a class="sourceLine" id="cb295-9" title="9">  <span class="cf">if</span> (pmle <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
+<a class="sourceLine" id="cb295-10" title="10">    predy &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># Predict 1 if pmle &gt;= 0.5</span></a>
+<a class="sourceLine" id="cb295-11" title="11">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb295-12" title="12">    predy &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb295-13" title="13">  }</a>
+<a class="sourceLine" id="cb295-14" title="14">  (predy <span class="op">-</span><span class="st"> </span>newy)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb295-15" title="15">}</a>
+<a class="sourceLine" id="cb295-16" title="16"></a>
+<a class="sourceLine" id="cb295-17" title="17"><span class="co"># Do the simulation </span></a>
+<a class="sourceLine" id="cb295-18" title="18">sim_mspe &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb295-19" title="19"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">do_simulation</span>(<span class="dt">n =</span> n,<span class="dt">p =</span> p0)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb295-20" title="20"><span class="st">  </span><span class="kw">reduce</span>(c) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb295-21" title="21"><span class="st">  </span><span class="kw">mean</span>()</a>
+<a class="sourceLine" id="cb295-22" title="22"></a>
+<a class="sourceLine" id="cb295-23" title="23">sim_mspe</a></code></pre></div>
 <pre><code>## [1] 0.498</code></pre>
 <p>Notice that it is close to <span class="math inline">\(0.5\)</span>, not <span class="math inline">\(0.4\)</span>– the model error matters, as you saw in the above theoretical exercise. Actually, to drive this point home…</p>
 <p><strong>Exercise</strong>: what did I do differently in the below code, compared to the above?</p>
-<div class="sourceCode" id="section-cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1"><span class="kw">set.seed</span>(<span class="dv">874327086</span>)</a>
-<a class="sourceLine" id="cb296-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></a>
-<a class="sourceLine" id="cb296-3" title="3">p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></a>
-<a class="sourceLine" id="cb296-4" title="4">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of simulations to do</span></a>
-<a class="sourceLine" id="cb296-5" title="5"></a>
-<a class="sourceLine" id="cb296-6" title="6">do_simulation &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</a>
-<a class="sourceLine" id="cb296-7" title="7">  pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></a>
-<a class="sourceLine" id="cb296-8" title="8">  newy &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,pmle) <span class="co"># Draw a new value from the true distribution</span></a>
-<a class="sourceLine" id="cb296-9" title="9">  <span class="cf">if</span> (pmle <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
-<a class="sourceLine" id="cb296-10" title="10">    predy &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># Predict 1 if pmle &gt;= 0.5</span></a>
-<a class="sourceLine" id="cb296-11" title="11">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb296-12" title="12">    predy &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb296-13" title="13">  }</a>
-<a class="sourceLine" id="cb296-14" title="14">  (predy <span class="op">-</span><span class="st"> </span>newy)<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb296-15" title="15">}</a>
-<a class="sourceLine" id="cb296-16" title="16"></a>
-<a class="sourceLine" id="cb296-17" title="17"><span class="co"># Do the simulation </span></a>
-<a class="sourceLine" id="cb296-18" title="18">sim_mspe2 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb296-19" title="19"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">do_simulation</span>(<span class="dt">n =</span> n,<span class="dt">p =</span> p0)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb296-20" title="20"><span class="st">  </span><span class="kw">reduce</span>(c) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb296-21" title="21"><span class="st">  </span><span class="kw">mean</span>()</a>
-<a class="sourceLine" id="cb296-22" title="22"></a>
-<a class="sourceLine" id="cb296-23" title="23">sim_mspe2</a></code></pre></div>
+<div class="sourceCode" id="section-cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" title="1"><span class="kw">set.seed</span>(<span class="dv">874327086</span>)</a>
+<a class="sourceLine" id="cb297-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></a>
+<a class="sourceLine" id="cb297-3" title="3">p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></a>
+<a class="sourceLine" id="cb297-4" title="4">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of simulations to do</span></a>
+<a class="sourceLine" id="cb297-5" title="5"></a>
+<a class="sourceLine" id="cb297-6" title="6">do_simulation &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</a>
+<a class="sourceLine" id="cb297-7" title="7">  pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></a>
+<a class="sourceLine" id="cb297-8" title="8">  newy &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,pmle) <span class="co"># Draw a new value from the true distribution</span></a>
+<a class="sourceLine" id="cb297-9" title="9">  <span class="cf">if</span> (pmle <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
+<a class="sourceLine" id="cb297-10" title="10">    predy &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># Predict 1 if pmle &gt;= 0.5</span></a>
+<a class="sourceLine" id="cb297-11" title="11">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb297-12" title="12">    predy &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb297-13" title="13">  }</a>
+<a class="sourceLine" id="cb297-14" title="14">  (predy <span class="op">-</span><span class="st"> </span>newy)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb297-15" title="15">}</a>
+<a class="sourceLine" id="cb297-16" title="16"></a>
+<a class="sourceLine" id="cb297-17" title="17"><span class="co"># Do the simulation </span></a>
+<a class="sourceLine" id="cb297-18" title="18">sim_mspe2 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb297-19" title="19"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">do_simulation</span>(<span class="dt">n =</span> n,<span class="dt">p =</span> p0)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb297-20" title="20"><span class="st">  </span><span class="kw">reduce</span>(c) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb297-21" title="21"><span class="st">  </span><span class="kw">mean</span>()</a>
+<a class="sourceLine" id="cb297-22" title="22"></a>
+<a class="sourceLine" id="cb297-23" title="23">sim_mspe2</a></code></pre></div>
 <pre><code>## [1] 0.389</code></pre>
 <p>Figure out why it’s lower, <em>computationally</em> (what did I do differently in the code), <em>mathematically</em> (relate it to the above exercises), and <em>intuitively</em> (explain in words what the difference is).</p>
 </div>
@@ -403,32 +403,32 @@ Y_{n+1} | Y_{1},\ldots,Y_{n} \sim \text{Bernoulli}\left(\frac{n\bar{Y} + \alpha}
 <em>Hint: start by writing out the Bernoulli density</em>.</p>
 <p>How does the use of the posterior predictive mode do in terms of MSPE?
 Consider the setup from chapter 11 of these supplementary notes, where we put a <span class="math inline">\(\text{Beta}(12,12)\)</span> prior on <span class="math inline">\(p\)</span>. Let’s simulate the MSPE again, but using this for prediction:</p>
-<div class="sourceCode" id="section-cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1"><span class="kw">set.seed</span>(<span class="dv">874327086</span>)</a>
-<a class="sourceLine" id="cb298-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></a>
-<a class="sourceLine" id="cb298-3" title="3">p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></a>
-<a class="sourceLine" id="cb298-4" title="4">alpha &lt;-<span class="st"> </span><span class="dv">12</span> <span class="co"># Prior</span></a>
-<a class="sourceLine" id="cb298-5" title="5">beta &lt;-<span class="st"> </span><span class="dv">12</span> <span class="co"># Prior</span></a>
-<a class="sourceLine" id="cb298-6" title="6">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of simulations to do</span></a>
-<a class="sourceLine" id="cb298-7" title="7"></a>
-<a class="sourceLine" id="cb298-8" title="8">do_simulation_bayes &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</a>
-<a class="sourceLine" id="cb298-9" title="9">  pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></a>
-<a class="sourceLine" id="cb298-10" title="10">  newy &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,p) <span class="co"># Draw a new value from the true distribution</span></a>
-<a class="sourceLine" id="cb298-11" title="11">  postparam &lt;-<span class="st"> </span>(n <span class="op">*</span><span class="st"> </span>pmle <span class="op">+</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="st"> </span>alpha <span class="op">+</span><span class="st"> </span>beta)</a>
-<a class="sourceLine" id="cb298-12" title="12">  <span class="cf">if</span> (postparam <span class="op">&gt;=</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>postparam)) {</a>
-<a class="sourceLine" id="cb298-13" title="13">    predy &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># Predict 1 if postparam &gt;= (1 - postparam) (i.e. postparam &gt;= 0.5)</span></a>
-<a class="sourceLine" id="cb298-14" title="14">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb298-15" title="15">    predy &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb298-16" title="16">  }</a>
-<a class="sourceLine" id="cb298-17" title="17">  (predy <span class="op">-</span><span class="st"> </span>newy)<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb298-18" title="18">}</a>
-<a class="sourceLine" id="cb298-19" title="19"></a>
-<a class="sourceLine" id="cb298-20" title="20"><span class="co"># Do the simulation </span></a>
-<a class="sourceLine" id="cb298-21" title="21">sim_mspe_bayes &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb298-22" title="22"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">do_simulation_bayes</span>(<span class="dt">n =</span> n,<span class="dt">p =</span> p0)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb298-23" title="23"><span class="st">  </span><span class="kw">reduce</span>(c) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb298-24" title="24"><span class="st">  </span><span class="kw">mean</span>()</a>
-<a class="sourceLine" id="cb298-25" title="25"></a>
-<a class="sourceLine" id="cb298-26" title="26">sim_mspe_bayes</a></code></pre></div>
+<div class="sourceCode" id="section-cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" title="1"><span class="kw">set.seed</span>(<span class="dv">874327086</span>)</a>
+<a class="sourceLine" id="cb299-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></a>
+<a class="sourceLine" id="cb299-3" title="3">p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></a>
+<a class="sourceLine" id="cb299-4" title="4">alpha &lt;-<span class="st"> </span><span class="dv">12</span> <span class="co"># Prior</span></a>
+<a class="sourceLine" id="cb299-5" title="5">beta &lt;-<span class="st"> </span><span class="dv">12</span> <span class="co"># Prior</span></a>
+<a class="sourceLine" id="cb299-6" title="6">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of simulations to do</span></a>
+<a class="sourceLine" id="cb299-7" title="7"></a>
+<a class="sourceLine" id="cb299-8" title="8">do_simulation_bayes &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</a>
+<a class="sourceLine" id="cb299-9" title="9">  pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></a>
+<a class="sourceLine" id="cb299-10" title="10">  newy &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,p) <span class="co"># Draw a new value from the true distribution</span></a>
+<a class="sourceLine" id="cb299-11" title="11">  postparam &lt;-<span class="st"> </span>(n <span class="op">*</span><span class="st"> </span>pmle <span class="op">+</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="st"> </span>alpha <span class="op">+</span><span class="st"> </span>beta)</a>
+<a class="sourceLine" id="cb299-12" title="12">  <span class="cf">if</span> (postparam <span class="op">&gt;=</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>postparam)) {</a>
+<a class="sourceLine" id="cb299-13" title="13">    predy &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># Predict 1 if postparam &gt;= (1 - postparam) (i.e. postparam &gt;= 0.5)</span></a>
+<a class="sourceLine" id="cb299-14" title="14">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb299-15" title="15">    predy &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb299-16" title="16">  }</a>
+<a class="sourceLine" id="cb299-17" title="17">  (predy <span class="op">-</span><span class="st"> </span>newy)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb299-18" title="18">}</a>
+<a class="sourceLine" id="cb299-19" title="19"></a>
+<a class="sourceLine" id="cb299-20" title="20"><span class="co"># Do the simulation </span></a>
+<a class="sourceLine" id="cb299-21" title="21">sim_mspe_bayes &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb299-22" title="22"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">do_simulation_bayes</span>(<span class="dt">n =</span> n,<span class="dt">p =</span> p0)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb299-23" title="23"><span class="st">  </span><span class="kw">reduce</span>(c) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb299-24" title="24"><span class="st">  </span><span class="kw">mean</span>()</a>
+<a class="sourceLine" id="cb299-25" title="25"></a>
+<a class="sourceLine" id="cb299-26" title="26">sim_mspe_bayes</a></code></pre></div>
 <pre><code>## [1] 0.498</code></pre>
 <p>Notice anything odd about these results compared to what we got using the frequentist approach?</p>
 <p>It turns out that if the prior is symmetric (<span class="math inline">\(\alpha = \beta\)</span>), then the posterior mode <em>exactly equals</em> the prediction rule we obtained by minimizing the MSPE. If the prior is not symmetric, they won’t be the same– so which do you expect to be better?</p>
@@ -450,38 +450,38 @@ are taken from the (much) more advanced tutorial by Alex on this stuff, <a href=
 <p>311 is a <a href="https://www.toronto.ca/home/311-toronto-at-your-service/">service</a> operated by the City of Toronto in which residents can call (dial *311) and submit service requests for things like potholes, excess garbage pickup, downed trees, and so on. People call in to the service and speak to an actual human being in a contact centre. When you call, sometimes you have to wait.</p>
 <p>Data on the daily average wait time for such calls for the period from December 28th, 2009 to January 2nd, 2011 is available from Open Data Toronto <a href="https://www.toronto.ca/city-government/data-research-maps/open-data/open-data-catalogue/#9d74296c-05f1-13b0-8129-efaffd623963">here</a>, and stored on <a href="https://media.githubusercontent.com/media/awstringer1/leaf2018/gh-pages/datasets/contact-centre.csv">github</a> by us for your use.</p>
 <p>Let’s read in and visualize the data:</p>
-<div class="sourceCode" id="section-cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1"><span class="co"># Read data</span></a>
-<a class="sourceLine" id="cb300-2" title="2">contactdat &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb300-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;https://media.githubusercontent.com/media/awstringer1/leaf2018/gh-pages/datasets/contact-centre.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb300-4" title="4">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb300-5" title="5">  <span class="dt">col_types =</span> <span class="st">&quot;cd&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb300-6" title="6"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="st">&quot;date&quot;</span>,lubridate<span class="op">::</span>mdy)</a>
-<a class="sourceLine" id="cb300-7" title="7"></a>
-<a class="sourceLine" id="cb300-8" title="8"><span class="kw">glimpse</span>(contactdat)</a></code></pre></div>
+<div class="sourceCode" id="section-cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" title="1"><span class="co"># Read data</span></a>
+<a class="sourceLine" id="cb301-2" title="2">contactdat &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb301-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;https://media.githubusercontent.com/media/awstringer1/leaf2018/gh-pages/datasets/contact-centre.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb301-4" title="4">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb301-5" title="5">  <span class="dt">col_types =</span> <span class="st">&quot;cd&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb301-6" title="6"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="st">&quot;date&quot;</span>,lubridate<span class="op">::</span>mdy)</a>
+<a class="sourceLine" id="cb301-7" title="7"></a>
+<a class="sourceLine" id="cb301-8" title="8"><span class="kw">glimpse</span>(contactdat)</a></code></pre></div>
 <pre><code>## Observations: 371
 ## Variables: 2
 ## $ date         &lt;date&gt; 2009-12-28, 2009-12-29, 2009-12-30, 2009-12-31, 20…
 ## $ answer_speed &lt;dbl&gt; 55, 67, 56, 15, 9, 62, 51, 20, 16, 14, 23, 33, 14, …</code></pre>
-<div class="sourceCode" id="section-cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" title="1">contactdat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb302-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date,<span class="dt">y =</span> answer_speed)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb302-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb302-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb302-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Average Wait Time by Day, Toronto 311 Contact Centre&quot;</span>,</a>
-<a class="sourceLine" id="cb302-6" title="6">       <span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>,</a>
-<a class="sourceLine" id="cb302-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;Wait Time&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" title="1">contactdat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb303-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date,<span class="dt">y =</span> answer_speed)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb303-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb303-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb303-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Average Wait Time by Day, Toronto 311 Contact Centre&quot;</span>,</a>
+<a class="sourceLine" id="cb303-6" title="6">       <span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>,</a>
+<a class="sourceLine" id="cb303-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;Wait Time&quot;</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/contact-1-1.png" width="672" /></p>
 <p>Woah! That spike in wait times in July is terrible. If we were analyzing these data
 with the intent of informing any actual policy, we would contact the 311 office
 and ask what the heck happened there before proceeding.</p>
 <p>Let’s proceed. To mitigate the drastic spike, consider a log transformation of
 the <code>answer_speed</code>:</p>
-<div class="sourceCode" id="section-cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" title="1">contactdat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb303-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date,<span class="dt">y =</span> <span class="kw">log</span>(answer_speed))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb303-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb303-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb303-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Average Wait Time by Day, Toronto 311 Contact Centre&quot;</span>,</a>
-<a class="sourceLine" id="cb303-6" title="6">       <span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>,</a>
-<a class="sourceLine" id="cb303-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;log(Wait Time)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" title="1">contactdat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb304-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date,<span class="dt">y =</span> <span class="kw">log</span>(answer_speed))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb304-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb304-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb304-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Average Wait Time by Day, Toronto 311 Contact Centre&quot;</span>,</a>
+<a class="sourceLine" id="cb304-6" title="6">       <span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>,</a>
+<a class="sourceLine" id="cb304-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;log(Wait Time)&quot;</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/contact-2-1.png" width="672" /></p>
 <p>There’s a lot of variance, but it looks like there might be a kind of quadratic trend.</p>
 <p>Recall the simple linear model from Chapter 4 of these supplementary notes:
@@ -503,41 +503,41 @@ already seen. However, paradoxically, models that are <em>too complicated</em> w
 predict <em>new</em> data worse! This is due in part to the <em>variance-bias tradeoff</em> discussed in
 this week’s readings in ISLR.</p>
 <p>Let’s fit the model(s) and assess the in-sample mean-square prediction error.</p>
-<div class="sourceCode" id="section-cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" title="1"><span class="co"># THIS CODE IS ADVANCED-- the idea is important, but you won&#39;t be</span></a>
-<a class="sourceLine" id="cb304-2" title="2"><span class="co"># tested on the following CODE.</span></a>
-<a class="sourceLine" id="cb304-3" title="3">contact_std &lt;-<span class="st"> </span>contactdat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb304-4" title="4"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="st">&quot;date&quot;</span>,as.numeric) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb304-5" title="5"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="st">&quot;answer_speed&quot;</span>,log) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb304-6" title="6"><span class="st">  </span><span class="kw">mutate_all</span>(<span class="kw">list</span>(<span class="op">~</span>(. <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(.)) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(.)))</a>
-<a class="sourceLine" id="cb304-7" title="7"></a>
-<a class="sourceLine" id="cb304-8" title="8"><span class="co"># Fit a polynomial regression of degree p</span></a>
-<a class="sourceLine" id="cb304-9" title="9">fit_poly_regression &lt;-<span class="st"> </span><span class="cf">function</span>(p) {</a>
-<a class="sourceLine" id="cb304-10" title="10">  <span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> p,<span class="dt">raw =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb304-11" title="11">     <span class="dt">data =</span> contact_std)</a>
-<a class="sourceLine" id="cb304-12" title="12">}</a>
-<a class="sourceLine" id="cb304-13" title="13"></a>
-<a class="sourceLine" id="cb304-14" title="14">contactmod_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb304-15" title="15">contactmod_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb304-16" title="16">contactmod_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb304-17" title="17">contactmod_<span class="dv">100</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb304-18" title="18"></a>
-<a class="sourceLine" id="cb304-19" title="19"><span class="co"># Plot of the predictions</span></a>
-<a class="sourceLine" id="cb304-20" title="20">prediction_plot &lt;-<span class="st"> </span><span class="cf">function</span>(mod) {</a>
-<a class="sourceLine" id="cb304-21" title="21">  contact_std <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb304-22" title="22"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pred =</span> <span class="kw">predict</span>(mod)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb304-23" title="23"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb304-24" title="24"><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb304-25" title="25"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> answer_speed),<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb304-26" title="26"><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred),<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>)</a>
-<a class="sourceLine" id="cb304-27" title="27">}</a>
-<a class="sourceLine" id="cb304-28" title="28"></a>
-<a class="sourceLine" id="cb304-29" title="29">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(</a>
-<a class="sourceLine" id="cb304-30" title="30">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb304-31" title="31">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb304-32" title="32">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">10</span>),</a>
-<a class="sourceLine" id="cb304-33" title="33">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">100</span>),</a>
-<a class="sourceLine" id="cb304-34" title="34">  <span class="dt">nrow =</span> <span class="dv">2</span></a>
-<a class="sourceLine" id="cb304-35" title="35">)</a></code></pre></div>
+<div class="sourceCode" id="section-cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" title="1"><span class="co"># THIS CODE IS ADVANCED-- the idea is important, but you won&#39;t be</span></a>
+<a class="sourceLine" id="cb305-2" title="2"><span class="co"># tested on the following CODE.</span></a>
+<a class="sourceLine" id="cb305-3" title="3">contact_std &lt;-<span class="st"> </span>contactdat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb305-4" title="4"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="st">&quot;date&quot;</span>,as.numeric) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb305-5" title="5"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="st">&quot;answer_speed&quot;</span>,log) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb305-6" title="6"><span class="st">  </span><span class="kw">mutate_all</span>(<span class="kw">list</span>(<span class="op">~</span>(. <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(.)) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(.)))</a>
+<a class="sourceLine" id="cb305-7" title="7"></a>
+<a class="sourceLine" id="cb305-8" title="8"><span class="co"># Fit a polynomial regression of degree p</span></a>
+<a class="sourceLine" id="cb305-9" title="9">fit_poly_regression &lt;-<span class="st"> </span><span class="cf">function</span>(p) {</a>
+<a class="sourceLine" id="cb305-10" title="10">  <span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> p,<span class="dt">raw =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb305-11" title="11">     <span class="dt">data =</span> contact_std)</a>
+<a class="sourceLine" id="cb305-12" title="12">}</a>
+<a class="sourceLine" id="cb305-13" title="13"></a>
+<a class="sourceLine" id="cb305-14" title="14">contactmod_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb305-15" title="15">contactmod_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb305-16" title="16">contactmod_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb305-17" title="17">contactmod_<span class="dv">100</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb305-18" title="18"></a>
+<a class="sourceLine" id="cb305-19" title="19"><span class="co"># Plot of the predictions</span></a>
+<a class="sourceLine" id="cb305-20" title="20">prediction_plot &lt;-<span class="st"> </span><span class="cf">function</span>(mod) {</a>
+<a class="sourceLine" id="cb305-21" title="21">  contact_std <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb305-22" title="22"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pred =</span> <span class="kw">predict</span>(mod)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb305-23" title="23"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb305-24" title="24"><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb305-25" title="25"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> answer_speed),<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb305-26" title="26"><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred),<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>)</a>
+<a class="sourceLine" id="cb305-27" title="27">}</a>
+<a class="sourceLine" id="cb305-28" title="28"></a>
+<a class="sourceLine" id="cb305-29" title="29">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(</a>
+<a class="sourceLine" id="cb305-30" title="30">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb305-31" title="31">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb305-32" title="32">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb305-33" title="33">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">100</span>),</a>
+<a class="sourceLine" id="cb305-34" title="34">  <span class="dt">nrow =</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb305-35" title="35">)</a></code></pre></div>
 <p><img src="book_files/figure-html/fit-models-1-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: I deliberately didn’t label the plots. Can you guess which plot is
 from which degree of polynomial? Remember that <em>higher</em> degree polynomials should
@@ -545,17 +545,17 @@ be more wiggly than lower degrees, and should give better <em>in-sample</em> pre
 than lower degrees.</p>
 <p>Indeed, if we compute the MSPE for each of these models, we find the higher the degree,
 the better the fit <em>to the data we have observed</em>:</p>
-<div class="sourceCode" id="section-cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" title="1">compute_mspe_polymod &lt;-<span class="st"> </span><span class="cf">function</span>(mod) {</a>
-<a class="sourceLine" id="cb305-2" title="2">  <span class="kw">mean</span>(( <span class="kw">predict</span>(mod) <span class="op">-</span><span class="st"> </span>contact_std<span class="op">$</span>answer_speed )<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb305-3" title="3">}</a>
-<a class="sourceLine" id="cb305-4" title="4"></a>
-<a class="sourceLine" id="cb305-5" title="5"><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" title="1">compute_mspe_polymod &lt;-<span class="st"> </span><span class="cf">function</span>(mod) {</a>
+<a class="sourceLine" id="cb306-2" title="2">  <span class="kw">mean</span>(( <span class="kw">predict</span>(mod) <span class="op">-</span><span class="st"> </span>contact_std<span class="op">$</span>answer_speed )<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb306-3" title="3">}</a>
+<a class="sourceLine" id="cb306-4" title="4"></a>
+<a class="sourceLine" id="cb306-5" title="5"><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.9847131</code></pre>
-<div class="sourceCode" id="section-cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" title="1"><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" title="1"><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 0.7439483</code></pre>
-<div class="sourceCode" id="section-cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" title="1"><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" title="1"><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## [1] 0.5907413</code></pre>
-<div class="sourceCode" id="section-cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" title="1"><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" title="1"><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">100</span>)</a></code></pre></div>
 <pre><code>## [1] 0.466288</code></pre>
 The problem with this is that the MSPE is supposed to be for predicting a <em>new</em>
 datapoint, not one that you’ve already seen! To get a better estimate of the real
@@ -565,32 +565,32 @@ where we
 
 <p>There are many types of cross-validation; this one is called “K-fold” cross validation.</p>
 <p>We can implement this as follows:</p>
-<div class="sourceCode" id="section-cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" title="1"><span class="kw">set.seed</span>(<span class="dv">809796857</span>)</a>
-<a class="sourceLine" id="cb313-2" title="2">do_crossval &lt;-<span class="st"> </span><span class="cf">function</span>(p,<span class="dt">K =</span> <span class="dv">10</span>) {</a>
-<a class="sourceLine" id="cb313-3" title="3">  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(contact_std)</a>
-<a class="sourceLine" id="cb313-4" title="4">  mspevec &lt;-<span class="st"> </span><span class="kw">numeric</span>(K)</a>
-<a class="sourceLine" id="cb313-5" title="5">  <span class="co"># Split the data into K &quot;folds&quot;</span></a>
-<a class="sourceLine" id="cb313-6" title="6">  <span class="co"># First randomly shuffle the rows:</span></a>
-<a class="sourceLine" id="cb313-7" title="7">  contact_std_shuffle &lt;-<span class="st"> </span>contact_std[<span class="kw">sample.int</span>(n), ]</a>
-<a class="sourceLine" id="cb313-8" title="8">  <span class="co"># Then split the data in order:</span></a>
-<a class="sourceLine" id="cb313-9" title="9">  datachunks &lt;-<span class="st"> </span><span class="kw">split</span>(contact_std_shuffle,<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>K,<span class="dt">each =</span> <span class="kw">round</span>(n<span class="op">/</span>K))[<span class="dv">1</span><span class="op">:</span>n])</a>
-<a class="sourceLine" id="cb313-10" title="10">  <span class="co"># Now fit the model to each combination of K-1 chunks, and predict</span></a>
-<a class="sourceLine" id="cb313-11" title="11">  <span class="co"># on the Kth chunk:</span></a>
-<a class="sourceLine" id="cb313-12" title="12">  <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K) {</a>
-<a class="sourceLine" id="cb313-13" title="13">    ds &lt;-<span class="st"> </span><span class="kw">reduce</span>(datachunks[(<span class="dv">1</span><span class="op">:</span>K)[<span class="op">-</span>k]],bind_rows)</a>
-<a class="sourceLine" id="cb313-14" title="14">    mod &lt;-<span class="st"> </span><span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> p,<span class="dt">raw =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb313-15" title="15">              <span class="dt">data =</span> ds)</a>
-<a class="sourceLine" id="cb313-16" title="16">    mspevec[k] &lt;-<span class="st"> </span><span class="kw">mean</span>( (<span class="kw">predict</span>(mod,<span class="dt">newdata =</span> datachunks[[k]]) <span class="op">-</span><span class="st"> </span>datachunks[[k]]<span class="op">$</span>answer_speed)<span class="op">^</span><span class="dv">2</span> )</a>
-<a class="sourceLine" id="cb313-17" title="17">  }</a>
-<a class="sourceLine" id="cb313-18" title="18">  <span class="kw">mean</span>(mspevec)</a>
-<a class="sourceLine" id="cb313-19" title="19">}</a>
-<a class="sourceLine" id="cb313-20" title="20"><span class="kw">do_crossval</span>(<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" title="1"><span class="kw">set.seed</span>(<span class="dv">809796857</span>)</a>
+<a class="sourceLine" id="cb314-2" title="2">do_crossval &lt;-<span class="st"> </span><span class="cf">function</span>(p,<span class="dt">K =</span> <span class="dv">10</span>) {</a>
+<a class="sourceLine" id="cb314-3" title="3">  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(contact_std)</a>
+<a class="sourceLine" id="cb314-4" title="4">  mspevec &lt;-<span class="st"> </span><span class="kw">numeric</span>(K)</a>
+<a class="sourceLine" id="cb314-5" title="5">  <span class="co"># Split the data into K &quot;folds&quot;</span></a>
+<a class="sourceLine" id="cb314-6" title="6">  <span class="co"># First randomly shuffle the rows:</span></a>
+<a class="sourceLine" id="cb314-7" title="7">  contact_std_shuffle &lt;-<span class="st"> </span>contact_std[<span class="kw">sample.int</span>(n), ]</a>
+<a class="sourceLine" id="cb314-8" title="8">  <span class="co"># Then split the data in order:</span></a>
+<a class="sourceLine" id="cb314-9" title="9">  datachunks &lt;-<span class="st"> </span><span class="kw">split</span>(contact_std_shuffle,<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>K,<span class="dt">each =</span> <span class="kw">round</span>(n<span class="op">/</span>K))[<span class="dv">1</span><span class="op">:</span>n])</a>
+<a class="sourceLine" id="cb314-10" title="10">  <span class="co"># Now fit the model to each combination of K-1 chunks, and predict</span></a>
+<a class="sourceLine" id="cb314-11" title="11">  <span class="co"># on the Kth chunk:</span></a>
+<a class="sourceLine" id="cb314-12" title="12">  <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K) {</a>
+<a class="sourceLine" id="cb314-13" title="13">    ds &lt;-<span class="st"> </span><span class="kw">reduce</span>(datachunks[(<span class="dv">1</span><span class="op">:</span>K)[<span class="op">-</span>k]],bind_rows)</a>
+<a class="sourceLine" id="cb314-14" title="14">    mod &lt;-<span class="st"> </span><span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> p,<span class="dt">raw =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb314-15" title="15">              <span class="dt">data =</span> ds)</a>
+<a class="sourceLine" id="cb314-16" title="16">    mspevec[k] &lt;-<span class="st"> </span><span class="kw">mean</span>( (<span class="kw">predict</span>(mod,<span class="dt">newdata =</span> datachunks[[k]]) <span class="op">-</span><span class="st"> </span>datachunks[[k]]<span class="op">$</span>answer_speed)<span class="op">^</span><span class="dv">2</span> )</a>
+<a class="sourceLine" id="cb314-17" title="17">  }</a>
+<a class="sourceLine" id="cb314-18" title="18">  <span class="kw">mean</span>(mspevec)</a>
+<a class="sourceLine" id="cb314-19" title="19">}</a>
+<a class="sourceLine" id="cb314-20" title="20"><span class="kw">do_crossval</span>(<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.9951656</code></pre>
-<div class="sourceCode" id="section-cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" title="1"><span class="kw">do_crossval</span>(<span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" title="1"><span class="kw">do_crossval</span>(<span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 0.7489409</code></pre>
-<div class="sourceCode" id="section-cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" title="1"><span class="kw">do_crossval</span>(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" title="1"><span class="kw">do_crossval</span>(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## [1] 0.6090095</code></pre>
-<div class="sourceCode" id="section-cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1"><span class="kw">do_crossval</span>(<span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" title="1"><span class="kw">do_crossval</span>(<span class="dv">100</span>)</a></code></pre></div>
 <pre><code>## [1] 4.185759</code></pre>
 <p>Woah! The fit on new data–that is, the quality of the predictions–
 seems to improve as the degree of polynomial increases, but only to a certain
@@ -599,32 +599,32 @@ point. For the <span class="math inline">\(p = 100\)</span> degree polynomial, t
 have some <strong>bias</strong>–they don’t predict perfectly in-sample–but they have low variance,
 in that <em>the inferred model parameters tend to be similar across datasets</em>.</p>
 <p>Consider again the <span class="math inline">\(p = 1\)</span> and <span class="math inline">\(p = 100\)</span> models:</p>
-<div class="sourceCode" id="section-cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" title="1">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(</a>
-<a class="sourceLine" id="cb321-2" title="2">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb321-3" title="3">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">100</span>),</a>
-<a class="sourceLine" id="cb321-4" title="4">  <span class="dt">nrow =</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb321-5" title="5">)</a></code></pre></div>
+<div class="sourceCode" id="section-cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" title="1">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(</a>
+<a class="sourceLine" id="cb322-2" title="2">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb322-3" title="3">  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">100</span>),</a>
+<a class="sourceLine" id="cb322-4" title="4">  <span class="dt">nrow =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb322-5" title="5">)</a></code></pre></div>
 <p><img src="book_files/figure-html/contact-4-1.png" width="672" /></p>
 <p>The <span class="math inline">\(p = 1\)</span> plot (exercise: make sure you can tell which is which) doesn’t
 predict very many datapoints correctly. The <span class="math inline">\(p = 100\)</span> hugs the observed data
 much closer. But because of this, if we sample a new dataset…</p>
-<div class="sourceCode" id="section-cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" title="1"><span class="co"># Take a bootstrap sample</span></a>
-<a class="sourceLine" id="cb322-2" title="2">contact_new &lt;-<span class="st"> </span>contact_std[<span class="kw">sample.int</span>(<span class="kw">nrow</span>(contact_std),<span class="dt">replace =</span> <span class="ot">TRUE</span>), ]</a>
-<a class="sourceLine" id="cb322-3" title="3">contactmod_new_<span class="dv">1</span> &lt;-<span class="st">   </span><span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> <span class="dv">1</span>,<span class="dt">raw =</span> <span class="ot">TRUE</span>),<span class="dt">data =</span> contact_new)</a>
-<a class="sourceLine" id="cb322-4" title="4">contactmod_new_<span class="dv">100</span> &lt;-<span class="st">   </span><span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> <span class="dv">100</span>,<span class="dt">raw =</span> <span class="ot">TRUE</span>),<span class="dt">data =</span> contact_new)</a>
-<a class="sourceLine" id="cb322-5" title="5">prediction_plot_new &lt;-<span class="st"> </span><span class="cf">function</span>(mod) {</a>
-<a class="sourceLine" id="cb322-6" title="6">  contact_new <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb322-7" title="7"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pred =</span> <span class="kw">predict</span>(mod)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb322-8" title="8"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb322-9" title="9"><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb322-10" title="10"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> answer_speed),<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb322-11" title="11"><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred),<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>)</a>
-<a class="sourceLine" id="cb322-12" title="12">}</a>
-<a class="sourceLine" id="cb322-13" title="13">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(</a>
-<a class="sourceLine" id="cb322-14" title="14">  <span class="kw">prediction_plot_new</span>(contactmod_new_<span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb322-15" title="15">  <span class="kw">prediction_plot_new</span>(contactmod_new_<span class="dv">100</span>),</a>
-<a class="sourceLine" id="cb322-16" title="16">  <span class="dt">nrow =</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb322-17" title="17">)</a></code></pre></div>
+<div class="sourceCode" id="section-cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" title="1"><span class="co"># Take a bootstrap sample</span></a>
+<a class="sourceLine" id="cb323-2" title="2">contact_new &lt;-<span class="st"> </span>contact_std[<span class="kw">sample.int</span>(<span class="kw">nrow</span>(contact_std),<span class="dt">replace =</span> <span class="ot">TRUE</span>), ]</a>
+<a class="sourceLine" id="cb323-3" title="3">contactmod_new_<span class="dv">1</span> &lt;-<span class="st">   </span><span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> <span class="dv">1</span>,<span class="dt">raw =</span> <span class="ot">TRUE</span>),<span class="dt">data =</span> contact_new)</a>
+<a class="sourceLine" id="cb323-4" title="4">contactmod_new_<span class="dv">100</span> &lt;-<span class="st">   </span><span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> <span class="dv">100</span>,<span class="dt">raw =</span> <span class="ot">TRUE</span>),<span class="dt">data =</span> contact_new)</a>
+<a class="sourceLine" id="cb323-5" title="5">prediction_plot_new &lt;-<span class="st"> </span><span class="cf">function</span>(mod) {</a>
+<a class="sourceLine" id="cb323-6" title="6">  contact_new <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb323-7" title="7"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pred =</span> <span class="kw">predict</span>(mod)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb323-8" title="8"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb323-9" title="9"><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb323-10" title="10"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> answer_speed),<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb323-11" title="11"><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred),<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>)</a>
+<a class="sourceLine" id="cb323-12" title="12">}</a>
+<a class="sourceLine" id="cb323-13" title="13">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(</a>
+<a class="sourceLine" id="cb323-14" title="14">  <span class="kw">prediction_plot_new</span>(contactmod_new_<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb323-15" title="15">  <span class="kw">prediction_plot_new</span>(contactmod_new_<span class="dv">100</span>),</a>
+<a class="sourceLine" id="cb323-16" title="16">  <span class="dt">nrow =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb323-17" title="17">)</a></code></pre></div>
 <p><img src="book_files/figure-html/contact-5-1.png" width="672" /></p>
 <p>The <span class="math inline">\(p = 1\)</span> model remains nearly identical, while the <span class="math inline">\(p = 100\)</span> model changes!
 High variance refers to the fact that slight changes in the sample cause big changes

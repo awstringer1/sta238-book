@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2019-12-04" />
+<meta name="date" content="2019-12-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -292,35 +292,35 @@ of the best-named concepts in all of stats, in my opinion.</p>
 <div id="section-empirical-bootstrap-old-faithful-data" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> Empirical bootstrap: Old Faithful data</h3>
 <p>Let’s recreate Figure 18.1:</p>
-<div class="sourceCode" id="section-cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb176-2" title="2"><span class="co"># Read in old faithful, copied from chapter 1:</span></a>
-<a class="sourceLine" id="cb176-3" title="3">oldfaithful &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb176-4" title="4">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/oldfaithful.txt&quot;</span>, <span class="co"># Tell it where the file is</span></a>
-<a class="sourceLine" id="cb176-5" title="5">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>, <span class="co"># Tell it that the first row is NOT column names, and at the same time, tell it what name you want for the column.</span></a>
-<a class="sourceLine" id="cb176-6" title="6">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span> <span class="co"># Tell it that there is one column, and it is &quot;numeric&quot; (n)</span></a>
-<a class="sourceLine" id="cb176-7" title="7">)</a>
-<a class="sourceLine" id="cb176-8" title="8"><span class="co"># Check what was read in using the dplyr::glimpse() function</span></a>
-<a class="sourceLine" id="cb176-9" title="9">dplyr<span class="op">::</span><span class="kw">glimpse</span>(oldfaithful)</a></code></pre></div>
+<div class="sourceCode" id="section-cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb177-2" title="2"><span class="co"># Read in old faithful, copied from chapter 1:</span></a>
+<a class="sourceLine" id="cb177-3" title="3">oldfaithful &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb177-4" title="4">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/oldfaithful.txt&quot;</span>, <span class="co"># Tell it where the file is</span></a>
+<a class="sourceLine" id="cb177-5" title="5">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>, <span class="co"># Tell it that the first row is NOT column names, and at the same time, tell it what name you want for the column.</span></a>
+<a class="sourceLine" id="cb177-6" title="6">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span> <span class="co"># Tell it that there is one column, and it is &quot;numeric&quot; (n)</span></a>
+<a class="sourceLine" id="cb177-7" title="7">)</a>
+<a class="sourceLine" id="cb177-8" title="8"><span class="co"># Check what was read in using the dplyr::glimpse() function</span></a>
+<a class="sourceLine" id="cb177-9" title="9">dplyr<span class="op">::</span><span class="kw">glimpse</span>(oldfaithful)</a></code></pre></div>
 <pre><code>## Observations: 272
 ## Variables: 1
 ## $ time &lt;dbl&gt; 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235,…</code></pre>
-<div class="sourceCode" id="section-cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1"><span class="co"># Bootstrap: sample with replacement</span></a>
-<a class="sourceLine" id="cb178-2" title="2"><span class="kw">set.seed</span>(<span class="dv">45356</span>) <span class="co"># So you can reproduce my results</span></a>
-<a class="sourceLine" id="cb178-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of bootstrap resamples to take</span></a>
-<a class="sourceLine" id="cb178-4" title="4">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(oldfaithful) <span class="co"># Sample size</span></a>
-<a class="sourceLine" id="cb178-5" title="5">bootstrapmeans &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb178-6" title="6"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">sample</span>(oldfaithful<span class="op">$</span>time,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb178-7" title="7"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span>(<span class="kw">mean</span>(.x) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(oldfaithful<span class="op">$</span>time))) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Compute the CENTRED mean</span></a>
-<a class="sourceLine" id="cb178-8" title="8"><span class="st">  </span><span class="kw">reduce</span>(c)</a>
-<a class="sourceLine" id="cb178-9" title="9"></a>
-<a class="sourceLine" id="cb178-10" title="10"><span class="co"># Plot the hisrogram and density estimate together</span></a>
-<a class="sourceLine" id="cb178-11" title="11"><span class="kw">tibble</span>(<span class="dt">x =</span> bootstrapmeans) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb178-12" title="12"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-13" title="13"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-14" title="14"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-15" title="15"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-16" title="16"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">18</span>,<span class="dv">18</span>,<span class="dt">by=</span><span class="dv">6</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-17" title="17"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">18</span>,<span class="dv">18</span>))</a></code></pre></div>
+<div class="sourceCode" id="section-cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="co"># Bootstrap: sample with replacement</span></a>
+<a class="sourceLine" id="cb179-2" title="2"><span class="kw">set.seed</span>(<span class="dv">45356</span>) <span class="co"># So you can reproduce my results</span></a>
+<a class="sourceLine" id="cb179-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of bootstrap resamples to take</span></a>
+<a class="sourceLine" id="cb179-4" title="4">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(oldfaithful) <span class="co"># Sample size</span></a>
+<a class="sourceLine" id="cb179-5" title="5">bootstrapmeans &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb179-6" title="6"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">sample</span>(oldfaithful<span class="op">$</span>time,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb179-7" title="7"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span>(<span class="kw">mean</span>(.x) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(oldfaithful<span class="op">$</span>time))) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Compute the CENTRED mean</span></a>
+<a class="sourceLine" id="cb179-8" title="8"><span class="st">  </span><span class="kw">reduce</span>(c)</a>
+<a class="sourceLine" id="cb179-9" title="9"></a>
+<a class="sourceLine" id="cb179-10" title="10"><span class="co"># Plot the hisrogram and density estimate together</span></a>
+<a class="sourceLine" id="cb179-11" title="11"><span class="kw">tibble</span>(<span class="dt">x =</span> bootstrapmeans) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb179-12" title="12"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-13" title="13"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-14" title="14"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-15" title="15"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-16" title="16"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">18</span>,<span class="dv">18</span>,<span class="dt">by=</span><span class="dv">6</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-17" title="17"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">18</span>,<span class="dv">18</span>))</a></code></pre></div>
 <p><img src="book_files/figure-html/faithful-1-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: compute the book’s estimate of <span class="math inline">\(P(|\bar{X}_{n} - \mu|)\)</span>. Using the
 above <code>set.seed(45356)</code> I got the following (slightly different than the book):</p>
@@ -333,8 +333,8 @@ I got the following with <code>set.seed(8768432)</code>:</p>
 <div id="section-parametric-bootstrap-software-data" class="section level3">
 <h3><span class="header-section-number">7.1.2</span> Parametric Bootstrap: software data</h3>
 <p>Read in the software data. Try to do it yourself before looking:</p>
-<div class="sourceCode" id="section-cb180"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb180-1" title="1"><span class="fu">head</span> data/MIPSdata/software.txt</a>
-<a class="sourceLine" id="cb180-2" title="2"><span class="fu">wc</span> -l data/MIPSdata/software.txt</a></code></pre></div>
+<div class="sourceCode" id="section-cb181"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb181-1" title="1"><span class="fu">head</span> data/MIPSdata/software.txt</a>
+<a class="sourceLine" id="cb181-2" title="2"><span class="fu">wc</span> -l data/MIPSdata/software.txt</a></code></pre></div>
 <pre><code>## 30  
 ## 113  
 ## 81  
@@ -346,48 +346,48 @@ I got the following with <code>set.seed(8768432)</code>:</p>
 ## 15  
 ## 138
 ##      136 data/MIPSdata/software.txt</code></pre>
-<div class="sourceCode" id="section-cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1">software &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb182-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/software.txt&quot;</span>,</a>
-<a class="sourceLine" id="cb182-3" title="3">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>,</a>
-<a class="sourceLine" id="cb182-4" title="4">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span></a>
-<a class="sourceLine" id="cb182-5" title="5">)</a>
-<a class="sourceLine" id="cb182-6" title="6"><span class="kw">glimpse</span>(software)</a></code></pre></div>
+<div class="sourceCode" id="section-cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1">software &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb183-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/software.txt&quot;</span>,</a>
+<a class="sourceLine" id="cb183-3" title="3">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>,</a>
+<a class="sourceLine" id="cb183-4" title="4">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span></a>
+<a class="sourceLine" id="cb183-5" title="5">)</a>
+<a class="sourceLine" id="cb183-6" title="6"><span class="kw">glimpse</span>(software)</a></code></pre></div>
 <pre><code>## Observations: 136
 ## Variables: 1
 ## $ time &lt;dbl&gt; 30, 113, 81, 115, 9, 2, 91, 112, 15, 138, 50, 77, 24, 108, …</code></pre>
 <p>Plot the CDF of the estimated distribution against the empirical CDF of the data.
 The <span class="math inline">\(t_{ks}\)</span> described in the book is the maximum vertical distance between these
 two curves:</p>
-<div class="sourceCode" id="section-cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" title="1">lambdahat &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">mean</span>(software<span class="op">$</span>time)</a>
-<a class="sourceLine" id="cb184-2" title="2">samppoints &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="dt">by=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb184-3" title="3">expcdf &lt;-<span class="st"> </span><span class="kw">pexp</span>(samppoints,<span class="dt">rate =</span> lambdahat)</a>
-<a class="sourceLine" id="cb184-4" title="4">empcdf &lt;-<span class="st"> </span><span class="kw">ecdf</span>(software<span class="op">$</span>time)</a>
-<a class="sourceLine" id="cb184-5" title="5"></a>
-<a class="sourceLine" id="cb184-6" title="6"><span class="kw">tibble</span>(<span class="dt">x =</span> samppoints,<span class="dt">y =</span> expcdf) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb184-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb184-8" title="8"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb184-9" title="9"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb184-10" title="10"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> empcdf,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1">lambdahat &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">mean</span>(software<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb185-2" title="2">samppoints &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="dt">by=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb185-3" title="3">expcdf &lt;-<span class="st"> </span><span class="kw">pexp</span>(samppoints,<span class="dt">rate =</span> lambdahat)</a>
+<a class="sourceLine" id="cb185-4" title="4">empcdf &lt;-<span class="st"> </span><span class="kw">ecdf</span>(software<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb185-5" title="5"></a>
+<a class="sourceLine" id="cb185-6" title="6"><span class="kw">tibble</span>(<span class="dt">x =</span> samppoints,<span class="dt">y =</span> expcdf) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb185-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb185-8" title="8"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb185-9" title="9"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb185-10" title="10"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> empcdf,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/software-3-1.png" width="672" /></p>
 <p>Compute a bootstrap sample of <span class="math inline">\(T_{ks}\)</span>:</p>
-<div class="sourceCode" id="section-cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1"><span class="kw">set.seed</span>(<span class="dv">97876856</span>)</a>
-<a class="sourceLine" id="cb185-2" title="2">compute_tks &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb185-3" title="3">  samppoints &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="dt">by=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb185-4" title="4">  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(software)</a>
-<a class="sourceLine" id="cb185-5" title="5">  samp &lt;-<span class="st"> </span><span class="kw">rexp</span>(n,<span class="dt">rate =</span> lambdahat)</a>
-<a class="sourceLine" id="cb185-6" title="6">  ecdfboot &lt;-<span class="st"> </span><span class="kw">ecdf</span>(samp)(samppoints)</a>
-<a class="sourceLine" id="cb185-7" title="7">  expcdf &lt;-<span class="st"> </span><span class="kw">pexp</span>(samppoints,<span class="dt">rate =</span> lambdahat)</a>
-<a class="sourceLine" id="cb185-8" title="8">  <span class="kw">max</span>(<span class="kw">abs</span>(ecdfboot <span class="op">-</span><span class="st"> </span>expcdf))</a>
-<a class="sourceLine" id="cb185-9" title="9">}</a>
-<a class="sourceLine" id="cb185-10" title="10">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb185-11" title="11">tksboot &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">compute_tks</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">reduce</span>(c)</a>
-<a class="sourceLine" id="cb185-12" title="12"><span class="kw">tibble</span>(<span class="dt">x =</span> tksboot) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb185-13" title="13"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb185-14" title="14"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb185-15" title="15"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb185-16" title="16"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb185-17" title="17"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>,.<span class="dv">2</span>,<span class="dt">by=</span>.<span class="dv">05</span>),.<span class="dv">176</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb185-18" title="18"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="section-cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1"><span class="kw">set.seed</span>(<span class="dv">97876856</span>)</a>
+<a class="sourceLine" id="cb186-2" title="2">compute_tks &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb186-3" title="3">  samppoints &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="dt">by=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb186-4" title="4">  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(software)</a>
+<a class="sourceLine" id="cb186-5" title="5">  samp &lt;-<span class="st"> </span><span class="kw">rexp</span>(n,<span class="dt">rate =</span> lambdahat)</a>
+<a class="sourceLine" id="cb186-6" title="6">  ecdfboot &lt;-<span class="st"> </span><span class="kw">ecdf</span>(samp)(samppoints)</a>
+<a class="sourceLine" id="cb186-7" title="7">  expcdf &lt;-<span class="st"> </span><span class="kw">pexp</span>(samppoints,<span class="dt">rate =</span> lambdahat)</a>
+<a class="sourceLine" id="cb186-8" title="8">  <span class="kw">max</span>(<span class="kw">abs</span>(ecdfboot <span class="op">-</span><span class="st"> </span>expcdf))</a>
+<a class="sourceLine" id="cb186-9" title="9">}</a>
+<a class="sourceLine" id="cb186-10" title="10">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb186-11" title="11">tksboot &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">compute_tks</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">reduce</span>(c)</a>
+<a class="sourceLine" id="cb186-12" title="12"><span class="kw">tibble</span>(<span class="dt">x =</span> tksboot) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb186-13" title="13"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb186-14" title="14"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb186-15" title="15"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb186-16" title="16"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb186-17" title="17"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>,.<span class="dv">2</span>,<span class="dt">by=</span>.<span class="dv">05</span>),.<span class="dv">176</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb186-18" title="18"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">2</span>))</a></code></pre></div>
 <p><img src="book_files/figure-html/software-4-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: the above <code>compute_tks()</code> is a bit tricky. Write out the exact algorithm
 I use to compute <span class="math inline">\(T_{ks}\)</span>. Basically I am asking you to expand on step 2. of the
@@ -418,18 +418,18 @@ in excel). There is a numeric ID column, two date columns (which we don’t need
 and 58 numeric response columns. I removed the first three (blank) and fourth (information)
 rows from my
 .csv, and you should do the same in excel if you have it.</p>
-<div class="sourceCode" id="section-cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1">col_types &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb186-2" title="2">  <span class="st">&quot;ncc&quot;</span>,</a>
-<a class="sourceLine" id="cb186-3" title="3">  stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">58</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb186-4" title="4">) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb186-5" title="5"><span class="st">  </span>stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb186-6" title="6">col_types <span class="co"># Understand the above code by running it in pieces and looking at the results.</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1">col_types &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb187-2" title="2">  <span class="st">&quot;ncc&quot;</span>,</a>
+<a class="sourceLine" id="cb187-3" title="3">  stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">58</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb187-4" title="4">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb187-5" title="5"><span class="st">  </span>stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb187-6" title="6">col_types <span class="co"># Understand the above code by running it in pieces and looking at the results.</span></a></code></pre></div>
 <pre><code>## [1] &quot;nccnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn&quot;</code></pre>
-<div class="sourceCode" id="section-cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1">budget &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb188-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;data/budget.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb188-3" title="3">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb188-4" title="4">  <span class="dt">col_types =</span> col_types</a>
-<a class="sourceLine" id="cb188-5" title="5">)</a></code></pre></div>
+<div class="sourceCode" id="section-cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1">budget &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb189-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;data/budget.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb189-3" title="3">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb189-4" title="4">  <span class="dt">col_types =</span> col_types</a>
+<a class="sourceLine" id="cb189-5" title="5">)</a></code></pre></div>
 <pre><code>## Warning: Missing column names filled in: &#39;X17&#39; [17], &#39;X18&#39; [18],
 ## &#39;X19&#39; [19], &#39;X20&#39; [20], &#39;X21&#39; [21], &#39;X22&#39; [22], &#39;X23&#39; [23], &#39;X24&#39; [24],
 ## &#39;X26&#39; [26], &#39;X27&#39; [27], &#39;X28&#39; [28], &#39;X29&#39; [29], &#39;X30&#39; [30], &#39;X31&#39; [31],
@@ -438,7 +438,7 @@ rows from my
 ## &#39;X46&#39; [46], &#39;X47&#39; [47], &#39;X48&#39; [48], &#39;X49&#39; [49], &#39;X50&#39; [50], &#39;X51&#39; [51],
 ## &#39;X52&#39; [52], &#39;X53&#39; [53], &#39;X55&#39; [55], &#39;X56&#39; [56], &#39;X57&#39; [57], &#39;X58&#39; [58],
 ## &#39;X59&#39; [59]</code></pre>
-<div class="sourceCode" id="section-cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1"><span class="kw">glimpse</span>(budget)</a></code></pre></div>
+<div class="sourceCode" id="section-cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1"><span class="kw">glimpse</span>(budget)</a></code></pre></div>
 <pre><code>## Observations: 40,513
 ## Variables: 61
 ## $ `Respond-ent ID`                                                                                                                                                                                                                &lt;dbl&gt; …
@@ -515,38 +515,38 @@ to the above question.</p>
 can be modelled as a Binomial random variable. Derive and calculate the standard
 deviation of the sample proportion of respondents who answered 1. I got <span class="math inline">\(0.0025\)</span>.
 Is this higher or lower than you would expect with this number of respondents?</p>
-<div class="sourceCode" id="section-cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1"><span class="kw">set.seed</span>(<span class="dv">29394032</span>)</a>
-<a class="sourceLine" id="cb192-2" title="2">origsamp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(budget[[<span class="st">&quot;Q1: To what extent do you think low oil prices impact the Alberta government&#39;s ability to budget?&quot;</span>]] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) </a>
-<a class="sourceLine" id="cb192-3" title="3">n &lt;-<span class="st"> </span><span class="kw">length</span>(origsamp)</a>
-<a class="sourceLine" id="cb192-4" title="4"><span class="co"># Convert to 0/1 indicator of response == 1</span></a>
-<a class="sourceLine" id="cb192-5" title="5"><span class="co"># Sample proportion:</span></a>
-<a class="sourceLine" id="cb192-6" title="6">phat &lt;-<span class="st"> </span><span class="kw">mean</span>(origsamp)</a>
-<a class="sourceLine" id="cb192-7" title="7">phat</a></code></pre></div>
+<div class="sourceCode" id="section-cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1"><span class="kw">set.seed</span>(<span class="dv">29394032</span>)</a>
+<a class="sourceLine" id="cb193-2" title="2">origsamp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(budget[[<span class="st">&quot;Q1: To what extent do you think low oil prices impact the Alberta government&#39;s ability to budget?&quot;</span>]] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) </a>
+<a class="sourceLine" id="cb193-3" title="3">n &lt;-<span class="st"> </span><span class="kw">length</span>(origsamp)</a>
+<a class="sourceLine" id="cb193-4" title="4"><span class="co"># Convert to 0/1 indicator of response == 1</span></a>
+<a class="sourceLine" id="cb193-5" title="5"><span class="co"># Sample proportion:</span></a>
+<a class="sourceLine" id="cb193-6" title="6">phat &lt;-<span class="st"> </span><span class="kw">mean</span>(origsamp)</a>
+<a class="sourceLine" id="cb193-7" title="7">phat</a></code></pre></div>
 <pre><code>## [1] 0.5377533</code></pre>
-<div class="sourceCode" id="section-cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1"><span class="co"># Standard error (you should DERIVE this formula):</span></a>
-<a class="sourceLine" id="cb194-2" title="2"><span class="kw">sqrt</span>(phat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>phat)<span class="op">/</span>n)</a></code></pre></div>
+<div class="sourceCode" id="section-cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1"><span class="co"># Standard error (you should DERIVE this formula):</span></a>
+<a class="sourceLine" id="cb195-2" title="2"><span class="kw">sqrt</span>(phat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>phat)<span class="op">/</span>n)</a></code></pre></div>
 <pre><code>## [1] 0.00247703</code></pre>
-<div class="sourceCode" id="section-cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" title="1"><span class="co"># So the mean is .5378 and the standard error is about 0.0025 (theoretically).</span></a>
-<a class="sourceLine" id="cb196-2" title="2"><span class="co"># Bootstrap: repeatedly resample and calculate the mean. The estimated standard error</span></a>
-<a class="sourceLine" id="cb196-3" title="3"><span class="co"># of the sample mean is then the standard error of these means.</span></a>
-<a class="sourceLine" id="cb196-4" title="4">doboot &lt;-<span class="st"> </span><span class="cf">function</span>(B) {</a>
-<a class="sourceLine" id="cb196-5" title="5">  <span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb196-6" title="6"><span class="st">    </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">sample</span>(origsamp,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb196-7" title="7"><span class="st">    </span><span class="kw">map</span>(mean) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb196-8" title="8"><span class="st">    </span><span class="kw">reduce</span>(c)</a>
-<a class="sourceLine" id="cb196-9" title="9">}</a>
-<a class="sourceLine" id="cb196-10" title="10">bootmeans &lt;-<span class="st"> </span><span class="kw">doboot</span>(<span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb196-11" title="11"><span class="kw">mean</span>(bootmeans) <span class="co"># Pretty close!</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1"><span class="co"># So the mean is .5378 and the standard error is about 0.0025 (theoretically).</span></a>
+<a class="sourceLine" id="cb197-2" title="2"><span class="co"># Bootstrap: repeatedly resample and calculate the mean. The estimated standard error</span></a>
+<a class="sourceLine" id="cb197-3" title="3"><span class="co"># of the sample mean is then the standard error of these means.</span></a>
+<a class="sourceLine" id="cb197-4" title="4">doboot &lt;-<span class="st"> </span><span class="cf">function</span>(B) {</a>
+<a class="sourceLine" id="cb197-5" title="5">  <span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb197-6" title="6"><span class="st">    </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">sample</span>(origsamp,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb197-7" title="7"><span class="st">    </span><span class="kw">map</span>(mean) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb197-8" title="8"><span class="st">    </span><span class="kw">reduce</span>(c)</a>
+<a class="sourceLine" id="cb197-9" title="9">}</a>
+<a class="sourceLine" id="cb197-10" title="10">bootmeans &lt;-<span class="st"> </span><span class="kw">doboot</span>(<span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb197-11" title="11"><span class="kw">mean</span>(bootmeans) <span class="co"># Pretty close!</span></a></code></pre></div>
 <pre><code>## [1] 0.5377662</code></pre>
-<div class="sourceCode" id="section-cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" title="1"><span class="kw">sd</span>(bootmeans) <span class="co"># Not bad at all!</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1"><span class="kw">sd</span>(bootmeans) <span class="co"># Not bad at all!</span></a></code></pre></div>
 <pre><code>## [1] 0.00244279</code></pre>
-<div class="sourceCode" id="section-cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" title="1"><span class="kw">tibble</span>(<span class="dt">x =</span> bootmeans) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb200-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb200-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb200-4" title="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb200-5" title="5"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> rlang<span class="op">::</span><span class="kw">as_function</span>(<span class="op">~</span>n <span class="op">*</span><span class="st"> </span><span class="kw">dbinom</span>(<span class="kw">round</span>(n <span class="op">*</span><span class="st"> </span>.x),<span class="dt">size =</span> n,<span class="dt">prob =</span> phat))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb200-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Bootstrap distribution of the sample mean&quot;</span>,</a>
-<a class="sourceLine" id="cb200-7" title="7">       <span class="dt">subtitle =</span> <span class="st">&quot;Curve: theoretical distribution&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1"><span class="kw">tibble</span>(<span class="dt">x =</span> bootmeans) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb201-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb201-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb201-4" title="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb201-5" title="5"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> rlang<span class="op">::</span><span class="kw">as_function</span>(<span class="op">~</span>n <span class="op">*</span><span class="st"> </span><span class="kw">dbinom</span>(<span class="kw">round</span>(n <span class="op">*</span><span class="st"> </span>.x),<span class="dt">size =</span> n,<span class="dt">prob =</span> phat))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb201-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Bootstrap distribution of the sample mean&quot;</span>,</a>
+<a class="sourceLine" id="cb201-7" title="7">       <span class="dt">subtitle =</span> <span class="st">&quot;Curve: theoretical distribution&quot;</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/budget-2-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: inside <code>stat_function(fun = rlang::as_function(~n * dbinom(round(n * .x),size = n,prob = phat)))</code> I
 specify the theoretical density of the sample mean. Derive this formula yourself using the change of variables

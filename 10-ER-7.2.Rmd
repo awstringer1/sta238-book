@@ -164,7 +164,7 @@ Some interesting points can be seen from this plot:
   - When the observed data "matches" the prior, in the sense that we observe a dataset for which the original frequentist estimate of $\theta$ is very probable under the prior, the posterior becomes more peaked around that value.
   - When the observed data are extreme, as in the case of 0 or 10 heads in 10 flips, the frequestist inference would also be extreme. In these cases, we would have estimated $\hat{\theta}_{freq} = 0$ or $1$. Because our prior distribution is not extreme, though, the posterior is more moderate, and ends up being peaked at the low/high end of the range of values that were reasonable under the prior.
   
-**Exercise**: Now is a good time to go back to the [Shiny App](https://awstringer1.shinyapps.io/bayesian-tutorial/) you saw a few weeks ago, and see if you can elucidate the behaviour I describe above using your own simulations.
+**Exercise**: Now is a good time to go back to the [Shiny App](http://shiny.sta220.utstat.utoronto.ca:88/BayesianApp/) you saw a few weeks ago, and see if you can elucidate the behaviour I describe above using your own simulations.
 
 ## Estimation in Bayesian Inference: point and interval estimation
 
@@ -221,7 +221,7 @@ c(qbeta(0.025,shape1=12 + 1,shape2 = 12 + 9),qbeta(0.975,shape1=12 + 1,shape2 = 
 
 This interval is much more reasonable, stays within the parameter space, and still even includes the possibility that the coin is fair-- good, since we only flipped the coin $n = 10$ times! Had we increased the sample size and observed a similarly extreme result, the posterior would become more centered in that region of the parameter space- that is, observing an equally extreme result with more data would diminish the effect of the prior on the resulting inferences.
 
-You can play around once more in the [Shiny App](https://awstringer1.shinyapps.io/bayesian-tutorial/) to get a feel for the comparison between frequentist confidence intervals and bayesian credible intervals works in this example.
+You can play around once more in the [Shiny App](http://shiny.sta220.utstat.utoronto.ca:88/BayesianApp/) to get a feel for the comparison between frequentist confidence intervals and bayesian credible intervals works in this example.
 
 ## Choosing a Prior
 
