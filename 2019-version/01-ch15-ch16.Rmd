@@ -1,10 +1,17 @@
-# Introduction to Data Analysis: Data Input and Basic Summaries
+# Supplement to Chapters 15 and 16
 
-```{r opts,include=FALSE}
-knitr::opts_chunk$set(comment = NA)
-```
+This chapter implements much of the analysis shown in chapters 15 and 16 of 
+A Modern Introduction to Probability and Statistics (MIPS). R code is given for the
+simple textbook datasets used in the book, and then the concepts are
+illustrated on real data.
 
-This chapter shows you how to read in simple datasets and make simple numerical and graphical summaries of them. We'll use data from the book A Modern Introduction to Probability and Statistics (MIPS) which can be found here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/. This will be referred to as "the book data folder". This chapter corresponds to Chapters 15 and 16 in MIPS.
+All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
+
+The assigned exercises associated with this material are from MIPS, as follows: 15.1, 15.2; 15.5; 15.6; 15.8; 15.11; 15.12
+16.1, 16.2; 16.3; 16.4, 16.5; 16.6; 16.8; 16.15. Answers to selected exercises are in the 
+back of the book. You should also do all the "quick exercises" within chapters 15 and 16
+(solutions are at the end of the chapter). Use `R` as much as possible when answering the
+questions.
 
 ## Old Faithful
 
@@ -25,8 +32,6 @@ a Mac or Linux-based system, open a terminal. If you have a Windows based system
 get a Mac or Linux. Just kidding (not really though). Download Git Bash: https://git-scm.com/download/win 
 and open a new terminal window. 
 
-You can also use the terminal within RStudio by clicking on "Terminal" in the toolbar above the console (the console is where the code is run).
-
 To look at a text file on the command line, use the `head` command. You have to
 tell it where to look on your computer. You can navigate to the folder where the
 data is stored and just type the name of the file, or you can type a whole filepath,
@@ -40,7 +45,7 @@ lets you change to a new directory. So if you're in `/home/alex`, you would type
 `pwd` and it would print `/home/alex`. If this location contains a folder called
 `data`, you can type `ls -l` and there should be a list of stuff, including a folder
 called `data`. You can type `cd data` to go there, and repeat the process. Navigate
-to where you downloaded the data to-- it's kind of like a game. A really, really repetative game.
+to where you downloaded the data to-- it's kind of like a game!
 
 Anyways, once you're there, type:
 
@@ -48,7 +53,10 @@ Anyways, once you're there, type:
 head data/MIPSdata/oldfaithful.txt
 ```
 
-A column of numbers is printed. This indicates that the text file `oldfaithful.txt`
+Don't worry if you don't see the `\#\#`; those are
+added by the book. I don't see them when I do this right in the command line.
+
+A column of numbers is printed. This indicates that the text file `oldfaithdful.txt`
 contains a single column of numbers, and no header row. A header row is what it's
 called when the first row of the dataset contains the names of the columns.
 
@@ -94,15 +102,13 @@ that the file does not end with a newline character, and hence the total number
 of newlines in the file is `271`, corresponding to `272` actual lines of data.
 
 **Remark**: subtle issues like this come up all the time in data analysis. The
-only way to get good at it is practice. It might seem
-silly to focus on such a seemingly insignificant detail
-in an introductory chapter on the basics of data analysis. But catching and fixing seemingly insignificant details is a major part of the job and you have to get practice at it.
+only way to get good at it is practice, so don't be discouraged!
 
 ### Graphical Summaries
 
-Now that the data has been read in and checked, we can make summaries of it.
-
-**Histograms**
+Now that the data has been read in and checked, we can realize the fruits of 
+our labour! Chapter 15 analyzes these data using a tabular display, histogram, kernel density
+estimate, and empirical CDF. Here is how to do these things in `R`.
 
 ```{r oldfaithful-analysis-1}
 # Tabular display
@@ -139,9 +145,6 @@ oldfaithful %>%
        y = "Density")
 
 ```
-
-
-**Kernel Density Estimates**
 
 To get kernel density estimates, there are a couple different ways. The `density`
 function in `R` does the math for you, using a Gaussian kernel (the functions $K_{i}$
@@ -180,8 +183,6 @@ oldfaithful %>%
 # you have total control!
 ```
 
-**Empirical Distribution Function**
-
 For the empirical distribution function, we use the `ecdf` function in `R`. You
 would think this function should behave in a similar manner to the `density` function,
 but it doesn't. It returns a function which computes the ecdf. It still has a `plot`
@@ -200,7 +201,7 @@ tibble(x = c(100,300)) %>% # Tell ggplot we want to plot the ecdf from 100 to 30
        y = "Empirical probability that an eruption time is less than x")
 ```
 
-**Advanced**: the CDF is the integrated pdf:
+**Discussion point**: the CDF is the integrated pdf:
 $$
 F(x) = \int_{-\infty}^{x}f(s)ds
 $$
@@ -227,9 +228,7 @@ tibble(
 
 What do you think? Is this better, worse, or just different than the ECDF?
 
-**Boxplots**
-
-To get a boxplot, again, you can use base `R` or `ggplot`.
+Chapter 16 discusses boxplots. To get a boxplot, again, you can use base `R` or `ggplot`.
 We have:
 
 ```{r oldfaithful-boxplot-1}
@@ -248,9 +247,9 @@ oldfaithful %>%
 ```
 
 
-### Numerical Summaries
+### Numerical Summaries (Ch 16)
 
-A numerical summary is any number or numbers you calculate from the data. The basic numerical summaries of interest include the sample mean and median, sample
+The numerical summaries in chapter 16 include the sample mean and median, sample
 standard deviation and mean absolute deviation, and quantiles.
 
 ```{r oldfaithful-numerical-1}
@@ -294,10 +293,6 @@ quantile(oldfaithful$time,probs = .75) - quantile(oldfaithful$time,probs = .25)
 
 ## Drilling
 
-The `drilling` data containg more than one variable
-and so are ideal for illustrating summaries of data 
-containing more than one variable.
-
 ### Read in data
 
 Read in the `drilling.txt` file:
@@ -318,8 +313,6 @@ glimpse(drilling)
 ```
 
 ### Graphical summaries
-
-**Scatterplots**
 
 To make a scatterplot, you can again use base `R` or `ggplot`. We want separate plots
 for dry and wet holes. You can do this by plotting these data separately, or you
@@ -382,11 +375,7 @@ cowplot::plot_grid(dryplt2,wetplt2,nrow = 1)
 # ggplot then knows how to "facet" the plots according to this new variable.
 # Check it out:
 drilling_long <- drilling %>%
-  tidyr::pivot_longer(
-    dry:wet, # Gather up the columns "dry" and "wet"
-    names_to = "type", # Create a new column called "type" which says whether a hole is dry or wet
-    values_to = "time" # Create a new column called "time" with the drilling time for each hole
-    ) %>% 
+  tidyr::gather(type,time,dry:wet) %>%
   dplyr::mutate(type = case_when( # Rename the type values for plotting
     type == "dry" ~ "Dry Holes",
     type == "wet" ~ "Wet Holes"
@@ -426,11 +415,7 @@ eruption times from the Old Faithful data. However, the drilling data are natura
 so we should compute our summaries by group--- i.e. by hole type, wet or dry.
 
 To do this requires a bit more machinery; we will operate on a dataframe and use
-formal grouping operations. We need the data in long format for this, which we have already done.
-
-The following is a bit more work but is the basis
-of a really powerful strategy for summarizing complex datasets. 
-
+formal grouping operations. This isn't that much harder, but it's really powerful.
 Check it out:
 
 ```{r drilling-numerical-1}
@@ -447,11 +432,12 @@ drilling_long %>%
   )
 ```
 
-Grouped operations are fundamental to modern data analysis. Imagine if instead of 2 groups you had 100 and your boss asked you to make a report. Or better yet: imagine you made a report on 2 groups and it took you a day, and your boss asked you to make one for 100 groups and gave you a week to do it. You could give it to them 2 days early and still have 2 days off ;).
+Grouped operations are fundamental to modern data analysis.
 
 ## Exercises
 
-1. The **Janka Hardness** data is in the file `jankahardness.txt`.  Read it in and compute appropriate summaries: five-number summaries, boxplots, scatterplots, histograms, kernel density estimates and empirical CDFs. You may also choose to read the analysis in the MIPS book and reproduce it.
+1. The **Janka Hardness** data is in the file `jankahardness.txt`. Reproduce
+the analysis in the book yourself.
 
 ## Extended example: smoking and age and mortality
 
@@ -508,7 +494,9 @@ femsmoke %>%
   summarize(num_people = sum(y))
 ```
 
-Do the following exercises to get practice with descriptive statistics:
+There are lots of other descriptive statistics you could calculate.
+
+*Summary*: descriptive analysis involves communicating properties of a dataset, and the context behind the dataset.
 
 ### Exercises
 
@@ -525,8 +513,6 @@ femsmoke %>%
   group_by(age) %>%
   summarize(num_people = sum(y))
 ```
-
-### Association between smoking and mortality
 
 Let's go into a bit more detail. I want to see if there is any apparent association
 between smoking and mortality.
@@ -810,9 +796,24 @@ nrow(apartmentclean) - nrow(apartmentfiltered) # Dropped 567 rows.
 # Now create the table of averages:
 apartmentfiltered %>%
   group_by(ward) %>%
-  # na.rm = TRUE: ignore missing values
-  summarize(avg_score = mean(score,na.rm = TRUE))
+  summarize(avg_score = mean(score))
 
+```
+
+Bah! What happened? Why are there these `NA` values? 
+  
+  `NA` is the value `R` uses to mean "missing". We have to hope that whether a 
+rental apartment building's `score` is missing *is not related* to what that score *is*,
+that is, we hope apartments with higher or lower scores aren't missing more often.
+
+We will ignore missingness for now. To do this, use the `na.rm = TRUE` option in
+`mean`:
+
+```{r apartment-analysis-2}
+apartmentsummary <- apartmentfiltered %>%
+  group_by(ward) %>%
+  summarize(avg_score = mean(score,na.rm = TRUE))
+apartmentsummary
 ```
 
 This isn't a super friendly way of comparing these 26 numbers. I'd rather use a
@@ -889,9 +890,12 @@ yourself to live a life that is better informed.
 But notice that we didn't really answer any questions in this chapter. We
 saw some rough patterns, but were they real? If we made different decisions, or if we *sampled different data*, would we have seen different patterns?
 
-**Quantifying uncertainty** in a data analysis like this is what the field of **Statistics** is about.
+In order to understand what the problem is and how to approach it, we
+need to take a more detailed look at the concept of **error**. 
 
 ### Exercises
+
+1. Take each of the analyses we have performed on the Toronto rental data and say whether you think it's **descriptive**, **exploratory**, or **prescriptive**, or a mix, and say why.
 
 1. What is that "YY" ward that shows up in the dot plot? Investigate this unusual observation. 
 

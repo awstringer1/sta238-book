@@ -1,35 +1,24 @@
-# Introduction to Statistics: Law of Large Numbers and Central Limit Theorem
+# Supplement to Chapters 13 and 14
 
-Statistics is the study of **uncertainty** and **variability**. This chapter introduces the two
-main physical laws which govern **variability**: the Law of Large Numbers and the Central
-Limit Theorem; and describes how these laws are used in the study of **uncertainty**.
+This chapter implements much of the analysis shown in chapters 13 and 14 of 
+A Modern Introduction to Probability and Statistics. R code is given for the
+simple textbook datasets used in the book, and then the concepts are
+illustrated on real data.
 
-This chapter follows chapters 13 and 14 in A Modern Introduction to Probability and Statistics (MIPS).
+All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
 
+The assigned exercises associated with this material are from MIPS, as follows: 13.1; 13.2; 13.3; 13.4; 13.5, 13.6; 13.9; 13.10, 13.12
+14.1, 14.2; 14.3; 14.5; 14.6; 14.9. Answers to selected exercises are in the 
+back of the book. You should also do all the "quick exercises" within chapters 13 and 14
+(solutions are at the end of the chapter). Use `R` as much as possible when answering the
+questions.
 
 ## Law of Large Numbers (Chapter 13)
-
-The Law of Large Numbers (LLN) states that if you take independent samples from
-a well-behaved probability distribution, their sample mean converges in probability to
-the true mean. Specifically, if $X_{1},\ldots,X_{n}\overset{iid}{\sim}F$
-and $EX_{1} = \mu$ and $\text{Var}(X_{1}) = \sigma^{2} < \infty$ and $\bar{X}_{n} = (1/n)\sum_{i=1}^{n}X_{i}$ then
-$$
-\bar{X}_{n}\overset{p}{\to}\mu
-$$
-as $n\to\infty$. We will investigate the LLN computationally through simulations.
 
 Load the packages we need:
 ```{r load-packages,warning=FALSE,message=FALSE}
 library(tidyverse)
-options(digits = 2) # Print numbers with only 2 digits
 ```
-
-Consider $X_{1},\ldots,X_{n}\overset{iid}{\sim}\text{Gamma}(\alpha,\beta)$. Their
-mean is $EX_{1} = \alpha/\beta$. If we take a sample from this distribution and 
-calculate $\bar{X}_{n}$, we should get something close to $\alpha/\beta$. If
-we make $n$ larger, we should get something closer. The LLN tells us that we can
-always make $n$ large enough such that we get as close as we want with as high 
-a probability as we want.
 
 To simulate from a $\text{Gamma}(\alpha,\beta)$ distribution in \texttt{R}, use the
 `rgamma` function:
@@ -48,15 +37,8 @@ rgamma(1,shape = 2,rate = 1)
 rgamma(10,shape = 2,rate = 1)
 ```
 
-We can plot the density of the gamma sample mean for various $n$. These densities should
-have mean $\alpha/\beta = 2/1 = 2$. 
-
-**Exercise**: if $X_{1},\ldots,X_{n}\overset{ind}{\sim}\text{Gamma}(\alpha_{i},\beta)$ then for any $b$,
-$b\times \sum_{i=1}^{n}X_{i} \sim \text{Gamma}\left(\sum_{i=1}^{n}\alpha_{i},\beta/b\right)$. Use
-this to derive the distribution of $\bar{X}$ and (hence) explain what the below code is doing.
-
-This is the left
-side of Figure 13.1 in MIPS:
+Plot the density of the gamma sample mean for various $n$, recreating the left
+side of Figure 13.1:
 
 ```{r dens-gamma-1}
 # Define a function to compute the density
@@ -88,25 +70,13 @@ purrr::map(c(1,2,4,9,16,400),plot_for_n) %>%
   cowplot::plot_grid(plotlist = .,nrow = 3)
 ```
 
-The density of the sample mean appears centred at $2$ and also appears to concentrate
-around $2$. The LLN says that the sample mean should converge in probability to $2$
-in this example which would correspond to a density which has a point mass at $2$
-and is zero everywhere else. It appears like this might be happening.
-
-We can get a better look at "where the sample mean is going" by doing the following:
-
-1. Simulate a $\text{Gamma}(2,1)$ sample of size $n$ for some really big $n$,
-
-1. Calculate the the running average of this: for each $m = 1,\ldots,n$, compute $\bar{X}_{m} = (1/m)\sum_{i=1}^{m}X_{i}$,
-
-1. Plot $\bar{X}_{m}$ against $m$. $\bar{X}_{m}$ should get closer and closer to $2$ as $m\to n$ (...probably).
-
-We do this as follows:
+Simulate the running average of experiments of size $n$ from a $\text{Gamma}(2,1)$
+for $n = 1,\ldots,500$ and plot them, recreating Figure 13.2:
 
 ```{r sim-gamma-2}
 set.seed(54768798) # So I can reproduce these results
 # Simulate one experiment of size 500
-n <- 100
+n <- 500
 alpha <- 2
 beta <- 1
 gamma_experiment <- rgamma(n = n,shape = alpha,rate = beta)
@@ -125,16 +95,9 @@ tibble(x = 1:length(runningaverage),
 
 ```
 
-Is this what you expected to see?
+What happens when you increase the number? Try it for $n = 1,000, n = 10,000$, and so on.
 
-**Exercise**: What happens when you increase the number? Try it for $n = 1,000, n = 10,000$, and so on.
-
-What happens if you break the assumptions of the LLN, that $\text{Var}(X_{1}) < \infty$?
-The Cauchy distribution has some of the worst mathematical properties of any "named"
-probability distribution, and so is often used to illustrate what happens when assumptions
-of theorems aren't met. It has $EX^{r} = \infty$ for any $r\geq 1$ so has no finite mean, variance, etc.
-
-Let's recreate the running average experiment for a random sample $X_{1},\ldots,X_{n}\overset{iid}{\sim}\text{Cauchy}(\mu,\sigma)$:
+Now try this for the Cauchy distribution, the left panel of Figure 13.3:
 
 ```{r sim-cauchy-1}
 set.seed(4235) # So I can reproduce these results
@@ -154,38 +117,34 @@ tibble(x = 1:length(runningaverage),
   ggplot(aes(x = x,y = y)) +
   theme_classic() +
   geom_point(pch = ".") +
-  geom_hline(yintercept = mu,colour = "red",size = .5,linetype = "dotted")
+  geom_hline(yintercept = alpha / beta,colour = "red",size = .5,linetype = "dotted")
 
 
 ```
 
-Is this what you expected to see? Should you expect to see anything in particular?
+Yikes! The Cauchy distribution is the worst.
 
-**Exercise**: repeat this for the Pareto distribution.
-You can simulate from the Pareto distribution using the `rpareto`
+**Exercise**: repeat this for the Pareto distribution, recreating the right panel
+of Figure 13.3. You can simulate from the Pareto distribution using the `rpareto`
 function in the `actuar` package. Type `install.packages("actuar")` and then
 `actuar::rpareto`. Type `?actuar::rpareto` to get help on using this function.
-Figuring out how to use the function is part of the exercise. Read up on the pareto
-distribution in MIPS or on Wikipedia or whatever. What do you expect this plot to
-show? Reading up on the distribution is also part of the exercise. 
+Figuring out how to use the function is part of the exercise.
 
 ### Extended example: the probability of heads
 
 As an extended example, consider trying to figure out what the probability of
 heads is for a fair coin, just based on flipping the coin a bunch of times. We
-can use the LLN to address this challenge.
+can use the material of Section 13.4 to address this challenge.
 
 Let $X$ be a random variable which takes values $0$ and $1$ if the coin comes up
-tails or heads on any given flip. The specific 
+tails or heads on any given flip. Let $C = \left\{ 1\right\}$, so the specific 
 event that we are interested in 
-is whether the coin comes up heads on any given flip. $p = \text{P}(X = 1)$ is
-hence the probability of heads and $1-p = \text{P}(X = 0)$ is the probability of
-tails. We also have $EX = 0\times (1-p) + 1\times p = p$. We can hence see what $p$
-must be by flipping the coin a bunch of times, computing the sample proportion of 
-flips that are heads, and then seeing where this sample proportion appears to be
-"going".
+is whether the coin comes up heads on any given flip. $p = \text{P}(X\in C)$ is
+hence the probability of heads.
 
-We do this as follows:
+To estimate $p$ using the LLN, we will take a coin which has probability $p$ of
+coming up heads and flip it a bunch of times and calculate the proportion of flips
+that come up heads.
 
 ```{r coin-1}
 # Function to flip the coin n times, and return a sequence of 1 if heads and 0 if tails
@@ -208,60 +167,27 @@ sample_proportion_of_heads <- function(n,p) {
 
 # Try it out:
 sample_proportion_of_heads(10,.5)
-sample_proportion_of_heads(100,.5)
-sample_proportion_of_heads(1000,.5)
 ```
 
 **Exercise**: create a plot of the running average of sample proportions of heads,
-similar to the above plots for the Gamma and Cauchy. How many times
+similar to the above plots for the Gamma and Cauchy (Figure 13.3). How many times
 do you think you need to flip the coin before the result is an accurate estimate?
 Does this change for different values of $p$?
 
 
 ## Central Limit Theorem (Chapter 14)
 
-The LLN says where the sample mean goes, and the Central Limit Theorem (CLT) says
-how it gets there. The CLT lets us approximate the probability that the sample mean
-is any distance we like from the true mean. We will use this later when we are 
-using the sample mean to estimate the true mean, and want to quantify the uncertainty
-in our estimate.
-
-Under the same conditions as the LLN, the CLT says that the 
-distribution of the standardized sample mean:
-$$
-Z_{n} = n^{1/2}\left(\frac{\bar{X} - \mu}{\sigma}\right)
-$$
-converges to a standard Normal:
-$$
-Z_{n}\overset{d}{\to} Z\sim \text{N}(0,1)
-$$
-as $n\to\infty$. 
-
-The concept of "converging to" is a little bit less intuitive for
-a whole distribution compared to just for a single number. It means that for any 
-set $A\subseteq\mathbb{R}$, we have $\lim_{n\to\infty}P(Z_{n}\in A) = P(Z\in A)$. 
-This is very convenient, because we often don't know how to use $Z_{n}$ to calculate
-probabilities, but $Z$ has a very well-known distribution so it is much easier to
-use it to calculate probabilities. We use probabilities calculated from $Z$ to
-replace those which we would like to calculate about $Z_{n}$.
-
-We can
-better understand this concept through simulation.
-
-First, let's investigate the scaling power on $n$ when standardizing averages. In
-order for convergence in distribution to occur, the variance of the converging variable
-$Z_{n}$ must stabilize, $\text{Var}(Z_{n})\to\text{constant}$. If you 
-multiply by the wrong power of $n$, the variance of $Z_{n}$ will go either to $0$
-or $\infty$ and its distribution will not converge.
+Let's investigate the scaling power on $n$ when standardizing averages. The book
+shows in Figure 14.1 that multiplying $(\bar{X} - \mu)$ by $n^{1/4}$ isn't enough
+to stabilize the variance in the distribution, $n^{1}$ is too much, and $n^{1/2}$
+is just right. 
 
 **Exercise**: derive the probability density of $Y = n^{p}(\bar{X} - \mu)$ when
 $X_{1},\ldots,X_{n}\overset{iid}{\sim}\text{Gamma}(2,1)$. *Hint*: look at the code
 below. How do I compute this? What formula am I using?
 
 
-Multiplying $(\bar{X} - \mu)$ by $n^{1/4}$ isn't enough to 
-to stabilize the variance in the distribution, $n^{1}$ is too much, and $n^{1/2}$
-is just right. We can see this as follows:
+We can recreate Figure 14.1 as follows:
 
 ```{r scaling-1,fig.height=10}
 scalingdensity <- function(y,n,p) {
@@ -299,17 +225,6 @@ cowplot::plot_grid(plotlist = pltlist,
 
 ```
 
-On the left the scaling is too little, and the distribution will become infinitely
-peaked (zero variance) as $n$ gets bigger (try it!). This distribution is not
-useful for calculating probabilities.
-
-On the right the scaling is too much and the distribution becomes flat (infinite
-variance). This distribution is not useful for calculating probabilities.
-
-In the middle, we have scaled by a good amount. The distribution appears to become
-closer and closer to a standard Normal distribution as $n$ gets bigger. This
-distribution is useful for calculating probabilities.
-
 You can play around with different scaling values and sample sizes.
 
 Figure 14.2 is like the centre column of Figure 14.1 with a normal density
@@ -325,51 +240,34 @@ curve overlayed.
 
 
 We can compute probabilities involving the standard normal distribution function
-in `R` using the `pnorm` function. Suppose we compute the sample mean from a $\text{Gamma}(2,1)$
-random sample:
-
-```{r compare-0}
-set.seed(8257899)
-n <- 500
-gammamean <- mean(rgamma(n,2,1))
-gammamean
-```
-
-We know the true mean is $2$. How "close" is `r gammamean` to $2$? We can quantify
-this by asking: how probable is it to get a sample mean of `r gammamean` or greater in a sample
-of size `r n` from a $\text{Gamma}(2,1)$ distribution?
+in `R` using the `pnorm` function. Let's compute the approximate probability
+described in a couple of the textbook's examples, and compare it to simulated
+and true values.
 
 ```{r compare-1}
-# The actual probability is (why? remember a previous exercise...):
-1 - pgamma(gammamean,shape = 2*n,rate = 1*n)
-# The CLT probability is as follows:
-Zn <- sqrt(n) * (gammamean - 2) / sqrt(2)
-1 - pnorm(Zn)
+# "Did we have bad luck?".
+# The actual probability is (why?):
+n <- 500
+1 - pgamma(2.06,shape = 2*n,rate = 1*n)
+# The CLT probability is:
+1 - pnorm(.95)
 # Why are we doing 1 - pnorm()? pnorm() gives P(X < x) for X ~ N(0,1)
 # To get P(X > x), you can do
-pnorm(Zn,lower.tail = FALSE)
+pnorm(.95,lower.tail = FALSE)
 # but it's easier to just do P(X > x) = 1 - P(X < x)
-```
-
-Pretty close approximation!
-
-We could also approximate this probability by generating a bunch of gamma random
-samples and seeing how often their averages are > `r gammamean`:
-```{r compare-2}
+# We can also simulate this probability by generating a bunch of gamma random
+# samples and seeing how often their averages are > 2.06:
 N <- 10000
 exceeded <- numeric(N)
 for (i in 1:N) {
   samp <- rgamma(n,shape = 2,rate = 1)
   mn <- mean(samp)
-  exceeded[i] <- as.numeric(mn > gammamean)
+  exceeded[i] <- as.numeric(mn > 2.06)
 }
 mean(exceeded)
+# Pretty good. Can you experiment with the number of simulations? How
+# many experiments do you need to simulate in order to get an accurate value?
 ```
-
-**Exercise**: why does this simulation give us an idea of $P(\bar{X} > `r gammamean`)$?
-Hint: recall the coin flipping example: consider $\bar{X} > `r gammamean`$ to be like
-a coin coming up heads and estimate this probability using the method we came up with
-in that example.
 
 ### Extended example: the probability of heads
 
@@ -409,15 +307,18 @@ tibble(x = experiments) %>%
 
 
 **Exercises**: 
-
 1. Recreate the above plot with $n = 10, 50, 100, 1000$ and $p = .4, .2, .8, .01, .99$.
 What do you see? Is the accuracy of the normal approximation to this distribution
 affected by $n$ or $p$?
-
 1. What are the mean and variance of the distribution of sample proportions of heads?
 (Hint: what are the mean and variance of a $\text{Binom}(n,p)$ random variable?)
-
 1. Recreate the above plot, but scale the sample proportion of heads appropriately such
 that it has mean $0$ and variance $1$.
+1. Recreate the "Normal Approximation of the Binomial Distribution"
+calculations using
 
+  1. The CLT
+  1. The exact values, using the `rbinom` function (look up the help file)
+  1. A simulation
+  
 

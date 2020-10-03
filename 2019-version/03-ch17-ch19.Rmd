@@ -1,0 +1,392 @@
+# Supplement to Chapters 17 and 19
+
+This chapter implements much of the analysis shown in chapters 17 and 19 of 
+A Modern Introduction to Probability and Statistics. R code is given for the
+simple textbook datasets used in the book, and then the concepts are
+illustrated on real data.
+
+All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
+
+The assigned exercises associated with this material are from MIPS, as follows: 17.1, 17.2; 17.3; 17.4; 17.7; 17.9
+19.1; 19.2, 19.3; 19.5; 19.8; 19.9. Answers to selected exercises are in the 
+back of the book. You should also do all the "quick exercises" within chapters 17 and 19
+(solutions are at the end of the chapter). Use `R` as much as possible when answering the
+questions.
+
+## Statistical models (Chapter 17)
+
+Most of the material from chapter 17 is a review of that from chapters 15 and 16,
+but in an important new context. You should be doing all exercises from chapter
+17 **using R**, using the tools you have learned from chapters 15 and 16.
+
+Here we will focus on the linear regression model. This chapter doesn't cover
+how these models are estimated, so here we will show how to use `R` to plot
+regression lines. We'll use `ggplot2` to recreate Figure 17.8, and show how 
+to add "smooth" non-linear regression lines to plots as well.
+
+### Janka Hardness data
+
+The Janka Hardness dataset was already discussed in Chapter 15/16. Since you did
+the exercises from those chapters prescribed in this supplementary book, you
+have already read these data into `R`:
+
+```{bash janka-0}
+head data/MIPSdata/jankahardness.txt
+````
+
+By printing it out on the command line, you can tell that the file is *tab-delimited*.
+Use `readr::read_delim()` to read it in:
+
+```{r janka-1,warning=FALSE,message=FALSE}
+library(tidyverse)
+janka <- readr::read_delim(
+  file = "data/MIPSdata/jankahardness.txt",
+  delim = "\t",
+  col_names = c("density","hardness"),
+  col_types = "nn"
+)
+glimpse(janka)
+```
+
+Create a scatterplot with `ggplot2`:
+
+```{r janka-2}
+jankascatter <- janka %>%
+  ggplot(aes(x = density,y = hardness)) +
+  theme_classic() +
+  geom_point() +
+  scale_x_continuous(breaks = seq(20,80,by=10)) +
+  scale_y_continuous(breaks = seq(0,3500,by=500)) +
+  coord_cartesian(xlim = c(20,80),ylim = c(0,3500)) +
+  labs(x = "Wood density",
+       y = "Hardness")
+jankascatter
+```
+
+To add a line to a plot, use `geom_abline()`. We can use this to recreate the regression
+line from Figure 17.8:
+
+```{r janka-3}
+jankascatter + 
+  geom_abline(slope = 57.51,intercept = -1160.5)
+```
+
+But how did the book calculate these values? We'll answer this question in a later
+chapter. But for now, it would still be nice to get the computer to compute these
+values for us rather than typing them in manually. We can do this using the 
+`geom_smooth()` function in `ggplot2`:
+
+```{r janka-4}
+jankascatter +
+  geom_smooth(method = "lm",se = FALSE,colour = "black",size = .5)
+```
+
+The "lm" stands for "linear model" and the "se" stands for "standard error"; leaving
+this at its default of "TRUE" would add error bars to the line, which we'll learn
+about later (give it a try though).
+
+We can also add a non-linear curve to the plot using this technique. Most of the
+approaches to doing non-linear regression involve breaking the data up into small
+chunks based on the x-axis values, and then doing linear regression in each chunk
+and joining the resulting lines. The "loess" non-linear regression line is an 
+example of this approach. It roughly stands for "local regression and smoothing
+splines". We can add this using `ggplot2` as well:
+
+```{r janka-5}
+jankascatter +
+  geom_smooth(method = "loess",se = FALSE,colour = "black",size = .5)
+```
+
+See how it's a bit more wiggly, but still pretty straight? The data really does
+look like it supports a linear relationship between density and hardness. This
+is not common in modern practice!
+
+### Extended example: TTC ridership revenues
+
+Toronto's population is growing over time. This puts strain on our outdated
+public transit system. But it should also lead to increased revenues. According to
+(https://globalnews.ca/news/1670796/how-does-the-ttcs-funding-compare-to-other-transit-agencies/)[a news
+article from a few years back], the TTC is the least-subsidized major transit agency
+in North America, which means that its operating budget is the most dependent on
+fare revenue out of any in all of the US and Canada. Tracking how ridership
+revenues are changing over time is very important.
+
+The city does do this. Go to [the City of Toronto Progress Portal](https://www.toronto.ca/city-government/data-research-maps/toronto-progress-portal/) and type "TTC" and click on the box that says
+"TTC Ridership Revenues" to see a report. You can download the data from here, but
+since it's a bit tricky to describe exactly how, I have put the file
+`ttc-ridership-revenues.csv` in the `data` folder. We are going to read these data into `R`
+and analyze the relationship between `year` and `revenue`.
+
+If you're thinking "that sounds really easy, we just did that!"... just keep reading.
+
+First, print the data out and count the number of rows on the command line:
+
+```{bash ttc-1}
+head data/ttc-ridership-revenues.csv
+wc -l data/ttc-ridership-revenues.csv
+```
+
+Yikes! Real data is messy. This data isn't even that messy and it still seems messy.
+
+We see that the file is comma-separated and has a header. The first column is
+text and the others are... well, they're supposed to be numeric, but they are
+stored in the file with dollar signs. WHY?! This kind of thing is super annoying 
+and super common.
+
+We could remove the dollar signs from the text file directly using `sed` or a
+similar UNIX-based tool, but I prefer whenever possible to keep all my analysis
+on one platform. We'll read it into `R` as-is and then parse and change datatypes
+there:
+
+```{r ttc-2}
+# Read in the data
+ridership <- readr::read_csv(
+  file = "data/ttc-ridership-revenues.csv",
+  col_names = TRUE, # Tells readr to read the column names from the first line of the file.
+  col_types = stringr::str_c(rep("c",13),collapse = "") # Read all 13 columns as "c"haracter
+)
+glimpse(ridership)
+```
+
+This does not look like it's in a form ready to analyze. Some problems:
+
+1. The `Year` has unwanted text in it. We just want the number representing what
+year it is.
+1. The revenue is stored across 12 columns, one for each month. We want the annual
+revenue for our analysis.
+1. The actual numeric revenue is stored as text with a dollar sign. We need to
+parse out the number part and convert to a numeric datatype before we can analyze it.
+
+Problems 1 and 3 require a bit of text parsing; Problem 2 requires converting from
+"wide" to "long" format. Let's do it:
+
+```{r ttc-3}
+# PROBLEM 1: Year
+# To parse out only the number part, use a regular expression.
+# Our string starts with a four digit number which starts with 20. We want to capture this number
+# and nothing else.
+# The ^ means "the start of the string".
+# The [20]{2} means "a 0 or a 2, exactly twice"
+# The [0-9]{2} means "anything from 0 - 9, exactly twice"
+year_regex <- "^[20]{2}[0-9]{2}"
+# Use stringr::str_extract to extract a substring matching the regular expression:
+stringr::str_extract("2007 YTD Actual",year_regex)
+
+# PROBLEM 2: wide to long
+# Use the tidyr::gather() function for "gather"ing columns and putting them
+# into one column:
+ridership %>%
+  tidyr::gather(month,revenue,Jan:Dec)
+
+# PROBLEM 3: removing the dollar sign
+# Again, use text matching. Because $ is itself a special character,
+# to match it, you have to "escape" it using a backslash
+dollar_regex <- "\\$"
+# Remove matching strings using stringr::str_remove()
+stringr::str_remove("$1234",dollar_regex)
+
+# Now, combine all these into one data cleaning pipeline.
+# Remember we have monthly revenue, so to get yearly revenue, we sum
+# over months.
+ridership_clean <- ridership %>%
+  tidyr::gather(month,revenue,Jan:Dec) %>% # "transmute" is like mutate, but it deletes all original columns
+  transmute(year = stringr::str_extract(Year,year_regex),
+            revenue = stringr::str_remove(revenue,dollar_regex)) %>%
+  mutate_at(c("year","revenue"),as.numeric) %>% # Turn both year and revenue into numeric variables
+  group_by(year) %>% # Sum revenue for each year to get yearly revenue
+  summarize(revenue = sum(revenue)) %>%
+  filter(year < 2019) # 2019 has incomplete data, so remove it
+glimpse(ridership_clean)
+```
+
+That looks a lot better! As usual, you should run each line of code one by one to
+understand what is happening.
+
+Because we went to the effort of cleaning the data, we can now plot it easily:
+
+```{r ttc-4}
+ridershipscatter <- ridership_clean %>%
+  ggplot(aes(x = year,y = revenue)) +
+  theme_classic() +
+  geom_point() +
+  labs(title = "Annual ridership revenues for the TTC",
+       x = "Year",
+       y = "Revenue") +
+  scale_y_continuous(labels = scales::dollar_format()) # Make the y-axis pretty
+ridershipscatter
+```
+
+Add a linear and non-linear regression line:
+
+```{r ttc-5}
+leftplot <- ridershipscatter +
+  geom_smooth(method = "lm",size = .5,se = FALSE,colour = "black") +
+  labs(subtitle = "Linear regression line")
+rightplot <- ridershipscatter +
+  geom_smooth(method = "loess",size = .5,se = FALSE,colour = "black") +
+  labs(subtitle = "Non-linear regression line",y = "")
+
+cowplot::plot_grid(leftplot,
+                   rightplot + theme(axis.text.y = element_blank()), # Take away the second plot's y-axis
+                   nrow=1)
+```
+
+**Exercise**: re-do this analysis but don't sum over month. This will give 12 
+points per year on the plot. Do one linear regression per month. 
+Recreate the following plot yourself:
+
+```{r ttc-6,echo=FALSE}
+ridership_month <- ridership %>%
+  tidyr::gather(month,revenue,Jan:Dec) %>% # "transmute" is like mutate, but it deletes all original columns
+  mutate(year = stringr::str_extract(Year,year_regex),
+         revenue = stringr::str_remove(revenue,dollar_regex)) %>%
+  mutate_at(c("year","revenue"),as.numeric) %>% # Turn both year and revenue into numeric variables
+  filter(year < 2019) %>%
+  dplyr::select(-Year)
+
+ridership_month %>%
+  ggplot(aes(x = year,y = revenue,group = month,colour = month)) +
+  theme_classic() +
+  geom_point() +
+  geom_smooth(method = "lm",se = FALSE,size = .5) +
+  labs(title = "Annual ridership revenues for the TTC",
+       x = "Year",
+       y = "Revenue") +
+  scale_y_continuous(labels = scales::dollar_format())
+
+```
+
+To do this, you have to create a dataset that looks like this:
+
+```{r ttc-7,echo=FALSE}
+glimpse(ridership_month)
+```
+
+You should make the following modifications:
+
+1. Replace `transmute` with `mutate` so you don't delete the `month` column.
+1. Replace `aes(x = year,y = revenue)` with `aes(x = year,y = revenue,group = month,colour = month)`
+in the call to `ggplot`.
+1. Don't sum over months.
+
+## Unbiased Estimators (Chapter 19)
+
+Unbiasedness is one property of an estimator that the book claims is attractive.
+Let's investigate this by recreating some of their simulations.
+
+### Simulated network data
+
+Figure 19.1 shows histograms of simulations of samples $X_{1},\ldots,X_{n}$ of size $n=30$ from a
+$X\sim\text{Poisson}(\log 10)$ distribution. We want to estimate the parameter $p_{0}$,
+which is the probability that $X = 0$:
+\begin{equation}
+p_{0} = P(X = 0) = e^{-\lambda}
+\end{equation}
+where $\lambda = E(X) = \log 10$ in this example. The book suggests two estimators,
+$S = (1/n)\times\sum_{i=1}^{n}\mathbb{1}(X_{i} = 0)$ and $T = e^{-\bar{X}_{n}}$. $S$ corresponds
+to calculating the sample proportion of times $X_{i}=0$, and $T$ corresponds to
+estimating the population mean $\lambda$ using the sample mean $\bar{X}_{n}$ and
+then plugging this in to the actual formula for the value $p_{0}$. These both come
+from somewhere, and we'll see this when we talk about Maximum Likelihood. For now,
+just take them as both being candidates for an estimator of $p_{0}$.
+
+Let's investigate their sampling distributions by recreating the simulation from
+the book:
+
+```{r poisson-1}
+set.seed(6574564)
+# Simulate 500 random samples of size 30 from a poisson(log(10))
+# You need the purrr package, part of the tidyverse, for the map() function
+N <- 500
+n <- 30
+lambda <- log(10)
+p0 <- exp(-lambda) # True value of p0
+
+# Simulate the samples
+samplelist <- 1:N %>%
+  map(~rpois(n,lambda))
+
+# Write functions to compute each estimator
+compute_S <- function(samp) mean(samp == 0)
+compute_T <- function(samp) exp(-mean(samp))
+
+# Compute them and then store the results in a tibble()
+estimators <- samplelist %>%
+  map(~c(S = compute_S(.x),T = compute_T(.x))) %>%
+  reduce(bind_rows)
+glimpse(estimators)
+
+# Create the plots
+plt_S <- estimators %>%
+  ggplot(aes(x = S)) +
+  theme_classic() +
+  geom_histogram(colour = "black",fill = "transparent",bins = 7) +
+  coord_cartesian(ylim = c(0,250)) +
+  geom_vline(xintercept = p0,colour = "red",linetype = "dotdash")
+
+plt_T <- estimators %>%
+  ggplot(aes(x = T)) +
+  theme_classic() +
+  geom_histogram(colour = "black",fill = "transparent",bins = 7) +
+  coord_cartesian(ylim = c(0,250)) +
+  geom_vline(xintercept = p0,colour = "red",linetype = "dotdash")
+
+cowplot::plot_grid(plt_S,plt_T,nrow=1)
+
+# Compute the mean of each:
+estimators %>%
+  summarize_all(mean)
+```
+
+**Exercise**: $S$ is unbiased and $T$ is biased, as shown in the book. Which estimator
+would you prefer? Compute a five number summary for $S$ and $T$ from our simulations,
+recreating the following:
+
+```{r poisson-2,echo=FALSE}
+summary(estimators$S)
+summary(estimators$T)
+```
+
+Do you see any meaningful differences? Do the sampling distributions of $S$ and $T$
+concentrate around $p0$ in the same way?
+
+Now, compute the mode (most frequently-observed value) of $S$ and $T$. You should get the following:
+
+```{r poisson-3,echo = FALSE}
+mode_S <- estimators %>%
+  group_by(S) %>%
+  summarize(cnt = n()) %>%
+  arrange(desc(cnt)) %>%
+  slice(1) %>%
+  pull(S)
+
+mode_T <- estimators %>%
+  group_by(T) %>%
+  summarize(cnt = n()) %>%
+  arrange(desc(cnt)) %>%
+  slice(1) %>%
+  pull(T)
+
+cat("The mode of S is ",mode_S,"\n")
+cat("The mode of T is ",mode_T,"\n")
+```
+
+(You're going to have to figure out how to compute a mode in `R`. That's part of
+the exercise).
+
+What do you think about this? Does this contradict $S$ being unbiased and $T$ being
+biased? Does it change your opinion about which is a better estimator?
+
+Finally, compute the square root of the average squared distance of $S$ and $T$
+from the true value $p_{0}$. You should get:
+
+```{r poisson-4,echo = FALSE}
+estimators %>%
+  map_df(~sqrt(mean((.x - p0)^2)))
+```
+
+We will see shortly that this quantity, the **mean-squared error** of an estimator,
+is much more representative of the quality of an estimator than the bias on its own.
+Note, of course, that since it depends on the true value, it can't ever be computed
+in a real data analysis. It's a mathematical construct.
+

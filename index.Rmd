@@ -19,6 +19,8 @@ runtime: shiny
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
+
+knitr::opts_chunk$set(comment = NA)
 ```
 
 This "book" serves as supplementary materials for the assigned readings from the

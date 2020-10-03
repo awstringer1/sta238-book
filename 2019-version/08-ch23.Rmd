@@ -1,0 +1,347 @@
+# Supplement to Chapter 23 and 24
+
+This chapter implements much of the analysis shown in chapters 23 and 24 of 
+A Modern Introduction to Probability and Statistics. R code is given for the
+simple textbook datasets used in the book, and then the concepts are
+illustrated on real data.
+
+All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
+
+The assigned exercises associated with this material are from MIPS, as follows: 23.1, 23.2, 23.3; 23.5; 23.6; 23.7; 23.10; 23.11
+24.1, 24.2; 24.3; 24.4; 24.6; 24.9; 24.10. Answers to selected exercises are in the 
+back of the book. You should also do all the "quick exercises" within chapters 23 and 24  
+(solutions are at the end of the chapter). Use `R` as much as possible when answering the
+questions.
+
+```{r load-tidy-1,message=FALSE,warning=FALSE}
+library(tidyverse)
+```
+
+## Confidence Intervals for the Mean (Chapter 23)
+
+### Simulation 
+
+Let's first implement the simulation from page 344. We'll generate a bunch of samples
+from a $\text{N}(0,1)$ distribution, compute their confidence intervals, and plot them
+
+```{r normsim-1}
+set.seed(432432432)
+# How many samples to generate
+B <- 50
+# Sample size of each
+n <- 20
+# Confidence level
+conf <- .9
+# Critical value- the book just gives this as 1.729
+# This actually took me a minute to figure out... so make sure
+# you get what I'm doing here:
+critval <- qt(1 - (1-conf)/2,df = n-1)
+# Perform the simulation
+confints <- 1:B %>%
+  # Generate the samples
+  map(~rnorm(n,0,1)) %>%
+  # Compute the confidence intervals
+  map(~c("mean" = mean(.x),
+         "lower" = mean(.x) - critval * sd(.x)/sqrt(n),
+         "upper" = mean(.x) + critval * sd(.x)/sqrt(n))
+      ) %>%
+  # Put them in a dataframe
+  reduce(bind_rows) %>%
+  # Add a row index, for purposes of plotting
+  mutate(id = 1:B)
+
+# Compute the proportion that don't contain zero
+scales::percent(mean(confints$upper < 0 | confints$lower > 0))
+
+# Plot them. Run this code layer by layer
+# to understand what each part does.
+confints %>%
+  ggplot(aes(x = id)) +
+  theme_classic() +
+  geom_point(aes(y = mean),pch = 21,colour = "black",fill = "orange",size = 1) +
+  geom_errorbar(aes(ymin = lower,ymax = upper),size = .1) +
+  geom_hline(yintercept = 0,colour = "red",linetype = "dotdash") +
+  scale_y_continuous(breaks = seq(-1,1,by=.2)) +
+  coord_flip() +
+  theme(axis.title.y = element_blank(),axis.text.y = element_blank(),axis.ticks.y = element_blank()) +
+  labs(y = "")
+
+
+```
+
+**Exercise**: re-run this experiment several times with different random seeds. What
+kind of empirical coverage probabilities---the proportion of intervals that don't contain zero---do you
+get? What about if you raise the sample size to `n = 100`? What about if you raise the
+number of simulations to `B = 1000`?
+
+### Gross calorific value measurements for Osterfeld 262DE27
+
+The Osterfield data is made available with the book. Its file name is misspelled,
+so be careful:
+
+```{bash oster-1}
+head data/MIPSdata/grosscalOsterfeld.txt
+wc -l data/MIPSdata/grosscalOsterfeld.txt
+```
+
+Read it in. I'm leaving this as an exericse (note: not because I'm lazy, I still had to
+write the code. It's for your learning). You should get the following:
+
+```{r oster-2,echo = FALSE}
+osterfield <- readr::read_csv(
+  file = "data/MIPSdata/grosscalOsterfeld.txt",
+  col_names = "calorific_value",
+  col_types = "n"
+)
+```
+
+```{r oster-3}
+glimpse(osterfield)
+```
+
+Recreate the confidence interval in the book:
+
+```{r oster-4}
+# Compute the sample mean and size
+xbar <- mean(osterfield$calorific_value)
+n <- nrow(osterfield)
+# The population standard deviation, and the critical value/confidence level
+# are given as:
+sigma <- .1
+conf <- .95
+# Make sure to UNDERSTAND this calculation:
+critval <- qnorm(1 - (1-conf)/2) # 1.96
+# Compute the interval
+c(
+  "lower" = xbar - critval * sigma/sqrt(n),
+  "upper" = xbar + critval * sigma/sqrt(n)
+)
+```
+
+### Gross calorific value measurements for Daw Mill 258GB41
+
+As an exercise, now recreate the confidence interval in the book for the
+Daw Mill sample. Read the data in from file `grosscalDawMill.txt`, call it
+`dawmill`. You can compute the sample standard deviation and appropriate
+critical value as follows:
+
+```{r daw-1,echo = FALSE}
+dawmill <- readr::read_csv(
+  file = "data/MIPSdata/grosscalDawMill.txt",
+  col_names = "calorific_value",
+  col_types = "n"
+)
+```
+
+```{r daw-2}
+s <- sd(dawmill$calorific_value)
+critval <- qt(1 - (1-conf)/2,df = nrow(dawmill) - 1)
+```
+
+You should get:
+
+```{r daw-3,echo = FALSE}
+xbar <- mean(dawmill$calorific_value)
+n <- nrow(dawmill)
+c(
+  "lower" = xbar - critval * s/sqrt(n),
+  "upper" = xbar + critval * s/sqrt(n)
+)
+```
+
+### Bootstrap Confidence Intervals
+
+First, let's simulate a dataset to illustrate this idea and so we can compare
+the bootstrap and analytical answers.
+
+```{r boot-1}
+set.seed(43547803)
+B <- 2000
+n <- 5000
+# Simulate one dataset
+ds <- rnorm(n,0,1)
+# Values
+conf <- .95
+critval <- qnorm(1 - (1 - conf)/2)
+# Now resample from it and calculate studentized statistics
+resampledstats <- 1:B %>%
+  map(~sample(ds,n,replace = TRUE)) %>%
+  map(~c(mean(.x) - mean(ds))/(sd(.x)/sqrt(n))) %>%
+  reduce(c)
+
+# The confidence limits are obtained from the sample quantiles:
+conflim <- quantile(resampledstats,probs = c((1-conf)/2,1 - (1 - conf)/2))
+# Here's a plot that illustrates what these look like:
+tibble(x = resampledstats) %>%
+  ggplot(aes(x = x)) +
+  theme_classic() +
+  geom_histogram(aes(y = ..density..),colour = "black",fill = "lightgrey",bins = 100) +
+  geom_vline(xintercept = conflim[1],colour = "orange",linetype = "dotdash") +
+  geom_vline(xintercept = conflim[2],colour = "orange",linetype = "dotdash") +
+  stat_function(fun = dnorm,args = list(mean = mean(ds),sd = sd(ds)),colour = "blue") +
+  labs(title = "Resampled student statistics and empirical confidence limits",
+       subtitle = "A normal distribution (blue curve) fits well",
+       x = "",y = "")
+```
+
+I deliberately chose a large sample size and number of bootstrap samples to make the
+results look good. I encourage you to change these numbers to try and break this
+simulation.
+
+The bootstrap-resampled confidence limits are close to the truth:
+
+```{r boot-2}
+conflim
+qnorm(c((1-conf)/2,1 - (1-conf)/2))
+```
+
+Let's apply this to the software data. Oddly, I get different values for the mean,
+standard deviation, and sample size than the book reports. If you are the first 
+person to figure out why,
+I will give you a $\$10$ Tim card. The differences aren't meaningful enough to 
+affect the presentation of these ideas.
+
+```{r software-1-1}
+# Read it in:
+software <- readr::read_csv(
+  file = "data/MIPSdata/software.txt",
+  col_names = "time",
+  col_types = "n"
+)
+
+B <- 1000 # Same as book
+n <- nrow(software)
+mn <- mean(software$time)
+ss <- sd(software$time)
+conf <- .9
+set.seed(821940379)
+resampledstats <- 1:B %>%
+  map(~sample(software$time,n,replace = TRUE)) %>%
+  map(~c(mean(.x) - mn)/(sd(.x)/sqrt(n))) %>%
+  reduce(c)
+
+# The confidence limits are obtained from the sample quantiles:
+conflim <- quantile(resampledstats,probs = c((1-conf)/2,1 - (1 - conf)/2))
+# The confidence interval:
+c(
+  "lower" = mn + conflim[1] * ss/sqrt(n),
+  "upper" = mn + conflim[2] * ss/sqrt(n)
+)
+```
+
+**Exercise**: compute a $90\%$ confidence interval for the mean for the software
+data assuming the data is normally distributed. This does NOT mean that you should
+use a normal distribution for calculating the critical values-- if you don't understand
+why, go back and read the "Variance Unknown" section on page 348. I got the following:
+
+```{r boot-4,echo = FALSE}
+critval <- qt(1 - (1-conf)/2,df = n -1)
+c(
+  "lower" = mn - critval * ss/sqrt(n),
+  "lower" = mn + critval * ss/sqrt(n)
+)
+```
+
+Does this lead to different conclusions in practice than the bootstrap interval?
+
+## More on confidence intervals (Chapter 24)
+
+### Binomial distribution
+
+The binomial example is a very good one for understanding how confidence intervals
+work.
+
+Consider the form of the confidence interval for $p$ when $X\sim\text{Bin}(n,p)$:
+\begin{equation}
+\left(\frac{X}{n} - p \right)^{2} - \left( z_{\alpha/2}\right)^{2}\frac{p(1-p)}{n} < 0
+\end{equation}
+The book says the solution is "awkward". As a self-annointed expert on all things
+awkward, I am not sure I agree. I do, however, also not want to do the math. It
+is less tedious and more illustrative to plot this interval and see how it changes
+with $X$:
+
+```{r binom-1}
+set.seed(876098978)
+the_quadratic <- function(p,X,n,alpha = 0.05) {
+  # p: a vector of values at which to plot the quadratic
+  (X/n - p)^2 - qnorm(1 - alpha/2) * (p*(1-p)/n)
+}
+# Generate some data from a distribution with a known p
+p0 <- .3
+n <- 10
+X <- rbinom(1,n,p0)
+
+tibble(p = c(0,1)) %>%
+  ggplot(aes(x = p)) +
+  theme_classic() +
+  stat_function(fun = the_quadratic,args = list(X = X,n = n)) +
+  geom_hline(yintercept = 0,colour = "lightgrey",linetype = "dotdash")
+```
+
+**Exercise**: put vertical lines on this plot at the locations where the parabola touch
+zero. This means use the quadratic formula to find the roots and plot them using
+`geom_vline(xintercept = ???)`.
+
+Consider Remark 24.1, which discusses why we can't get confidence intervals with
+exact coverage probabilities for discrete distributions. For $n = 10$, $X = 6$, 
+$\alpha = .05$, let's investigate the coverage probability of our confidence
+interval using a parametric bootstrap.
+
+We are going to simulate values from a $\text{Bin}(10,.3)$ distribution,
+compute the confidence interval for each, and then assess whether it contains
+the true value $p_{0} = .3$. The proportion of intervals in our $B$ bootstrap samples
+that contain the true value is the bootstrapped estimate of the interval's coverage
+probability.
+
+```{r boot-3}
+set.seed(8798)
+B <- 1000
+n <- 10
+p0 <- .3
+
+# Simulate B values from a binomial distribution:
+samps <- rbinom(B,n,p0)
+
+# Write a function for computing the interval for each X
+# I am going to use a numerical root-finding program
+# You will replace this part with the formula you derived
+# in the previous exercise
+compute_interval <- function(X) {
+  optfun <- function(p) the_quadratic(p,X,10)
+  rootSolve::uniroot.all(optfun,c(0,1))
+}
+
+# Do the bootstrap
+samps %>%
+  map(compute_interval) %>% # Compute the interval for each sample
+  map(~as.numeric(.x[1] < p0 & .x[2] > p0)) %>% # Create a 0/1 indicator of whether the interval contains p0
+  reduce(c) %>% # Combine the results in a vector
+  mean() %>% # The proportion of 1's (the mean) is the proportion of intervals which contained the true value, i.e. the coverage probability
+  scales::percent() # Format as a percentage
+```
+
+**Exercise**: I put the above procedure into a function:
+
+```{r boot-4-1}
+bootstrap_coverage <- function(B = 1000,n = 10,p0 = .3) {
+  samps <- rbinom(B,n,p0)
+  
+  compute_interval <- function(X) {
+    optfun <- function(p) the_quadratic(p,X,10)
+    rootSolve::uniroot.all(optfun,c(0,1))
+  }
+  
+  samps %>%
+  map(compute_interval) %>% 
+  map(~as.numeric(.x[1] < p0 & .x[2] > p0)) %>%
+  reduce(c) %>%
+  mean()
+}
+```
+
+Run this function many times and make a histogram of the results. You can use
+`myruns <- 1:1000 %>% map(bootstrap_coverage) %>% reduce(c)` to do this, and then
+refer to previous code for how to make the histogram. What value is in the centre?
+Is the stated coverage probability accurate?
+
+

@@ -1,0 +1,35 @@
+
+===================================================================================================================
+                                                                                            Dependent variable:    
+                                                                                        ---------------------------
+                                                                                         distancefrommeanmarginal  
+-------------------------------------------------------------------------------------------------------------------
+Change in Decentralization Position of Main State-wide Rival                                     -0.743***         
+                                                                                                  (0.066)          
+                                                                                                                   
+Culturally Distinct Region                                                                       1.115***          
+                                                                                                  (0.051)          
+                                                                                                                   
+Vote Change of Ethno-regional Party                                                              -5.026***         
+                                                                                                  (0.088)          
+                                                                                                                   
+Change in Decentralization Position of Main Statewide Rival X Culturally Distict Region          -3.848***         
+                                                                                                  (0.103)          
+                                                                                                                   
+culture.x                                                                                          5.639           
+                                                                                                  (7.676)          
+                                                                                                                   
+Constant                                                                                        -26.061***         
+                                                                                                  (6.769)          
+                                                                                                                   
+-------------------------------------------------------------------------------------------------------------------
+Observations                                                                                       8,931           
+Log Likelihood                                                                                  -24,877.650        
+Akaike Inf. Crit.                                                                               49,773.300         
+Bayesian Inf. Crit.                                                                             49,837.170         
+===================================================================================================================
+Note:                                                                                   *p<0.1; **p<0.05; ***p<0.01
+
+=========================================================
+Distance of Ethno-Regional Party from Mean Marginal Voter
+---------------------------------------------------------
