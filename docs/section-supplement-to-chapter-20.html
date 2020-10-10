@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Supplement to Chapter 20 | STA238: Probability, Statistics, and Data Analysis</title>
   <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Supplement to Chapter 20 | STA238: Probability, Statistics, and Data Analysis" />
   <meta property="og:type" content="book" />
@@ -24,14 +24,14 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2019-12-07" />
+<meta name="date" content="2020-10-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="section-supplement-to-chapters-17-and-19.html"/>
+<link rel="prev" href="section-statistical-models.html"/>
 <link rel="next" href="section-supplement-to-evans-rosenthal-section-7-1.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -129,50 +132,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html"><i class="fa fa-check"></i><b>2</b> Supplement to Chapters 15 and 16</a><ul>
-<li class="chapter" data-level="2.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
-<li class="chapter" data-level="2.1.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
-<li class="chapter" data-level="2.1.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-numerical-summaries-ch-16"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries (Ch 16)</a></li>
+<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a><ul>
+<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="2.1.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
-<li class="chapter" data-level="2.2.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
-<li class="chapter" data-level="2.2.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
+<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="2.2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries-1"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
-<li class="chapter" data-level="2.4" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
-<li class="chapter" data-level="2.4.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.2</b> Exercises</a></li>
+<li class="chapter" data-level="2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.4.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-association-between-smoking-and-mortality"><i class="fa fa-check"></i><b>2.4.2</b> Association between smoking and mortality</a></li>
+<li class="chapter" data-level="2.4.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
-<li class="chapter" data-level="2.5.1" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
-<li class="chapter" data-level="2.5.2" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
-<li class="chapter" data-level="2.5.3" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
-<li class="chapter" data-level="2.5.4" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-analysis-iii-trends-in-quality-over-time"><i class="fa fa-check"></i><b>2.5.4</b> Analysis III: trends in quality over time</a></li>
-<li class="chapter" data-level="2.5.5" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-summary"><i class="fa fa-check"></i><b>2.5.5</b> Summary</a></li>
-<li class="chapter" data-level="2.5.6" data-path="section-supplement-to-chapters-15-and-16.html"><a href="section-supplement-to-chapters-15-and-16.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html"><i class="fa fa-check"></i><b>3</b> Supplement to Chapters 13 and 14</a><ul>
-<li class="chapter" data-level="3.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
-</ul></li>
-<li class="chapter" data-level="3.2" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="section-supplement-to-chapters-13-and-14.html"><a href="section-supplement-to-chapters-13-and-14.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
+<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
+<li class="chapter" data-level="2.5.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
+<li class="chapter" data-level="2.5.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-iii-trends-in-quality-over-time"><i class="fa fa-check"></i><b>2.5.4</b> Analysis III: trends in quality over time</a></li>
+<li class="chapter" data-level="2.5.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-summary"><i class="fa fa-check"></i><b>2.5.5</b> Summary</a></li>
+<li class="chapter" data-level="2.5.6" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html"><i class="fa fa-check"></i><b>4</b> Supplement to Chapters 17 and 19</a><ul>
-<li class="chapter" data-level="4.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-janka-hardness-data"><i class="fa fa-check"></i><b>4.1.1</b> Janka Hardness data</a></li>
-<li class="chapter" data-level="4.1.2" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
+<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a><ul>
+<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="section-supplement-to-chapters-17-and-19.html"><a href="section-supplement-to-chapters-17-and-19.html#section-simulated-network-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated network data</a></li>
+<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a><ul>
+<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.1.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-simulated-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="section-supplement-to-chapter-20.html"><a href="section-supplement-to-chapter-20.html"><i class="fa fa-check"></i><b>5</b> Supplement to Chapter 20</a><ul>
-<li class="chapter" data-level="5.1" data-path="section-supplement-to-chapter-20.html"><a href="section-supplement-to-chapter-20.html#section-efficiency-and-mean-square-error-chapter-20"><i class="fa fa-check"></i><b>5.1</b> Efficiency and Mean Square Error (Chapter 20)</a></li>
+<li class="chapter" data-level="5.1" data-path="section-supplement-to-chapter-20.html"><a href="section-supplement-to-chapter-20.html#section-estimating-a-uniform-maximum"><i class="fa fa-check"></i><b>5.1</b> Estimating a Uniform Maximum</a></li>
+<li class="chapter" data-level="5.2" data-path="section-supplement-to-chapter-20.html"><a href="section-supplement-to-chapter-20.html#section-efficiency"><i class="fa fa-check"></i><b>5.2</b> Efficiency</a></li>
+<li class="chapter" data-level="5.3" data-path="section-supplement-to-chapter-20.html"><a href="section-supplement-to-chapter-20.html#section-mean-squared-error"><i class="fa fa-check"></i><b>5.3</b> Mean Squared Error</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html"><i class="fa fa-check"></i><b>6</b> Supplement to Evans &amp; Rosenthal Section 7.1</a><ul>
 <li class="chapter" data-level="6.1" data-path="section-supplement-to-evans-rosenthal-section-7-1.html"><a href="section-supplement-to-evans-rosenthal-section-7-1.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a><ul>
@@ -212,7 +218,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
 <li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
 <li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
-<li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
+<li class="chapter" data-level="10.2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-the-data"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
 <li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
 <li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
 <li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
@@ -241,6 +247,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.2" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-rstudio"><i class="fa fa-check"></i><b>13.2</b> Installing RStudio</a></li>
 <li class="chapter" data-level="13.3" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-using-rmarkdown"><i class="fa fa-check"></i><b>13.3</b> Using RMarkdown</a></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a><ul>
+<li class="chapter" data-level="14.1" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-15-and-16"><i class="fa fa-check"></i><b>14.1</b> Chapters 15 and 16</a></li>
+<li class="chapter" data-level="14.2" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-13-and-14"><i class="fa fa-check"></i><b>14.2</b> Chapters 13 and 14</a></li>
+<li class="chapter" data-level="14.3" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-17-and-19"><i class="fa fa-check"></i><b>14.3</b> Chapters 17 and 19</a></li>
+<li class="chapter" data-level="14.4" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-20"><i class="fa fa-check"></i><b>14.4</b> Chapter 20</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -263,75 +275,207 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="section-supplement-to-chapter-20" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Supplement to Chapter 20</h1>
-<p>This chapter implements much of the analysis shown in chapter 20 of
-A Modern Introduction to Probability and Statistics. R code is given for the
-simple textbook datasets used in the book, and then the concepts are
-illustrated on real data.</p>
-<p>All datasets from the book can be downloaded here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>.</p>
-<p>The assigned exercises associated with this material are from MIPS, as follows: 20.1; 20.2; 20.3; 20.4; 20.5; 20.8; 20.9; 20.11. Answers to selected exercises are in the
-back of the book. You should also do all the “quick exercises” within chapter 20
-(solutions are at the end of the chapter). Use <code>R</code> as much as possible when answering the
-questions.</p>
-<div id="section-efficiency-and-mean-square-error-chapter-20" class="section level2">
-<h2><span class="header-section-number">5.1</span> Efficiency and Mean Square Error (Chapter 20)</h2>
-<p>This chapter compares estimators using the Mean Squared Error (MSE). The
-motivating example is estimating the number of German tanks using their
-observed serial numbers, assuming their serial numbers are assigned uniformly
-at random. Two estimators are used: one based on the sample mean, and one based
-on the sample maximum.</p>
-<p>First, let’s write functions to compute these two estimators, and use simulation
+<p>This chapter introduces the concepts of Efficiency and Mean Square Error and shows
+how to use them to evaluate the performance of an estimator. This material is
+covered in Chapter 20 of
+A Modern Introduction to Probability and Statistics.</p>
+<div id="section-estimating-a-uniform-maximum" class="section level2">
+<h2><span class="header-section-number">5.1</span> Estimating a Uniform Maximum</h2>
+<p>In World War II, it was of interest to the Allied forces to estimate the number
+of tanks that the German army had produced. German tanks had serial numbers, which
+were assigned sequentially at production. That means that the largest serial number
+of any tank in existence at any given time is also equal to the number of tanks
+having been produced up to that point in time.</p>
+<p>Whenever Allied forces captured or destroyed a tank, they would record the serial
+number. Call <span class="math inline">\(X_{i}\)</span> the serial number of the <span class="math inline">\(i^{th}\)</span> tank. Assuming that</p>
+<ul>
+<li><p>the probability of capturing any particular tank is the same as
+any other tank, and</p></li>
+<li><p>that this occurs
+independently of the capture of other tanks, and</p></li>
+<li><p>that a tank can only be captured once,</p></li>
+</ul>
+<p>we would have a sample of size <span class="math inline">\(n\)</span> from a discrete uniform distribution
+with maximum value <span class="math inline">\(N\)</span>, taken <strong>without replacement</strong>. The unknown value
+<span class="math inline">\(N\)</span> happens to equal the number of German tanks produced, and the Allies wanted
+to estimate this number using the recorded serial numbers <span class="math inline">\(X_{1},\ldots,X_{n}\)</span>.</p>
+<p>This requires constructing an estimator for <span class="math inline">\(N\)</span> using a sample of <span class="math inline">\(\text{Unif}(1,N)\)</span>
+random variables. However, these samples are dependent, because the sampling is
+done without replacement: once a particular tank appears in the sample, it can’t
+appear again. Let <span class="math inline">\(X_{i}\)</span> be the serial numbers of the captured tanks; it can
+be shown that
+<span class="math display">\[\begin{equation}\begin{aligned}
+E\left( \frac{1}{n}\sum_{i=1}^{n}X_{i}\right) &amp;= \frac{N+1}{2} \\
+E\left(\text{max} X_{i}\right) &amp;= \frac{n}{n+1}\times(N+1)
+\end{aligned}\end{equation}\]</span></p>
+<p>Perhaps we should construct an unbiased estimator, given our
+discussion in the previous chapter.</p>
+<p><strong>Exercise</strong>: construct two unbiased estimators for <span class="math inline">\(N\)</span>, using these two results
+on the expected values of the sample mean and maximum. Do this before you look at
+the answer below. If you look at the answer below first, then you will learn less
+from this exercise.</p>
+<p>Next, let’s write functions to compute these two estimators, and use simulation
 to verify that they are unbiased. At this point in the course, you should start
-feeling comfortable approaching this yourself. I encourage you to try this before
+feeling comfortable approaching this yourself. Again, I encourage you to try this before
 looking at my answer as follows:</p>
-<div class="sourceCode" id="section-cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb170-2" title="2"><span class="co"># Functions to compute the estimators</span></a>
-<a class="sourceLine" id="cb170-3" title="3">T1 &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb170-4" title="4">T2 &lt;-<span class="st"> </span><span class="cf">function</span>(x) ( (<span class="kw">length</span>(x) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span><span class="kw">length</span>(x) ) <span class="op">*</span><span class="st"> </span><span class="kw">max</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb170-5" title="5"></a>
-<a class="sourceLine" id="cb170-6" title="6"><span class="co"># Now, simulate in order to assess their bias.</span></a>
-<a class="sourceLine" id="cb170-7" title="7"><span class="co"># This goes as follows (try this yourself before looking):</span></a>
-<a class="sourceLine" id="cb170-8" title="8"><span class="co"># - Choose a true value of N, the parameter to be estimated</span></a>
-<a class="sourceLine" id="cb170-9" title="9"><span class="co"># - Draw a sample of size n from 1:N without replacement</span></a>
-<a class="sourceLine" id="cb170-10" title="10"><span class="co"># - Compute T1 and T2</span></a>
-<a class="sourceLine" id="cb170-11" title="11"><span class="co"># - Repeat this M times, and compare the average of T1 and T2 to N.</span></a>
-<a class="sourceLine" id="cb170-12" title="12">N &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb170-13" title="13">n &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb170-14" title="14">M &lt;-<span class="st"> </span><span class="dv">2000</span></a>
-<a class="sourceLine" id="cb170-15" title="15"><span class="co"># Run the simulations. Use the sample.int() function to generate from a DISCRETE</span></a>
-<a class="sourceLine" id="cb170-16" title="16"><span class="co"># uniform distribution</span></a>
-<a class="sourceLine" id="cb170-17" title="17">out &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>M <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb170-18" title="18"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">sample.int</span>(N,n)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb170-19" title="19"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">c</span>(<span class="st">&quot;T1&quot;</span> =<span class="st"> </span><span class="kw">T1</span>(.x),<span class="st">&quot;T2&quot;</span> =<span class="st"> </span><span class="kw">T2</span>(.x))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb170-20" title="20"><span class="st">  </span><span class="kw">reduce</span>(bind_rows)</a>
-<a class="sourceLine" id="cb170-21" title="21"></a>
-<a class="sourceLine" id="cb170-22" title="22"><span class="co"># What do you expect the mean to be?</span></a>
-<a class="sourceLine" id="cb170-23" title="23">out <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize_all</span>(mean)</a></code></pre></div>
-<pre><code>## # A tibble: 1 x 2
-##      T1    T2
-##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 1004.  998.</code></pre>
-<div class="sourceCode" id="section-cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1"><span class="co"># Why does this seem to indicate that T1 and T2 have zero bias?</span></a>
-<a class="sourceLine" id="cb172-2" title="2"></a>
-<a class="sourceLine" id="cb172-3" title="3"><span class="co"># Recreate the plots in Figure 20.1:</span></a>
-<a class="sourceLine" id="cb172-4" title="4">leftplot &lt;-<span class="st"> </span>out <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb172-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> T1)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb172-6" title="6"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb172-7" title="7"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb172-8" title="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">300</span>,<span class="dv">700</span>,<span class="dv">1000</span>,<span class="dv">1300</span>,<span class="dv">1600</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb172-9" title="9"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">300</span>,<span class="dv">1600</span>))</a>
-<a class="sourceLine" id="cb172-10" title="10"></a>
-<a class="sourceLine" id="cb172-11" title="11">rightplot &lt;-<span class="st"> </span>out <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb172-12" title="12"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> T2)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb172-13" title="13"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb172-14" title="14"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb172-15" title="15"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">300</span>,<span class="dv">700</span>,<span class="dv">1000</span>,<span class="dv">1300</span>,<span class="dv">1600</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb172-16" title="16"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">300</span>,<span class="dv">1600</span>))</a>
-<a class="sourceLine" id="cb172-17" title="17"></a>
-<a class="sourceLine" id="cb172-18" title="18">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(leftplot,rightplot,<span class="dt">nrow =</span> <span class="dv">1</span>)</a></code></pre></div>
-<p><img src="book_files/figure-html/german-1-1.png" width="672" /></p>
-<p>Why does <span class="math inline">\(T2\)</span> seem to have a maximum possible value? Can you compute this mathematically?</p>
+<div class="sourceCode" id="section-cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(patchwork)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">set.seed</span>(<span class="dv">432354675</span>)</a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co"># Functions to compute the estimators</span></a>
+<a class="sourceLine" id="cb1-5" title="5">T1 &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-6" title="6">T2 &lt;-<span class="st"> </span><span class="cf">function</span>(x) ( (<span class="kw">length</span>(x) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span><span class="kw">length</span>(x) ) <span class="op">*</span><span class="st"> </span><span class="kw">max</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-7" title="7"></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="co"># Now, simulate in order to assess their bias.</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co"># This goes as follows (try this yourself before looking):</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co"># - Choose a true value of N, the parameter to be estimated</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co"># - Draw a sample of size n from 1:N without replacement</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co"># - Compute T1 and T2</span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co"># - Repeat this M times, and compare the average of T1 and T2 to N.</span></a>
+<a class="sourceLine" id="cb1-14" title="14">N &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb1-15" title="15">n &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb1-16" title="16">M &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># One million simulations</span></a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="co"># Run the simulations. Use the sample.int() function to generate from a DISCRETE</span></a>
+<a class="sourceLine" id="cb1-18" title="18"><span class="co"># uniform distribution</span></a>
+<a class="sourceLine" id="cb1-19" title="19">thesimulations &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb1-20" title="20">  <span class="dt">T1 =</span> <span class="kw">numeric</span>(M),</a>
+<a class="sourceLine" id="cb1-21" title="21">  <span class="dt">T2 =</span> <span class="kw">numeric</span>(M),</a>
+<a class="sourceLine" id="cb1-22" title="22">  <span class="dt">T3 =</span> <span class="kw">numeric</span>(M)</a>
+<a class="sourceLine" id="cb1-23" title="23">)</a>
+<a class="sourceLine" id="cb1-24" title="24"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>M) {</a>
+<a class="sourceLine" id="cb1-25" title="25">  <span class="co"># Do the simulation</span></a>
+<a class="sourceLine" id="cb1-26" title="26">  <span class="co"># Sample from a discrete uniform (?sample.int):</span></a>
+<a class="sourceLine" id="cb1-27" title="27">  thesample &lt;-<span class="st"> </span><span class="kw">sample.int</span>(N,n,<span class="dt">replace =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1-28" title="28">  <span class="co"># Record the values of the two estimators:</span></a>
+<a class="sourceLine" id="cb1-29" title="29">  thesimulations<span class="op">$</span>T1[i] &lt;-<span class="st"> </span><span class="kw">T1</span>(thesample)</a>
+<a class="sourceLine" id="cb1-30" title="30">  thesimulations<span class="op">$</span>T2[i] &lt;-<span class="st"> </span><span class="kw">T2</span>(thesample)</a>
+<a class="sourceLine" id="cb1-31" title="31">}</a>
+<a class="sourceLine" id="cb1-32" title="32"></a>
+<a class="sourceLine" id="cb1-33" title="33"><span class="co"># Evaluate the bias of T1 and T2:</span></a>
+<a class="sourceLine" id="cb1-34" title="34"><span class="kw">mean</span>(thesimulations<span class="op">$</span>T1) <span class="op">-</span><span class="st"> </span>N</a></code></pre></div>
+<pre><code>## [1] -1.6741</code></pre>
+<div class="sourceCode" id="section-cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">mean</span>(thesimulations<span class="op">$</span>T2) <span class="op">-</span><span class="st"> </span>N</a></code></pre></div>
+<pre><code>## [1] 0.30996</code></pre>
+<p><strong>Exercise</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><p>What do you think about the bias of <span class="math inline">\(T_{1}\)</span> and <span class="math inline">\(T_{2}\)</span>? Repeat this whole simulation multiple times
+and plot a histogram of the biases. What do you conclude?</p></li>
+<li><p>Try the simulation again with a higher value of <span class="math inline">\(M\)</span>, like <span class="math inline">\(M = 10^{6}\)</span> or whatever your computer
+can handle. What do you conclude?</p></li>
+</ol>
+<p>Finally, let’s look at the sampled values of <span class="math inline">\(T_{1}\)</span> and <span class="math inline">\(T_{2}\)</span>:</p>
+<div class="sourceCode" id="section-cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># Recreate the plots in Figure 20.1:</span></a>
+<a class="sourceLine" id="cb5-2" title="2">leftplot &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">T1 =</span> thesimulations<span class="op">$</span>T1) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> T1)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">300</span>,<span class="dv">700</span>,<span class="dv">1000</span>,<span class="dv">1300</span>,<span class="dv">1600</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">300</span>,<span class="dv">1600</span>))</a>
+<a class="sourceLine" id="cb5-8" title="8"></a>
+<a class="sourceLine" id="cb5-9" title="9">rightplot &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">T2 =</span> thesimulations<span class="op">$</span>T2) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> T2)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">300</span>,<span class="dv">700</span>,<span class="dv">1000</span>,<span class="dv">1300</span>,<span class="dv">1600</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">300</span>,<span class="dv">1600</span>))</a>
+<a class="sourceLine" id="cb5-15" title="15"></a>
+<a class="sourceLine" id="cb5-16" title="16">leftplot <span class="op">|</span><span class="st"> </span>rightplot</a></code></pre></div>
+<p><img src="book_files/figure-html/plots1-1.png" width="672" /></p>
+<p>Remembering that <span class="math inline">\(N = 1000\)</span> in this example, do you prefer either <span class="math inline">\(T_{1}\)</span> or <span class="math inline">\(T_{2}\)</span>?</p>
+</div>
+<div id="section-efficiency" class="section level2">
+<h2><span class="header-section-number">5.2</span> Efficiency</h2>
+<p>You can often construct multiple unbiased estimators for the same problem. Are they
+all as “good” as one another, or is there some reason to prefer one over another?
+One way to compare estimators is by looking at their <strong>variance</strong>. If one unbiased
+estimator has lower variance than another unbiased estimator, we say that the
+one with lower variance is <strong>more efficient</strong> than the one with higher variance.</p>
+<p>Estimators are random variables and you can calculate their variances mathematically.</p>
+<p><strong>Exercise</strong>: let <span class="math inline">\(X_{i},\overset{iid}{\sim}\text{N}(\mu,1)\)</span> and suppose we have the
+following two estimators for <span class="math inline">\(\mu\)</span>: <span class="math display">\[\hat{\mu}_{1} = X_{1}, \hat{\mu}_{2} = \frac{1}{n}\sum_{i=1}^{n}X_{i} = \bar{X}.\]</span></p>
+<ol style="list-style-type: decimal">
+<li><p>Show that <span class="math inline">\(\hat{\mu}_{1}\)</span> and <span class="math inline">\(\hat{\mu}_{2}\)</span> are both <strong>unbiased estimators</strong> of <span class="math inline">\(\mu\)</span>,</p></li>
+<li><p>Show that <span class="math inline">\(\hat{\mu}_{2}\)</span> is <strong>more efficient</strong> than <span class="math inline">\(\hat{\mu}_{1}\)</span>.</p></li>
+</ol>
+<p>Remarkably, it can be shown that there is actually a <strong>lower bound on the variance of any unbiased estimator</strong> for some likelihoods. This is called the <strong>Cramer-Rao lower bound</strong>, and states
+that for a sample <span class="math inline">\(X_{i}\overset{iid}{\sim}F_{\theta}, i=1,\ldots,n\)</span> with log-likelihood <span class="math inline">\(\ell(\theta)\)</span>,
+and <span class="math inline">\(\hat{\theta}\)</span> any unbiased estimator of <span class="math inline">\(\theta\)</span>, that <span class="math display">\[\text{Var}(\theta) \geq \frac{n}{-\partial^{2}\ell(\tilde{\theta}) / \partial\theta^{2}},\]</span> where <span class="math inline">\(\tilde{\theta} = \text{argmax}\ell(\theta)\)</span>, the maximum value of <span class="math inline">\(\ell(\theta)\)</span>. In order for this bound to hold,
+the log-likelihood has to satisfy certain mathematical “regularity” conditions which are
+outside the scope of this course.</p>
+<p>When an unbiased estimator has variance which equals the lower bound, we say that
+this estimator is <strong>efficient</strong>.</p>
+<p><strong>Exercise</strong>: show that <span class="math inline">\(\hat{\mu}_{1}\)</span> is not efficient and that <span class="math inline">\(\hat{\mu}_{2}\)</span> is efficient,
+as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Write down the log-likelihood <span class="math inline">\(\ell(\theta)\)</span> and the second derivative <span class="math inline">\(\partial^{2}\ell(\theta) / \partial\theta^{2}\)</span> for this example,</p></li>
+<li><p>Compute the maximum <span class="math inline">\(\tilde{\theta} = \text{argmax}\ell(\theta)\)</span> and the curvature <span class="math inline">\(\partial^{2}\ell(\tilde{\theta}) / \partial\theta^{2}\)</span>,</p></li>
+<li><p>Compare the variance of <span class="math inline">\(\hat{\mu}_{1}\)</span> and <span class="math inline">\(\hat{\mu}_{2}\)</span> to the bound <span class="math inline">\(\frac{n}{-\partial^{2}\ell(\tilde{\theta}) / \partial\theta^{2}}\)</span>.</p></li>
+</ol>
+<p>The discrete Uniform likelihood does not satisfy the conditions for the
+lower bound to hold. However, we can compare the <strong>efficiency</strong> of <span class="math inline">\(T_{1}\)</span> and <span class="math inline">\(T_{2}\)</span>
+using simulation:</p>
+<div class="sourceCode" id="section-cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">var</span>(thesimulations<span class="op">$</span>T1)</a></code></pre></div>
+<pre><code>## [1] 2984.763</code></pre>
+<div class="sourceCode" id="section-cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">var</span>(thesimulations<span class="op">$</span>T2)</a></code></pre></div>
+<pre><code>## [1] 71.42863</code></pre>
+<p><strong>Exercise</strong>: which estimator appears <strong>more efficient</strong> based on these simulations?</p>
+<p><strong>Discussion</strong>: is the existence of a lower bound on the variance of an unbiased estimator
+a good or bad thing? Consider the following points and talk about it with your classmates:</p>
+<ol style="list-style-type: decimal">
+<li><p>It’s a <strong>good thing</strong>, because if we want to pick an unbiased estimator to use,
+we just need to find one with variance that meets the lower bound (you will see in
+a subsequent chapter that this is actually really, really easy to do),</p></li>
+<li><p>It’s a <strong>bad thing</strong>, since it limits how “good” an unbiased estimator can be.</p></li>
+</ol>
+</div>
+<div id="section-mean-squared-error" class="section level2">
+<h2><span class="header-section-number">5.3</span> Mean Squared Error</h2>
+<p>We have seen two examples of how to evaluate the quality of an estimator <span class="math inline">\(\hat{\theta}\)</span> of
+a parameter <span class="math inline">\(\theta\)</span>: its <strong>bias</strong>: <span class="math display">\[\text{bias} = E\hat{\theta} - \theta,\]</span> and its <strong>variance</strong>: <span class="math display">\[\text{Var}(\hat{\theta}) = E\left[\left(\hat{\theta} - E\hat{\theta}\right)^{2}\right].\]</span> We can combine these two into a single measure of the quality of <span class="math inline">\(\hat{\theta}\)</span>.</p>
+<p><strong>Definition</strong>: the <strong>mean squared error</strong> of an estimator <span class="math inline">\(\hat{\theta}\)</span> is the mean
+of the squared error in using <span class="math inline">\(\hat{\theta}\)</span> to estimate <span class="math inline">\(\theta\)</span>: <span class="math display">\[\text{MSE}(\hat{\theta}) = E\left[\left(\hat{\theta} - \theta\right)^{2}\right].\]</span></p>
+<p><strong>Exercise</strong>: show that <span class="math inline">\(\hat{\theta}\)</span> is unbiased <strong>if and only if</strong> <span class="math inline">\(\text{MSE}(\hat{\theta}) = \text{Var}(\hat{\theta})\)</span>.</p>
+<p>The MSE combines the variance and the bias of an estimator as follows:</p>
+<p><strong>Exercise</strong>: prove that <span class="math display">\[\text{MSE}(\hat{\theta}) = \text{Var}(\hat{\theta}) +  \text{bias}(\hat{\theta})^{2}.\]</span></p>
+<p><strong>Exercise</strong>: for the Normal random sample from before, compute the <strong>MSE</strong> of <span class="math inline">\(\hat{\mu}_{1}\)</span> and
+<span class="math inline">\(\hat{\mu}_{2}\)</span>.</p>
+<p><strong>Exercise</strong>: for the Uniform random sample from before,</p>
+<ol style="list-style-type: decimal">
+<li><p>Compute the <strong>MSE</strong> of <span class="math inline">\(T_{1}\)</span> and <span class="math inline">\(T_{2}\)</span> from the simulations,</p></li>
+<li><p>Show that <span class="math inline">\(T_{3} = \text{max}(X_{i})\)</span> is a <strong>biased</strong> estimator of <span class="math inline">\(N\)</span>.</p></li>
+</ol>
+<p>Even though <span class="math inline">\(T_{3}\)</span> is a biased estimator, is it a worse estimator that <span class="math inline">\(T_{1}\)</span>
+or <span class="math inline">\(T_{2}\)</span>? We can check through simulation:</p>
+<div class="sourceCode" id="section-cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">T3 &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">max</span>(x)</a>
+<a class="sourceLine" id="cb10-2" title="2">mse &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">var</span>(x) <span class="op">+</span><span class="st"> </span>(<span class="kw">mean</span>(x) <span class="op">-</span><span class="st"> </span>N)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb10-3" title="3"></a>
+<a class="sourceLine" id="cb10-4" title="4">thesimulations<span class="op">$</span>T3 &lt;-<span class="st"> </span><span class="kw">numeric</span>(M)</a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>M) {</a>
+<a class="sourceLine" id="cb10-6" title="6">  thesample &lt;-<span class="st"> </span><span class="kw">sample.int</span>(N,n)</a>
+<a class="sourceLine" id="cb10-7" title="7">  thesimulations<span class="op">$</span>T3[i] &lt;-<span class="st"> </span><span class="kw">T3</span>(thesample)</a>
+<a class="sourceLine" id="cb10-8" title="8">}</a></code></pre></div>
+<p>While <span class="math inline">\(T_{3}\)</span> appears to have far higher bias than <span class="math inline">\(T_{1}\)</span> or <span class="math inline">\(T_{2}\)</span>…</p>
+<div class="sourceCode" id="section-cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">mean</span>(thesimulations<span class="op">$</span>T1) <span class="op">-</span><span class="st"> </span>N</a></code></pre></div>
+<pre><code>## [1] -1.6741</code></pre>
+<div class="sourceCode" id="section-cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">mean</span>(thesimulations<span class="op">$</span>T2) <span class="op">-</span><span class="st"> </span>N</a></code></pre></div>
+<pre><code>## [1] 0.30996</code></pre>
+<div class="sourceCode" id="section-cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">mean</span>(thesimulations<span class="op">$</span>T3) <span class="op">-</span><span class="st"> </span>N</a></code></pre></div>
+<pre><code>## [1] -8.85</code></pre>
+<p>…it has far lower variance than <span class="math inline">\(T_{1}\)</span>…</p>
+<div class="sourceCode" id="section-cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">var</span>(thesimulations<span class="op">$</span>T1)</a></code></pre></div>
+<pre><code>## [1] 2984.763</code></pre>
+<div class="sourceCode" id="section-cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">var</span>(thesimulations<span class="op">$</span>T2)</a></code></pre></div>
+<pre><code>## [1] 71.42863</code></pre>
+<div class="sourceCode" id="section-cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">var</span>(thesimulations<span class="op">$</span>T3)</a></code></pre></div>
+<pre><code>## [1] 77.23874</code></pre>
+<p>…and hence its MSE is far better than <span class="math inline">\(T_{1}\)</span>…</p>
+<div class="sourceCode" id="section-cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">mse</span>(thesimulations<span class="op">$</span>T1)</a></code></pre></div>
+<pre><code>## [1] 2987.566</code></pre>
+<div class="sourceCode" id="section-cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">mse</span>(thesimulations<span class="op">$</span>T2)</a></code></pre></div>
+<pre><code>## [1] 71.52471</code></pre>
+<div class="sourceCode" id="section-cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">mse</span>(thesimulations<span class="op">$</span>T3)</a></code></pre></div>
+<pre><code>## [1] 155.5612</code></pre>
+<p>…although <span class="math inline">\(T_{2}\)</span> is still better.</p>
 
-<div class="sourceCode" id="section-cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
 </div>
 </div>
             </section>
@@ -339,17 +483,19 @@ looking at my answer as follows:</p>
           </div>
         </div>
       </div>
-<a href="section-supplement-to-chapters-17-and-19.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-statistical-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="section-supplement-to-evans-rosenthal-section-7-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -357,12 +503,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -374,6 +519,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

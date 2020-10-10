@@ -21,6 +21,7 @@ as $n\to\infty$. We will investigate the LLN computationally through simulations
 Load the packages we need:
 ```{r load-packages,warning=FALSE,message=FALSE}
 library(tidyverse)
+library(patchwork) # For arranging plots
 options(digits = 2) # Print numbers with only 2 digits
 ```
 
@@ -83,9 +84,13 @@ plot_for_n <- function(n) {
     coord_cartesian(xlim = c(0,4),ylim = c(0,1.5)) +
     labs(title = stringr::str_c("n = ",n))
 }
-# Create the plots
-purrr::map(c(1,2,4,9,16,400),plot_for_n) %>%
-  cowplot::plot_grid(plotlist = .,nrow = 3)
+# Create the plots and arrange them
+# You need to have the 'patchwork' package
+# loaded for this to work
+# library(patchwork)
+(plot_for_n(1) | plot_for_n(2)) /
+  (plot_for_n(4) | plot_for_n(9)) /
+    (plot_for_n(16) | plot_for_n(400))
 ```
 
 The density of the sample mean appears centred at $2$ and also appears to concentrate
@@ -283,19 +288,16 @@ plotscalingdensity <- function(n,p) {
     theme(text = element_text(size = 8))
 }
 
-# Plot them all! This code is somewhat advanced; you should run it
-# line by line and figure out what each step does. It's a pretty concise
-# way of doing a lot of operations. This type of "list comprehension" is fundamental
-# to learning to program with data.
-pltlist <- expand.grid(n = c(1,2,4,16,100),
-            p = c(1/4,1/2,1)) %>%
-  dplyr::arrange(n,p) %>%
-  as.list() %>%
-  purrr::transpose() %>%
-  purrr::map(~plotscalingdensity(n = .x[["n"]],p = .x[["p"]])) 
+# Plot them all and arrange
 
-cowplot::plot_grid(plotlist = pltlist,
-                   nrow = 5,ncol = 3)
+( plotscalingdensity(1,.25) | plotscalingdensity(1,.5) | plotscalingdensity(1,1) ) /
+  ( plotscalingdensity(2,.25) | plotscalingdensity(2,.5) | plotscalingdensity(2,1) ) /
+  ( plotscalingdensity(4,.25) | plotscalingdensity(4,.5) | plotscalingdensity(4,1) ) /
+  ( plotscalingdensity(16,.25) | plotscalingdensity(16,.5) | plotscalingdensity(16,1) ) /
+  ( plotscalingdensity(100,.25) | plotscalingdensity(100,.5) | plotscalingdensity(100,1) )
+  
+
+
 
 ```
 

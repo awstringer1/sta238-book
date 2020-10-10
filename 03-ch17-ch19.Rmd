@@ -1,4 +1,4 @@
-# Supplement to Chapters 17 and 19
+# Statistical Models
 
 This chapter covers statistical models and plotting regression lines 
 (although most of the math of linear regression
@@ -72,6 +72,7 @@ Use `readr::read_delim()` to read it in:
 
 ```{r janka-1,warning=FALSE,message=FALSE}
 library(tidyverse)
+library(patchwork)
 janka <- readr::read_delim(
   file = "data/MIPSdata/jankahardness.txt",
   delim = "\t",
@@ -417,7 +418,7 @@ plt_T <- tibble(TT = TT) %>%
   coord_cartesian(ylim = c(0,250)) +
   geom_vline(xintercept = p0,colour = "red",linetype = "dotdash")
 
-cowplot::plot_grid(plt_S,plt_T,nrow=1)
+plt_S | plt_T
 
 # Compute the mean of each:
 mean(SS)
