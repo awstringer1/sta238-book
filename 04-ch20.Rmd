@@ -1,4 +1,4 @@
-# Supplement to Chapter 20
+# Evaluating Estimators: Efficiency and Mean Squared Error
 
 This chapter introduces the concepts of Efficiency and Mean Square Error and shows
 how to use them to evaluate the performance of an estimator. This material is 
