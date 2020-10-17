@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Confidence Intervals and Quantifying Uncertainty | STA238: Probability, Statistics, and Data Analysis</title>
+  <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  <meta name="generator" content="bookdown 0.21.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Confidence Intervals and Quantifying Uncertainty | STA238: Probability, Statistics, and Data Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Confidence Intervals and Quantifying Uncertainty | STA238: Probability, Statistics, and Data Analysis" />
+  
+  <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+<meta name="author" content="Alison Gibbs and Alex Stringer" />
+
+
+<meta name="date" content="2020-10-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="section-maximum-likelihood.html"/>
+<link rel="next" href="section-extended-example-reasoning-about-goodness-of-fit.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STA238 University of Toronto</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a><ul>
+<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="2.1.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="2.2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries-1"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.4.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-association-between-smoking-and-mortality"><i class="fa fa-check"></i><b>2.4.2</b> Association between smoking and mortality</a></li>
+<li class="chapter" data-level="2.4.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
+<li class="chapter" data-level="2.5.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
+<li class="chapter" data-level="2.5.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-iii-trends-in-quality-over-time"><i class="fa fa-check"></i><b>2.5.4</b> Analysis III: trends in quality over time</a></li>
+<li class="chapter" data-level="2.5.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-summary"><i class="fa fa-check"></i><b>2.5.5</b> Summary</a></li>
+<li class="chapter" data-level="2.5.6" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a><ul>
+<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a><ul>
+<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.1.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-simulated-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a><ul>
+<li class="chapter" data-level="5.1" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-estimating-a-uniform-maximum"><i class="fa fa-check"></i><b>5.1</b> Estimating a Uniform Maximum</a></li>
+<li class="chapter" data-level="5.2" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-efficiency"><i class="fa fa-check"></i><b>5.2</b> Efficiency</a></li>
+<li class="chapter" data-level="5.3" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-mean-squared-error"><i class="fa fa-check"></i><b>5.3</b> Mean Squared Error</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a><ul>
+<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-frequentistlikelihood-perspective"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist/Likelihood Perspective</a></li>
+<li class="chapter" data-level="6.1.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-bayesian-inference-introduction"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Inference: introduction</a></li>
+<li class="chapter" data-level="6.1.3" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-flipping-more-coins"><i class="fa fa-check"></i><b>6.1.3</b> Flipping More Coins</a></li>
+<li class="chapter" data-level="6.1.4" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-visualization"><i class="fa fa-check"></i><b>6.1.4</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-interactive-app"><i class="fa fa-check"></i><b>6.2</b> Interactive App</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a><ul>
+<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-empirical-bootstrap-old-faithful-data"><i class="fa fa-check"></i><b>7.1.1</b> Empirical bootstrap: Old Faithful data</a></li>
+<li class="chapter" data-level="7.1.2" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-parametric-bootstrap-software-data"><i class="fa fa-check"></i><b>7.1.2</b> Parametric Bootstrap: software data</a></li>
+<li class="chapter" data-level="7.1.3" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-extended-example-the-standard-error-of-a-proportion"><i class="fa fa-check"></i><b>7.1.3</b> Extended example: the standard error of a proportion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html"><i class="fa fa-check"></i><b>8</b> Maximum Likelihood</a><ul>
+<li class="chapter" data-level="8.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
+<li class="chapter" data-level="8.1.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
+<li class="chapter" data-level="8.1.3" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.2</b> Extended example: rental housing in Toronto</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html"><i class="fa fa-check"></i><b>9</b> Confidence Intervals and Quantifying Uncertainty</a><ul>
+<li class="chapter" data-level="9.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-simulation-an-example"><i class="fa fa-check"></i><b>9.1.1</b> Simulation: an example</a></li>
+<li class="chapter" data-level="9.1.2" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
+<li class="chapter" data-level="9.1.3" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-when-you-dont-know-sigma"><i class="fa fa-check"></i><b>9.1.3</b> When you don’t know <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="9.1.4" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-gross-calorific-value-measurements-for-daw-mill-258gb41"><i class="fa fa-check"></i><b>9.1.4</b> Gross calorific value measurements for Daw Mill 258GB41</a></li>
+<li class="chapter" data-level="9.1.5" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.5</b> Bootstrap Confidence Intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
+<li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
+<li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
+<li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html"><i class="fa fa-check"></i><b>11</b> Supplement to Evans &amp; Rosenthal Section 7.2</a><ul>
+<li class="chapter" data-level="11.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-the-prior"><i class="fa fa-check"></i><b>11.1.1</b> The Prior</a></li>
+<li class="chapter" data-level="11.1.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-the-posterior"><i class="fa fa-check"></i><b>11.1.2</b> The Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-estimation-in-bayesian-inference-point-and-interval-estimation"><i class="fa fa-check"></i><b>11.2</b> Estimation in Bayesian Inference: point and interval estimation</a></li>
+<li class="chapter" data-level="11.3" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-conjugate-priors"><i class="fa fa-check"></i><b>11.3.1</b> Conjugate Priors</a></li>
+<li class="chapter" data-level="11.3.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a><ul>
+<li class="chapter" data-level="12.1" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-overview"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
+<li class="chapter" data-level="12.2" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-plug-in-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.2</b> Plug-in prediction: coin flipping</a></li>
+<li class="chapter" data-level="12.3" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-bayesian-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.3</b> Bayesian Prediction: coin flipping</a></li>
+<li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-income-and-advertsing-datasets"><i class="fa fa-check"></i><b>12.4</b> Extended example: Income and Advertsing datasets</a></li>
+<li class="chapter" data-level="12.5" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.5</b> Extended example: predicting call centre wait times</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="13.1" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-r"><i class="fa fa-check"></i><b>13.1</b> Installing R</a></li>
+<li class="chapter" data-level="13.2" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-rstudio"><i class="fa fa-check"></i><b>13.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="13.3" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-using-rmarkdown"><i class="fa fa-check"></i><b>13.3</b> Using RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a><ul>
+<li class="chapter" data-level="14.1" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-15-and-16"><i class="fa fa-check"></i><b>14.1</b> Chapters 15 and 16</a></li>
+<li class="chapter" data-level="14.2" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-13-and-14"><i class="fa fa-check"></i><b>14.2</b> Chapters 13 and 14</a></li>
+<li class="chapter" data-level="14.3" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-17-and-19"><i class="fa fa-check"></i><b>14.3</b> Chapters 17 and 19</a></li>
+<li class="chapter" data-level="14.4" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-20"><i class="fa fa-check"></i><b>14.4</b> Chapter 20</a></li>
+<li class="chapter" data-level="14.5" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7"><i class="fa fa-check"></i><b>14.5</b> Evans and Rosenthal, Chapter 7</a></li>
+<li class="chapter" data-level="14.6" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-18"><i class="fa fa-check"></i><b>14.6</b> Chapter 18</a></li>
+<li class="chapter" data-level="14.7" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-21"><i class="fa fa-check"></i><b>14.7</b> Chapter 21</a></li>
+<li class="chapter" data-level="14.8" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-23"><i class="fa fa-check"></i><b>14.8</b> Chapter 23</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA238: Probability, Statistics, and Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section-confidence-intervals-and-quantifying-uncertainty" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Confidence Intervals and Quantifying Uncertainty</h1>
+<p>This chapter introduces confidence intervals and uses them to quantify uncertainty
+in estimates of parameters in statistical models.</p>
+<p>All datasets from MIPS can be downloaded here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>.</p>
+<div class="sourceCode" id="section-cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb275-2" title="2"><span class="kw">library</span>(patchwork)</a>
+<a class="sourceLine" id="cb275-3" title="3"><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">5</span>)</a></code></pre></div>
+<div id="section-confidence-intervals-for-the-mean-chapter-23" class="section level2">
+<h2><span class="header-section-number">9.1</span> Confidence Intervals for the Mean (Chapter 23)</h2>
+<p>Consider the following familiar scenario: we have a sample <span class="math inline">\(X_{1},\ldots,X_{n}\overset{iid}{\sim}\text{N}(\mu,1)\)</span>, and we estimate the unknown
+parameter <span class="math inline">\(\mu\)</span> using the estimator <span class="math inline">\(\hat{\mu} = \bar{X}\)</span>. The sample is random,
+so the estimator is also random. If we took another sample, we would get another
+value of <span class="math inline">\(\hat{\mu}\)</span>. The estimator <span class="math inline">\(\hat{\mu}\)</span> is a random variable, so it has
+a probability distribution. We have seen several ways to get it: mathematical
+derivation, the Central Limit Theorem, and Bootstrapping. In this example, we
+know that <span class="math display">\[\hat{\mu} \overset \text{N}(\mu,1/\sqrt{n}).\]</span></p>
+<p>The value <span class="math inline">\(\hat{\mu}\)</span> is called a <strong>point estimate</strong> of the parameter <span class="math inline">\(\mu\)</span>.
+In this chapter we are going to go one step further and <strong>quantify uncertainty</strong>
+in our point estimates for parameters. We are going to do this by using the <strong>sampling distributions</strong> of
+the estimators to construct random intervals which contain the true parameter
+value with high probability. These are called <strong>confidence intervals</strong>.</p>
+<div id="section-simulation-an-example" class="section level3">
+<h3><span class="header-section-number">9.1.1</span> Simulation: an example</h3>
+<p>How do we do this? We know that <span class="math display">\[\hat{\mu} \overset \text{N}(\mu,1/\sqrt{n}).\]</span>
+Rearrangement gives <span class="math display">\[Z_{n} = \frac{\hat{\mu} - \mu}{1/\sqrt{n}} \overset \text{N}(0,1).\]</span></p>
+<p>Let <span class="math inline">\(q_{\alpha}\)</span> be the <span class="math inline">\(\alpha\)</span>-<em>quantile</em> of <span class="math inline">\(Z_{n}\)</span>: the value such that <span class="math inline">\(P(Z_{n} \leq q_{\alpha}) = \alpha\)</span>, for <span class="math inline">\(0 \leq \alpha \leq 1\)</span>. Then we have
+<span class="math display">\[\begin{equation}\begin{aligned}
+1 - \alpha &amp;= P\left( q_{\alpha/2} \leq Z_{n} \leq q_{1 - \alpha/2}\right) \\
+&amp;= P\left( \hat{\mu} - q_{1 - \alpha/2}\times\frac{1}{\sqrt{n}} \leq \mu \leq \hat{\mu} + q_{1 - \alpha/2}\times\frac{1}{\sqrt{n}}\right)
+\end{aligned}\end{equation}\]</span>
+where we used <span class="math inline">\(q_{1 - \alpha/2} = -q_{\alpha/2}\)</span>. The values
+<span class="math display">\[\begin{equation}\begin{aligned}
+L_{n} &amp;= \hat{\mu} - q_{1 - \alpha/2}\times\frac{1}{\sqrt{n}} \\
+U_{n} &amp;= \hat{\mu} + q_{1 - \alpha/2}\times\frac{1}{\sqrt{n}} \\
+\end{aligned}\end{equation}\]</span>
+are random variables. We just showed that <span class="math inline">\(P(L_{n} \leq \mu \leq U_{n}) = 1-\alpha\)</span>.
+We call the random interval <span class="math inline">\((L_{n},U_{n})\)</span> a <span class="math inline">\(1-\alpha\)</span> <strong>confidence interval</strong> for <span class="math inline">\(\mu\)</span>.</p>
+<p>The interpretation of <span class="math inline">\((L_{n},U_{n})\)</span> sometimes gets confused. <span class="math inline">\(\mu\)</span> is not random:
+it is a fixed, unknown quantity. <span class="math inline">\((L_{n},U_{n})\)</span> are random: they change with the
+sample. If you took a different sample, you would get a different interval <span class="math inline">\((L_{n},U_{n})\)</span>.
+If you took many samples, about <span class="math inline">\((1-\alpha)\times 100\%\)</span> of them would contain the
+fixed, unknown value <span class="math inline">\(\mu\)</span>.</p>
+<p>Let’s use a simulation to illustrate this concept. Take <span class="math inline">\(\mu = 0\)</span>. We’ll generate a bunch of samples
+from a <span class="math inline">\(\text{N}(0,1)\)</span> distribution, compute their confidence intervals <span class="math inline">\((L_{n},U_{n})\)</span>, and plot them.
+We’ll use <span class="math inline">\(\alpha = 0.05\)</span> so that about <span class="math inline">\(95\%\)</span> of the calculated intervals should contain
+the value <span class="math inline">\(0\)</span>.</p>
+<div class="sourceCode" id="section-cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" title="1"><span class="kw">set.seed</span>(<span class="dv">4329432</span>)</a>
+<a class="sourceLine" id="cb276-2" title="2"><span class="co"># How many samples to generate</span></a>
+<a class="sourceLine" id="cb276-3" title="3">B &lt;-<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb276-4" title="4"><span class="co"># Sample size of each</span></a>
+<a class="sourceLine" id="cb276-5" title="5">n &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb276-6" title="6"><span class="co"># Confidence level</span></a>
+<a class="sourceLine" id="cb276-7" title="7">alpha &lt;-<span class="st"> </span><span class="fl">.05</span></a>
+<a class="sourceLine" id="cb276-8" title="8"><span class="co"># Quantile</span></a>
+<a class="sourceLine" id="cb276-9" title="9">critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>) <span class="co"># For alpha = .05 this equals 1.96</span></a>
+<a class="sourceLine" id="cb276-10" title="10"><span class="co"># Perform the simulation</span></a>
+<a class="sourceLine" id="cb276-11" title="11">theintervals &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb276-12" title="12">  <span class="dt">lower =</span> <span class="kw">numeric</span>(B),</a>
+<a class="sourceLine" id="cb276-13" title="13">  <span class="dt">upper =</span> <span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb276-14" title="14">)</a>
+<a class="sourceLine" id="cb276-15" title="15"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
+<a class="sourceLine" id="cb276-16" title="16">  <span class="co"># Generate a sample</span></a>
+<a class="sourceLine" id="cb276-17" title="17">  xx &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb276-18" title="18">  <span class="co"># Compute the confidence interval</span></a>
+<a class="sourceLine" id="cb276-19" title="19">  Ln &lt;-<span class="st"> </span><span class="kw">mean</span>(xx) <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(n))</a>
+<a class="sourceLine" id="cb276-20" title="20">  Un &lt;-<span class="st"> </span><span class="kw">mean</span>(xx) <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(n))</a>
+<a class="sourceLine" id="cb276-21" title="21">  theintervals<span class="op">$</span>lower[[b]] &lt;-<span class="st"> </span>Ln</a>
+<a class="sourceLine" id="cb276-22" title="22">  theintervals<span class="op">$</span>upper[[b]] &lt;-<span class="st"> </span>Un</a>
+<a class="sourceLine" id="cb276-23" title="23">}</a>
+<a class="sourceLine" id="cb276-24" title="24"></a>
+<a class="sourceLine" id="cb276-25" title="25"><span class="co"># Compute the proportion that don&#39;t contain zero</span></a>
+<a class="sourceLine" id="cb276-26" title="26"><span class="co"># Should be close to alpha</span></a>
+<a class="sourceLine" id="cb276-27" title="27"><span class="kw">mean</span>(theintervals<span class="op">$</span>upper <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">|</span><span class="st"> </span>theintervals<span class="op">$</span>lower <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div>
+<pre><code>[1] 0.04</code></pre>
+<div class="sourceCode" id="section-cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" title="1"><span class="co"># Plot them. This is a more complicated plot than you&#39;re used to.</span></a>
+<a class="sourceLine" id="cb278-2" title="2"><span class="co"># Run this code layer by layer to understand what each part does.</span></a>
+<a class="sourceLine" id="cb278-3" title="3"><span class="kw">as_tibble</span>(theintervals) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb278-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">n</span>(),</a>
+<a class="sourceLine" id="cb278-5" title="5">         <span class="dt">has_zero =</span> <span class="kw">if_else</span>(lower <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">|</span><span class="st"> </span>upper <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>,<span class="st">&quot;no&quot;</span>,<span class="st">&quot;yes&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb278-6" title="6"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> id)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb278-7" title="7"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb278-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (upper <span class="op">+</span><span class="st"> </span>lower)<span class="op">/</span><span class="dv">2</span>),<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>,<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb278-9" title="9"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower,<span class="dt">ymax =</span> upper,<span class="dt">colour =</span> has_zero),<span class="dt">size =</span> <span class="fl">.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb278-10" title="10"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb278-11" title="11"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span>.<span class="dv">2</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb278-12" title="12"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;no&quot;</span> =<span class="st"> &quot;red&quot;</span>,<span class="st">&quot;yes&quot;</span> =<span class="st"> &quot;black&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb278-13" title="13"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb278-14" title="14"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(),<span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>(),<span class="dt">axis.ticks.y =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb278-15" title="15"><span class="st">  </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb278-16" title="16"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/normsim-1-1.png" width="672" /></p>
+<p><strong>Exercise</strong>: re-run this experiment several times with different random seeds. What
+kind of empirical coverage probabilities—the proportion of intervals that don’t contain zero—do you
+get? What about if you raise the sample size to <code>n = 100</code>? What about if you raise the
+number of simulations to <code>B = 1000</code> (do NOT make the plot if you raise B this high!)?</p>
+<p><strong>Exercise</strong>: suppose instead of <span class="math inline">\(\text{N}(\mu,1)\)</span>, the data are distributed as
+<span class="math inline">\(\text{N}(\mu,\sigma)\)</span> where <span class="math inline">\(\sigma\)</span> is a known constant. Show that a <span class="math inline">\(1-\alpha\)</span>
+confidence interval for <span class="math inline">\(\mu\)</span> is
+<span class="math display">\[
+\left(\hat{\mu} - q_{1 - \alpha/2}\times\frac{\sigma}{\sqrt{n}},\hat{\mu} + q_{1 - \alpha/2}\times\frac{\sigma}{\sqrt{n}}\right)
+\]</span></p>
+</div>
+<div id="section-gross-calorific-value-measurements-for-osterfeld-262de27" class="section level3">
+<h3><span class="header-section-number">9.1.2</span> Gross calorific value measurements for Osterfeld 262DE27</h3>
+<p>The Osterfield data is made available with MIPS. It contains measurements of the gross
+calorific content of a type of coal. Its file name is misspelled,
+so be careful:</p>
+<div class="sourceCode" id="section-cb279"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb279-1" title="1"><span class="fu">head</span> data/MIPSdata/grosscalOsterfeld.txt</a>
+<a class="sourceLine" id="cb279-2" title="2"><span class="fu">wc</span> -l data/MIPSdata/grosscalOsterfeld.txt</a></code></pre></div>
+<pre><code>23.870
+23.730
+23.712
+23.760
+23.640
+23.850
+23.840
+23.860
+23.940
+23.830
+      23 data/MIPSdata/grosscalOsterfeld.txt</code></pre>
+<p>Read it in. I’m leaving this as an exericse (note: not because I’m lazy, I still had to
+write the code. It’s for your learning). You should get the following:</p>
+<div class="sourceCode" id="section-cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1"><span class="kw">glimpse</span>(osterfield)</a></code></pre></div>
+<pre><code>Observations: 23
+Variables: 1
+$ calorific_value &lt;dbl&gt; 23.870, 23.730, 23.712, 23.760, 23.640, 23.850, 23.840, 23.860, 23.940, 23.830, 23.877, 23.700, 23.796, 23.7…</code></pre>
+<p>Suppose that the measurements are normally distributed with known <span class="math inline">\(\sigma = .1\)</span>.
+Then we can compute a <span class="math inline">\(95\%\)</span> confidence interval.</p>
+<p><strong>Exercise</strong>: if we want a <span class="math inline">\(95\%\)</span> or <span class="math inline">\(0.95\)</span> confidence interval, what is <span class="math inline">\(\alpha\)</span>?
+What is <span class="math inline">\(q_{1 - \alpha/2}\)</span>?</p>
+<div class="sourceCode" id="section-cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" title="1"><span class="co"># Compute the sample mean and size</span></a>
+<a class="sourceLine" id="cb283-2" title="2">xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(osterfield<span class="op">$</span>calorific_value)</a>
+<a class="sourceLine" id="cb283-3" title="3">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(osterfield)</a>
+<a class="sourceLine" id="cb283-4" title="4"><span class="co"># The population standard deviation, and the critical value/confidence level</span></a>
+<a class="sourceLine" id="cb283-5" title="5"><span class="co"># are given as:</span></a>
+<a class="sourceLine" id="cb283-6" title="6">sigma &lt;-<span class="st"> </span><span class="fl">.1</span></a>
+<a class="sourceLine" id="cb283-7" title="7">conf &lt;-<span class="st"> </span><span class="fl">.05</span></a>
+<a class="sourceLine" id="cb283-8" title="8"><span class="co"># Make sure to UNDERSTAND this calculation:</span></a>
+<a class="sourceLine" id="cb283-9" title="9">critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>) <span class="co"># 1.96</span></a>
+<a class="sourceLine" id="cb283-10" title="10"><span class="co"># Compute the interval</span></a>
+<a class="sourceLine" id="cb283-11" title="11"><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb283-12" title="12">  <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>xbar <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n),</a>
+<a class="sourceLine" id="cb283-13" title="13">  <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>xbar <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n)</a>
+<a class="sourceLine" id="cb283-14" title="14">)</a></code></pre></div>
+<pre><code> lower  upper 
+23.747 23.829 </code></pre>
+<p>We are <span class="math inline">\(95\%\)</span> <strong>confident</strong> that <span class="math inline">\(\mu\)</span> lies between <span class="math inline">\(23.747\)</span> and <span class="math inline">\(23.829\)</span>. This
+means that if we were to repeat this experiment over and over, obtaining each time
+a new sample and hence a new confidence interval, that about <span class="math inline">\(95\%\)</span> of those
+intervals ought to contain the true value of <span class="math inline">\(\mu\)</span>, whatever it is.</p>
+</div>
+<div id="section-when-you-dont-know-sigma" class="section level3">
+<h3><span class="header-section-number">9.1.3</span> When you don’t know <span class="math inline">\(\sigma\)</span></h3>
+<p>Now, suppose we have a normal sample but we don’t know <span class="math inline">\(\sigma\)</span>. If we don’t know <span class="math inline">\(\sigma\)</span> we might think to estimate it using the sample standard deviation
+<span class="math display">\[
+\hat{\sigma} = s_{n} = \sqrt{ \frac{1}{n}\sum_{i=1}^{n}\left(x_{i} - \bar{x}\right)^2}
+\]</span>
+and then plug in <span class="math inline">\(s_{n}\)</span> instead of <span class="math inline">\(\sigma\)</span> in the formula for a confidence interval.</p>
+<p>It turns out this is basically what we do, but with a catch. We now don’t only have
+uncertainty in <span class="math inline">\(\mu\)</span>: we also have uncertainty in <span class="math inline">\(\sigma\)</span>. Plugging in <span class="math inline">\(s_{n}\)</span> and
+treating it as the truth ignores this uncertainty and leads to a confidence interval
+for <span class="math inline">\(\mu\)</span> that is too wide. This means that it will contain the true <span class="math inline">\(\mu\)</span> less than
+<span class="math inline">\((1 - \alpha)\times 100\%\)</span> of the time.</p>
+<p>Let’s see this using simulation:</p>
+<div class="sourceCode" id="section-cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1"><span class="kw">set.seed</span>(<span class="dv">7894236</span>)</a>
+<a class="sourceLine" id="cb285-2" title="2">n &lt;-<span class="st"> </span><span class="dv">5</span> <span class="co"># Use a small sample to make this really obvious</span></a>
+<a class="sourceLine" id="cb285-3" title="3">compute_ci_fixedsd &lt;-<span class="st"> </span><span class="cf">function</span>(samp) {</a>
+<a class="sourceLine" id="cb285-4" title="4">  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)</a>
+<a class="sourceLine" id="cb285-5" title="5">  n &lt;-<span class="st"> </span><span class="kw">length</span>(samp)</a>
+<a class="sourceLine" id="cb285-6" title="6">  critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">.05</span><span class="op">/</span><span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb285-7" title="7">  <span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb285-8" title="8">    <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>xbar <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(n),</a>
+<a class="sourceLine" id="cb285-9" title="9">    <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>xbar <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(n)</a>
+<a class="sourceLine" id="cb285-10" title="10">  )</a>
+<a class="sourceLine" id="cb285-11" title="11">}</a>
+<a class="sourceLine" id="cb285-12" title="12"></a>
+<a class="sourceLine" id="cb285-13" title="13">compute_ci_samplesd &lt;-<span class="st"> </span><span class="cf">function</span>(samp) {</a>
+<a class="sourceLine" id="cb285-14" title="14">  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)</a>
+<a class="sourceLine" id="cb285-15" title="15">  sn &lt;-<span class="st"> </span><span class="kw">sd</span>(samp)</a>
+<a class="sourceLine" id="cb285-16" title="16">  n &lt;-<span class="st"> </span><span class="kw">length</span>(samp)</a>
+<a class="sourceLine" id="cb285-17" title="17">  critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">.05</span><span class="op">/</span><span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb285-18" title="18">  <span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb285-19" title="19">    <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>xbar <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n),</a>
+<a class="sourceLine" id="cb285-20" title="20">    <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>xbar <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n)</a>
+<a class="sourceLine" id="cb285-21" title="21">  )</a>
+<a class="sourceLine" id="cb285-22" title="22">}</a>
+<a class="sourceLine" id="cb285-23" title="23"></a>
+<a class="sourceLine" id="cb285-24" title="24"><span class="co"># True mu = 0, true sigma = 1</span></a>
+<a class="sourceLine" id="cb285-25" title="25">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb285-26" title="26">doesthefixedonecontainmu &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb285-27" title="27">doesthesampleonecontainmu &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb285-28" title="28"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
+<a class="sourceLine" id="cb285-29" title="29">  <span class="co"># Take a sample</span></a>
+<a class="sourceLine" id="cb285-30" title="30">  thesamp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb285-31" title="31">  <span class="co"># Compute the intervals</span></a>
+<a class="sourceLine" id="cb285-32" title="32">  fixedsigmainterval &lt;-<span class="st"> </span><span class="kw">compute_ci_fixedsd</span>(thesamp)</a>
+<a class="sourceLine" id="cb285-33" title="33">  samplesigmainterval &lt;-<span class="st"> </span><span class="kw">compute_ci_samplesd</span>(thesamp)</a>
+<a class="sourceLine" id="cb285-34" title="34">  <span class="co"># Record whether they each contain zero</span></a>
+<a class="sourceLine" id="cb285-35" title="35">  doesthefixedonecontainmu[b] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(fixedsigmainterval[<span class="st">&#39;lower&#39;</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>fixedsigmainterval[<span class="st">&#39;upper&#39;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb285-36" title="36">  doesthesampleonecontainmu[b] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(samplesigmainterval[<span class="st">&#39;lower&#39;</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samplesigmainterval[<span class="st">&#39;upper&#39;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb285-37" title="37">}</a>
+<a class="sourceLine" id="cb285-38" title="38"><span class="co"># Proportion of each type of interval that contains mu</span></a>
+<a class="sourceLine" id="cb285-39" title="39"><span class="kw">mean</span>(doesthefixedonecontainmu)</a></code></pre></div>
+<pre><code>[1] 0.961</code></pre>
+<div class="sourceCode" id="section-cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1"><span class="kw">mean</span>(doesthesampleonecontainmu)</a></code></pre></div>
+<pre><code>[1] 0.876</code></pre>
+<p>The proportion of known-<span class="math inline">\(\sigma\)</span> intervals containing the true <span class="math inline">\(\mu\)</span> is close to
+the “nominal” value of <span class="math inline">\(0.95\)</span>. The proportion of the estimated-<span class="math inline">\(\sigma\)</span> intervals
+containing the true <span class="math inline">\(\mu\)</span> is less, because these intervals are too narrow, because
+they ignore uncertainty in <span class="math inline">\(\sigma\)</span>.</p>
+<p>To mitigate this, we widen the interval. We do so in a specific way. It turns out
+that
+<span class="math display">\[
+t_{n} = \frac{\bar{X} - \mu}{s_{n}/\sqrt{n}}\sim T_{n-1}
+\]</span>
+where the random variable <span class="math inline">\(T_{n-1}\)</span> has what is called the <span class="math inline">\(t\)</span><strong>-distribution with</strong>
+<span class="math inline">\(n-1\)</span> <strong>degrees of freedom</strong>. For now, all you need to know is that you can obtain
+<span class="math inline">\(q_{n-1,\alpha}\)</span> satisfying <span class="math inline">\(P(T_{n-1} \leq q_{n-1,\alpha}) = \alpha\)</span> using the command
+<code>qt(alpha,n-1)</code> in <code>R</code>.</p>
+<p>The formula for a <span class="math inline">\(1-\alpha\)</span> confidence interval when the standard deviation is unknown
+is
+<span class="math display">\[
+\left(\hat{\mu} - q_{n-1,1 - \alpha/2}\times\frac{s_{n}}{\sqrt{n}},\hat{\mu} + q_{n-1,1 - \alpha/2}\times\frac{s_{n}}{\sqrt{n}}\right)
+\]</span>
+Basically, when you swap <span class="math inline">\(\sigma\)</span> for <span class="math inline">\(s_{n}\)</span>, you swap <span class="math inline">\(q_{\alpha}\)</span> for <span class="math inline">\(q_{n-1,\alpha}\)</span>.</p>
+<p>We can check this fixes the problem using simulation:</p>
+<div class="sourceCode" id="section-cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1"><span class="kw">set.seed</span>(<span class="dv">7894236</span>) <span class="co"># Same seed as before</span></a>
+<a class="sourceLine" id="cb289-2" title="2">n &lt;-<span class="st"> </span><span class="dv">5</span> <span class="co"># Use a small sample to make this really obvious</span></a>
+<a class="sourceLine" id="cb289-3" title="3">compute_ci_samplesd_T &lt;-<span class="st"> </span><span class="cf">function</span>(samp) {</a>
+<a class="sourceLine" id="cb289-4" title="4">  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)</a>
+<a class="sourceLine" id="cb289-5" title="5">  sn &lt;-<span class="st"> </span><span class="kw">sd</span>(samp)</a>
+<a class="sourceLine" id="cb289-6" title="6">  n &lt;-<span class="st"> </span><span class="kw">length</span>(samp)</a>
+<a class="sourceLine" id="cb289-7" title="7">  critval &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">.05</span><span class="op">/</span><span class="dv">2</span>,n<span class="dv">-1</span>)</a>
+<a class="sourceLine" id="cb289-8" title="8">  <span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb289-9" title="9">    <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>xbar <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n),</a>
+<a class="sourceLine" id="cb289-10" title="10">    <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>xbar <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n)</a>
+<a class="sourceLine" id="cb289-11" title="11">  )</a>
+<a class="sourceLine" id="cb289-12" title="12">}</a>
+<a class="sourceLine" id="cb289-13" title="13"></a>
+<a class="sourceLine" id="cb289-14" title="14"><span class="co"># True mu = 0, true sigma = 1</span></a>
+<a class="sourceLine" id="cb289-15" title="15">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb289-16" title="16">doesthenewsampleonecontainmu &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb289-17" title="17">doestheoldbadonecontainmu &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb289-18" title="18"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
+<a class="sourceLine" id="cb289-19" title="19">  <span class="co"># Take a sample</span></a>
+<a class="sourceLine" id="cb289-20" title="20">  thesamp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb289-21" title="21">  <span class="co"># Compute the interval</span></a>
+<a class="sourceLine" id="cb289-22" title="22">  samplesigmainterval_oldandbad &lt;-<span class="st"> </span><span class="kw">compute_ci_samplesd</span>(thesamp)</a>
+<a class="sourceLine" id="cb289-23" title="23">  samplesigmainterval_T &lt;-<span class="st"> </span><span class="kw">compute_ci_samplesd_T</span>(thesamp)</a>
+<a class="sourceLine" id="cb289-24" title="24">  <span class="co"># Record whether they each contain zero</span></a>
+<a class="sourceLine" id="cb289-25" title="25">  doestheoldbadonecontainmu[b] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(samplesigmainterval_oldandbad[<span class="st">&#39;lower&#39;</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samplesigmainterval_oldandbad[<span class="st">&#39;upper&#39;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb289-26" title="26">  doesthenewsampleonecontainmu[b] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(samplesigmainterval_T[<span class="st">&#39;lower&#39;</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samplesigmainterval_T[<span class="st">&#39;upper&#39;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb289-27" title="27">  </a>
+<a class="sourceLine" id="cb289-28" title="28">}</a>
+<a class="sourceLine" id="cb289-29" title="29"><span class="co"># Proportion of intervals that contains mu</span></a>
+<a class="sourceLine" id="cb289-30" title="30"><span class="kw">mean</span>(doestheoldbadonecontainmu)</a></code></pre></div>
+<pre><code>[1] 0.876</code></pre>
+<div class="sourceCode" id="section-cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" title="1"><span class="kw">mean</span>(doesthenewsampleonecontainmu)</a></code></pre></div>
+<pre><code>[1] 0.949</code></pre>
+<p>The proportion of <span class="math inline">\(t\)</span>-intervals containing the true <span class="math inline">\(\mu\)</span> is now much closer to
+the nominal coverage of <span class="math inline">\(.95\)</span>.</p>
+</div>
+<div id="section-gross-calorific-value-measurements-for-daw-mill-258gb41" class="section level3">
+<h3><span class="header-section-number">9.1.4</span> Gross calorific value measurements for Daw Mill 258GB41</h3>
+<p>Now, for a different sample of measurements of the gross calorific content of
+some other type of coal, we can compute a confidence interval without assuming
+that the standard deviation is known.</p>
+<p>Read the data in from file <code>grosscalDawMill.txt</code>, call it
+<code>dawmill</code>. You can compute the sample standard deviation and appropriate
+critical value as follows:</p>
+<div class="sourceCode" id="section-cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" title="1">sn &lt;-<span class="st"> </span><span class="kw">sd</span>(dawmill<span class="op">$</span>calorific_value)</a>
+<a class="sourceLine" id="cb293-2" title="2">alpha &lt;-<span class="st"> </span><span class="fl">.05</span></a>
+<a class="sourceLine" id="cb293-3" title="3">critval &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> <span class="kw">nrow</span>(dawmill) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<p>You should get:</p>
+<pre><code>  lower   upper 
+ 0.6478 61.3754 </code></pre>
+</div>
+<div id="section-bootstrap-confidence-intervals" class="section level3">
+<h3><span class="header-section-number">9.1.5</span> Bootstrap Confidence Intervals</h3>
+<p>The construction of the confidence interval assumes we know the distribution
+of
+<span class="math display">\[
+Z_{n} = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}
+\]</span>
+or
+<span class="math display">\[
+T_{n} = \frac{\bar{X} - \mu}{s_{n}/\sqrt{n}}
+\]</span>
+The CLT is very helpful, but it doesn’t always apply, and sometimes we won’t
+know the sampling distribution of <span class="math inline">\(T_{n}\)</span>. We can use the <strong>empirical bootstrap</strong>
+to construct confidence intervals too.</p>
+<p>The only thing that the distribution of <span class="math inline">\(T_{n}\)</span> is actually used for is finding
+the quantiles: the <span class="math inline">\(q_{\alpha}\)</span> with <span class="math inline">\(P(T_{n} \leq q_{\alpha}) = \alpha\)</span>.
+Consider the following algorithm:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Input</strong>: sample <span class="math inline">\(X_{1},\ldots,X_{n}\)</span>,</p></li>
+<li><p><strong>For</strong>: <span class="math inline">\(b = 1,\ldots,B\)</span>, <strong>do</strong>:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Take a <strong>bootstrap sample</strong> <span class="math inline">\(X^{*}_{1},\ldots,X^{*}_{n}\)</span> independently
+from the original sample, and compute its mean <span class="math inline">\(\bar{X}^{*}\)</span> and standard
+deviation <span class="math inline">\(s_{n}^{*}\)</span>,</p></li>
+<li><p>Compute <span class="math inline">\(T^{*}_{n,b} = (\bar{X}^{*} - \bar{X}) / (s_{n}^{*}/\sqrt{n})\)</span>,</p></li>
+</ol></li>
+<li><p><strong>Output</strong>: <span class="math inline">\(T^{*}_{n,1},\ldots,T^{*}_{n,B}\)</span>, a sample from the sampling distribution
+of <span class="math inline">\(T_{n}\)</span>.</p></li>
+</ol>
+<p>The <strong>sample quantiles</strong> of <span class="math inline">\(T^{*}_{n,1},\ldots,T^{*}_{n,B}\)</span> are then used in place of
+the theoretical quantiles we used before.</p>
+<p>First, let’s simulate a dataset to illustrate this idea and so we can compare
+the bootstrap and analytical answers.</p>
+<div class="sourceCode" id="section-cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" title="1"><span class="kw">set.seed</span>(<span class="dv">43547803</span>)</a>
+<a class="sourceLine" id="cb295-2" title="2">B &lt;-<span class="st"> </span><span class="dv">2000</span></a>
+<a class="sourceLine" id="cb295-3" title="3">n &lt;-<span class="st"> </span><span class="dv">5000</span></a>
+<a class="sourceLine" id="cb295-4" title="4"><span class="co"># Simulate one dataset</span></a>
+<a class="sourceLine" id="cb295-5" title="5">ds &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb295-6" title="6"><span class="co"># Values</span></a>
+<a class="sourceLine" id="cb295-7" title="7">alpha &lt;-<span class="st"> </span><span class="fl">.05</span></a>
+<a class="sourceLine" id="cb295-8" title="8">critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb295-9" title="9"><span class="co"># Now resample from it and calculate studentized statistics</span></a>
+<a class="sourceLine" id="cb295-10" title="10">resampledTn &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb295-11" title="11"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
+<a class="sourceLine" id="cb295-12" title="12">  <span class="co"># Draw a bootstrap sample from the dataset ds</span></a>
+<a class="sourceLine" id="cb295-13" title="13">  boot &lt;-<span class="st"> </span><span class="kw">sample</span>(ds,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb295-14" title="14">  <span class="co"># Compute Tn</span></a>
+<a class="sourceLine" id="cb295-15" title="15">  resampledTn[b] &lt;-<span class="st"> </span>(<span class="kw">mean</span>(boot) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(ds)) <span class="op">/</span><span class="st"> </span>(<span class="kw">sd</span>(boot) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(n))</a>
+<a class="sourceLine" id="cb295-16" title="16">}</a>
+<a class="sourceLine" id="cb295-17" title="17"></a>
+<a class="sourceLine" id="cb295-18" title="18"><span class="co"># The confidence limits are obtained from the sample quantiles:</span></a>
+<a class="sourceLine" id="cb295-19" title="19">samplequantiles &lt;-<span class="st"> </span><span class="kw">quantile</span>(resampledTn,<span class="dt">probs =</span> <span class="kw">c</span>(alpha<span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb295-20" title="20">truequantiles &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="kw">c</span>(alpha<span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>),<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb295-21" title="21"><span class="co"># Here&#39;s a plot that illustrates what these look like:</span></a>
+<a class="sourceLine" id="cb295-22" title="22"><span class="kw">tibble</span>(<span class="dt">x =</span> resampledTn) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb295-23" title="23"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb295-24" title="24"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb295-25" title="25"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightgrey&quot;</span>,<span class="dt">bins =</span> <span class="dv">100</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb295-26" title="26"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> samplequantiles[<span class="dv">1</span>],<span class="dt">colour =</span> <span class="st">&quot;orange&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb295-27" title="27"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> samplequantiles[<span class="dv">2</span>],<span class="dt">colour =</span> <span class="st">&quot;orange&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb295-28" title="28"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> truequantiles[<span class="dv">1</span>],<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb295-29" title="29"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> truequantiles[<span class="dv">2</span>],<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb295-30" title="30"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Resampled student statistics with true (blue) and empirical (orange) confidence limits&quot;</span>,</a>
+<a class="sourceLine" id="cb295-31" title="31">       <span class="dt">x =</span> <span class="st">&quot;&quot;</span>,<span class="dt">y =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/boot-1-1.png" width="672" /></p>
+<p><strong>Exercise</strong>: I deliberately chose a large sample size and number of bootstrap samples to make the
+results look good. I encourage you to change these numbers to try and break this
+simulation.</p>
+<p>The bootstrap-resampled confidence limits are close to the truth:</p>
+<div class="sourceCode" id="section-cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1">samplequantiles</a></code></pre></div>
+<pre><code>   2.5%   97.5% 
+-1.9999  2.0060 </code></pre>
+<div class="sourceCode" id="section-cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1">truequantiles</a></code></pre></div>
+<pre><code>[1] -1.96  1.96</code></pre>
+<p>Let’s apply this to the software data from a previous chapter. Recall we had measurements <span class="math inline">\(X_{i}\)</span> of
+the time to failure of a software product, and we had a model <span class="math inline">\(X_{i}\overset{iid}{\sim}\text{Exponential}(\lambda)\)</span>.</p>
+<p>We can use the empirical bootstrap to compute a <span class="math inline">\(95\%\)</span> confidence interval for <span class="math inline">\(E(X_{i}) = \lambda^{-1}\)</span>:</p>
+<div class="sourceCode" id="section-cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1"><span class="co"># Read it in:</span></a>
+<a class="sourceLine" id="cb300-2" title="2">software &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb300-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/software.txt&quot;</span>,</a>
+<a class="sourceLine" id="cb300-4" title="4">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>,</a>
+<a class="sourceLine" id="cb300-5" title="5">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span></a>
+<a class="sourceLine" id="cb300-6" title="6">)</a>
+<a class="sourceLine" id="cb300-7" title="7">alpha &lt;-<span class="st"> </span><span class="fl">.05</span></a>
+<a class="sourceLine" id="cb300-8" title="8">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(software)</a>
+<a class="sourceLine" id="cb300-9" title="9">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(software<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb300-10" title="10">sn &lt;-<span class="st"> </span><span class="kw">sd</span>(software<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb300-11" title="11"></a>
+<a class="sourceLine" id="cb300-12" title="12"><span class="co"># 95% CI for mu based on the empirical bootstrap:</span></a>
+<a class="sourceLine" id="cb300-13" title="13">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb300-14" title="14"></a>
+<a class="sourceLine" id="cb300-15" title="15"><span class="kw">set.seed</span>(<span class="dv">821940379</span>)</a>
+<a class="sourceLine" id="cb300-16" title="16">resampledTn &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb300-17" title="17"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
+<a class="sourceLine" id="cb300-18" title="18">  <span class="co"># Draw a bootstrap sample from the dataset ds</span></a>
+<a class="sourceLine" id="cb300-19" title="19">  boot &lt;-<span class="st"> </span><span class="kw">sample</span>(software<span class="op">$</span>time,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb300-20" title="20">  <span class="co"># Compute Tn</span></a>
+<a class="sourceLine" id="cb300-21" title="21">  resampledTn[b] &lt;-<span class="st"> </span>(<span class="kw">mean</span>(boot) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(software<span class="op">$</span>time)) <span class="op">/</span><span class="st"> </span>(<span class="kw">sd</span>(boot) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(n))</a>
+<a class="sourceLine" id="cb300-22" title="22">}</a>
+<a class="sourceLine" id="cb300-23" title="23"></a>
+<a class="sourceLine" id="cb300-24" title="24"><span class="co"># The confidence limits are obtained from the sample quantiles:</span></a>
+<a class="sourceLine" id="cb300-25" title="25">conflim &lt;-<span class="st"> </span><span class="kw">quantile</span>(resampledTn,<span class="dt">probs =</span> <span class="kw">c</span>(alpha<span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb300-26" title="26"><span class="co"># The confidence interval:</span></a>
+<a class="sourceLine" id="cb300-27" title="27"><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb300-28" title="28">  <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>mn <span class="op">+</span><span class="st"> </span>conflim[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n),</a>
+<a class="sourceLine" id="cb300-29" title="29">  <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>mn <span class="op">+</span><span class="st"> </span>conflim[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n)</a>
+<a class="sourceLine" id="cb300-30" title="30">)</a></code></pre></div>
+<pre><code> lower.2.5% upper.97.5% 
+     436.40      807.14 </code></pre>
+<p><strong>Exercise</strong>: compute a <span class="math inline">\(95\%\)</span> confidence interval for the mean for the software
+data by using the CLT to . This does NOT mean that you should
+use a normal distribution for calculating the critical values– if you don’t understand
+why, go back and read the “Variance Unknown” section on page 348. I got the following:</p>
+<pre><code> lower  upper 
+473.45 824.83 </code></pre>
+<p>Does this lead to different conclusions in practice than the bootstrap interval?</p>
+<p><strong>Exercise</strong>: what if we wanted a confidence interval for <span class="math inline">\(\lambda\)</span>, instead of <span class="math inline">\(\lambda^{-1}\)</span>?
+Show in general that if <span class="math inline">\((L_{n},U_{n})\)</span> is a <span class="math inline">\(1-\alpha\)</span> confidence interval for some
+parameter <span class="math inline">\(\theta\)</span>, that <span class="math inline">\((U_{n}^{-1},L_{n}^{-1})\)</span> is a <span class="math inline">\(1-\alpha\)</span> confidence interval
+for <span class="math inline">\(\theta^{-1}\)</span>. Use this fact to construct a <span class="math inline">\(1-\alpha\)</span> confidence interval for <span class="math inline">\(\lambda\)</span>
+using both the empirical bootstrap and the <span class="math inline">\(t\)</span>-distribution. I got:</p>
+<pre><code>    upper     lower 
+0.0012124 0.0021122 </code></pre>
+<pre><code>upper.97.5%  lower.2.5% 
+  0.0012389   0.0022915 </code></pre>
+<p><strong>Advanced Exercise</strong>: extend that last result: show that if <span class="math inline">\((L_{n},U_{n})\)</span> is a <span class="math inline">\(1-\alpha\)</span> confidence interval for some
+parameter <span class="math inline">\(\theta\)</span>, and <span class="math inline">\(g(\theta)\)</span> is a monotone function, then</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\((g(L_{n}),g(U_{n}))\)</span> is a <span class="math inline">\(1-\alpha\)</span> confidence interval for <span class="math inline">\(g(\theta)\)</span> if <span class="math inline">\(g(\theta)\)</span>
+is <em>increasing</em> and</p></li>
+<li><p><span class="math inline">\((g(U_{n}),g(L_{n}))\)</span> is a <span class="math inline">\(1-\alpha\)</span> confidence interval for <span class="math inline">\(g(\theta)\)</span> if <span class="math inline">\(g(\theta)\)</span>
+is <em>decreasing</em>.</p></li>
+</ol>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="section-maximum-likelihood.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-extended-example-reasoning-about-goodness-of-fit.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

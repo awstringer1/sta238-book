@@ -1,69 +1,105 @@
-# Supplement to Chapter 23 and 24
+# Confidence Intervals and Quantifying Uncertainty
 
-This chapter implements much of the analysis shown in chapters 23 and 24 of 
-A Modern Introduction to Probability and Statistics. R code is given for the
-simple textbook datasets used in the book, and then the concepts are
-illustrated on real data.
+This chapter introduces confidence intervals and uses them to quantify uncertainty
+in estimates of parameters in statistical models.
 
-All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
-
-The assigned exercises associated with this material are from MIPS, as follows: 23.1, 23.2, 23.3; 23.5; 23.6; 23.7; 23.10; 23.11
-24.1, 24.2; 24.3; 24.4; 24.6; 24.9; 24.10. Answers to selected exercises are in the 
-back of the book. You should also do all the "quick exercises" within chapters 23 and 24  
-(solutions are at the end of the chapter). Use `R` as much as possible when answering the
-questions.
+All datasets from MIPS can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
 
 ```{r load-tidy-1,message=FALSE,warning=FALSE}
 library(tidyverse)
+library(patchwork)
+options(digits = 5)
 ```
 
 ## Confidence Intervals for the Mean (Chapter 23)
 
-### Simulation 
+Consider the following familiar scenario: we have a sample $X_{1},\ldots,X_{n}\overset{iid}{\sim}\text{N}(\mu,1)$, and we estimate the unknown 
+parameter $\mu$ using the estimator $\hat{\mu} = \bar{X}$. The sample is random,
+so the estimator is also random. If we took another sample, we would get another 
+value of $\hat{\mu}$. The estimator $\hat{\mu}$ is a random variable, so it has
+a probability distribution. We have seen several ways to get it: mathematical
+derivation, the Central Limit Theorem, and Bootstrapping. In this example, we
+know that $$\hat{\mu} \overset \text{N}(\mu,1/\sqrt{n}).$$ 
 
-Let's first implement the simulation from page 344. We'll generate a bunch of samples
-from a $\text{N}(0,1)$ distribution, compute their confidence intervals, and plot them
+The value $\hat{\mu}$ is called a **point estimate** of the parameter $\mu$. 
+In this chapter we are going to go one step further and **quantify uncertainty**
+in our point estimates for parameters. We are going to do this by using the **sampling distributions** of 
+the estimators to construct random intervals which contain the true parameter 
+value with high probability. These are called **confidence intervals**.
+
+### Simulation: an example
+
+How do we do this? We know that $$\hat{\mu} \overset \text{N}(\mu,1/\sqrt{n}).$$ 
+Rearrangement gives $$Z_{n} = \frac{\hat{\mu} - \mu}{1/\sqrt{n}} \overset \text{N}(0,1).$$
+
+Let $q_{\alpha}$ be the $\alpha$-*quantile* of $Z_{n}$: the value such that $P(Z_{n} \leq q_{\alpha}) = \alpha$, for $0 \leq \alpha \leq 1$. Then we have
+\begin{equation}\begin{aligned}
+1 - \alpha &= P\left( q_{\alpha/2} \leq Z_{n} \leq q_{1 - \alpha/2}\right) \\
+&= P\left( \hat{\mu} - q_{1 - \alpha/2}\times\frac{1}{\sqrt{n}} \leq \mu \leq \hat{\mu} + q_{1 - \alpha/2}\times\frac{1}{\sqrt{n}}\right)
+\end{aligned}\end{equation}
+where we used $q_{1 - \alpha/2} = -q_{\alpha/2}$. The values
+\begin{equation}\begin{aligned}
+L_{n} &= \hat{\mu} - q_{1 - \alpha/2}\times\frac{1}{\sqrt{n}} \\
+U_{n} &= \hat{\mu} + q_{1 - \alpha/2}\times\frac{1}{\sqrt{n}} \\
+\end{aligned}\end{equation}
+are random variables. We just showed that $P(L_{n} \leq \mu \leq U_{n}) = 1-\alpha$.
+We call the random interval $(L_{n},U_{n})$ a $1-\alpha$ **confidence interval** for $\mu$.
+
+The interpretation of $(L_{n},U_{n})$ sometimes gets confused. $\mu$ is not random:
+it is a fixed, unknown quantity. $(L_{n},U_{n})$ are random: they change with the
+sample. If you took a different sample, you would get a different interval $(L_{n},U_{n})$.
+If you took many samples, about $(1-\alpha)\times 100\%$ of them would contain the
+fixed, unknown value $\mu$.
+
+Let's use a simulation to illustrate this concept. Take $\mu = 0$. We'll generate a bunch of samples
+from a $\text{N}(0,1)$ distribution, compute their confidence intervals $(L_{n},U_{n})$, and plot them.
+We'll use $\alpha = 0.05$ so that about $95\%$ of the calculated intervals should contain
+the value $0$.
 
 ```{r normsim-1}
-set.seed(432432432)
+set.seed(4329432)
 # How many samples to generate
 B <- 50
 # Sample size of each
 n <- 20
 # Confidence level
-conf <- .9
-# Critical value- the book just gives this as 1.729
-# This actually took me a minute to figure out... so make sure
-# you get what I'm doing here:
-critval <- qt(1 - (1-conf)/2,df = n-1)
+alpha <- .05
+# Quantile
+critval <- qnorm(1 - alpha/2) # For alpha = .05 this equals 1.96
 # Perform the simulation
-confints <- 1:B %>%
-  # Generate the samples
-  map(~rnorm(n,0,1)) %>%
-  # Compute the confidence intervals
-  map(~c("mean" = mean(.x),
-         "lower" = mean(.x) - critval * sd(.x)/sqrt(n),
-         "upper" = mean(.x) + critval * sd(.x)/sqrt(n))
-      ) %>%
-  # Put them in a dataframe
-  reduce(bind_rows) %>%
-  # Add a row index, for purposes of plotting
-  mutate(id = 1:B)
+theintervals <- list(
+  lower = numeric(B),
+  upper = numeric(B)
+)
+for (b in 1:B) {
+  # Generate a sample
+  xx <- rnorm(n,0,1)
+  # Compute the confidence interval
+  Ln <- mean(xx) - critval * (1/sqrt(n))
+  Un <- mean(xx) + critval * (1/sqrt(n))
+  theintervals$lower[[b]] <- Ln
+  theintervals$upper[[b]] <- Un
+}
 
 # Compute the proportion that don't contain zero
-scales::percent(mean(confints$upper < 0 | confints$lower > 0))
+# Should be close to alpha
+mean(theintervals$upper < 0 | theintervals$lower > 0)
 
-# Plot them. Run this code layer by layer
-# to understand what each part does.
-confints %>%
+# Plot them. This is a more complicated plot than you're used to.
+# Run this code layer by layer to understand what each part does.
+as_tibble(theintervals) %>%
+  mutate(id = 1:n(),
+         has_zero = if_else(lower > 0 | upper < 0,"no","yes")) %>%
   ggplot(aes(x = id)) +
   theme_classic() +
-  geom_point(aes(y = mean),pch = 21,colour = "black",fill = "orange",size = 1) +
-  geom_errorbar(aes(ymin = lower,ymax = upper),size = .1) +
+  geom_point(aes(y = (upper + lower)/2),pch = 21,colour = "black",fill = "orange",size = 1) +
+  geom_errorbar(aes(ymin = lower,ymax = upper,colour = has_zero),size = .2) +
   geom_hline(yintercept = 0,colour = "red",linetype = "dotdash") +
   scale_y_continuous(breaks = seq(-1,1,by=.2)) +
+  scale_color_manual(values = c("no" = "red","yes" = "black")) +
   coord_flip() +
   theme(axis.title.y = element_blank(),axis.text.y = element_blank(),axis.ticks.y = element_blank()) +
+  guides(colour = FALSE) +
   labs(y = "")
 
 
@@ -72,11 +108,19 @@ confints %>%
 **Exercise**: re-run this experiment several times with different random seeds. What
 kind of empirical coverage probabilities---the proportion of intervals that don't contain zero---do you
 get? What about if you raise the sample size to `n = 100`? What about if you raise the
-number of simulations to `B = 1000`?
+number of simulations to `B = 1000` (do NOT make the plot if you raise B this high!)?
+
+**Exercise**: suppose instead of $\text{N}(\mu,1)$, the data are distributed as
+$\text{N}(\mu,\sigma)$ where $\sigma$ is a known constant. Show that a $1-\alpha$
+confidence interval for $\mu$ is
+$$
+\left(\hat{\mu} - q_{1 - \alpha/2}\times\frac{\sigma}{\sqrt{n}},\hat{\mu} + q_{1 - \alpha/2}\times\frac{\sigma}{\sqrt{n}}\right)
+$$
 
 ### Gross calorific value measurements for Osterfeld 262DE27
 
-The Osterfield data is made available with the book. Its file name is misspelled,
+The Osterfield data is made available with MIPS. It contains measurements of the gross
+calorific content of a type of coal. Its file name is misspelled,
 so be careful:
 
 ```{bash oster-1}
@@ -99,7 +143,11 @@ osterfield <- readr::read_csv(
 glimpse(osterfield)
 ```
 
-Recreate the confidence interval in the book:
+Suppose that the measurements are normally distributed with known $\sigma = .1$.
+Then we can compute a $95\%$ confidence interval.
+
+**Exercise**: if we want a $95\%$ or $0.95$ confidence interval, what is $\alpha$?
+What is $q_{1 - \alpha/2}$?
 
 ```{r oster-4}
 # Compute the sample mean and size
@@ -108,9 +156,9 @@ n <- nrow(osterfield)
 # The population standard deviation, and the critical value/confidence level
 # are given as:
 sigma <- .1
-conf <- .95
+conf <- .05
 # Make sure to UNDERSTAND this calculation:
-critval <- qnorm(1 - (1-conf)/2) # 1.96
+critval <- qnorm(1 - alpha/2) # 1.96
 # Compute the interval
 c(
   "lower" = xbar - critval * sigma/sqrt(n),
@@ -118,10 +166,139 @@ c(
 )
 ```
 
+We are $95\%$ **confident** that $\mu$ lies between $23.747$ and $23.829$. This
+means that if we were to repeat this experiment over and over, obtaining each time
+a new sample and hence a new confidence interval, that about $95\%$ of those
+intervals ought to contain the true value of $\mu$, whatever it is.
+
+### When you don't know $\sigma$
+
+Now, suppose we have a normal sample but we don't know $\sigma$. If we don't know $\sigma$ we might think to estimate it using the sample standard deviation
+$$
+\hat{\sigma} = s_{n} = \sqrt{ \frac{1}{n}\sum_{i=1}^{n}\left(x_{i} - \bar{x}\right)^2}
+$$
+and then plug in $s_{n}$ instead of $\sigma$ in the formula for a confidence interval.
+
+It turns out this is basically what we do, but with a catch. We now don't only have
+uncertainty in $\mu$: we also have uncertainty in $\sigma$. Plugging in $s_{n}$ and
+treating it as the truth ignores this uncertainty and leads to a confidence interval 
+for $\mu$ that is too wide. This means that it will contain the true $\mu$ less than
+$(1 - \alpha)\times 100\%$ of the time.
+
+Let's see this using simulation:
+```{r badconf-1}
+set.seed(7894236)
+n <- 5 # Use a small sample to make this really obvious
+compute_ci_fixedsd <- function(samp) {
+  xbar <- mean(samp)
+  n <- length(samp)
+  critval <- qnorm(1 - .05/2,0,1)
+  c(
+    "lower" = xbar - critval * 1/sqrt(n),
+    "upper" = xbar + critval * 1/sqrt(n)
+  )
+}
+
+compute_ci_samplesd <- function(samp) {
+  xbar <- mean(samp)
+  sn <- sd(samp)
+  n <- length(samp)
+  critval <- qnorm(1 - .05/2,0,1)
+  c(
+    "lower" = xbar - critval * sn/sqrt(n),
+    "upper" = xbar + critval * sn/sqrt(n)
+  )
+}
+
+# True mu = 0, true sigma = 1
+B <- 1000
+doesthefixedonecontainmu <- numeric(B)
+doesthesampleonecontainmu <- numeric(B)
+for (b in 1:B) {
+  # Take a sample
+  thesamp <- rnorm(n,0,1)
+  # Compute the intervals
+  fixedsigmainterval <- compute_ci_fixedsd(thesamp)
+  samplesigmainterval <- compute_ci_samplesd(thesamp)
+  # Record whether they each contain zero
+  doesthefixedonecontainmu[b] <- as.numeric(fixedsigmainterval['lower'] < 0 & fixedsigmainterval['upper'] > 0)
+  doesthesampleonecontainmu[b] <- as.numeric(samplesigmainterval['lower'] < 0 & samplesigmainterval['upper'] > 0)
+}
+# Proportion of each type of interval that contains mu
+mean(doesthefixedonecontainmu)
+mean(doesthesampleonecontainmu)
+
+```
+
+The proportion of known-$\sigma$ intervals containing the true $\mu$ is close to
+the "nominal" value of $0.95$. The proportion of the estimated-$\sigma$ intervals
+containing the true $\mu$ is less, because these intervals are too narrow, because
+they ignore uncertainty in $\sigma$.
+
+To mitigate this, we widen the interval. We do so in a specific way. It turns out
+that
+$$
+t_{n} = \frac{\bar{X} - \mu}{s_{n}/\sqrt{n}}\sim T_{n-1}
+$$
+where the random variable $T_{n-1}$ has what is called the $t$**-distribution with**
+$n-1$ **degrees of freedom**. For now, all you need to know is that you can obtain
+$q_{n-1,\alpha}$ satisfying $P(T_{n-1} \leq q_{n-1,\alpha}) = \alpha$ using the command
+`qt(alpha,n-1)` in `R`.
+
+The formula for a $1-\alpha$ confidence interval when the standard deviation is unknown
+is
+$$
+\left(\hat{\mu} - q_{n-1,1 - \alpha/2}\times\frac{s_{n}}{\sqrt{n}},\hat{\mu} + q_{n-1,1 - \alpha/2}\times\frac{s_{n}}{\sqrt{n}}\right)
+$$
+Basically, when you swap $\sigma$ for $s_{n}$, you swap $q_{\alpha}$ for $q_{n-1,\alpha}$.
+
+We can check this fixes the problem using simulation:
+
+```{r badconf-2}
+set.seed(7894236) # Same seed as before
+n <- 5 # Use a small sample to make this really obvious
+compute_ci_samplesd_T <- function(samp) {
+  xbar <- mean(samp)
+  sn <- sd(samp)
+  n <- length(samp)
+  critval <- qt(1 - .05/2,n-1)
+  c(
+    "lower" = xbar - critval * sn/sqrt(n),
+    "upper" = xbar + critval * sn/sqrt(n)
+  )
+}
+
+# True mu = 0, true sigma = 1
+B <- 1000
+doesthenewsampleonecontainmu <- numeric(B)
+doestheoldbadonecontainmu <- numeric(B)
+for (b in 1:B) {
+  # Take a sample
+  thesamp <- rnorm(n,0,1)
+  # Compute the interval
+  samplesigmainterval_oldandbad <- compute_ci_samplesd(thesamp)
+  samplesigmainterval_T <- compute_ci_samplesd_T(thesamp)
+  # Record whether they each contain zero
+  doestheoldbadonecontainmu[b] <- as.numeric(samplesigmainterval_oldandbad['lower'] < 0 & samplesigmainterval_oldandbad['upper'] > 0)
+  doesthenewsampleonecontainmu[b] <- as.numeric(samplesigmainterval_T['lower'] < 0 & samplesigmainterval_T['upper'] > 0)
+  
+}
+# Proportion of intervals that contains mu
+mean(doestheoldbadonecontainmu)
+mean(doesthenewsampleonecontainmu)
+
+```
+
+The proportion of $t$-intervals containing the true $\mu$ is now much closer to
+the nominal coverage of $.95$.
+
 ### Gross calorific value measurements for Daw Mill 258GB41
 
-As an exercise, now recreate the confidence interval in the book for the
-Daw Mill sample. Read the data in from file `grosscalDawMill.txt`, call it
+Now, for a different sample of measurements of the gross calorific content of
+some other type of coal, we can compute a confidence interval without assuming
+that the standard deviation is known.
+
+Read the data in from file `grosscalDawMill.txt`, call it
 `dawmill`. You can compute the sample standard deviation and appropriate
 critical value as follows:
 
@@ -134,8 +311,9 @@ dawmill <- readr::read_csv(
 ```
 
 ```{r daw-2}
-s <- sd(dawmill$calorific_value)
-critval <- qt(1 - (1-conf)/2,df = nrow(dawmill) - 1)
+sn <- sd(dawmill$calorific_value)
+alpha <- .05
+critval <- qt(1 - alpha/2,df = nrow(dawmill) - 1)
 ```
 
 You should get:
@@ -151,6 +329,39 @@ c(
 
 ### Bootstrap Confidence Intervals
 
+The construction of the confidence interval assumes we know the distribution
+of
+$$
+Z_{n} = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}
+$$
+or
+$$
+T_{n} = \frac{\bar{X} - \mu}{s_{n}/\sqrt{n}}
+$$
+The CLT is very helpful, but it doesn't always apply, and sometimes we won't
+know the sampling distribution of $T_{n}$. We can use the **empirical bootstrap**
+to construct confidence intervals too.
+
+The only thing that the distribution of $T_{n}$ is actually used for is finding 
+the quantiles: the $q_{\alpha}$ with $P(T_{n} \leq q_{\alpha}) = \alpha$. 
+Consider the following algorithm:
+
+1. **Input**: sample $X_{1},\ldots,X_{n}$,
+
+2. **For**: $b = 1,\ldots,B$, **do**:
+
+    a. Take a **bootstrap sample** $X^{*}_{1},\ldots,X^{*}_{n}$ independently
+    from the original sample, and compute its mean $\bar{X}^{*}$ and standard
+    deviation $s_{n}^{*}$,
+    
+    b. Compute $T^{*}_{n,b} = (\bar{X}^{*} - \bar{X}) / (s_{n}^{*}/\sqrt{n})$,
+    
+3. **Output**: $T^{*}_{n,1},\ldots,T^{*}_{n,B}$, a sample from the sampling distribution
+of $T_{n}$.
+
+The **sample quantiles** of $T^{*}_{n,1},\ldots,T^{*}_{n,B}$ are then used in place of
+the theoretical quantiles we used before.
+
 First, let's simulate a dataset to illustrate this idea and so we can compare
 the bootstrap and analytical answers.
 
@@ -161,46 +372,48 @@ n <- 5000
 # Simulate one dataset
 ds <- rnorm(n,0,1)
 # Values
-conf <- .95
-critval <- qnorm(1 - (1 - conf)/2)
+alpha <- .05
+critval <- qnorm(1 - alpha/2)
 # Now resample from it and calculate studentized statistics
-resampledstats <- 1:B %>%
-  map(~sample(ds,n,replace = TRUE)) %>%
-  map(~c(mean(.x) - mean(ds))/(sd(.x)/sqrt(n))) %>%
-  reduce(c)
+resampledTn <- numeric(B)
+for (b in 1:B) {
+  # Draw a bootstrap sample from the dataset ds
+  boot <- sample(ds,n,replace = TRUE)
+  # Compute Tn
+  resampledTn[b] <- (mean(boot) - mean(ds)) / (sd(boot) / sqrt(n))
+}
 
 # The confidence limits are obtained from the sample quantiles:
-conflim <- quantile(resampledstats,probs = c((1-conf)/2,1 - (1 - conf)/2))
+samplequantiles <- quantile(resampledTn,probs = c(alpha/2,1 - alpha/2))
+truequantiles <- qnorm(c(alpha/2,1-alpha/2),0,1)
 # Here's a plot that illustrates what these look like:
-tibble(x = resampledstats) %>%
+tibble(x = resampledTn) %>%
   ggplot(aes(x = x)) +
   theme_classic() +
   geom_histogram(aes(y = ..density..),colour = "black",fill = "lightgrey",bins = 100) +
-  geom_vline(xintercept = conflim[1],colour = "orange",linetype = "dotdash") +
-  geom_vline(xintercept = conflim[2],colour = "orange",linetype = "dotdash") +
-  stat_function(fun = dnorm,args = list(mean = mean(ds),sd = sd(ds)),colour = "blue") +
-  labs(title = "Resampled student statistics and empirical confidence limits",
-       subtitle = "A normal distribution (blue curve) fits well",
+  geom_vline(xintercept = samplequantiles[1],colour = "orange",linetype = "dotdash") +
+  geom_vline(xintercept = samplequantiles[2],colour = "orange",linetype = "dotdash") +
+  geom_vline(xintercept = truequantiles[1],colour = "blue",linetype = "dotdash") +
+  geom_vline(xintercept = truequantiles[2],colour = "blue",linetype = "dotdash") +
+  labs(title = "Resampled student statistics with true (blue) and empirical (orange) confidence limits",
        x = "",y = "")
 ```
 
-I deliberately chose a large sample size and number of bootstrap samples to make the
+**Exercise**: I deliberately chose a large sample size and number of bootstrap samples to make the
 results look good. I encourage you to change these numbers to try and break this
 simulation.
 
 The bootstrap-resampled confidence limits are close to the truth:
 
 ```{r boot-2}
-conflim
-qnorm(c((1-conf)/2,1 - (1-conf)/2))
+samplequantiles
+truequantiles
 ```
 
-Let's apply this to the software data. Oddly, I get different values for the mean,
-standard deviation, and sample size than the book reports. If you are the first 
-person to figure out why,
-I will give you a $\$10$ Tim card. The differences aren't meaningful enough to 
-affect the presentation of these ideas.
+Let's apply this to the software data from a previous chapter. Recall we had measurements $X_{i}$ of 
+the time to failure of a software product, and we had a model $X_{i}\overset{iid}{\sim}\text{Exponential}(\lambda)$. 
 
+We can use the empirical bootstrap to compute a $95\%$ confidence interval for $E(X_{i}) = \lambda^{-1}$:
 ```{r software-1-1}
 # Read it in:
 software <- readr::read_csv(
@@ -208,140 +421,71 @@ software <- readr::read_csv(
   col_names = "time",
   col_types = "n"
 )
-
-B <- 1000 # Same as book
+alpha <- .05
 n <- nrow(software)
 mn <- mean(software$time)
-ss <- sd(software$time)
-conf <- .9
+sn <- sd(software$time)
+
+# 95% CI for mu based on the empirical bootstrap:
+B <- 1000
+
 set.seed(821940379)
-resampledstats <- 1:B %>%
-  map(~sample(software$time,n,replace = TRUE)) %>%
-  map(~c(mean(.x) - mn)/(sd(.x)/sqrt(n))) %>%
-  reduce(c)
+resampledTn <- numeric(B)
+for (b in 1:B) {
+  # Draw a bootstrap sample from the dataset ds
+  boot <- sample(software$time,n,replace = TRUE)
+  # Compute Tn
+  resampledTn[b] <- (mean(boot) - mean(software$time)) / (sd(boot) / sqrt(n))
+}
 
 # The confidence limits are obtained from the sample quantiles:
-conflim <- quantile(resampledstats,probs = c((1-conf)/2,1 - (1 - conf)/2))
+conflim <- quantile(resampledTn,probs = c(alpha/2,1 - alpha/2))
 # The confidence interval:
 c(
-  "lower" = mn + conflim[1] * ss/sqrt(n),
-  "upper" = mn + conflim[2] * ss/sqrt(n)
+  "lower" = mn + conflim[1] * sn/sqrt(n),
+  "upper" = mn + conflim[2] * sn/sqrt(n)
 )
 ```
 
-**Exercise**: compute a $90\%$ confidence interval for the mean for the software
-data assuming the data is normally distributed. This does NOT mean that you should
+**Exercise**: compute a $95\%$ confidence interval for the mean for the software
+data by using the CLT to . This does NOT mean that you should
 use a normal distribution for calculating the critical values-- if you don't understand
 why, go back and read the "Variance Unknown" section on page 348. I got the following:
 
 ```{r boot-4,echo = FALSE}
-critval <- qt(1 - (1-conf)/2,df = n -1)
 c(
-  "lower" = mn - critval * ss/sqrt(n),
-  "lower" = mn + critval * ss/sqrt(n)
+  "lower" = mn - qt(1-alpha/2,n-1) * sn / sqrt(n),
+  "upper" = mn + qt(1-alpha/2,n-1) * sn / sqrt(n)
 )
 ```
 
 Does this lead to different conclusions in practice than the bootstrap interval?
 
-## More on confidence intervals (Chapter 24)
+**Exercise**: what if we wanted a confidence interval for $\lambda$, instead of $\lambda^{-1}$?
+Show in general that if $(L_{n},U_{n})$ is a $1-\alpha$ confidence interval for some
+parameter $\theta$, that $(U_{n}^{-1},L_{n}^{-1})$ is a $1-\alpha$ confidence interval
+for $\theta^{-1}$. Use this fact to construct a $1-\alpha$ confidence interval for $\lambda$
+using both the empirical bootstrap and the $t$-distribution. I got:
 
-### Binomial distribution
+```{r lambda-int-1,echo = FALSE}
+t_interval <- sort(c(
+  "lower" = mn - qt(1-alpha/2,n-1) * sn / sqrt(n),
+  "upper" = mn + qt(1-alpha/2,n-1) * sn / sqrt(n)
+)^-1)
 
-The binomial example is a very good one for understanding how confidence intervals
-work.
-
-Consider the form of the confidence interval for $p$ when $X\sim\text{Bin}(n,p)$:
-\begin{equation}
-\left(\frac{X}{n} - p \right)^{2} - \left( z_{\alpha/2}\right)^{2}\frac{p(1-p)}{n} < 0
-\end{equation}
-The book says the solution is "awkward". As a self-annointed expert on all things
-awkward, I am not sure I agree. I do, however, also not want to do the math. It
-is less tedious and more illustrative to plot this interval and see how it changes
-with $X$:
-
-```{r binom-1}
-set.seed(876098978)
-the_quadratic <- function(p,X,n,alpha = 0.05) {
-  # p: a vector of values at which to plot the quadratic
-  (X/n - p)^2 - qnorm(1 - alpha/2) * (p*(1-p)/n)
-}
-# Generate some data from a distribution with a known p
-p0 <- .3
-n <- 10
-X <- rbinom(1,n,p0)
-
-tibble(p = c(0,1)) %>%
-  ggplot(aes(x = p)) +
-  theme_classic() +
-  stat_function(fun = the_quadratic,args = list(X = X,n = n)) +
-  geom_hline(yintercept = 0,colour = "lightgrey",linetype = "dotdash")
+empboot_interval <- sort(c(
+  "lower" = mn + conflim[1] * ss/sqrt(n),
+  "upper" = mn + conflim[2] * ss/sqrt(n)
+)^-1)
+t_interval
+empboot_interval
 ```
 
-**Exercise**: put vertical lines on this plot at the locations where the parabola touch
-zero. This means use the quadratic formula to find the roots and plot them using
-`geom_vline(xintercept = ???)`.
+**Advanced Exercise**: extend that last result: show that if $(L_{n},U_{n})$ is a $1-\alpha$ confidence interval for some
+parameter $\theta$, and $g(\theta)$ is a monotone function, then
 
-Consider Remark 24.1, which discusses why we can't get confidence intervals with
-exact coverage probabilities for discrete distributions. For $n = 10$, $X = 6$, 
-$\alpha = .05$, let's investigate the coverage probability of our confidence
-interval using a parametric bootstrap.
+1. $(g(L_{n}),g(U_{n}))$ is a $1-\alpha$ confidence interval for $g(\theta)$ if $g(\theta)$
+is *increasing* and
 
-We are going to simulate values from a $\text{Bin}(10,.3)$ distribution,
-compute the confidence interval for each, and then assess whether it contains
-the true value $p_{0} = .3$. The proportion of intervals in our $B$ bootstrap samples
-that contain the true value is the bootstrapped estimate of the interval's coverage
-probability.
-
-```{r boot-3}
-set.seed(8798)
-B <- 1000
-n <- 10
-p0 <- .3
-
-# Simulate B values from a binomial distribution:
-samps <- rbinom(B,n,p0)
-
-# Write a function for computing the interval for each X
-# I am going to use a numerical root-finding program
-# You will replace this part with the formula you derived
-# in the previous exercise
-compute_interval <- function(X) {
-  optfun <- function(p) the_quadratic(p,X,10)
-  rootSolve::uniroot.all(optfun,c(0,1))
-}
-
-# Do the bootstrap
-samps %>%
-  map(compute_interval) %>% # Compute the interval for each sample
-  map(~as.numeric(.x[1] < p0 & .x[2] > p0)) %>% # Create a 0/1 indicator of whether the interval contains p0
-  reduce(c) %>% # Combine the results in a vector
-  mean() %>% # The proportion of 1's (the mean) is the proportion of intervals which contained the true value, i.e. the coverage probability
-  scales::percent() # Format as a percentage
-```
-
-**Exercise**: I put the above procedure into a function:
-
-```{r boot-4-1}
-bootstrap_coverage <- function(B = 1000,n = 10,p0 = .3) {
-  samps <- rbinom(B,n,p0)
-  
-  compute_interval <- function(X) {
-    optfun <- function(p) the_quadratic(p,X,10)
-    rootSolve::uniroot.all(optfun,c(0,1))
-  }
-  
-  samps %>%
-  map(compute_interval) %>% 
-  map(~as.numeric(.x[1] < p0 & .x[2] > p0)) %>%
-  reduce(c) %>%
-  mean()
-}
-```
-
-Run this function many times and make a histogram of the results. You can use
-`myruns <- 1:1000 %>% map(bootstrap_coverage) %>% reduce(c)` to do this, and then
-refer to previous code for how to make the histogram. What value is in the centre?
-Is the stated coverage probability accurate?
-
-
+1. $(g(U_{n}),g(L_{n}))$ is a $1-\alpha$ confidence interval for $g(\theta)$ if $g(\theta)$
+is *decreasing*.

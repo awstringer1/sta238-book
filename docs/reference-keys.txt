@@ -53,14 +53,13 @@ section-example-two-coins
 section-example-unknown-coins-n-2
 section-example-unknown-coins-n-bigger-than-2
 section-extended-example-rental-housing-in-toronto
-section-supplement-to-chapter-23-and-24
+section-confidence-intervals-and-quantifying-uncertainty
 section-confidence-intervals-for-the-mean-chapter-23
-section-simulation
+section-simulation-an-example
 section-gross-calorific-value-measurements-for-osterfeld-262de27
+section-when-you-dont-know-sigma
 section-gross-calorific-value-measurements-for-daw-mill-258gb41
 section-bootstrap-confidence-intervals
-section-more-on-confidence-intervals-chapter-24
-section-binomial-distribution
 section-extended-example-reasoning-about-goodness-of-fit
 section-go-and-read-the-blog-post
 section-distribution-of-last-digits
@@ -94,3 +93,4 @@ section-chapter-20
 section-evans-and-rosenthal-chapter-7
 section-chapter-18
 section-chapter-21
+section-chapter-23
