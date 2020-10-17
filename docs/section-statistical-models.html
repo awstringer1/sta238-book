@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Statistical Models | STA238: Probability, Statistics, and Data Analysis</title>
+  <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  <meta name="generator" content="bookdown 0.21.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Statistical Models | STA238: Probability, Statistics, and Data Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Statistical Models | STA238: Probability, Statistics, and Data Analysis" />
+  
+  <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+<meta name="author" content="Alison Gibbs and Alex Stringer" />
+
+
+<meta name="date" content="2020-10-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"/>
+<link rel="next" href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STA238 University of Toronto</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a><ul>
+<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="2.1.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="2.2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries-1"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.4.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-association-between-smoking-and-mortality"><i class="fa fa-check"></i><b>2.4.2</b> Association between smoking and mortality</a></li>
+<li class="chapter" data-level="2.4.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
+<li class="chapter" data-level="2.5.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
+<li class="chapter" data-level="2.5.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-iii-trends-in-quality-over-time"><i class="fa fa-check"></i><b>2.5.4</b> Analysis III: trends in quality over time</a></li>
+<li class="chapter" data-level="2.5.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-summary"><i class="fa fa-check"></i><b>2.5.5</b> Summary</a></li>
+<li class="chapter" data-level="2.5.6" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a><ul>
+<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a><ul>
+<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.1.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-simulated-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a><ul>
+<li class="chapter" data-level="5.1" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-estimating-a-uniform-maximum"><i class="fa fa-check"></i><b>5.1</b> Estimating a Uniform Maximum</a></li>
+<li class="chapter" data-level="5.2" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-efficiency"><i class="fa fa-check"></i><b>5.2</b> Efficiency</a></li>
+<li class="chapter" data-level="5.3" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-mean-squared-error"><i class="fa fa-check"></i><b>5.3</b> Mean Squared Error</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a><ul>
+<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-frequentistlikelihood-perspective"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist/Likelihood Perspective</a></li>
+<li class="chapter" data-level="6.1.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-bayesian-inference-introduction"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Inference: introduction</a></li>
+<li class="chapter" data-level="6.1.3" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-flipping-more-coins"><i class="fa fa-check"></i><b>6.1.3</b> Flipping More Coins</a></li>
+<li class="chapter" data-level="6.1.4" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-visualization"><i class="fa fa-check"></i><b>6.1.4</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-interactive-app"><i class="fa fa-check"></i><b>6.2</b> Interactive App</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a><ul>
+<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-empirical-bootstrap-old-faithful-data"><i class="fa fa-check"></i><b>7.1.1</b> Empirical bootstrap: Old Faithful data</a></li>
+<li class="chapter" data-level="7.1.2" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-parametric-bootstrap-software-data"><i class="fa fa-check"></i><b>7.1.2</b> Parametric Bootstrap: software data</a></li>
+<li class="chapter" data-level="7.1.3" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-extended-example-the-standard-error-of-a-proportion"><i class="fa fa-check"></i><b>7.1.3</b> Extended example: the standard error of a proportion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html"><i class="fa fa-check"></i><b>8</b> Supplement to Chapter 21</a><ul>
+<li class="chapter" data-level="8.1" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
+<li class="chapter" data-level="8.1.2" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
+<li class="chapter" data-level="8.1.3" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
+<li class="chapter" data-level="8.1.4" data-path="section-supplement-to-chapter-21.html"><a href="section-supplement-to-chapter-21.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.1.4</b> Extended example: rental housing in Toronto</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html"><i class="fa fa-check"></i><b>9</b> Supplement to Chapter 23 and 24</a><ul>
+<li class="chapter" data-level="9.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-simulation"><i class="fa fa-check"></i><b>9.1.1</b> Simulation</a></li>
+<li class="chapter" data-level="9.1.2" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
+<li class="chapter" data-level="9.1.3" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-gross-calorific-value-measurements-for-daw-mill-258gb41"><i class="fa fa-check"></i><b>9.1.3</b> Gross calorific value measurements for Daw Mill 258GB41</a></li>
+<li class="chapter" data-level="9.1.4" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.4</b> Bootstrap Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-more-on-confidence-intervals-chapter-24"><i class="fa fa-check"></i><b>9.2</b> More on confidence intervals (Chapter 24)</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-binomial-distribution"><i class="fa fa-check"></i><b>9.2.1</b> Binomial distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
+<li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
+<li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
+<li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html"><i class="fa fa-check"></i><b>11</b> Supplement to Evans &amp; Rosenthal Section 7.2</a><ul>
+<li class="chapter" data-level="11.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-the-prior"><i class="fa fa-check"></i><b>11.1.1</b> The Prior</a></li>
+<li class="chapter" data-level="11.1.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-the-posterior"><i class="fa fa-check"></i><b>11.1.2</b> The Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-estimation-in-bayesian-inference-point-and-interval-estimation"><i class="fa fa-check"></i><b>11.2</b> Estimation in Bayesian Inference: point and interval estimation</a></li>
+<li class="chapter" data-level="11.3" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-conjugate-priors"><i class="fa fa-check"></i><b>11.3.1</b> Conjugate Priors</a></li>
+<li class="chapter" data-level="11.3.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a><ul>
+<li class="chapter" data-level="12.1" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-overview"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
+<li class="chapter" data-level="12.2" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-plug-in-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.2</b> Plug-in prediction: coin flipping</a></li>
+<li class="chapter" data-level="12.3" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-bayesian-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.3</b> Bayesian Prediction: coin flipping</a></li>
+<li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-income-and-advertsing-datasets"><i class="fa fa-check"></i><b>12.4</b> Extended example: Income and Advertsing datasets</a></li>
+<li class="chapter" data-level="12.5" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.5</b> Extended example: predicting call centre wait times</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="13.1" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-r"><i class="fa fa-check"></i><b>13.1</b> Installing R</a></li>
+<li class="chapter" data-level="13.2" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-rstudio"><i class="fa fa-check"></i><b>13.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="13.3" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-using-rmarkdown"><i class="fa fa-check"></i><b>13.3</b> Using RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a><ul>
+<li class="chapter" data-level="14.1" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-15-and-16"><i class="fa fa-check"></i><b>14.1</b> Chapters 15 and 16</a></li>
+<li class="chapter" data-level="14.2" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-13-and-14"><i class="fa fa-check"></i><b>14.2</b> Chapters 13 and 14</a></li>
+<li class="chapter" data-level="14.3" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-17-and-19"><i class="fa fa-check"></i><b>14.3</b> Chapters 17 and 19</a></li>
+<li class="chapter" data-level="14.4" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-20"><i class="fa fa-check"></i><b>14.4</b> Chapter 20</a></li>
+<li class="chapter" data-level="14.5" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7"><i class="fa fa-check"></i><b>14.5</b> Evans and Rosenthal, Chapter 7</a></li>
+<li class="chapter" data-level="14.6" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-18"><i class="fa fa-check"></i><b>14.6</b> Chapter 18</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA238: Probability, Statistics, and Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section-statistical-models" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Statistical Models</h1>
+<p>This chapter covers statistical models and plotting regression lines
+(although most of the math of linear regression
+is left to a later chapter) and unbiased estimators.</p>
+<p>We’ll use data from the book A Modern Introduction to Probability and Statistics (MIPS) which can be found here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>. This will be referred to as “the book data folder”. This chapter corresponds to Chapters 17 and 19 in MIPS.</p>
+<div id="section-statistical-models-chapter-17" class="section level2">
+<h2><span class="header-section-number">4.1</span> Statistical models (Chapter 17)</h2>
+<blockquote>
+<p>A statistical model is a probability distribution contructed to enable inferences
+to be drawn or decisions made from data.</p>
+</blockquote>
+<ul>
+<li><em>Statistical Models</em> (2008), A.C. Davison, Cambridge Series in Statistical and Probabilistic Mathematics</li>
+</ul>
+<p>Data are realizations of random variables. The probability distribution of these random
+variables can be used to reason about properties of the universe which are not directly
+observable. This is called making an <strong>inference</strong>. These “properties” are usually unknown
+numbers which we call <strong>parameters</strong>. So</p>
+<ul>
+<li>Statistical models are probability distributions for observable data,</li>
+<li>which depend on one or more unknown parameters,</li>
+<li>which represent unobservable, unknown properties of the universe,</li>
+<li>that we want to know.</li>
+</ul>
+<p>Statistical inference is the science of estimating parameters in statistical models
+using data.</p>
+<p><strong>Example</strong>: a drug company wants to know if their new drug leads to different cholesterol
+levels in peoples’ blood than a placebo. The <strong>difference in cholesterol levels in peoples’ blood who take the new drug vs those who take the placebo</strong> is a single,
+unknown, unobservable number, that the drug company would like to know– a <strong>parameter</strong>. The company
+gives some people the drug and some people a placebo, and observes each person’s blood cholesterol– <strong>data</strong>.
+The drug company then uses these data along with a <strong>statistical model</strong> to <strong>estimate</strong> the unknown parameter,
+that is, the difference in cholesterol levels in peoples’ blood who take the new drug vs those who take the placebo.</p>
+<p><strong>Example</strong>: astrophysicists want to know the mass of the Milky Way galaxy. It’s really, really
+heavy (they measure it in units of “the mass of one trillion suns”), so they can’t just
+go out and measure its weight directly. The mass of the Milky Way is a single, unknown,
+unobservable number– a <strong>parameter</strong>. The astrophysicists can measure the position
+and velocity of stars (actually clusters of stars) which orbit the the Galaxy (<strong>data</strong>)
+and they have a <strong>statistical model</strong> which relates these position and velocity measurements
+to the mass of the Galaxy. They go out, measure the position and velocities of these star clusters,
+and use them and this model to estimate the mass of the Milky Way.</p>
+<div id="section-linear-regression" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Linear Regression</h3>
+<p>A very common introductory statistical model is <strong>Linear Regression</strong>. Suppose you
+have data <span class="math inline">\(y_{i}\overset{ind}{\sim}\text{N}(\mu_{i},\sigma^{2})\)</span>– normally distributed
+observations with different means and the same standard deviation. Suppose you have
+a covariate <span class="math inline">\(x_{i}\)</span> and you want to see how the mean of <span class="math inline">\(y_{i}\)</span> depends on <span class="math inline">\(x_{i}\)</span>.
+Linear regression says that this dependence is
+<span class="math display">\[
+\mu_{i} = \beta_{0} + \beta_{1}x_{i}
+\]</span>
+where <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> are unknown <strong>parameters</strong>. The <strong>data</strong> <span class="math inline">\(y_{i}\)</span> are
+used to estimate these parameters within this statistical model.</p>
+<p>The Janka Hardness dataset contains measurements of the density and hardness of the
+wood from some trees. It is of interest to who-and-or-whomever took these measurements
+to relate the average hardness of the wood to its density. So <span class="math inline">\(y_{i}\)</span> is hardness
+and <span class="math inline">\(x_{i}\)</span> is density and we will do inference for the two unknown parameters
+in the linear regression model.</p>
+<p>First read in the data. Print it out on the command line:</p>
+<div class="sourceCode" id="section-cb141"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb141-1" title="1"><span class="fu">head</span> data/MIPSdata/jankahardness.txt</a></code></pre></div>
+<pre><code>24.7    484
+24.8    427
+27.3    413
+28.4    517
+28.4    549
+29  648
+30.3    587
+32.7    704
+35.6    979
+38.5    914</code></pre>
+<p>By printing it out on the command line, you can tell that the file is <em>tab-delimited</em>.
+Use <code>readr::read_delim()</code> to read it in:</p>
+<div class="sourceCode" id="section-cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb143-2" title="2"><span class="kw">library</span>(patchwork)</a>
+<a class="sourceLine" id="cb143-3" title="3">janka &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_delim</span>(</a>
+<a class="sourceLine" id="cb143-4" title="4">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/jankahardness.txt&quot;</span>,</a>
+<a class="sourceLine" id="cb143-5" title="5">  <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>,</a>
+<a class="sourceLine" id="cb143-6" title="6">  <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;density&quot;</span>,<span class="st">&quot;hardness&quot;</span>),</a>
+<a class="sourceLine" id="cb143-7" title="7">  <span class="dt">col_types =</span> <span class="st">&quot;nn&quot;</span></a>
+<a class="sourceLine" id="cb143-8" title="8">)</a>
+<a class="sourceLine" id="cb143-9" title="9"><span class="kw">glimpse</span>(janka)</a></code></pre></div>
+<pre><code>Observations: 36
+Variables: 2
+$ density  &lt;dbl&gt; 25, 25, 27, 28, 28, 29, 30, 33, 36, 38, 39, 39, 39, 40, 40, 41, 41, 41, 43, 46, 47, 48, 52, 52, 53, 56, 56, 57, 58,…
+$ hardness &lt;dbl&gt; 484, 427, 413, 517, 549, 648, 587, 704, 979, 914, 1070, 1020, 1210, 989, 1160, 1010, 1100, 1130, 1270, 1180, 1400, …</code></pre>
+<p>Create a scatterplot with <code>ggplot2</code>:</p>
+<div class="sourceCode" id="section-cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1">jankascatter &lt;-<span class="st"> </span>janka <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb145-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> density,<span class="dt">y =</span> hardness)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb145-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb145-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb145-5" title="5"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">20</span>,<span class="dv">80</span>,<span class="dt">by=</span><span class="dv">10</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb145-6" title="6"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3500</span>,<span class="dt">by=</span><span class="dv">500</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb145-7" title="7"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">20</span>,<span class="dv">80</span>),<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">3500</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb145-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wood density&quot;</span>,</a>
+<a class="sourceLine" id="cb145-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Hardness&quot;</span>)</a>
+<a class="sourceLine" id="cb145-10" title="10">jankascatter</a></code></pre></div>
+<p><img src="book_files/figure-html/janka-2-1.png" width="672" /></p>
+<p>It looks like on average, the hardness of the wood increases linearly with its density.
+A linear regression model might be appropriate.</p>
+<p>To add a line to a plot, use <code>geom_abline()</code>:</p>
+<div class="sourceCode" id="section-cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1">jankascatter <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb146-2" title="2"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="fl">57.51</span>,<span class="dt">intercept =</span> <span class="fl">-1160.5</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/janka-3-1.png" width="672" /></p>
+<p>In a later chapter, you will learn how to calculate the <span class="math inline">\(-1160.5\)</span> and the <span class="math inline">\(57.51\)</span>
+yourself. But for now, it would still be nice to get the computer to compute these
+values for us rather than typing them in manually. We can do this using the
+<code>geom_smooth()</code> function in <code>ggplot2</code>:</p>
+<div class="sourceCode" id="section-cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">jankascatter <span class="op">+</span></a>
+<a class="sourceLine" id="cb147-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/janka-4-1.png" width="672" /></p>
+<p>The “lm” stands for “linear model” and the “se” stands for “standard error”; leaving
+this at its default of “TRUE” would add error bars to the line. We haven’t learned
+about error bars yet.</p>
+<p><strong>Aside</strong>: there are other types of lines you can add with \texttt{geom_smooth}.
+The “loess” non-linear regression line is a type of nonlinear regression obtained
+by breaking the <span class="math inline">\(x\)</span> axis up into chunks and then doing linear regression in each
+chunk and then joining the resulting lines together.
+It roughly stands for “local regression and smoothing
+splines”. We can add this using <code>ggplot2</code> as well:</p>
+<div class="sourceCode" id="section-cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1">jankascatter <span class="op">+</span></a>
+<a class="sourceLine" id="cb148-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/janka-5-1.png" width="672" /></p>
+<p>For these data, this isn’t much different.</p>
+</div>
+<div id="section-extended-example-ttc-ridership-revenues" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Extended example: TTC ridership revenues</h3>
+<p>Toronto’s population is growing over time. This puts strain on our outdated
+public transit system. But it should also lead to increased revenues. According to
+(<a href="https://globalnews.ca/news/1670796/how-does-the-ttcs-funding-compare-to-other-transit-agencies/" class="uri">https://globalnews.ca/news/1670796/how-does-the-ttcs-funding-compare-to-other-transit-agencies/</a>)[a news
+article from a few years back], the TTC is the least-subsidized major transit agency
+in North America, which means that its operating budget is the most dependent on
+fare revenue out of any in all of the US and Canada. Tracking how ridership
+revenues are changing over time is very important.</p>
+<p>The city of Toronto does do this. Go to <a href="https://www.toronto.ca/city-government/data-research-maps/toronto-progress-portal/">the City of Toronto Progress Portal</a> and type “TTC” and click on the box that says
+“TTC Ridership Revenues” to see a report. You can download the data from here, but
+since it’s a bit tricky to describe exactly how, I have put the file
+<code>ttc-ridership-revenues.csv</code> in the <code>data</code> folder. We are going to read these data into <code>R</code>
+and analyze the relationship between <code>year</code> and <code>revenue</code>.</p>
+<p>If you’re thinking “that sounds really easy, we just did that!”… just keep reading.</p>
+<p>First, print the data out and count the number of rows on the command line:</p>
+<div class="sourceCode" id="section-cb149"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb149-1" title="1"><span class="fu">head</span> data/ttc-ridership-revenues.csv</a>
+<a class="sourceLine" id="cb149-2" title="2"><span class="fu">wc</span> -l data/ttc-ridership-revenues.csv</a></code></pre></div>
+<pre><code>Year,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec
+2007 YTD Actual,$70600000,$131200000,$204600000,$264900000,$322000000,$395100000,$452100000,$507500000,$585600000,$646900000,$712500000,$774700000
+2008 YTD Actual,$72700000,$137600000,$217500000,$278200000,$340600000,$419600000,$482400000,$544100000,$629000000,$696400000,$766600000,$837000000
+2009 YTD Actual,$69300000,$135400000,$216600000,$280500000,$344000000,$422100000,$483400000,$543500000,$627200000,$693900000,$762400000,$834900000
+2010 YTD Actual,$72200000,$143400000,$230700000,$302400000,$372500000,$459100000,$528800000,$595700000,$689100000,$764500000,$842000000,$929300000
+2011 YTD Actual,$75300000,$150800000,$244400000,$318300000,$392400000,$484800000,$557300000,$625500000,$722000000,$799500000,$879100000,$969900000
+2012 YTD Actual,$75500000,$154800000,$253900000,$331600000,$408300000,$507100000,$581800000,$654300000,$755800000,$835900000,$919100000,$1017600000
+2013 YTD Actual,$93200000,$176600000,$278200000,$360300000,$439700000,$539700000,$617400000,$693500000,$799600000,$882500000,$968900000,$1052100000
+2014 YTD Actual,$92200000,$178900000,$284400000,$367200000,$449700000,$552300000,$633200000,$712200000,$822000000,$907900000,$998200000,$1086500000
+2015 YTD Actual,$90600000,$178200000,$284100000,$370500000,$455300000,$559600000,$641700000,$721400000,$833200000,$920800000,$1011600000,$1107300000
+      14 data/ttc-ridership-revenues.csv</code></pre>
+<p>Yikes! Real data is messy. This data isn’t even that messy and it still seems messy.</p>
+<p>We see that the file is comma-separated and has a header. The first column is
+text and the others are… well, they’re supposed to be numeric, but they are
+stored in the file with dollar signs. WHY?! This kind of thing is super annoying
+and super common.</p>
+<p>We could remove the dollar signs from the text file directly using <code>sed</code> or a
+similar UNIX-based tool, but I prefer whenever possible to keep all my analysis
+on one platform. We’ll read it into <code>R</code> as-is and then parse and change datatypes
+there:</p>
+<div class="sourceCode" id="section-cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1"><span class="co"># Read in the data</span></a>
+<a class="sourceLine" id="cb151-2" title="2">ridership &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb151-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/ttc-ridership-revenues.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb151-4" title="4">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>, <span class="co"># Tells readr to read the column names from the first line of the file.</span></a>
+<a class="sourceLine" id="cb151-5" title="5">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">13</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>) <span class="co"># Read all 13 columns as &quot;c&quot;haracter</span></a>
+<a class="sourceLine" id="cb151-6" title="6">)</a>
+<a class="sourceLine" id="cb151-7" title="7"><span class="kw">glimpse</span>(ridership)</a></code></pre></div>
+<pre><code>Observations: 13
+Variables: 13
+$ Year &lt;chr&gt; &quot;2007 YTD Actual&quot;, &quot;2008 YTD Actual&quot;, &quot;2009 YTD Actual&quot;, &quot;2010 YTD Actual&quot;, &quot;2011 YTD Actual&quot;, &quot;2012 YTD Actual&quot;, &quot;2013…
+$ Jan  &lt;chr&gt; &quot;$70600000&quot;, &quot;$72700000&quot;, &quot;$69300000&quot;, &quot;$72200000&quot;, &quot;$75300000&quot;, &quot;$75500000&quot;, &quot;$93200000&quot;, &quot;$92200000&quot;, &quot;$90600000&quot;, &quot;$…
+$ Feb  &lt;chr&gt; &quot;$131200000&quot;, &quot;$137600000&quot;, &quot;$135400000&quot;, &quot;$143400000&quot;, &quot;$150800000&quot;, &quot;$154800000&quot;, &quot;$176600000&quot;, &quot;$178900000&quot;, &quot;$17820…
+$ Mar  &lt;chr&gt; &quot;$204600000&quot;, &quot;$217500000&quot;, &quot;$216600000&quot;, &quot;$230700000&quot;, &quot;$244400000&quot;, &quot;$253900000&quot;, &quot;$278200000&quot;, &quot;$284400000&quot;, &quot;$28410…
+$ Apr  &lt;chr&gt; &quot;$264900000&quot;, &quot;$278200000&quot;, &quot;$280500000&quot;, &quot;$302400000&quot;, &quot;$318300000&quot;, &quot;$331600000&quot;, &quot;$360300000&quot;, &quot;$367200000&quot;, &quot;$37050…
+$ May  &lt;chr&gt; &quot;$322000000&quot;, &quot;$340600000&quot;, &quot;$344000000&quot;, &quot;$372500000&quot;, &quot;$392400000&quot;, &quot;$408300000&quot;, &quot;$439700000&quot;, &quot;$449700000&quot;, &quot;$45530…
+$ Jun  &lt;chr&gt; &quot;$395100000&quot;, &quot;$419600000&quot;, &quot;$422100000&quot;, &quot;$459100000&quot;, &quot;$484800000&quot;, &quot;$507100000&quot;, &quot;$539700000&quot;, &quot;$552300000&quot;, &quot;$55960…
+$ Jul  &lt;chr&gt; &quot;$452100000&quot;, &quot;$482400000&quot;, &quot;$483400000&quot;, &quot;$528800000&quot;, &quot;$557300000&quot;, &quot;$581800000&quot;, &quot;$617400000&quot;, &quot;$633200000&quot;, &quot;$64170…
+$ Aug  &lt;chr&gt; &quot;$507500000&quot;, &quot;$544100000&quot;, &quot;$543500000&quot;, &quot;$595700000&quot;, &quot;$625500000&quot;, &quot;$654300000&quot;, &quot;$693500000&quot;, &quot;$712200000&quot;, &quot;$72140…
+$ Sep  &lt;chr&gt; &quot;$585600000&quot;, &quot;$629000000&quot;, &quot;$627200000&quot;, &quot;$689100000&quot;, &quot;$722000000&quot;, &quot;$755800000&quot;, &quot;$799600000&quot;, &quot;$822000000&quot;, &quot;$83320…
+$ Oct  &lt;chr&gt; &quot;$646900000&quot;, &quot;$696400000&quot;, &quot;$693900000&quot;, &quot;$764500000&quot;, &quot;$799500000&quot;, &quot;$835900000&quot;, &quot;$882500000&quot;, &quot;$907900000&quot;, &quot;$92080…
+$ Nov  &lt;chr&gt; &quot;$712500000&quot;, &quot;$766600000&quot;, &quot;$762400000&quot;, &quot;$842000000&quot;, &quot;$879100000&quot;, &quot;$919100000&quot;, &quot;$968900000&quot;, &quot;$998200000&quot;, &quot;$10116…
+$ Dec  &lt;chr&gt; &quot;$774700000&quot;, &quot;$837000000&quot;, &quot;$834900000&quot;, &quot;$929300000&quot;, &quot;$969900000&quot;, &quot;$1017600000&quot;, &quot;$1052100000&quot;, &quot;$1086500000&quot;, &quot;$11…</code></pre>
+<p>This does not look like it’s in a form ready to analyze. Some problems:</p>
+<ol style="list-style-type: decimal">
+<li>The <code>Year</code> has unwanted text in it. We just want the number representing what
+year it is.</li>
+<li>The revenue is stored across 12 columns, one for each month. We want the annual
+revenue for our analysis.</li>
+<li>The actual numeric revenue is stored as text with a dollar sign. We need to
+parse out the number part and convert to a numeric datatype before we can analyze it.</li>
+<li>The numbers in the sheet are cumulative revenue for the whole year (“YTD” = “Year To Date”).
+We want the monthly revenues.</li>
+</ol>
+<p>Problems 1 and 3 require a bit of text parsing; Problem 2 requires converting from
+“wide” to “long” format. Let’s do it:</p>
+<div class="sourceCode" id="section-cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1"><span class="co"># PROBLEM 1: Year</span></a>
+<a class="sourceLine" id="cb153-2" title="2"><span class="co"># To parse out only the number part, use a regular expression.</span></a>
+<a class="sourceLine" id="cb153-3" title="3"><span class="co"># Our string starts with a four digit number which starts with 20. We want to capture this number</span></a>
+<a class="sourceLine" id="cb153-4" title="4"><span class="co"># and nothing else.</span></a>
+<a class="sourceLine" id="cb153-5" title="5"><span class="co"># The ^ means &quot;the start of the string&quot;.</span></a>
+<a class="sourceLine" id="cb153-6" title="6"><span class="co"># The [20]{2} means &quot;a 0 or a 2, exactly twice&quot;</span></a>
+<a class="sourceLine" id="cb153-7" title="7"><span class="co"># The [0-9]{2} means &quot;anything from 0 - 9, exactly twice&quot;</span></a>
+<a class="sourceLine" id="cb153-8" title="8">year_regex &lt;-<span class="st"> &quot;^[20]{2}[0-9]{2}&quot;</span></a>
+<a class="sourceLine" id="cb153-9" title="9"><span class="co"># Use stringr::str_extract to extract a substring matching the regular expression:</span></a>
+<a class="sourceLine" id="cb153-10" title="10">stringr<span class="op">::</span><span class="kw">str_extract</span>(<span class="st">&quot;2007 YTD Actual&quot;</span>,year_regex)</a></code></pre></div>
+<pre><code>[1] &quot;2007&quot;</code></pre>
+<div class="sourceCode" id="section-cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1"><span class="co"># PROBLEM 2: wide to long</span></a>
+<a class="sourceLine" id="cb155-2" title="2"><span class="co"># Use the tidyr::pivot_longer() function for gathering columns and putting them</span></a>
+<a class="sourceLine" id="cb155-3" title="3"><span class="co"># into one column:</span></a>
+<a class="sourceLine" id="cb155-4" title="4">ridership <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb155-5" title="5"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb155-6" title="6">    Jan<span class="op">:</span>Dec, <span class="co"># Collect columns Jan through Dec, including everything between</span></a>
+<a class="sourceLine" id="cb155-7" title="7">    <span class="dt">names_to =</span> <span class="st">&quot;month&quot;</span>, <span class="co"># Create a new column called &quot;month&quot; which contains the names of the old columns</span></a>
+<a class="sourceLine" id="cb155-8" title="8">    <span class="dt">values_to =</span> <span class="st">&quot;revenue&quot;</span> <span class="co"># Create a new column called &quot;revenue&quot; which contains the values of the old columns</span></a>
+<a class="sourceLine" id="cb155-9" title="9">  )</a></code></pre></div>
+<pre><code># A tibble: 156 x 3
+   Year            month revenue   
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;     
+ 1 2007 YTD Actual Jan   $70600000 
+ 2 2007 YTD Actual Feb   $131200000
+ 3 2007 YTD Actual Mar   $204600000
+ 4 2007 YTD Actual Apr   $264900000
+ 5 2007 YTD Actual May   $322000000
+ 6 2007 YTD Actual Jun   $395100000
+ 7 2007 YTD Actual Jul   $452100000
+ 8 2007 YTD Actual Aug   $507500000
+ 9 2007 YTD Actual Sep   $585600000
+10 2007 YTD Actual Oct   $646900000
+# … with 146 more rows</code></pre>
+<div class="sourceCode" id="section-cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="co"># PROBLEM 3: removing the dollar sign</span></a>
+<a class="sourceLine" id="cb157-2" title="2"><span class="co"># Again, use text matching. Because $ is itself a special character,</span></a>
+<a class="sourceLine" id="cb157-3" title="3"><span class="co"># to match it, you have to &quot;escape&quot; it using a backslash</span></a>
+<a class="sourceLine" id="cb157-4" title="4">dollar_regex &lt;-<span class="st"> &quot;</span><span class="ch">\\</span><span class="st">$&quot;</span></a>
+<a class="sourceLine" id="cb157-5" title="5"><span class="co"># Remove matching strings using stringr::str_remove()</span></a>
+<a class="sourceLine" id="cb157-6" title="6">stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;$1234&quot;</span>,dollar_regex)</a></code></pre></div>
+<pre><code>[1] &quot;1234&quot;</code></pre>
+<div class="sourceCode" id="section-cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="co"># PROBLEM 4: going from cumulative to monthly revenue</span></a>
+<a class="sourceLine" id="cb159-2" title="2"><span class="co"># The cumulative revenue for 2007 is:</span></a>
+<a class="sourceLine" id="cb159-3" title="3">cumrev2007 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="kw">as.character</span>(ridership[<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>]),dollar_regex))</a>
+<a class="sourceLine" id="cb159-4" title="4">cumrev2007</a></code></pre></div>
+<pre><code> [1] 7.1e+07 1.3e+08 2.0e+08 2.6e+08 3.2e+08 4.0e+08 4.5e+08 5.1e+08 5.9e+08 6.5e+08 7.1e+08 7.7e+08</code></pre>
+<div class="sourceCode" id="section-cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="co"># The monthly revenue for (e.g.) Feb is</span></a>
+<a class="sourceLine" id="cb161-2" title="2">cumrev2007[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>cumrev2007[<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>[1] 6.1e+07</code></pre>
+<div class="sourceCode" id="section-cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="co"># Can do this all at once like</span></a>
+<a class="sourceLine" id="cb163-2" title="2"><span class="kw">c</span>(cumrev2007[<span class="dv">1</span>],cumrev2007[<span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(cumrev2007)] <span class="op">-</span><span class="st"> </span>cumrev2007[<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(cumrev2007)<span class="op">-</span><span class="dv">1</span>)])</a></code></pre></div>
+<pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07 6.1e+07 6.6e+07 6.2e+07</code></pre>
+<div class="sourceCode" id="section-cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1"><span class="co"># or</span></a>
+<a class="sourceLine" id="cb165-2" title="2"><span class="kw">c</span>(cumrev2007[<span class="dv">1</span>],<span class="kw">diff</span>(cumrev2007))</a></code></pre></div>
+<pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07 6.1e+07 6.6e+07 6.2e+07</code></pre>
+<div class="sourceCode" id="section-cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="co"># but both those are a bit clumsy, and won&#39;t work inside a data processing</span></a>
+<a class="sourceLine" id="cb167-2" title="2"><span class="co"># pipeline with grouping. The lag() function in the dplyr package</span></a>
+<a class="sourceLine" id="cb167-3" title="3"><span class="co"># is meant for use within a data processing pipeline:</span></a>
+<a class="sourceLine" id="cb167-4" title="4">cumrev2007 <span class="op">-</span><span class="st"> </span><span class="kw">lag</span>(cumrev2007,<span class="dt">n=</span><span class="dv">1</span>,<span class="dt">default =</span> <span class="dv">0</span>)</a></code></pre></div>
+<pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07 6.1e+07 6.6e+07 6.2e+07</code></pre>
+<div class="sourceCode" id="section-cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1"><span class="co"># and will let us do this for all years at once using one line of code below.</span></a>
+<a class="sourceLine" id="cb169-2" title="2"></a>
+<a class="sourceLine" id="cb169-3" title="3"><span class="co"># Now, combine all these into one data cleaning pipeline.</span></a>
+<a class="sourceLine" id="cb169-4" title="4"><span class="co"># Remember we have monthly revenue, so to get yearly revenue, we sum</span></a>
+<a class="sourceLine" id="cb169-5" title="5"><span class="co"># over months.</span></a>
+<a class="sourceLine" id="cb169-6" title="6">ridership_clean &lt;-<span class="st"> </span>ridership <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb169-7" title="7"><span class="st">    </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb169-8" title="8">    Jan<span class="op">:</span>Dec,</a>
+<a class="sourceLine" id="cb169-9" title="9">    <span class="dt">names_to =</span> <span class="st">&quot;month&quot;</span>,</a>
+<a class="sourceLine" id="cb169-10" title="10">    <span class="dt">values_to =</span> <span class="st">&quot;revenue&quot;</span></a>
+<a class="sourceLine" id="cb169-11" title="11">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb169-12" title="12"><span class="st">  </span><span class="co"># &quot;transmute&quot; is like mutate, but it deletes all original columns</span></a>
+<a class="sourceLine" id="cb169-13" title="13"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> stringr<span class="op">::</span><span class="kw">str_extract</span>(Year,year_regex),</a>
+<a class="sourceLine" id="cb169-14" title="14">            <span class="dt">revenue =</span> stringr<span class="op">::</span><span class="kw">str_remove</span>(revenue,dollar_regex)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb169-15" title="15"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;revenue&quot;</span>),as.numeric) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Turn both year and revenue into numeric variables</span></a>
+<a class="sourceLine" id="cb169-16" title="16"><span class="st">  </span><span class="co"># Compute the monthly revenue, by year</span></a>
+<a class="sourceLine" id="cb169-17" title="17"><span class="st">  </span><span class="co"># Grouping by year...</span></a>
+<a class="sourceLine" id="cb169-18" title="18"><span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb169-19" title="19"><span class="st">  </span><span class="co"># ...causes everything in the mutate() to be done separately for each year.</span></a>
+<a class="sourceLine" id="cb169-20" title="20"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">monthly_revenue =</span> revenue <span class="op">-</span><span class="st"> </span><span class="kw">lag</span>(revenue,<span class="dt">n=</span><span class="dv">1</span>,<span class="dt">default=</span><span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb169-21" title="21"><span class="kw">glimpse</span>(ridership_clean)</a></code></pre></div>
+<pre><code>Observations: 156
+Variables: 5
+Groups: year [13]
+$ Year            &lt;chr&gt; &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Act…
+$ month           &lt;chr&gt; &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;, &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Ap…
+$ revenue         &lt;dbl&gt; 7.1e+07, 1.3e+08, 2.0e+08, 2.6e+08, 3.2e+08, 4.0e+08, 4.5e+08, 5.1e+08, 5.9e+08, 6.5e+08, 7.1e+08, 7.7e+08, …
+$ year            &lt;dbl&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2008, 2008, 2008, 2008, 2008, 2008, …
+$ monthly_revenue &lt;dbl&gt; 7.1e+07, 6.1e+07, 7.3e+07, 6.0e+07, 5.7e+07, 7.3e+07, 5.7e+07, 5.5e+07, 7.8e+07, 6.1e+07, 6.6e+07, 6.2e+07, …</code></pre>
+<p>That looks a lot better! As usual, you should run each line of code one by one to
+understand what is happening.</p>
+<p>Because we went to the effort of cleaning the data, we can now plot it. We want to
+plot the monthly revenue over time. This requires creating a variable that represents
+time– currently we have two, year and month. We can do this using the 
+function:</p>
+<div class="sourceCode" id="section-cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"><span class="co"># Cumulative revenue</span></a>
+<a class="sourceLine" id="cb171-2" title="2">ridershipscattermonthly &lt;-<span class="st"> </span>ridership_clean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb171-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="kw">paste0</span>(year,month,<span class="st">&quot;01&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb171-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date,<span class="dt">y =</span> monthly_revenue)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb171-5" title="5"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb171-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb171-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb171-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Monthly ridership revenues for the TTC&quot;</span>,</a>
+<a class="sourceLine" id="cb171-9" title="9">       <span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>,</a>
+<a class="sourceLine" id="cb171-10" title="10">       <span class="dt">y =</span> <span class="st">&quot;Revenue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb171-11" title="11"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">dollar_format</span>()) <span class="co"># Make the y-axis pretty</span></a>
+<a class="sourceLine" id="cb171-12" title="12">ridershipscattermonthly</a></code></pre></div>
+<pre><code>Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 6 rows containing missing values (geom_path).</code></pre>
+<p><img src="book_files/figure-html/ttc-41-1.png" width="672" /></p>
+<p>I added a line joining the points
+together to make the pattern clearer.</p>
+<p>It looks like monthly revenue is pretty cyclical. Can we add a regression line? Sure!</p>
+<div class="sourceCode" id="section-cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1">ridershipscattermonthly <span class="op">+</span></a>
+<a class="sourceLine" id="cb174-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 6 rows containing missing values (geom_path).</code></pre>
+<p><img src="book_files/figure-html/ttc-4-1.png" width="672" /></p>
+<p>While revenue doesn’t necessarily increase every month, it looks like
+it is increasing on average.</p>
+<p><strong>Exercise</strong>: repeate this analysis using <strong>annual</strong> revenue. You need to create
+the following dataset:</p>
+<pre><code>Observations: 13
+Variables: 2
+$ year           &lt;dbl&gt; 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+$ annual_revenue &lt;dbl&gt; 7.7e+08, 8.4e+08, 8.3e+08, 9.3e+08, 9.7e+08, 1.0e+09, 1.1e+09, 1.1e+09, 1.1e+09, 1.1e+09, 1.2e+09, 1.2e+09, NA</code></pre>
+<p>by grouping by  and then summing , and then
+make the following plot:</p>
+<p><img src="book_files/figure-html/ttc-annual-2-1.png" width="672" /></p>
+<p>Once the monthly variation is smoothed out, it looks like revenues are increasing
+over years.</p>
+</div>
+</div>
+<div id="section-unbiased-estimators-chapter-19" class="section level2">
+<h2><span class="header-section-number">4.2</span> Unbiased Estimators (Chapter 19)</h2>
+<p>Much of Statistics involves studying the mathematical properties of estimators.
+Studying the mathematical properties of estimators lets us reason about how well
+those estimators should represent the underlying true unknown parameters for
+any given sample of data, and hence how to reason about how “good” our inferences are.</p>
+<p>Unbiasedness is one property of an estimator that may be attractive. Suppose we have
+a statistical model for random variables <span class="math inline">\(X_{i}\overset{iid}{\sim}F_{\theta}\)</span> depending
+on parameter <span class="math inline">\(\theta\)</span> and we estimate <span class="math inline">\(\theta\)</span> with an estimator <span class="math inline">\(\hat{\theta}: \mathbb{R}^{n}\to\mathbb{R}\)</span>.
+The estimator <span class="math inline">\(\hat{\theta}\)</span> is said to be <strong>unbiased</strong> if
+<span class="math display">\[
+\mathbb{E}\hat{\theta} = \theta
+\]</span>
+The expectation is with respect to the probability distribution of <span class="math inline">\(\hat{\theta}\)</span>, which
+depends on the whole sample <span class="math inline">\(X_{1},\ldots,X_{n}\)</span> (“sampling distribution”).</p>
+<p>On average, over all possible samples, <span class="math inline">\(\hat{\theta}\)</span> “gets it right”. This is why
+some people consider the property of unbiasedness to be a desirable property for
+an estimator.</p>
+<p>We can use simulation to get a feel for what unbiasedness means by sampling a bunch
+of datasets, calculating the estimator for each one, and then calculating the average
+of those estimators.</p>
+<div id="section-simulated-data" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Simulated data</h3>
+<p>Consider samples <span class="math inline">\(X_{1},\ldots,X_{n}\)</span> of size <span class="math inline">\(n=30\)</span> from a
+<span class="math inline">\(X\sim\text{Poisson}(\lambda)\)</span> distribution with <span class="math inline">\(\lambda = \log 10\)</span>. We want to estimate the parameter <span class="math inline">\(p_{0}\)</span>,
+which is the probability that <span class="math inline">\(X = 0\)</span>:
+<span class="math display">\[\begin{equation}
+p_{0} = P(X = 0) = e^{-\lambda}
+\end{equation}\]</span>
+where <span class="math inline">\(\lambda = E(X) = \log 10\)</span> in this example, so <span class="math inline">\(p_{0} = 0.1\)</span> (this would be
+unknown for real data!). Let’s look at two estimators:
+<span class="math display">\[
+S = (1/n)\times\sum_{i=1}^{n}\mathbb{1}(X_{i} = 0) 
+\]</span>
+and
+<span class="math display">\[
+T = e^{-\bar{X}_{n}}
+\]</span></p>
+<p><span class="math inline">\(S\)</span> corresponds
+to calculating the sample proportion of times <span class="math inline">\(X_{i}=0\)</span>, and <span class="math inline">\(T\)</span> corresponds to
+estimating the population mean <span class="math inline">\(\lambda\)</span> using the sample mean <span class="math inline">\(\bar{X}_{n}\)</span> and
+then plugging this in to the actual formula for the value <span class="math inline">\(p_{0}\)</span>. How we come
+up with stuff like this will be revealed in later chapters.</p>
+<p>Let’s investigate their sampling distributions and (hence) unbiasedness via simulations:</p>
+<div class="sourceCode" id="section-cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="kw">set.seed</span>(<span class="dv">6574564</span>)</a>
+<a class="sourceLine" id="cb179-2" title="2"><span class="co"># Simulate 500 random samples of size 30 from a poisson(log(10))</span></a>
+<a class="sourceLine" id="cb179-3" title="3">N &lt;-<span class="st"> </span><span class="dv">500</span></a>
+<a class="sourceLine" id="cb179-4" title="4">n &lt;-<span class="st"> </span><span class="dv">30</span></a>
+<a class="sourceLine" id="cb179-5" title="5">lambda &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb179-6" title="6">p0 &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>lambda) <span class="co"># True value of p0</span></a>
+<a class="sourceLine" id="cb179-7" title="7"></a>
+<a class="sourceLine" id="cb179-8" title="8"><span class="co"># Write functions to compute each estimator</span></a>
+<a class="sourceLine" id="cb179-9" title="9">compute_S &lt;-<span class="st"> </span><span class="cf">function</span>(samp) <span class="kw">mean</span>(samp <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb179-10" title="10">compute_T &lt;-<span class="st"> </span><span class="cf">function</span>(samp) <span class="kw">exp</span>(<span class="op">-</span><span class="kw">mean</span>(samp))</a>
+<a class="sourceLine" id="cb179-11" title="11"></a>
+<a class="sourceLine" id="cb179-12" title="12"><span class="co"># Simulate the samples and calculate the estimators for each sample</span></a>
+<a class="sourceLine" id="cb179-13" title="13">samples &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>,<span class="dt">length =</span> N)</a>
+<a class="sourceLine" id="cb179-14" title="14">SS &lt;-<span class="st"> </span>TT &lt;-<span class="st"> </span><span class="kw">numeric</span>(N)</a>
+<a class="sourceLine" id="cb179-15" title="15"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</a>
+<a class="sourceLine" id="cb179-16" title="16">  samples[[i]] &lt;-<span class="st"> </span><span class="kw">rpois</span>(n,lambda)</a>
+<a class="sourceLine" id="cb179-17" title="17">  SS[i] &lt;-<span class="st"> </span><span class="kw">compute_S</span>(samples[[i]])</a>
+<a class="sourceLine" id="cb179-18" title="18">  TT[i] &lt;-<span class="st"> </span><span class="kw">compute_T</span>(samples[[i]])</a>
+<a class="sourceLine" id="cb179-19" title="19">}</a>
+<a class="sourceLine" id="cb179-20" title="20"></a>
+<a class="sourceLine" id="cb179-21" title="21"><span class="co"># Create the plots</span></a>
+<a class="sourceLine" id="cb179-22" title="22">plt_S &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">SS =</span> SS) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb179-23" title="23"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> SS)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-24" title="24"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-25" title="25"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">bins =</span> <span class="dv">7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-26" title="26"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">250</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-27" title="27"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> p0,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</a>
+<a class="sourceLine" id="cb179-28" title="28"></a>
+<a class="sourceLine" id="cb179-29" title="29">plt_T &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">TT =</span> TT) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb179-30" title="30"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> TT)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-31" title="31"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-32" title="32"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">bins =</span> <span class="dv">7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-33" title="33"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">250</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-34" title="34"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> p0,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</a>
+<a class="sourceLine" id="cb179-35" title="35"></a>
+<a class="sourceLine" id="cb179-36" title="36">plt_S <span class="op">|</span><span class="st"> </span>plt_T</a></code></pre></div>
+<p><img src="book_files/figure-html/poisson-1-1.png" width="672" /></p>
+<div class="sourceCode" id="section-cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1"><span class="co"># Compute the mean of each:</span></a>
+<a class="sourceLine" id="cb180-2" title="2"><span class="kw">mean</span>(SS)</a></code></pre></div>
+<pre><code>[1] 0.1</code></pre>
+<div class="sourceCode" id="section-cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">mean</span>(TT)</a></code></pre></div>
+<pre><code>[1] 0.1</code></pre>
+<p><strong>Exercise</strong>: it turns out that, mathematically, <span class="math inline">\(S\)</span> is unbiased and <span class="math inline">\(T\)</span> is biased. Which estimator
+would you prefer? Compute a five number summary for <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span> from our simulations,
+recreating the following (make sure to use the same random seed as me, using :</p>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   0.067   0.100   0.101   0.133   0.267 </code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.031   0.082   0.100   0.103   0.122   0.231 </code></pre>
+<p>Do you see any meaningful differences? Do the sampling distributions of <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>
+concentrate around <span class="math inline">\(p0\)</span> in the same way?</p>
+<p>Now, compute the mode (most frequently-observed value) of <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>. You should get the following:</p>
+<pre><code>The mode of S is  0.067 </code></pre>
+<pre><code>The mode of T is  0.097 </code></pre>
+<p>(You’re going to have to figure out how to compute a mode in <code>R</code>. That’s part of
+the exercise).</p>
+<p>What do you think about this? Does this contradict <span class="math inline">\(S\)</span> being unbiased and <span class="math inline">\(T\)</span> being
+biased? Does it change your opinion about which is a better estimator?</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

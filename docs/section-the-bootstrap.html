@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 The Bootstrap | STA238: Probability, Statistics, and Data Analysis</title>
   <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 The Bootstrap | STA238: Probability, Statistics, and Data Analysis" />
   <meta property="og:type" content="book" />
@@ -50,6 +50,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -218,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
 <li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
 <li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
-<li class="chapter" data-level="10.2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-the-data"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
+<li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
 <li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
 <li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
 <li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
@@ -331,40 +333,40 @@ distribution of <span class="math inline">\(\hat{\mu}\)</span>.</p></li>
 </ol>
 <p>This seems like magic: we got a sample from the sampling distribution of our estimator,
 without knowing anything about it mathematically. Let’s do this in code:</p>
-<div class="sourceCode" id="section-cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(patchwork)</a></code></pre></div>
-<div class="sourceCode" id="section-cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Read in old faithful, copied from chapter 1:</span></a>
-<a class="sourceLine" id="cb2-2" title="2">oldfaithful &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb2-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/oldfaithful.txt&quot;</span>, <span class="co"># Tell it where the file is</span></a>
-<a class="sourceLine" id="cb2-4" title="4">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>, <span class="co"># Tell it that the first row is NOT column names, and at the same time, tell it what name you want for the column.</span></a>
-<a class="sourceLine" id="cb2-5" title="5">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span> <span class="co"># Tell it that there is one column, and it is &quot;numeric&quot; (n)</span></a>
-<a class="sourceLine" id="cb2-6" title="6">)</a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co"># Check what was read in using the dplyr::glimpse() function</span></a>
-<a class="sourceLine" id="cb2-8" title="8">dplyr<span class="op">::</span><span class="kw">glimpse</span>(oldfaithful)</a></code></pre></div>
-<pre><code>## Observations: 272
-## Variables: 1
-## $ time &lt;dbl&gt; 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235, 252,…</code></pre>
-<div class="sourceCode" id="section-cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># Bootstrap: sample with replacement</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="kw">set.seed</span>(<span class="dv">45356</span>) <span class="co"># So you can reproduce my results</span></a>
-<a class="sourceLine" id="cb4-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of bootstrap resamples to take</span></a>
-<a class="sourceLine" id="cb4-4" title="4">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(oldfaithful) <span class="co"># Sample size</span></a>
-<a class="sourceLine" id="cb4-5" title="5">bootstrapmeans &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
-<a class="sourceLine" id="cb4-7" title="7">  <span class="co"># Draw a bootstrap sample</span></a>
-<a class="sourceLine" id="cb4-8" title="8">  bootstrapsample &lt;-<span class="st"> </span><span class="kw">sample</span>(oldfaithful<span class="op">$</span>time,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-9" title="9">  <span class="co"># Compute the bootstrap estimate</span></a>
-<a class="sourceLine" id="cb4-10" title="10">  bootstrapmeans[b] &lt;-<span class="st"> </span><span class="kw">mean</span>(bootstrapsample)</a>
-<a class="sourceLine" id="cb4-11" title="11">}</a>
-<a class="sourceLine" id="cb4-12" title="12"></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="co"># Plot a hisrogram and density estimate, along with</span></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="co"># the normal approximation</span></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="kw">tibble</span>(<span class="dt">x =</span> bootstrapmeans) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-17" title="17"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-18" title="18"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-19" title="19"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-20" title="20"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> normalapproxmean,<span class="dt">sd =</span> normalapproxsd),<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-21" title="21"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">190</span>,<span class="dv">230</span>,<span class="dt">by=</span><span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="section-cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb219-2" title="2"><span class="kw">library</span>(patchwork)</a></code></pre></div>
+<div class="sourceCode" id="section-cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="co"># Read in old faithful, copied from chapter 1:</span></a>
+<a class="sourceLine" id="cb220-2" title="2">oldfaithful &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb220-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/oldfaithful.txt&quot;</span>, <span class="co"># Tell it where the file is</span></a>
+<a class="sourceLine" id="cb220-4" title="4">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>, <span class="co"># Tell it that the first row is NOT column names, and at the same time, tell it what name you want for the column.</span></a>
+<a class="sourceLine" id="cb220-5" title="5">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span> <span class="co"># Tell it that there is one column, and it is &quot;numeric&quot; (n)</span></a>
+<a class="sourceLine" id="cb220-6" title="6">)</a>
+<a class="sourceLine" id="cb220-7" title="7"><span class="co"># Check what was read in using the dplyr::glimpse() function</span></a>
+<a class="sourceLine" id="cb220-8" title="8">dplyr<span class="op">::</span><span class="kw">glimpse</span>(oldfaithful)</a></code></pre></div>
+<pre><code>Observations: 272
+Variables: 1
+$ time &lt;dbl&gt; 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235, 252, 105, 282, 130, 105, 288, 96, 255, 108, 105, 207, 184, …</code></pre>
+<div class="sourceCode" id="section-cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1"><span class="co"># Bootstrap: sample with replacement</span></a>
+<a class="sourceLine" id="cb222-2" title="2"><span class="kw">set.seed</span>(<span class="dv">45356</span>) <span class="co"># So you can reproduce my results</span></a>
+<a class="sourceLine" id="cb222-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of bootstrap resamples to take</span></a>
+<a class="sourceLine" id="cb222-4" title="4">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(oldfaithful) <span class="co"># Sample size</span></a>
+<a class="sourceLine" id="cb222-5" title="5">bootstrapmeans &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb222-6" title="6"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
+<a class="sourceLine" id="cb222-7" title="7">  <span class="co"># Draw a bootstrap sample</span></a>
+<a class="sourceLine" id="cb222-8" title="8">  bootstrapsample &lt;-<span class="st"> </span><span class="kw">sample</span>(oldfaithful<span class="op">$</span>time,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb222-9" title="9">  <span class="co"># Compute the bootstrap estimate</span></a>
+<a class="sourceLine" id="cb222-10" title="10">  bootstrapmeans[b] &lt;-<span class="st"> </span><span class="kw">mean</span>(bootstrapsample)</a>
+<a class="sourceLine" id="cb222-11" title="11">}</a>
+<a class="sourceLine" id="cb222-12" title="12"></a>
+<a class="sourceLine" id="cb222-13" title="13"><span class="co"># Plot a hisrogram and density estimate, along with</span></a>
+<a class="sourceLine" id="cb222-14" title="14"><span class="co"># the normal approximation</span></a>
+<a class="sourceLine" id="cb222-15" title="15"><span class="kw">tibble</span>(<span class="dt">x =</span> bootstrapmeans) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb222-16" title="16"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb222-17" title="17"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb222-18" title="18"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb222-19" title="19"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb222-20" title="20"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> normalapproxmean,<span class="dt">sd =</span> normalapproxsd),<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb222-21" title="21"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">190</span>,<span class="dv">230</span>,<span class="dt">by=</span><span class="dv">5</span>))</a></code></pre></div>
 <p><img src="book_files/figure-html/faithfulboot-1-1.png" width="672" /></p>
 <p>The histogram and black kernel density estimate curve are obtained using the empirical
 bootstrap algorithm. The red curve is obtained using the CLT approximation to the
@@ -395,37 +397,37 @@ distribution of <span class="math inline">\((\hat{\mu} - \mu)\)</span>.</p></li>
 </ol>
 <p>Notice that <strong>we compute</strong> <span class="math inline">\((\hat{\mu} - \mu)^{*}_{b}\)</span> <strong>without knowing</strong> <span class="math inline">\(\mu\)</span>.</p>
 <p>We can do this in code as follows:</p>
-<div class="sourceCode" id="section-cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># Bootstrap: sample with replacement</span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw">set.seed</span>(<span class="dv">45356</span>) <span class="co"># So you can reproduce my results</span></a>
-<a class="sourceLine" id="cb5-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of bootstrap resamples to take</span></a>
-<a class="sourceLine" id="cb5-4" title="4">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(oldfaithful) <span class="co"># Sample size</span></a>
-<a class="sourceLine" id="cb5-5" title="5">bootstraperrors &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
-<a class="sourceLine" id="cb5-7" title="7">  <span class="co"># Draw a bootstrap sample</span></a>
-<a class="sourceLine" id="cb5-8" title="8">  bootstrapsample &lt;-<span class="st"> </span><span class="kw">sample</span>(oldfaithful<span class="op">$</span>time,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb5-9" title="9">  <span class="co"># Compute the bootstrap mean</span></a>
-<a class="sourceLine" id="cb5-10" title="10">  bootstrapmean &lt;-<span class="st"> </span><span class="kw">mean</span>(bootstrapsample)</a>
-<a class="sourceLine" id="cb5-11" title="11">  <span class="co"># Compute the bootstrap estimate</span></a>
-<a class="sourceLine" id="cb5-12" title="12">  bootstraperrors[b] &lt;-<span class="st"> </span>bootstrapmean <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(oldfaithful<span class="op">$</span>time)</a>
-<a class="sourceLine" id="cb5-13" title="13">}</a>
-<a class="sourceLine" id="cb5-14" title="14"></a>
-<a class="sourceLine" id="cb5-15" title="15"><span class="co"># For the record, we could have just done</span></a>
-<a class="sourceLine" id="cb5-16" title="16"><span class="co"># bootstraperrors &lt;- bootstrapmeans - mean(oldfaithful$time)</span></a>
-<a class="sourceLine" id="cb5-17" title="17"></a>
-<a class="sourceLine" id="cb5-18" title="18"><span class="co"># Plot a hisrogram and density estimate, along with</span></a>
-<a class="sourceLine" id="cb5-19" title="19"><span class="co"># the normal approximation</span></a>
-<a class="sourceLine" id="cb5-20" title="20"><span class="kw">tibble</span>(<span class="dt">x =</span> bootstraperrors) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-21" title="21"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-22" title="22"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-23" title="23"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-24" title="24"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-25" title="25"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> normalapproxmeanerror,<span class="dt">sd =</span> normalapproxsderror),<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-26" title="26"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">14</span>,<span class="dv">14</span>,<span class="dt">by=</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="section-cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" title="1"><span class="co"># Bootstrap: sample with replacement</span></a>
+<a class="sourceLine" id="cb223-2" title="2"><span class="kw">set.seed</span>(<span class="dv">45356</span>) <span class="co"># So you can reproduce my results</span></a>
+<a class="sourceLine" id="cb223-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of bootstrap resamples to take</span></a>
+<a class="sourceLine" id="cb223-4" title="4">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(oldfaithful) <span class="co"># Sample size</span></a>
+<a class="sourceLine" id="cb223-5" title="5">bootstraperrors &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb223-6" title="6"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
+<a class="sourceLine" id="cb223-7" title="7">  <span class="co"># Draw a bootstrap sample</span></a>
+<a class="sourceLine" id="cb223-8" title="8">  bootstrapsample &lt;-<span class="st"> </span><span class="kw">sample</span>(oldfaithful<span class="op">$</span>time,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb223-9" title="9">  <span class="co"># Compute the bootstrap mean</span></a>
+<a class="sourceLine" id="cb223-10" title="10">  bootstrapmean &lt;-<span class="st"> </span><span class="kw">mean</span>(bootstrapsample)</a>
+<a class="sourceLine" id="cb223-11" title="11">  <span class="co"># Compute the bootstrap estimate</span></a>
+<a class="sourceLine" id="cb223-12" title="12">  bootstraperrors[b] &lt;-<span class="st"> </span>bootstrapmean <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(oldfaithful<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb223-13" title="13">}</a>
+<a class="sourceLine" id="cb223-14" title="14"></a>
+<a class="sourceLine" id="cb223-15" title="15"><span class="co"># For the record, we could have just done</span></a>
+<a class="sourceLine" id="cb223-16" title="16"><span class="co"># bootstraperrors &lt;- bootstrapmeans - mean(oldfaithful$time)</span></a>
+<a class="sourceLine" id="cb223-17" title="17"></a>
+<a class="sourceLine" id="cb223-18" title="18"><span class="co"># Plot a hisrogram and density estimate, along with</span></a>
+<a class="sourceLine" id="cb223-19" title="19"><span class="co"># the normal approximation</span></a>
+<a class="sourceLine" id="cb223-20" title="20"><span class="kw">tibble</span>(<span class="dt">x =</span> bootstraperrors) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb223-21" title="21"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb223-22" title="22"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb223-23" title="23"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb223-24" title="24"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb223-25" title="25"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> normalapproxmeanerror,<span class="dt">sd =</span> normalapproxsderror),<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb223-26" title="26"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">14</span>,<span class="dv">14</span>,<span class="dt">by=</span><span class="dv">2</span>))</a></code></pre></div>
 <p><img src="book_files/figure-html/faithfulboot-22-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: again, how did I get the values of <code>normalapproxmeanerror</code> and <code>normalapproxsderror</code>?</p>
 <p><strong>Exercise</strong>: compute an estimate of <span class="math inline">\(P(|\bar{X}_{n} - \mu| &gt; 5)\)</span>. Using the
 above <code>set.seed(45356)</code> I got the following:</p>
-<pre><code>## [1] 0.216</code></pre>
+<pre><code>[1] 0.23</code></pre>
 <p><em>Hint</em>: consider the sample proportion of <span class="math inline">\(\bar{X}_{n} - \mu\)</span> that have absolute value
 greater than <span class="math inline">\(5\)</span>.</p>
 <p><strong>Exercise</strong>: even this <span class="math inline">\(P(|\bar{X}_{n} - \mu| &gt; 5)\)</span> is just an estimate, and
@@ -444,28 +446,28 @@ is used to sample from the sampling distribution of an estimator when you know
 the family of distributions <span class="math inline">\(F_{\theta}\)</span> (like “Exponential” or “Normal” or “Poisson”)
 from which the data is drawn, but you don’t know the value of the parameter <span class="math inline">\(\theta\)</span>.</p>
 <p>Recall the **software data*:</p>
-<div class="sourceCode" id="section-cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="fu">head</span> data/MIPSdata/software.txt</a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="fu">wc</span> -l data/MIPSdata/software.txt</a></code></pre></div>
-<pre><code>## 30  
-## 113  
-## 81  
-## 115  
-## 9  
-## 2  
-## 91  
-## 112  
-## 15  
-## 138
-##      136 data/MIPSdata/software.txt</code></pre>
-<div class="sourceCode" id="section-cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">software &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb9-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/software.txt&quot;</span>,</a>
-<a class="sourceLine" id="cb9-3" title="3">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>,</a>
-<a class="sourceLine" id="cb9-4" title="4">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span></a>
-<a class="sourceLine" id="cb9-5" title="5">)</a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="kw">glimpse</span>(software)</a></code></pre></div>
-<pre><code>## Observations: 136
-## Variables: 1
-## $ time &lt;dbl&gt; 30, 113, 81, 115, 9, 2, 91, 112, 15, 138, 50, 77, 24, 108, 88, 6…</code></pre>
+<div class="sourceCode" id="section-cb225"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb225-1" title="1"><span class="fu">head</span> data/MIPSdata/software.txt</a>
+<a class="sourceLine" id="cb225-2" title="2"><span class="fu">wc</span> -l data/MIPSdata/software.txt</a></code></pre></div>
+<pre><code>30  
+113  
+81  
+115  
+9  
+2  
+91  
+112  
+15  
+138
+     136 data/MIPSdata/software.txt</code></pre>
+<div class="sourceCode" id="section-cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" title="1">software &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb227-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/software.txt&quot;</span>,</a>
+<a class="sourceLine" id="cb227-3" title="3">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>,</a>
+<a class="sourceLine" id="cb227-4" title="4">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span></a>
+<a class="sourceLine" id="cb227-5" title="5">)</a>
+<a class="sourceLine" id="cb227-6" title="6"><span class="kw">glimpse</span>(software)</a></code></pre></div>
+<pre><code>Observations: 136
+Variables: 1
+$ time &lt;dbl&gt; 30, 113, 81, 115, 9, 2, 91, 112, 15, 138, 50, 77, 24, 108, 88, 670, 120, 26, 114, 325, 55, 242, 68, 422, 180, 10, 1146,…</code></pre>
 <p>One possible model for these data is <span class="math inline">\(X_{i}\overset{iid}{\sim}\text{Exponential}(\lambda)\)</span> with
 <span class="math inline">\(\lambda\)</span> being the rate of failures of the software: <span class="math inline">\(E(X_{i}) = \lambda^{-1}\)</span>.</p>
 <p>We can
@@ -474,19 +476,19 @@ error in estimating the CDF: <span class="math inline">\(T_{ks} = \text{sup}_{x\
 20th century, and so <span class="math inline">\(T_{ks}\)</span> is sometimes called the “Kolmogorov-Smirnov distance”. It’s also
 sometimes called the “Total Variation” distance. It is the length of the red segment
 in the following plot:</p>
-<div class="sourceCode" id="section-cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">lambdahat &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">mean</span>(software<span class="op">$</span>time)</a>
-<a class="sourceLine" id="cb11-2" title="2">samppoints &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="dt">by=</span>.<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb11-3" title="3">expcdf &lt;-<span class="st"> </span><span class="kw">pexp</span>(samppoints,<span class="dt">rate =</span> lambdahat)</a>
-<a class="sourceLine" id="cb11-4" title="4">empcdf &lt;-<span class="st"> </span><span class="kw">ecdf</span>(software<span class="op">$</span>time)</a>
-<a class="sourceLine" id="cb11-5" title="5">tksestimate &lt;-<span class="st"> </span><span class="kw">max</span>(<span class="kw">abs</span>(expcdf <span class="op">-</span><span class="st"> </span><span class="kw">empcdf</span>(samppoints)))</a>
-<a class="sourceLine" id="cb11-6" title="6">whereisthetks &lt;-<span class="st"> </span><span class="kw">which.max</span>(<span class="kw">abs</span>(expcdf <span class="op">-</span><span class="st"> </span><span class="kw">empcdf</span>(samppoints)))</a>
-<a class="sourceLine" id="cb11-7" title="7"></a>
-<a class="sourceLine" id="cb11-8" title="8"><span class="kw">tibble</span>(<span class="dt">x =</span> samppoints,<span class="dt">y =</span> expcdf) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-9" title="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-10" title="10"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-11" title="11"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-12" title="12"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> empcdf,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-13" title="13"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> samppoints[whereisthetks],<span class="dt">y =</span> expcdf[whereisthetks],<span class="dt">xend =</span> samppoints[whereisthetks],<span class="dt">yend =</span> <span class="kw">empcdf</span>(samppoints[whereisthetks])),<span class="dt">colour =</span> <span class="st">&#39;red&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" title="1">lambdahat &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">mean</span>(software<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb229-2" title="2">samppoints &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="dt">by=</span>.<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb229-3" title="3">expcdf &lt;-<span class="st"> </span><span class="kw">pexp</span>(samppoints,<span class="dt">rate =</span> lambdahat)</a>
+<a class="sourceLine" id="cb229-4" title="4">empcdf &lt;-<span class="st"> </span><span class="kw">ecdf</span>(software<span class="op">$</span>time)</a>
+<a class="sourceLine" id="cb229-5" title="5">tksestimate &lt;-<span class="st"> </span><span class="kw">max</span>(<span class="kw">abs</span>(expcdf <span class="op">-</span><span class="st"> </span><span class="kw">empcdf</span>(samppoints)))</a>
+<a class="sourceLine" id="cb229-6" title="6">whereisthetks &lt;-<span class="st"> </span><span class="kw">which.max</span>(<span class="kw">abs</span>(expcdf <span class="op">-</span><span class="st"> </span><span class="kw">empcdf</span>(samppoints)))</a>
+<a class="sourceLine" id="cb229-7" title="7"></a>
+<a class="sourceLine" id="cb229-8" title="8"><span class="kw">tibble</span>(<span class="dt">x =</span> samppoints,<span class="dt">y =</span> expcdf) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb229-9" title="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb229-10" title="10"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb229-11" title="11"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb229-12" title="12"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> empcdf,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb229-13" title="13"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> samppoints[whereisthetks],<span class="dt">y =</span> expcdf[whereisthetks],<span class="dt">xend =</span> samppoints[whereisthetks],<span class="dt">yend =</span> <span class="kw">empcdf</span>(samppoints[whereisthetks])),<span class="dt">colour =</span> <span class="st">&#39;red&#39;</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/software-3-1.png" width="672" /></p>
 <p>What a complicated statistic!</p>
 <p>The statistic <span class="math inline">\(T_{ks}\)</span> is a random variable because it depends on the data through the
@@ -504,26 +506,26 @@ distribution of <span class="math inline">\(\hat{\lambda}^{*}\)</span>.</p></li>
 </ol>
 <p>Let’s use this algorithm to get a bootstrap sample from the sampling distribution
 of <span class="math inline">\(T_{ks}\)</span>:</p>
-<div class="sourceCode" id="section-cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">set.seed</span>(<span class="dv">97876856</span>)</a>
-<a class="sourceLine" id="cb12-2" title="2">compute_tks &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb12-3" title="3">  samppoints &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="dt">by=</span>.<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb12-4" title="4">  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(software)</a>
-<a class="sourceLine" id="cb12-5" title="5">  samp &lt;-<span class="st"> </span><span class="kw">rexp</span>(n,<span class="dt">rate =</span> lambdahat)</a>
-<a class="sourceLine" id="cb12-6" title="6">  ecdfboot &lt;-<span class="st"> </span><span class="kw">ecdf</span>(samp)(samppoints)</a>
-<a class="sourceLine" id="cb12-7" title="7">  expcdf &lt;-<span class="st"> </span><span class="kw">pexp</span>(samppoints,<span class="dt">rate =</span> lambdahat)</a>
-<a class="sourceLine" id="cb12-8" title="8">  <span class="kw">max</span>(<span class="kw">abs</span>(ecdfboot <span class="op">-</span><span class="st"> </span>expcdf))</a>
-<a class="sourceLine" id="cb12-9" title="9">}</a>
-<a class="sourceLine" id="cb12-10" title="10">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb12-11" title="11">tksboot &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
-<a class="sourceLine" id="cb12-12" title="12"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) tksboot[b] &lt;-<span class="st"> </span><span class="kw">compute_tks</span>()</a>
-<a class="sourceLine" id="cb12-13" title="13"></a>
-<a class="sourceLine" id="cb12-14" title="14"><span class="kw">tibble</span>(<span class="dt">x =</span> tksboot) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-15" title="15"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-16" title="16"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-17" title="17"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-18" title="18"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-19" title="19"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>,.<span class="dv">2</span>,<span class="dt">by=</span>.<span class="dv">05</span>),.<span class="dv">176</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-20" title="20"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="section-cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1"><span class="kw">set.seed</span>(<span class="dv">97876856</span>)</a>
+<a class="sourceLine" id="cb230-2" title="2">compute_tks &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb230-3" title="3">  samppoints &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="dt">by=</span>.<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb230-4" title="4">  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(software)</a>
+<a class="sourceLine" id="cb230-5" title="5">  samp &lt;-<span class="st"> </span><span class="kw">rexp</span>(n,<span class="dt">rate =</span> lambdahat)</a>
+<a class="sourceLine" id="cb230-6" title="6">  ecdfboot &lt;-<span class="st"> </span><span class="kw">ecdf</span>(samp)(samppoints)</a>
+<a class="sourceLine" id="cb230-7" title="7">  expcdf &lt;-<span class="st"> </span><span class="kw">pexp</span>(samppoints,<span class="dt">rate =</span> lambdahat)</a>
+<a class="sourceLine" id="cb230-8" title="8">  <span class="kw">max</span>(<span class="kw">abs</span>(ecdfboot <span class="op">-</span><span class="st"> </span>expcdf))</a>
+<a class="sourceLine" id="cb230-9" title="9">}</a>
+<a class="sourceLine" id="cb230-10" title="10">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb230-11" title="11">tksboot &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb230-12" title="12"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) tksboot[b] &lt;-<span class="st"> </span><span class="kw">compute_tks</span>()</a>
+<a class="sourceLine" id="cb230-13" title="13"></a>
+<a class="sourceLine" id="cb230-14" title="14"><span class="kw">tibble</span>(<span class="dt">x =</span> tksboot) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb230-15" title="15"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb230-16" title="16"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb230-17" title="17"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb230-18" title="18"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb230-19" title="19"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>,.<span class="dv">2</span>,<span class="dt">by=</span>.<span class="dv">05</span>),.<span class="dv">176</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb230-20" title="20"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">2</span>))</a></code></pre></div>
 <p><img src="book_files/figure-html/software-4-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: the above <code>compute_tks()</code> is a bit tricky. Write out the exact algorithm
 I use to compute <span class="math inline">\(T_{ks}\)</span>. Basically I compute both the ECDF and the parametric estimated
@@ -550,90 +552,86 @@ in excel). There is a numeric ID column, two date columns (which we don’t need
 and 58 numeric response columns. I removed the first three (blank) and fourth (information)
 rows from my
 .csv, and you should do the same in excel if you have it.</p>
-<div class="sourceCode" id="section-cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">col_types &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb13-2" title="2">  <span class="st">&quot;ncc&quot;</span>,</a>
-<a class="sourceLine" id="cb13-3" title="3">  stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">58</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb13-4" title="4">) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-5" title="5"><span class="st">  </span>stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb13-6" title="6">col_types <span class="co"># Understand the above code by running it in pieces and looking at the results.</span></a></code></pre></div>
-<pre><code>## [1] &quot;nccnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn&quot;</code></pre>
-<div class="sourceCode" id="section-cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">budget &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb15-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;data/budget.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb15-3" title="3">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb15-4" title="4">  <span class="dt">col_types =</span> col_types</a>
-<a class="sourceLine" id="cb15-5" title="5">)</a></code></pre></div>
-<pre><code>## Warning: Missing column names filled in: &#39;X17&#39; [17], &#39;X18&#39; [18],
-## &#39;X19&#39; [19], &#39;X20&#39; [20], &#39;X21&#39; [21], &#39;X22&#39; [22], &#39;X23&#39; [23], &#39;X24&#39; [24],
-## &#39;X26&#39; [26], &#39;X27&#39; [27], &#39;X28&#39; [28], &#39;X29&#39; [29], &#39;X30&#39; [30], &#39;X31&#39; [31],
-## &#39;X33&#39; [33], &#39;X34&#39; [34], &#39;X35&#39; [35], &#39;X36&#39; [36], &#39;X37&#39; [37], &#39;X38&#39; [38],
-## &#39;X39&#39; [39], &#39;X40&#39; [40], &#39;X41&#39; [41], &#39;X42&#39; [42], &#39;X44&#39; [44], &#39;X45&#39; [45],
-## &#39;X46&#39; [46], &#39;X47&#39; [47], &#39;X48&#39; [48], &#39;X49&#39; [49], &#39;X50&#39; [50], &#39;X51&#39; [51],
-## &#39;X52&#39; [52], &#39;X53&#39; [53], &#39;X55&#39; [55], &#39;X56&#39; [56], &#39;X57&#39; [57], &#39;X58&#39; [58],
-## &#39;X59&#39; [59]</code></pre>
-<div class="sourceCode" id="section-cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">glimpse</span>(budget)</a></code></pre></div>
-<pre><code>## Observations: 40,513
-## Variables: 61
-## $ `Respond-ent ID`                                                                                                                                                                                                                &lt;dbl&gt; …
-## $ StartDate                                                                                                                                                                                                                       &lt;chr&gt; …
-## $ CompletedDate                                                                                                                                                                                                                   &lt;chr&gt; …
-## $ `Q1: To what extent do you think low oil prices impact the Alberta government&#39;s ability to budget?`                                                                                                                             &lt;dbl&gt; …
-## $ `Q2: How concerned are you about the $7B shortfall?`                                                                                                                                                                            &lt;dbl&gt; …
-## $ `Q3: Should government take action now, wait six months, or hold out for high oil prices?`                                                                                                                                      &lt;dbl&gt; …
-## $ `Q4: Government needs:`                                                                                                                                                                                                         &lt;dbl&gt; …
-## $ `Question 5 a) Cut spending`                                                                                                                                                                                                    &lt;dbl&gt; …
-## $ `Question 5 b) Raise taxes and user fees`                                                                                                                                                                                       &lt;dbl&gt; …
-## $ `Question 5 c) Borrow money`                                                                                                                                                                                                    &lt;dbl&gt; …
-## $ `Question 6 a) Reduce expenditures`                                                                                                                                                                                             &lt;dbl&gt; …
-## $ `Question 6 b) Raise taxes and user fees`                                                                                                                                                                                       &lt;dbl&gt; …
-## $ `Question 6 c) Run a deficit`                                                                                                                                                                                                   &lt;dbl&gt; …
-## $ `Q7: Are current tax rates in Alberta higher, above average or lower?`                                                                                                                                                          &lt;dbl&gt; …
-## $ `Q8: How important is it that AB taxes are lower?`                                                                                                                                                                              &lt;dbl&gt; …
-## $ `Q9: In what ways can the government act to increase revenue without jeopardizing Alberta&#39;s competitive position?  (1 = selected; 0 = not selected)`                                                                            &lt;dbl&gt; …
-## $ X17                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X18                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X19                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X20                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X21                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X22                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X23                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X24                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ `Q10: If the government needs to increase its revenues through taxation, are there options you feel should NOT be considered?                                                                 (1 = selected; 0 = not selected)` &lt;dbl&gt; …
-## $ X26                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X27                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X28                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X29                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X30                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X31                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ `Q11: Where would you tolerate cuts?  (1 = Selected; 0 = Not Selected)`                                                                                                                                                         &lt;dbl&gt; …
-## $ X33                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X34                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X35                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X36                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X37                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X38                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X39                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X40                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X41                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X42                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ `Q12: And are there options you feel should NOT be touched?  (1 = Selected; 0 = Not selected)`                                                                                                                                  &lt;dbl&gt; …
-## $ X44                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X45                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X46                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X47                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X48                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X49                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X50                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X51                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X52                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X53                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ `Q13: Indicate whether you Don&#39;t Know, Disagree or Agree.  (1 =  Don&#39;t know; 2 = Disagree; 3 = Agree)`                                                                                                                          &lt;dbl&gt; …
-## $ X55                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X56                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X57                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X58                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ X59                                                                                                                                                                                                                             &lt;dbl&gt; …
-## $ `Q15: Years you&#39;ve lived in AB`                                                                                                                                                                                                 &lt;dbl&gt; …
-## $ `Q16: What part of the province do you live in?`                                                                                                                                                                                &lt;dbl&gt; …</code></pre>
+<div class="sourceCode" id="section-cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" title="1">col_types &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb231-2" title="2">  <span class="st">&quot;ncc&quot;</span>,</a>
+<a class="sourceLine" id="cb231-3" title="3">  stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">58</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb231-4" title="4">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb231-5" title="5"><span class="st">  </span>stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb231-6" title="6">col_types <span class="co"># Understand the above code by running it in pieces and looking at the results.</span></a></code></pre></div>
+<pre><code>[1] &quot;nccnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn&quot;</code></pre>
+<div class="sourceCode" id="section-cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" title="1">budget &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb233-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;data/budget.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb233-3" title="3">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb233-4" title="4">  <span class="dt">col_types =</span> col_types</a>
+<a class="sourceLine" id="cb233-5" title="5">)</a></code></pre></div>
+<pre><code>Warning: Missing column names filled in: &#39;X17&#39; [17], &#39;X18&#39; [18], &#39;X19&#39; [19], &#39;X20&#39; [20], &#39;X21&#39; [21], &#39;X22&#39; [22], &#39;X23&#39; [23],
+&#39;X24&#39; [24], &#39;X26&#39; [26], &#39;X27&#39; [27], &#39;X28&#39; [28], &#39;X29&#39; [29], &#39;X30&#39; [30], &#39;X31&#39; [31], &#39;X33&#39; [33], &#39;X34&#39; [34], &#39;X35&#39; [35], &#39;X36&#39; [36],
+&#39;X37&#39; [37], &#39;X38&#39; [38], &#39;X39&#39; [39], &#39;X40&#39; [40], &#39;X41&#39; [41], &#39;X42&#39; [42], &#39;X44&#39; [44], &#39;X45&#39; [45], &#39;X46&#39; [46], &#39;X47&#39; [47], &#39;X48&#39; [48],
+&#39;X49&#39; [49], &#39;X50&#39; [50], &#39;X51&#39; [51], &#39;X52&#39; [52], &#39;X53&#39; [53], &#39;X55&#39; [55], &#39;X56&#39; [56], &#39;X57&#39; [57], &#39;X58&#39; [58], &#39;X59&#39; [59]</code></pre>
+<div class="sourceCode" id="section-cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1"><span class="kw">glimpse</span>(budget)</a></code></pre></div>
+<pre><code>Observations: 40,513
+Variables: 61
+$ `Respond-ent ID`                                                                                                                                                                                                                &lt;dbl&gt; …
+$ StartDate                                                                                                                                                                                                                       &lt;chr&gt; …
+$ CompletedDate                                                                                                                                                                                                                   &lt;chr&gt; …
+$ `Q1: To what extent do you think low oil prices impact the Alberta government&#39;s ability to budget?`                                                                                                                             &lt;dbl&gt; …
+$ `Q2: How concerned are you about the $7B shortfall?`                                                                                                                                                                            &lt;dbl&gt; …
+$ `Q3: Should government take action now, wait six months, or hold out for high oil prices?`                                                                                                                                      &lt;dbl&gt; …
+$ `Q4: Government needs:`                                                                                                                                                                                                         &lt;dbl&gt; …
+$ `Question 5 a) Cut spending`                                                                                                                                                                                                    &lt;dbl&gt; …
+$ `Question 5 b) Raise taxes and user fees`                                                                                                                                                                                       &lt;dbl&gt; …
+$ `Question 5 c) Borrow money`                                                                                                                                                                                                    &lt;dbl&gt; …
+$ `Question 6 a) Reduce expenditures`                                                                                                                                                                                             &lt;dbl&gt; …
+$ `Question 6 b) Raise taxes and user fees`                                                                                                                                                                                       &lt;dbl&gt; …
+$ `Question 6 c) Run a deficit`                                                                                                                                                                                                   &lt;dbl&gt; …
+$ `Q7: Are current tax rates in Alberta higher, above average or lower?`                                                                                                                                                          &lt;dbl&gt; …
+$ `Q8: How important is it that AB taxes are lower?`                                                                                                                                                                              &lt;dbl&gt; …
+$ `Q9: In what ways can the government act to increase revenue without jeopardizing Alberta&#39;s competitive position?  (1 = selected; 0 = not selected)`                                                                            &lt;dbl&gt; …
+$ X17                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X18                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X19                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X20                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X21                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X22                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X23                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X24                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ `Q10: If the government needs to increase its revenues through taxation, are there options you feel should NOT be considered?                                                                 (1 = selected; 0 = not selected)` &lt;dbl&gt; …
+$ X26                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X27                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X28                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X29                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X30                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X31                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ `Q11: Where would you tolerate cuts?  (1 = Selected; 0 = Not Selected)`                                                                                                                                                         &lt;dbl&gt; …
+$ X33                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X34                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X35                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X36                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X37                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X38                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X39                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X40                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X41                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X42                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ `Q12: And are there options you feel should NOT be touched?  (1 = Selected; 0 = Not selected)`                                                                                                                                  &lt;dbl&gt; …
+$ X44                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X45                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X46                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X47                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X48                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X49                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X50                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X51                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X52                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X53                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ `Q13: Indicate whether you Don&#39;t Know, Disagree or Agree.  (1 =  Don&#39;t know; 2 = Disagree; 3 = Agree)`                                                                                                                          &lt;dbl&gt; …
+$ X55                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X56                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X57                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X58                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ X59                                                                                                                                                                                                                             &lt;dbl&gt; …
+$ `Q15: Years you&#39;ve lived in AB`                                                                                                                                                                                                 &lt;dbl&gt; …
+$ `Q16: What part of the province do you live in?`                                                                                                                                                                                &lt;dbl&gt; …</code></pre>
 <p>Ugly! There are some missing column names that were in the fourth row. If we needed
 all these data, we would have to go in excel and manually label the columns correctly,
 since the analysts at the government didn’t.</p>
@@ -645,38 +643,38 @@ to the above question.</p>
 can be modelled as a Binomial random variable. Derive and calculate the standard
 deviation of the sample proportion of respondents who answered 1. I got <span class="math inline">\(0.0025\)</span>.
 Is this higher or lower than you would expect with this number of respondents?</p>
-<div class="sourceCode" id="section-cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">set.seed</span>(<span class="dv">29394032</span>)</a>
-<a class="sourceLine" id="cb19-2" title="2">origsamp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(budget[[<span class="st">&quot;Q1: To what extent do you think low oil prices impact the Alberta government&#39;s ability to budget?&quot;</span>]] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) </a>
-<a class="sourceLine" id="cb19-3" title="3">n &lt;-<span class="st"> </span><span class="kw">length</span>(origsamp)</a>
-<a class="sourceLine" id="cb19-4" title="4"><span class="co"># Convert to 0/1 indicator of response == 1</span></a>
-<a class="sourceLine" id="cb19-5" title="5"><span class="co"># Sample proportion:</span></a>
-<a class="sourceLine" id="cb19-6" title="6">phat &lt;-<span class="st"> </span><span class="kw">mean</span>(origsamp)</a>
-<a class="sourceLine" id="cb19-7" title="7">phat</a></code></pre></div>
-<pre><code>## [1] 0.5377533</code></pre>
-<div class="sourceCode" id="section-cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># Standard error (you should DERIVE this formula):</span></a>
-<a class="sourceLine" id="cb21-2" title="2"><span class="kw">sqrt</span>(phat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>phat)<span class="op">/</span>n)</a></code></pre></div>
-<pre><code>## [1] 0.00247703</code></pre>
-<div class="sourceCode" id="section-cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="co"># So the mean is .5378 and the standard error is about 0.0025 (theoretically).</span></a>
-<a class="sourceLine" id="cb23-2" title="2"><span class="co"># Bootstrap: repeatedly resample and calculate the mean. The estimated standard error</span></a>
-<a class="sourceLine" id="cb23-3" title="3"><span class="co"># of the sample mean is then the standard error of these means.</span></a>
-<a class="sourceLine" id="cb23-4" title="4"><span class="co"># This code is a bit more concise than the previous ones, and I put it in a function.</span></a>
-<a class="sourceLine" id="cb23-5" title="5">doboot &lt;-<span class="st"> </span><span class="cf">function</span>(B) {</a>
-<a class="sourceLine" id="cb23-6" title="6">  boot &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
-<a class="sourceLine" id="cb23-7" title="7">  <span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) boot[b] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(origsamp,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb23-8" title="8">  boot</a>
-<a class="sourceLine" id="cb23-9" title="9">}</a>
-<a class="sourceLine" id="cb23-10" title="10">bootmeans &lt;-<span class="st"> </span><span class="kw">doboot</span>(<span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb23-11" title="11"><span class="kw">mean</span>(bootmeans) <span class="co"># Pretty close!</span></a></code></pre></div>
-<pre><code>## [1] 0.5377662</code></pre>
-<div class="sourceCode" id="section-cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">sd</span>(bootmeans) <span class="co"># Not bad at all!</span></a></code></pre></div>
-<pre><code>## [1] 0.00244279</code></pre>
-<div class="sourceCode" id="section-cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">tibble</span>(<span class="dt">x =</span> bootmeans) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb27-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb27-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb27-4" title="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb27-5" title="5"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> rlang<span class="op">::</span><span class="kw">as_function</span>(<span class="op">~</span>n <span class="op">*</span><span class="st"> </span><span class="kw">dbinom</span>(<span class="kw">round</span>(n <span class="op">*</span><span class="st"> </span>.x),<span class="dt">size =</span> n,<span class="dt">prob =</span> phat)),<span class="dt">col =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb27-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Bootstrap distribution of the sample mean&quot;</span>,</a>
-<a class="sourceLine" id="cb27-7" title="7">       <span class="dt">subtitle =</span> <span class="st">&quot;purple: theoretical distribution. red: CLT approximation&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1"><span class="kw">set.seed</span>(<span class="dv">29394032</span>)</a>
+<a class="sourceLine" id="cb237-2" title="2">origsamp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(budget[[<span class="st">&quot;Q1: To what extent do you think low oil prices impact the Alberta government&#39;s ability to budget?&quot;</span>]] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) </a>
+<a class="sourceLine" id="cb237-3" title="3">n &lt;-<span class="st"> </span><span class="kw">length</span>(origsamp)</a>
+<a class="sourceLine" id="cb237-4" title="4"><span class="co"># Convert to 0/1 indicator of response == 1</span></a>
+<a class="sourceLine" id="cb237-5" title="5"><span class="co"># Sample proportion:</span></a>
+<a class="sourceLine" id="cb237-6" title="6">phat &lt;-<span class="st"> </span><span class="kw">mean</span>(origsamp)</a>
+<a class="sourceLine" id="cb237-7" title="7">phat</a></code></pre></div>
+<pre><code>[1] 0.54</code></pre>
+<div class="sourceCode" id="section-cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" title="1"><span class="co"># Standard error (you should DERIVE this formula):</span></a>
+<a class="sourceLine" id="cb239-2" title="2"><span class="kw">sqrt</span>(phat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>phat)<span class="op">/</span>n)</a></code></pre></div>
+<pre><code>[1] 0.0025</code></pre>
+<div class="sourceCode" id="section-cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" title="1"><span class="co"># So the mean is .5378 and the standard error is about 0.0025 (theoretically).</span></a>
+<a class="sourceLine" id="cb241-2" title="2"><span class="co"># Bootstrap: repeatedly resample and calculate the mean. The estimated standard error</span></a>
+<a class="sourceLine" id="cb241-3" title="3"><span class="co"># of the sample mean is then the standard error of these means.</span></a>
+<a class="sourceLine" id="cb241-4" title="4"><span class="co"># This code is a bit more concise than the previous ones, and I put it in a function.</span></a>
+<a class="sourceLine" id="cb241-5" title="5">doboot &lt;-<span class="st"> </span><span class="cf">function</span>(B) {</a>
+<a class="sourceLine" id="cb241-6" title="6">  boot &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb241-7" title="7">  <span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) boot[b] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(origsamp,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb241-8" title="8">  boot</a>
+<a class="sourceLine" id="cb241-9" title="9">}</a>
+<a class="sourceLine" id="cb241-10" title="10">bootmeans &lt;-<span class="st"> </span><span class="kw">doboot</span>(<span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb241-11" title="11"><span class="kw">mean</span>(bootmeans) <span class="co"># Pretty close!</span></a></code></pre></div>
+<pre><code>[1] 0.54</code></pre>
+<div class="sourceCode" id="section-cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" title="1"><span class="kw">sd</span>(bootmeans) <span class="co"># Not bad at all!</span></a></code></pre></div>
+<pre><code>[1] 0.0024</code></pre>
+<div class="sourceCode" id="section-cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1"><span class="kw">tibble</span>(<span class="dt">x =</span> bootmeans) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb245-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb245-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb245-4" title="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb245-5" title="5"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> rlang<span class="op">::</span><span class="kw">as_function</span>(<span class="op">~</span>n <span class="op">*</span><span class="st"> </span><span class="kw">dbinom</span>(<span class="kw">round</span>(n <span class="op">*</span><span class="st"> </span>.x),<span class="dt">size =</span> n,<span class="dt">prob =</span> phat)),<span class="dt">col =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb245-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Bootstrap distribution of the sample mean&quot;</span>,</a>
+<a class="sourceLine" id="cb245-7" title="7">       <span class="dt">subtitle =</span> <span class="st">&quot;purple: theoretical distribution. red: CLT approximation&quot;</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/budget-2-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: inside <code>stat_function(fun = rlang::as_function(~n * dbinom(round(n * .x),size = n,prob = phat)))</code> I
 specify the theoretical density of the sample mean. Derive this formula yourself using the change of variables
@@ -690,13 +688,13 @@ of Albertans believe their province is unable to budget due to the low price of 
 Use the bootstrap to calculate the probability that their claim is true, by considering
 whether each resampled sample mean is greater than .5. Using <code>set.seed(5647244)</code>, and
 <span class="math inline">\(B = 1000\)</span> resamples, I got the following:</p>
-<pre><code>## [1] 1</code></pre>
+<pre><code>[1] 1</code></pre>
 <p>What do you think about this? Is the newspaper’s claim substantiated by the data?</p>
 <p><strong>Exercise</strong>: surveys usually aren’t this big. Repeat the above calculation but
 on a subset of only <span class="math inline">\(n = 200\)</span> people. What do you get now?
 Use <code>newsample &lt;- sample(origsamp,200,replace = FALSE)</code> and then repeate the
 bootstrapping on the <code>newsample</code>. Use the same random seed.</p>
-<pre><code>## [1] 0.688</code></pre>
+<pre><code>[1] 0.69</code></pre>
 
 </div>
 </div>
