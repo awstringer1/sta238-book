@@ -1,28 +1,32 @@
 
 ```{r load-tidy-121341,message=FALSE,warning=FALSE}
 library(tidyverse)
+library(patchwork)
 ```
 
 # Supplement to Evans & Rosenthal Section 7.1
 
 This chapter is a supplement to Chapter 7: Bayesian Inference, section 1:
 The Prior and Posterior Distributions. This is to support the Bayesian Inference
-sections of STA238. Materials in this tutorial are taken from Alex's [comprehensive tutorial on Bayesian Inference](https://awstringer1.github.io/leaf2018/intro-to-bayesian.html), which is very long and outside the scope of this course.
+sections of STA238. Materials in this tutorial are taken from Alex Stringer's [comprehensive tutorial on Bayesian Inference](https://awstringer1.github.io/leaf2018/intro-to-bayesian.html), which is very long and outside the scope of this course.
 
-The assigned exercises associated with this material are from Evans and Rosenthal (E\&R), as follows: 7.1.1, 7.1.2, 7.1.3; 7.1.4; 7.1.8; 7.1.9; 7.1.13, 7.1.14, 7.1.15.
 
 ## Tutorial
 
-In this example we will discuss at length the Beta-Bernoulli example
-from section 7.1. First follow along with the tutorial, then check out the interactive app.
+In this tutorial we will discuss at length the Beta-Bernoulli example
+from section 7.1. First follow along with this tutorial, then check out the [interactive app](http://shiny.sta220.utstat.utoronto.ca:88/BayesianApp/).
 
-Given data generated from some family of probability distributions indexed by unknown parameter, statistical inference is concerned with **estimating** these parameters- finding reasonable values for them, given the observed data. The central notion is that of *uncertainty*: we simply don't know the values of the parameters that generated the data we observed, and we do know that several different values could reasonably have generated these data. **Probability** is the mathematical construct used to represent uncertainty.
+**Review**: given data generated from some family of probability distributions indexed by an unknown parameter, statistical inference is concerned with **estimating** these parameters- finding reasonable values for them, given the observed data, and **quantifying the uncertainty** in these estimates. The central notion is that of *uncertainty*: we simply don't know the values of the parameters that generated the data we observed, and we do know that several different values could reasonably have generated these data. **Probability** is the mathematical construct used to represent uncertainty.
 
 ### Frequentist/Likelihood Perspective
 
-Classically, the approach to this problem is taught from the **frequentist perspective**. Uncertainty in the values of the parameters that generated the data is represented by probability via the notion of *repeated sampling*: under the given probability model with the given parameter values, what is the relative frequency with which these same data would be observed, if the experiment that generated the data were repeated again and again? Values of the parameters that have a higher probability of having generated the observed data are thought to be more likely than other values.
+Classically, the approach to this problem is taught from the **frequentist perspective**. Uncertainty in the values of the parameters that generated the data is represented by probability via the notion of *repeated sampling*: 
 
-As an example, consider a coin with unknown probability of heads $\theta$. We toss the coin once, and observe random outcome (data) $X = 1$ if the toss is heads and $X = 0$ if not. For simplicity, suppose we know we have chosen one of two possible coins, either having $\theta = 0.7$ or $\theta = 0.3$. How do we use the observed data to infer which of these two coins we threw?
+> under the given probability model with the given parameter values, what is the relative frequency with which these same data would be observed, if the experiment that generated the data were repeated again and again? 
+
+Values of the parameters that have a higher probability of having generated the observed data are thought to be more **likely** than other values. "Likelihood" is NOT a synonym of "probability": probability refers to the realization of a random variable (what is the probability we see 4 heads in 10 flips of a coin?), while likelihood refers to the value of a parameter (what is the likelihood of having seen 4 heads in 10 flips of a coin *which has a .4 chance of coming up heads*?). 
+
+As an example, consider a coin with unknown **parameter** $\theta$ representing the probability of heads. We toss the coin once, and observe random outcome (data) $X = 1$ if the toss is heads and $X = 0$ if not. For simplicity, suppose we know we have chosen one of two possible coins, either having $\theta = 0.7$ or $\theta = 0.3$. How do we use the observed data to infer which of these two coins we threw?
 
 For any $0 < \theta < 1$, the probability distribution of the single coin toss is given by
 \[
@@ -32,15 +36,22 @@ This just says that $P(X = 1) = \theta$ and $P(X = 0) = 1-\theta$.
 
 Let's say we throw the coin once, and observe $X = 1$. If $\theta = 0.7$ the probabilty of observing this result is $P(X = 1|\theta = 0.7) = 0.7$. That is if $\theta = 0.7$, we would expect roughly $70\%$ of repetitions of this experiment to yield the same results as we observed in our data. If $\theta = 0.3$ on the other hand, $P(X = 1|\theta = 0.3) = 0.3$; only $30\%$ of the repetitions of this experiment would yield the observed data if $\theta = 0.3$. Because $\theta = 0.7$ would yield the observed data more frequently than $\theta = 0.3$, we say that $\theta = 0.7$ is *more likely* to have generated the observed data than $\theta=0.3$, and our inference favours $\theta =0.7$.
 
+**Exercise**:
+
+1. What is the **probability** of observing two heads in two flips if $\theta = 0.7$?
+
+1. Suppose you observe two heads and one tails in three flips. Which is more **likely** to have generated
+these data, $\theta = 0.3$ or $\theta = 0.7$?
+
 ### Bayesian Inference: introduction
 
 One criticism of the above approach is that is depends not only on the observed data, but also on infinitely many other possible datasets that are not observed. This is an artifact of the manner in which probability is used to represent uncertainty. In contrast, Bayesian statistics represents uncertainty about the value of a parameter **directly** using probability distributions.
 
-In particular, a **prior distribution** is placed on the parameter, representing the probable values of that parameter before data is observed. Having observed the data, the prior is updated via *Bayes' Rule*, yielding the **posterior distribution** of the parameter, given the data. 
+In Bayesian inference, a **prior distribution** is placed on the parameter, representing the probable values of that parameter before data is observed. Having observed the data, the prior is updated via *Bayes' Rule*, yielding the **posterior distribution** of the parameter, given the data. 
 
-The choice of prior distribution is based either on subject-matter knowledge or mathematical convenience, and is a subjective choice on the part of the analyst. Don't worry too much about it in this course-- you should get comfortable with the idea and the math. We'd talk more about it in a more advanced applied statistics course. 
+The choice of prior distribution is based either on subject-matter knowledge or mathematical convenience, and is a subjective choice on the part of the analyst. Don't worry too much about it in this course-- you should get comfortable with the idea and the math. We'd talk more about it in a more advanced applied statistics course. But be warned: you may hear criticisms like "there is no way to pick a good prior". While rooted in valid concern, such criticisms are a bit outdated. Bayesian inference is very useful in modern practice.
 
-To see how this works, suppose that we think about $4/5$ coins in our pocket are the $\theta = 0.3$ coins, and only $1/5$ are the $\theta = 0.7$ coins. The parameter space here is $\Theta = \left\{ 0.3, 0.7\right\}$. Our prior distribution on $\theta$ is then
+To see how this works, suppose that we have a pocket full of coins (woohoo!) and we think about $4/5$ coins in our pocket are the $\theta = 0.3$ coins, and only $1/5$ are the $\theta = 0.7$ coins. The parameter space here is $\Theta = \left\{ 0.3, 0.7\right\}$. Our prior distribution on $\theta$ is then
 \[
 P(\theta = q) = 0.2^{I(q = 0.7)}0.8^{I(q = 0.3)}, \ q\in\Theta
 \]
@@ -72,7 +83,14 @@ Before observing heads, we would have thought the $\theta = 0.7$ coin to be very
 
 ### Flipping More Coins
 
-Suppose now that we flip $n$ coins, obtaining a dataset $X = (X_{1},\ldots,X_{n})$ of heads or tails, represented by 0's and 1's. If we're still considering only two candidate values $\theta = 0.7$ or $\theta = 0.3$, we may still ask the question "which value is more likely to have generated the observed data?". We again form the *likelihood function* for each value of $\theta$, the relative frequency with which each value of $\theta$ would have generated the observed sample. Assuming the tosses are statistically independent:
+Suppose now that we flip $n$ coins, obtaining a dataset $X = (X_{1},\ldots,X_{n})$ of heads or tails, represented by 0's and 1's. If we're still considering only two candidate values $\theta = 0.7$ or $\theta = 0.3$, we may still ask the question "which value is more likely to have generated the observed data?". We again form the *likelihood function* for each value of $\theta$, the relative frequency with which each value of $\theta$ would have generated the observed sample. 
+
+**Exercise**: assuming the tosses are statistically independent:
+
+1. Write down the complete **statistical model**: identify all random quantities,
+their probability distributions, and the unknown parameters,
+
+1. Show that the **likelihood** for the data is:
 $$
 p(X|\theta) = \theta^{\sum_{i=1}^{n}X_{i}} \times (1 - \theta)^{n - \sum_{i=1}^{n}X_{i}}
 $$
@@ -86,6 +104,11 @@ p(X|\theta = 0.3) &= 0.3^{6} \times 0.7^{4} = 0.000175 \\
 \end{aligned}
 $$
 It is much more likely to observe $6$ heads when $\theta = 0.7$ than when $\theta = 0.3$.
+
+**Remark**: it doesn't look very "likely" to observe these data using either value of $\theta$!
+It turns out the actual value of the likelihood for a particular $\theta$ holds little meaning:
+what is relevant is the *relative* values for different $\theta$'s. In this example, $\theta = 0.7$ is 
+$0.000953 / 0.000175 = 5.45$ times *more likely* to have generated the observed data than $\theta = 0.3$. 
 
 **Exercise**: calculate the likelihood function for $\theta$ when $n = 100$ and $\sum_{i=1}^{n}X_{i} = 60$. How much more likely is $\theta = 0.7$ than $\theta = 0.3$ now?
 
@@ -102,6 +125,9 @@ p(\theta = 0.3 |X) = \frac{0.3^{6}0.7^{4}\times 0.2}{0.3^{6}0.7^{4}\times 0.8 + 
 $$
 
 We can see that the data "updates" our prior belief that $\theta = 0.3$ was more probable than $\theta = 0.7$, because the observed data was more likely to have occurred if $\theta = 0.7$ than if $\theta = 0.3$.
+
+**Exercise**: compute the posterior distribution with $n = 100$ and $\sum_{i=1}^{100}x_{i} = 60$.
+
 
 ### Visualization
 
@@ -122,7 +148,7 @@ visualize_binomial_priorposterior <- function(sumx,n) {
   posterior <- function(theta) likelihood(theta) * prior(theta) / marginal_likelihood
   
   # Plot of the prior and posterior distributions for these observed data
-  data_frame(
+  tibble(
     theta = c(.3,.7,.3,.7),
     value = c(prior(.3),prior(.7),posterior(.3),posterior(.7)),
     type = c("Prior","Prior","Posterior","Posterior")
@@ -145,17 +171,11 @@ visualize_binomial_priorposterior <- function(sumx,n) {
 Plotting is nice as it lets us compare how different observed data, and different experiments (number of throws) affect the prior/posterior balance of belief:
 
 ```{r binomial-vis2,fig.height=10}
-cowplot::plot_grid(
-  visualize_binomial_priorposterior(6,6),
-  visualize_binomial_priorposterior(6,10),
-  visualize_binomial_priorposterior(6,20),
-  visualize_binomial_priorposterior(6,50),
-  visualize_binomial_priorposterior(0,10),
-  visualize_binomial_priorposterior(1,10),
-  visualize_binomial_priorposterior(7,10),
-  visualize_binomial_priorposterior(10,10),
-  ncol=2
-)
+# library(patchwork)
+(visualize_binomial_priorposterior(6,6) | visualize_binomial_priorposterior(6,10)) /
+(visualize_binomial_priorposterior(6,20) | visualize_binomial_priorposterior(6,50)) /
+(visualize_binomial_priorposterior(0,10) | visualize_binomial_priorposterior(1,10)) /
+(visualize_binomial_priorposterior(7,10) | visualize_binomial_priorposterior(10,10))
 ```
 
 ## Interactive App
