@@ -293,7 +293,7 @@ so the estimator is also random. If we took another sample, we would get another
 value of <span class="math inline">\(\hat{\mu}\)</span>. The estimator <span class="math inline">\(\hat{\mu}\)</span> is a random variable, so it has
 a probability distribution. We have seen several ways to get it: mathematical
 derivation, the Central Limit Theorem, and Bootstrapping. In this example, we
-know that <span class="math display">\[\hat{\mu} \overset \text{N}(\mu,1/\sqrt{n}).\]</span></p>
+know that <span class="math display">\[\hat{\mu} \sim \text{N}(\mu,1/\sqrt{n}).\]</span></p>
 <p>The value <span class="math inline">\(\hat{\mu}\)</span> is called a <strong>point estimate</strong> of the parameter <span class="math inline">\(\mu\)</span>.
 In this chapter we are going to go one step further and <strong>quantify uncertainty</strong>
 in our point estimates for parameters. We are going to do this by using the <strong>sampling distributions</strong> of
@@ -301,7 +301,7 @@ the estimators to construct random intervals which contain the true parameter
 value with high probability. These are called <strong>confidence intervals</strong>.</p>
 <div id="section-simulation-an-example" class="section level3">
 <h3><span class="header-section-number">9.1.1</span> Simulation: an example</h3>
-<p>How do we do this? We know that <span class="math display">\[\hat{\mu} \overset \text{N}(\mu,1/\sqrt{n}).\]</span>
+<p>How do we do this? We know that <span class="math display">\[\hat{\mu} \sim \text{N}(\mu,1/\sqrt{n}).\]</span>
 Rearrangement gives <span class="math display">\[Z_{n} = \frac{\hat{\mu} - \mu}{1/\sqrt{n}} \overset \text{N}(0,1).\]</span></p>
 <p>Let <span class="math inline">\(q_{\alpha}\)</span> be the <span class="math inline">\(\alpha\)</span>-<em>quantile</em> of <span class="math inline">\(Z_{n}\)</span>: the value such that <span class="math inline">\(P(Z_{n} \leq q_{\alpha}) = \alpha\)</span>, for <span class="math inline">\(0 \leq \alpha \leq 1\)</span>. Then we have
 <span class="math display">\[\begin{equation}\begin{aligned}
@@ -679,7 +679,7 @@ using both the empirical bootstrap and the <span class="math inline">\(t\)</span
 <pre><code>    upper     lower 
 0.0012124 0.0021122 </code></pre>
 <pre><code>upper.97.5%  lower.2.5% 
-  0.0012389   0.0022915 </code></pre>
+  0.0015348   0.0015482 </code></pre>
 <p><strong>Advanced Exercise</strong>: extend that last result: show that if <span class="math inline">\((L_{n},U_{n})\)</span> is a <span class="math inline">\(1-\alpha\)</span> confidence interval for some
 parameter <span class="math inline">\(\theta\)</span>, and <span class="math inline">\(g(\theta)\)</span> is a monotone function, then</p>
 <ol style="list-style-type: decimal">

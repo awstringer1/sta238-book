@@ -19,7 +19,7 @@ so the estimator is also random. If we took another sample, we would get another
 value of $\hat{\mu}$. The estimator $\hat{\mu}$ is a random variable, so it has
 a probability distribution. We have seen several ways to get it: mathematical
 derivation, the Central Limit Theorem, and Bootstrapping. In this example, we
-know that $$\hat{\mu} \overset \text{N}(\mu,1/\sqrt{n}).$$ 
+know that $$\hat{\mu} \sim \text{N}(\mu,1/\sqrt{n}).$$ 
 
 The value $\hat{\mu}$ is called a **point estimate** of the parameter $\mu$. 
 In this chapter we are going to go one step further and **quantify uncertainty**
@@ -29,7 +29,7 @@ value with high probability. These are called **confidence intervals**.
 
 ### Simulation: an example
 
-How do we do this? We know that $$\hat{\mu} \overset \text{N}(\mu,1/\sqrt{n}).$$ 
+How do we do this? We know that $$\hat{\mu} \sim \text{N}(\mu,1/\sqrt{n}).$$ 
 Rearrangement gives $$Z_{n} = \frac{\hat{\mu} - \mu}{1/\sqrt{n}} \overset \text{N}(0,1).$$
 
 Let $q_{\alpha}$ be the $\alpha$-*quantile* of $Z_{n}$: the value such that $P(Z_{n} \leq q_{\alpha}) = \alpha$, for $0 \leq \alpha \leq 1$. Then we have
