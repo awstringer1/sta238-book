@@ -47,7 +47,7 @@ section-the-bootstrap-chapter-18
 section-empirical-bootstrap-old-faithful-data
 section-parametric-bootstrap-software-data
 section-extended-example-the-standard-error-of-a-proportion
-section-supplement-to-chapter-21
+section-maximum-likelihood
 section-maximum-likelihood-chapter-21
 section-example-two-coins
 section-example-unknown-coins-n-2
@@ -93,3 +93,4 @@ section-chapters-17-and-19
 section-chapter-20
 section-evans-and-rosenthal-chapter-7
 section-chapter-18
+section-chapter-21

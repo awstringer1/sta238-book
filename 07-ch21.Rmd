@@ -1,19 +1,12 @@
-# Supplement to Chapter 21
+# Maximum Likelihood
 
-This chapter implements much of the analysis shown in chapter 21 of 
-A Modern Introduction to Probability and Statistics. R code is given for the
-simple textbook datasets used in the book, and then the concepts are
-illustrated on real data.
+This chapter introduces maximum likelihood.
 
-All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
-
-The assigned exercises associated with this material are from MIPS, as follows: 21.1; 21.2; 21.3; 21.4; 21.5; 21.6; 21.8; 21.9; 21.11; 21.14. Answers to selected exercises are in the 
-back of the book. You should also do all the "quick exercises" within chapter 21 
-(solutions are at the end of the chapter). Use `R` as much as possible when answering the
-questions.
+This chapter uses some data from MIPS, which can be downloaded here:  https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
 
 ```{r load-tidy,message=FALSE,warning=FALSE}
 library(tidyverse)
+library(patchwork)
 ```
 
 ## Maximum Likelihood (Chapter 21)
@@ -34,15 +27,21 @@ variable $X$, which equals $1$ (heads) or $0$ (tails) with probability given *ei
 by $p = p_{1}$ or $p = p_{2}$. But you don't know which one. Your task is to guess (*infer*)
 the value of the probability of heads, $p$, based on the data, $X$.
 
-The **Maximum Likelihood Principle** as quoted in the book says that you should
-pick the value of $p$ under which your observed data is the most likely-- would
-occur with the highest relative frequency, if the data-generating experiment were
+The **Maximum Likelihood Principle** says that you should
+pick the value of $p$ under which your observed data is the most likely. That means
+
+> would occur with the highest relative frequency if the data-generating experiment were
 repeated over and over again.
 
 The likelihood function is the probability distribution of the observed data $X$,
 treated as a function of the unknown parameter $p$. That means for every sample
 you get, you get a different likelihood function. It's always a function of $p$, 
-but it's a *different* function of $p$ for different observed data $X$.
+but it's a *different* function of $p$ for different observed data $X$. 
+
+The likelihood
+function is (hence) a random function of the unknown parameter. We observe a sample,
+get a likelihood function, and use that likelihood function to estimate and quantify
+uncertainty in the value of the unknown parameter.
 
 In our example, our likelihood functions for $X=1$ and $X=0$ are functions from
 the set $\{p_{1},p_{2}\}\mapsto\mathbb{R}$, i.e. they are only defined at the
@@ -57,8 +56,26 @@ L(p_{1};x = 1) = 0.7, \ L(p_{2}; x = 1) = 0.4
 
 The likelihood function $L(p;x)$ is the relative frequency with which the observed
 value $X = x$ would be observed in repeated sampling *at that value of the parameter* $p$.
-This is kind of a mouthful. Because the likelihood function is defined in terms of a relative frequency, we can write a simulation that illustrates it. I will do this for $X = 1$
-and then you can do it for $X = 0$.
+This is kind of a mouthful. Because the likelihood function is defined in terms of a relative frequency, we can write a simulation that illustrates it. 
+
+Since 
+
+> The likelihood function $L(p;x)$ is the relative frequency with which the observed
+value $X = x$ would be observed in repeated sampling *at that value of the parameter* $p$
+
+I propose that a good way to simulate the likelihood function is to
+
+1. Choose a value of $p$,
+
+1. Simulate a bunch of data from a $\text{Bernoulli}(p)$ distribution, and
+
+1. See how often the simulated data equals our observed data.
+
+Let's not worry too much about whether this is going to work in every example...
+for this example, I think it will work.
+
+I will do this for $X = 1$
+and then you can do it for $X = 0$:
 
 ```{r liksim-1}
 # Simulation to recreate the likelihood function for the two-coin example.
@@ -109,8 +126,8 @@ if I tell you to guess which of two coins I flipped based on the result of one f
 you're going to try and maximize your chances of being right. You do this by choosing
 the coin that is most likely to give the result you observed.
 
-The book talks about the likelihood function being popularized by R.A. Fisher in 
-his seminal 1922 paper, On the Mathematical Foundations of Theoretical Statistics.
+The likelihood function was popularized by R.A. Fisher in 
+his 1922 paper, On the Mathematical Foundations of Theoretical Statistics.
 What he actually says is as follows:
 
 > We must return to the actual fact that one value of $p$, of the frequency of
@@ -123,8 +140,7 @@ but simply to express the relative frequencies with which such values of the hyp
 quantity $p$ would in fact yield the observed sample.
 
 I like this quote, even though the language at that time was less direct than we're
-used to now, I think Fisher explains the concept better than any modern textbook I've
-ever read.
+used to now, I think Fisher explains the concept better than any modern textbook I've read.
 
 The two-coin example is a bit simple, but it is the most intuitive. 
 Let's extend it to the more realistic case where the parameter $p$ can be any
@@ -171,11 +187,11 @@ rightplot <- baseplot +
   stat_function(fun = likelihood,args = list(x = 0)) +
   labs(title = "x = 0")
 
-cowplot::plot_grid(leftplot,rightplot,nrow =1)
+leftplot | rightplot
 ```
 
 The likelihood is maximized on the closed interval $[0,1]$ at $p = 1$ when $x = 1$
-and $p = 0$ when $x = 0$. This is the mathematical encoding of your intuition that
+and $p = 0$ when $x = 0$. This is the mathematical representation of the idea that
 if the coin is heads, my best guess at the relative frequency of heads is simply that
 the coin is *always* heads, because well, I've never seen it come up tails!
 
@@ -230,15 +246,15 @@ ylist <- list(
   "y4" = c(1,1)
 )
 likelihood <- function(p,y) p^(sum(y)) * (1-p)^(sum(1-y))
-makeplot <- function(s) {
-  plotname <- as.character(ylist[[s]]) %>% stringr::str_c(collapse = ",")
-  baseplot +
-    stat_function(fun = likelihood,args = list(y = ylist[[s]])) +
+makeplot <- function(y) {
+  # y = c(0,0) or c(0,1) or c(1,0) or c(1,1)
+  plotname <- as.character(y) %>% stringr::str_c(collapse = ",")
+  baseplot + # baseplot was made above
+    stat_function(fun = likelihood,args = list(y = y)) +
     labs(title = stringr::str_c("y = ",plotname))
 }
-names(ylist) %>%
-  map(makeplot) %>%
-  cowplot::plot_grid(plotlist = .,nrow = 2)
+( makeplot(c(0,0)) | makeplot(c(0,1)) ) /
+( makeplot(c(1,0)) | makeplot(c(1,1)) ) 
 ```
 
 **Exercise**: compute the value of $\hat{p}$ for each sample. Add a verticle line
@@ -327,7 +343,7 @@ or larger?
 1. How does the shape and location of the likelihood change when you change $p_{0}$?
 What happens when you push $p_{0}$ really close to $0$ or $1$?
 
-### Extended example: rental housing in Toronto
+## Extended example: rental housing in Toronto
 
 Recall the Toronto Rental Housing dataset from Section 2.5 of these supplementary
 materials. We were interested in estimating the quality of rental housing for the 
@@ -355,7 +371,8 @@ glimpse(apartmentclean)
 apartmentclean %>%
   filter(property_type == "PRIVATE") %>%
   group_by(ward) %>%
-  summarize(avg_score = mean(score))
+  summarize(avg_score = mean(score)) %>%
+  knitr::kable()
 
 ```
 
@@ -400,3 +417,20 @@ Prove that the MLE's for the means and standard deviations are:
 \hat{\mu}_{j} &= \frac{1}{n_{j}}\sum_{i=1}^{n_{j}}X_{ij} \\
 \hat{\sigma} &= \sqrt{\frac{\sum_{j=1}^{25}\sum_{i=1}^{n_{j}}\left(X_{ij} - \hat{\mu}_{j} \right)^{2}}{\sum_{j=1}^{25}n_{j}}}
 \end{aligned}\end{equation}
+
+Compute the MLEs in this way for these data. I got:
+```{r wardmeans-1}
+themeans <- apartmentclean %>%
+  filter(property_type == "PRIVATE") %>%
+  group_by(ward) %>%
+  summarize(avg_score = mean(score))
+
+thesd <- apartmentclean %>%
+  filter(property_type == "PRIVATE") %>%
+  summarize(sd = sd(score))
+
+cat("The means: \n")
+knitr::kable(themeans)
+cat("The standard deviation: \n")
+thesd
+```

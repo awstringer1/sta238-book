@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Maximum Likelihood | STA238: Probability, Statistics, and Data Analysis</title>
+  <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  <meta name="generator" content="bookdown 0.21.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Maximum Likelihood | STA238: Probability, Statistics, and Data Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Maximum Likelihood | STA238: Probability, Statistics, and Data Analysis" />
+  
+  <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+<meta name="author" content="Alison Gibbs and Alex Stringer" />
+
+
+<meta name="date" content="2020-10-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="section-the-bootstrap.html"/>
+<link rel="next" href="section-supplement-to-chapter-23-and-24.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STA238 University of Toronto</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a><ul>
+<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="2.1.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="2.2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries-1"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.4.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-association-between-smoking-and-mortality"><i class="fa fa-check"></i><b>2.4.2</b> Association between smoking and mortality</a></li>
+<li class="chapter" data-level="2.4.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
+<li class="chapter" data-level="2.5.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
+<li class="chapter" data-level="2.5.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-iii-trends-in-quality-over-time"><i class="fa fa-check"></i><b>2.5.4</b> Analysis III: trends in quality over time</a></li>
+<li class="chapter" data-level="2.5.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-summary"><i class="fa fa-check"></i><b>2.5.5</b> Summary</a></li>
+<li class="chapter" data-level="2.5.6" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a><ul>
+<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a><ul>
+<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.1.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-simulated-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a><ul>
+<li class="chapter" data-level="5.1" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-estimating-a-uniform-maximum"><i class="fa fa-check"></i><b>5.1</b> Estimating a Uniform Maximum</a></li>
+<li class="chapter" data-level="5.2" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-efficiency"><i class="fa fa-check"></i><b>5.2</b> Efficiency</a></li>
+<li class="chapter" data-level="5.3" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-mean-squared-error"><i class="fa fa-check"></i><b>5.3</b> Mean Squared Error</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a><ul>
+<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-frequentistlikelihood-perspective"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist/Likelihood Perspective</a></li>
+<li class="chapter" data-level="6.1.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-bayesian-inference-introduction"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Inference: introduction</a></li>
+<li class="chapter" data-level="6.1.3" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-flipping-more-coins"><i class="fa fa-check"></i><b>6.1.3</b> Flipping More Coins</a></li>
+<li class="chapter" data-level="6.1.4" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-visualization"><i class="fa fa-check"></i><b>6.1.4</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-interactive-app"><i class="fa fa-check"></i><b>6.2</b> Interactive App</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a><ul>
+<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-empirical-bootstrap-old-faithful-data"><i class="fa fa-check"></i><b>7.1.1</b> Empirical bootstrap: Old Faithful data</a></li>
+<li class="chapter" data-level="7.1.2" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-parametric-bootstrap-software-data"><i class="fa fa-check"></i><b>7.1.2</b> Parametric Bootstrap: software data</a></li>
+<li class="chapter" data-level="7.1.3" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-extended-example-the-standard-error-of-a-proportion"><i class="fa fa-check"></i><b>7.1.3</b> Extended example: the standard error of a proportion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html"><i class="fa fa-check"></i><b>8</b> Maximum Likelihood</a><ul>
+<li class="chapter" data-level="8.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
+<li class="chapter" data-level="8.1.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
+<li class="chapter" data-level="8.1.3" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.2</b> Extended example: rental housing in Toronto</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html"><i class="fa fa-check"></i><b>9</b> Supplement to Chapter 23 and 24</a><ul>
+<li class="chapter" data-level="9.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-simulation"><i class="fa fa-check"></i><b>9.1.1</b> Simulation</a></li>
+<li class="chapter" data-level="9.1.2" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
+<li class="chapter" data-level="9.1.3" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-gross-calorific-value-measurements-for-daw-mill-258gb41"><i class="fa fa-check"></i><b>9.1.3</b> Gross calorific value measurements for Daw Mill 258GB41</a></li>
+<li class="chapter" data-level="9.1.4" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.4</b> Bootstrap Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-more-on-confidence-intervals-chapter-24"><i class="fa fa-check"></i><b>9.2</b> More on confidence intervals (Chapter 24)</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="section-supplement-to-chapter-23-and-24.html"><a href="section-supplement-to-chapter-23-and-24.html#section-binomial-distribution"><i class="fa fa-check"></i><b>9.2.1</b> Binomial distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
+<li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
+<li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
+<li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html"><i class="fa fa-check"></i><b>11</b> Supplement to Evans &amp; Rosenthal Section 7.2</a><ul>
+<li class="chapter" data-level="11.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-the-prior"><i class="fa fa-check"></i><b>11.1.1</b> The Prior</a></li>
+<li class="chapter" data-level="11.1.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-the-posterior"><i class="fa fa-check"></i><b>11.1.2</b> The Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-estimation-in-bayesian-inference-point-and-interval-estimation"><i class="fa fa-check"></i><b>11.2</b> Estimation in Bayesian Inference: point and interval estimation</a></li>
+<li class="chapter" data-level="11.3" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-conjugate-priors"><i class="fa fa-check"></i><b>11.3.1</b> Conjugate Priors</a></li>
+<li class="chapter" data-level="11.3.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a><ul>
+<li class="chapter" data-level="12.1" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-overview"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
+<li class="chapter" data-level="12.2" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-plug-in-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.2</b> Plug-in prediction: coin flipping</a></li>
+<li class="chapter" data-level="12.3" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-bayesian-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.3</b> Bayesian Prediction: coin flipping</a></li>
+<li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-income-and-advertsing-datasets"><i class="fa fa-check"></i><b>12.4</b> Extended example: Income and Advertsing datasets</a></li>
+<li class="chapter" data-level="12.5" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.5</b> Extended example: predicting call centre wait times</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="13.1" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-r"><i class="fa fa-check"></i><b>13.1</b> Installing R</a></li>
+<li class="chapter" data-level="13.2" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-rstudio"><i class="fa fa-check"></i><b>13.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="13.3" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-using-rmarkdown"><i class="fa fa-check"></i><b>13.3</b> Using RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a><ul>
+<li class="chapter" data-level="14.1" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-15-and-16"><i class="fa fa-check"></i><b>14.1</b> Chapters 15 and 16</a></li>
+<li class="chapter" data-level="14.2" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-13-and-14"><i class="fa fa-check"></i><b>14.2</b> Chapters 13 and 14</a></li>
+<li class="chapter" data-level="14.3" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-17-and-19"><i class="fa fa-check"></i><b>14.3</b> Chapters 17 and 19</a></li>
+<li class="chapter" data-level="14.4" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-20"><i class="fa fa-check"></i><b>14.4</b> Chapter 20</a></li>
+<li class="chapter" data-level="14.5" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7"><i class="fa fa-check"></i><b>14.5</b> Evans and Rosenthal, Chapter 7</a></li>
+<li class="chapter" data-level="14.6" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-18"><i class="fa fa-check"></i><b>14.6</b> Chapter 18</a></li>
+<li class="chapter" data-level="14.7" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-21"><i class="fa fa-check"></i><b>14.7</b> Chapter 21</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA238: Probability, Statistics, and Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section-maximum-likelihood" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Maximum Likelihood</h1>
+<p>This chapter introduces maximum likelihood.</p>
+<p>This chapter uses some data from MIPS, which can be downloaded here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>.</p>
+<div class="sourceCode" id="section-cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb248-2" title="2"><span class="kw">library</span>(patchwork)</a></code></pre></div>
+<div id="section-maximum-likelihood-chapter-21" class="section level2">
+<h2><span class="header-section-number">8.1</span> Maximum Likelihood (Chapter 21)</h2>
+<p>The concept of Maximum Likelihood, and the Likelihood function itself, is one of
+the single most important concepts in all of statistics. You need to understand
+this concept. I find a simulation is helpful.</p>
+<div id="section-example-two-coins" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Example: two coins</h3>
+<p>Suppose I have two coins in my pocket. One of them has probability of heads <span class="math inline">\(p_{1} = 0.7\)</span>
+and the other has probability of heads <span class="math inline">\(p_{2} = 0.4\)</span>. I pull one out and hand it
+to you. Your task is to guess which coin it is. You are <strong>only allowed to flip it
+once</strong>.</p>
+<p>To make this concrete, you flip the coin once and observe one realization of a random
+variable <span class="math inline">\(X\)</span>, which equals <span class="math inline">\(1\)</span> (heads) or <span class="math inline">\(0\)</span> (tails) with probability given <em>either</em>
+by <span class="math inline">\(p = p_{1}\)</span> or <span class="math inline">\(p = p_{2}\)</span>. But you don’t know which one. Your task is to guess (<em>infer</em>)
+the value of the probability of heads, <span class="math inline">\(p\)</span>, based on the data, <span class="math inline">\(X\)</span>.</p>
+<p>The <strong>Maximum Likelihood Principle</strong> says that you should
+pick the value of <span class="math inline">\(p\)</span> under which your observed data is the most likely. That means</p>
+<blockquote>
+<p>would occur with the highest relative frequency if the data-generating experiment were
+repeated over and over again.</p>
+</blockquote>
+<p>The likelihood function is the probability distribution of the observed data <span class="math inline">\(X\)</span>,
+treated as a function of the unknown parameter <span class="math inline">\(p\)</span>. That means for every sample
+you get, you get a different likelihood function. It’s always a function of <span class="math inline">\(p\)</span>,
+but it’s a <em>different</em> function of <span class="math inline">\(p\)</span> for different observed data <span class="math inline">\(X\)</span>.</p>
+<p>The likelihood
+function is (hence) a random function of the unknown parameter. We observe a sample,
+get a likelihood function, and use that likelihood function to estimate and quantify
+uncertainty in the value of the unknown parameter.</p>
+<p>In our example, our likelihood functions for <span class="math inline">\(X=1\)</span> and <span class="math inline">\(X=0\)</span> are functions from
+the set <span class="math inline">\(\{p_{1},p_{2}\}\mapsto\mathbb{R}\)</span>, i.e. they are only defined at the
+two points <span class="math inline">\(p = p_{1}\)</span> and <span class="math inline">\(p = p_{2}\)</span>. The distribution of <span class="math inline">\(X\)</span> is <span class="math inline">\(\text{Bernoulli}(p)\)</span>.</p>
+<p>Suppose <span class="math inline">\(X=1\)</span>. The likelihood function <span class="math inline">\(L(p)\)</span> is then defined by
+<span class="math display">\[\begin{equation}
+L(p_{1};x = 1) = 0.7, \ L(p_{2}; x = 1) = 0.4
+\end{equation}\]</span></p>
+<p><strong>Exercise</strong>: derive the likelihood function for tails, <span class="math inline">\(L(p;x = 0)\)</span>.</p>
+<p>The likelihood function <span class="math inline">\(L(p;x)\)</span> is the relative frequency with which the observed
+value <span class="math inline">\(X = x\)</span> would be observed in repeated sampling <em>at that value of the parameter</em> <span class="math inline">\(p\)</span>.
+This is kind of a mouthful. Because the likelihood function is defined in terms of a relative frequency, we can write a simulation that illustrates it.</p>
+<p>Since</p>
+<blockquote>
+<p>The likelihood function <span class="math inline">\(L(p;x)\)</span> is the relative frequency with which the observed
+value <span class="math inline">\(X = x\)</span> would be observed in repeated sampling <em>at that value of the parameter</em> <span class="math inline">\(p\)</span></p>
+</blockquote>
+<p>I propose that a good way to simulate the likelihood function is to</p>
+<ol style="list-style-type: decimal">
+<li><p>Choose a value of <span class="math inline">\(p\)</span>,</p></li>
+<li><p>Simulate a bunch of data from a <span class="math inline">\(\text{Bernoulli}(p)\)</span> distribution, and</p></li>
+<li><p>See how often the simulated data equals our observed data.</p></li>
+</ol>
+<p>Let’s not worry too much about whether this is going to work in every example…
+for this example, I think it will work.</p>
+<p>I will do this for <span class="math inline">\(X = 1\)</span>
+and then you can do it for <span class="math inline">\(X = 0\)</span>:</p>
+<div class="sourceCode" id="section-cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" title="1"><span class="co"># Simulation to recreate the likelihood function for the two-coin example.</span></a>
+<a class="sourceLine" id="cb249-2" title="2"><span class="co"># The likelihood function is the relative frequency with which your sample</span></a>
+<a class="sourceLine" id="cb249-3" title="3"><span class="co"># would occur in repeated sampling, for a particular value of the parameter.</span></a>
+<a class="sourceLine" id="cb249-4" title="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb249-5" title="5"><span class="co"># Suppose you flip the coin and get heads. The likelihood function at p1 = 0.7</span></a>
+<a class="sourceLine" id="cb249-6" title="6"><span class="co"># is the relative frequency with which you would get heads if you flipped the coin</span></a>
+<a class="sourceLine" id="cb249-7" title="7"><span class="co"># over and over, if p really equalled 0.7.</span></a>
+<a class="sourceLine" id="cb249-8" title="8"><span class="co"># </span></a>
+<a class="sourceLine" id="cb249-9" title="9"><span class="co"># The likelihood function at p1 = 0.4 is the relative frequency with which you </span></a>
+<a class="sourceLine" id="cb249-10" title="10"><span class="co"># would get heads if you flipped the coin over and over, if p really equalled 0.4.</span></a>
+<a class="sourceLine" id="cb249-11" title="11"><span class="co"># </span></a>
+<a class="sourceLine" id="cb249-12" title="12"><span class="co"># Let&#39;s do it:</span></a>
+<a class="sourceLine" id="cb249-13" title="13">simulate_likelihood_x1 &lt;-<span class="st"> </span><span class="cf">function</span>(p) {</a>
+<a class="sourceLine" id="cb249-14" title="14">  <span class="co"># Make sure p is in the range of possible values</span></a>
+<a class="sourceLine" id="cb249-15" title="15">  <span class="cf">if</span> (<span class="op">!</span>(p <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(.<span class="dv">7</span>,.<span class="dv">4</span>))) <span class="kw">stop</span>(stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;Wrong value for p. p should be .7 or .4. You gave p = &quot;</span>,p))</a>
+<a class="sourceLine" id="cb249-16" title="16">  <span class="co"># Sample the data repeatedly according to this p</span></a>
+<a class="sourceLine" id="cb249-17" title="17">  N &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb249-18" title="18">  repeatedsampling &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),N,<span class="dt">replace =</span> <span class="ot">TRUE</span>,<span class="dt">prob =</span> <span class="kw">c</span>(p,<span class="dv">1</span><span class="op">-</span>p)) <span class="co"># Sample 1/0 with prob p/(1-p), N times</span></a>
+<a class="sourceLine" id="cb249-19" title="19">  <span class="co"># Return the relative frequency with which x == 1</span></a>
+<a class="sourceLine" id="cb249-20" title="20">  <span class="kw">mean</span>(repeatedsampling <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb249-21" title="21">}</a>
+<a class="sourceLine" id="cb249-22" title="22"></a>
+<a class="sourceLine" id="cb249-23" title="23"><span class="co"># Check it out:</span></a>
+<a class="sourceLine" id="cb249-24" title="24"><span class="kw">set.seed</span>(<span class="dv">478032749</span>)</a>
+<a class="sourceLine" id="cb249-25" title="25"><span class="kw">simulate_likelihood_x1</span>(.<span class="dv">7</span>) <span class="co"># Should be around .7</span></a></code></pre></div>
+<pre><code>[1] 0.69</code></pre>
+<div class="sourceCode" id="section-cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1"><span class="kw">simulate_likelihood_x1</span>(.<span class="dv">4</span>) <span class="co"># Should be around .4</span></a></code></pre></div>
+<pre><code>[1] 0.39</code></pre>
+<p><strong>Exercise</strong>: write a simulation for the likelihood function for <span class="math inline">\(x = 0\)</span>. Call it
+<code>simulate_likelihood_x0</code>. You should get the following:</p>
+<div class="sourceCode" id="section-cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" title="1"><span class="kw">set.seed</span>(<span class="dv">8907968</span>)</a>
+<a class="sourceLine" id="cb253-2" title="2"><span class="kw">simulate_likelihood_x0</span>(.<span class="dv">7</span>)</a></code></pre></div>
+<pre><code>[1] 0.3</code></pre>
+<div class="sourceCode" id="section-cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" title="1"><span class="kw">simulate_likelihood_x0</span>(.<span class="dv">4</span>)</a></code></pre></div>
+<pre><code>[1] 0.61</code></pre>
+</div>
+<div id="section-example-unknown-coins-n-2" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> Example: unknown coins, <span class="math inline">\(n = 2\)</span></h3>
+<p>The two-coin example illustrates that ML (Maximum Likelihood) follows human intuition:
+if I tell you to guess which of two coins I flipped based on the result of one flip,
+you’re going to try and maximize your chances of being right. You do this by choosing
+the coin that is most likely to give the result you observed.</p>
+<p>The likelihood function was popularized by R.A. Fisher in
+his 1922 paper, On the Mathematical Foundations of Theoretical Statistics.
+What he actually says is as follows:</p>
+<blockquote>
+<p>We must return to the actual fact that one value of <span class="math inline">\(p\)</span>, of the frequency of
+which we know nothing, would yield the observed result three times as frequently
+as would another value of <span class="math inline">\(p\)</span>. If we need a word to characterize this relative
+property of different values of <span class="math inline">\(p\)</span>, I suggest without confusion that we may speak
+of the <em>likelihood</em> of one value of <span class="math inline">\(p\)</span> being thrice the likelihood of another,
+bearing in mind that likelihood here is not used loosely as a synonym of probability,
+but simply to express the relative frequencies with which such values of the hypothetical
+quantity <span class="math inline">\(p\)</span> would in fact yield the observed sample.</p>
+</blockquote>
+<p>I like this quote, even though the language at that time was less direct than we’re
+used to now, I think Fisher explains the concept better than any modern textbook I’ve read.</p>
+<p>The two-coin example is a bit simple, but it is the most intuitive.
+Let’s extend it to the more realistic case where the parameter <span class="math inline">\(p\)</span> can be any
+value in the open interval <span class="math inline">\((0,1)\)</span>. That is, I pull a coin out of my pocket,
+and you flip it once and have to tell me what you think the probability of heads is.</p>
+<p><strong>Exercise</strong>: show that the likelihood function here for <span class="math inline">\(X = 1\)</span> and <span class="math inline">\(X = 0\)</span> is
+<span class="math display">\[\begin{equation}
+L(p;x = 1) = p, \ L(p;x = 0) = 1 - p
+\end{equation}\]</span>
+or more generally,
+<span class="math display">\[\begin{equation}
+L(p;x) = p^x (1-p)^{1-x}
+\end{equation}\]</span></p>
+<p>How do we use the observed data to estimate <span class="math inline">\(p\)</span>? We find the value of <span class="math inline">\(p\)</span> which
+would generate the sample we saw with the highest relative frequency. We <strong>maximize</strong>
+the likelihood function, which gives the <strong>maximum likelihood estimator</strong> <span class="math inline">\(\hat{p}\)</span>.</p>
+<p>Let’s do this for this example. The <em>log-likelihood</em> is
+<span class="math display">\[\begin{equation}
+\ell(p;x) = \log L(p;x) = x\log p + (1-x)\log (1-p)
+\end{equation}\]</span></p>
+<p><strong>Exercise</strong>: show that the unique global maximum of <span class="math inline">\(\ell(p)\)</span> on the interval
+<span class="math inline">\([0,1]\)</span> is <span class="math inline">\(p = x\)</span>.</p>
+<p>Why did I use a closed interval here and an open one above? There’s a problem:
+flipping the coin only once doesn’t really give us enough information to accurately
+estimate the probability of heads. If you get heads, your best guess is intuitively
+just going to be <span class="math inline">\(p = 1\)</span>!</p>
+<p>We can see this by plotting the likelihood function:</p>
+<div class="sourceCode" id="section-cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" title="1">likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(p,x) (p<span class="op">^</span>x) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">^</span>(<span class="dv">1</span><span class="op">-</span>x)</a>
+<a class="sourceLine" id="cb257-2" title="2">baseplot &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb257-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb257-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb257-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;p&quot;</span>,<span class="dt">y =</span> <span class="st">&quot;Likelihood&quot;</span>)</a>
+<a class="sourceLine" id="cb257-6" title="6">leftplot &lt;-<span class="st"> </span>baseplot <span class="op">+</span></a>
+<a class="sourceLine" id="cb257-7" title="7"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">x =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb257-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;x = 1&quot;</span>)</a>
+<a class="sourceLine" id="cb257-9" title="9">rightplot &lt;-<span class="st"> </span>baseplot <span class="op">+</span></a>
+<a class="sourceLine" id="cb257-10" title="10"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">x =</span> <span class="dv">0</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb257-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;x = 0&quot;</span>)</a>
+<a class="sourceLine" id="cb257-12" title="12"></a>
+<a class="sourceLine" id="cb257-13" title="13">leftplot <span class="op">|</span><span class="st"> </span>rightplot</a></code></pre></div>
+<p><img src="book_files/figure-html/likplot-1-1.png" width="672" /></p>
+<p>The likelihood is maximized on the closed interval <span class="math inline">\([0,1]\)</span> at <span class="math inline">\(p = 1\)</span> when <span class="math inline">\(x = 1\)</span>
+and <span class="math inline">\(p = 0\)</span> when <span class="math inline">\(x = 0\)</span>. This is the mathematical representation of the idea that
+if the coin is heads, my best guess at the relative frequency of heads is simply that
+the coin is <em>always</em> heads, because well, I’ve never seen it come up tails!</p>
+<p>To get better inferences, we need to flip the coin more than once.</p>
+<p>Suppose I flip the coin <span class="math inline">\(n\)</span> times and observe independent realizations of the
+random variable <span class="math inline">\(X\)</span> which takes values <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span> and <span class="math inline">\(0\)</span> with
+probability <span class="math inline">\(1 - p\)</span>. I call these random variables <span class="math inline">\(Y = (X_{1},\ldots,X_{n})\)</span>
+and I denote their observed values by <span class="math inline">\(y = (x_{1},\ldots,x_{n})\)</span>. So for example
+if <span class="math inline">\(n = 2\)</span> then my random variable is <span class="math inline">\(X = (X_{1},X_{2})\)</span> and if I observed a head and
+a tail (in that order), my realized values would be <span class="math inline">\(y = (1,0)\)</span>.</p>
+<p><strong>Exercise</strong>: show that the likelihood function for the observed sample <span class="math inline">\(y = (x_{1},\ldots,x_{n})\)</span>
+is
+<span class="math display">\[\begin{equation}
+L(p;y) = p^{\sum_{i=1}^{n}x_{i}}(1-p)^{n - \sum_{i=1}^{n}x_{i}}
+\end{equation}\]</span>
+and the log likelihood is
+<span class="math display">\[\begin{equation}
+\ell(p;y) = \sum_{i=1}^{n}x_{i}\log p + \left(n - \sum_{i=1}^{n}x_{i}\right)\log (1-p)
+\end{equation}\]</span>
+Use the log-likelihood to show that the maximum likelihood estimator <span class="math inline">\(\hat{p}\)</span> is
+<span class="math display">\[\begin{equation}
+\hat{p} = \bar{X} = \frac{1}{n}\sum_{i=1}^{n}x_{i}
+\end{equation}\]</span></p>
+<p>Suppose now that <span class="math inline">\(n = 2\)</span>. There are four possible samples we could get:
+<span class="math display">\[\begin{equation}\begin{aligned}
+y_{1} &amp;= (0,0) \\
+y_{2} &amp;= (1,0) \\
+y_{3} &amp;= (0,1) \\
+y_{4} &amp;= (1,1) \\
+\end{aligned}\end{equation}\]</span>
+The likelihood functions for each of these are
+<span class="math display">\[\begin{equation}\begin{aligned}
+L(p;y_{1}) &amp;= (1-p)^{2} \\
+L(p;y_{2}) &amp;= p(1-p) \\
+L(p;y_{3}) &amp;= p(1-p) \\
+L(p;y_{2}) &amp;= p^{2} \\
+\end{aligned}\end{equation}\]</span></p>
+<p>We can plot these four (three?) likelihood functions as follows. I’m using some
+more advanced code here; you should run it slowly, line-by-line, and get a feel
+for what’s happening.</p>
+<div class="sourceCode" id="section-cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" title="1"><span class="co"># Store the four samples in a (named) list</span></a>
+<a class="sourceLine" id="cb258-2" title="2">ylist &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb258-3" title="3">  <span class="st">&quot;y1&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb258-4" title="4">  <span class="st">&quot;y2&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb258-5" title="5">  <span class="st">&quot;y3&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb258-6" title="6">  <span class="st">&quot;y4&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb258-7" title="7">)</a>
+<a class="sourceLine" id="cb258-8" title="8">likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(p,y) p<span class="op">^</span>(<span class="kw">sum</span>(y)) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">^</span>(<span class="kw">sum</span>(<span class="dv">1</span><span class="op">-</span>y))</a>
+<a class="sourceLine" id="cb258-9" title="9">makeplot &lt;-<span class="st"> </span><span class="cf">function</span>(y) {</a>
+<a class="sourceLine" id="cb258-10" title="10">  <span class="co"># y = c(0,0) or c(0,1) or c(1,0) or c(1,1)</span></a>
+<a class="sourceLine" id="cb258-11" title="11">  plotname &lt;-<span class="st"> </span><span class="kw">as.character</span>(y) <span class="op">%&gt;%</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;,&quot;</span>)</a>
+<a class="sourceLine" id="cb258-12" title="12">  baseplot <span class="op">+</span><span class="st"> </span><span class="co"># baseplot was made above</span></a>
+<a class="sourceLine" id="cb258-13" title="13"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb258-14" title="14"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;y = &quot;</span>,plotname))</a>
+<a class="sourceLine" id="cb258-15" title="15">}</a>
+<a class="sourceLine" id="cb258-16" title="16">( <span class="kw">makeplot</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="op">|</span><span class="st"> </span><span class="kw">makeplot</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) ) <span class="op">/</span></a>
+<a class="sourceLine" id="cb258-17" title="17">( <span class="kw">makeplot</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>)) <span class="op">|</span><span class="st"> </span><span class="kw">makeplot</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) ) </a></code></pre></div>
+<p><img src="book_files/figure-html/plotlik-4-1.png" width="672" /></p>
+<p><strong>Exercise</strong>: compute the value of <span class="math inline">\(\hat{p}\)</span> for each sample. Add a verticle line
+to each plot at this point, using <code>geom_vline(xintercept = ?,colour = &quot;red&quot;,linetype = &quot;dotdash&quot;)</code>
+where you replace the <code>?</code> with the appropriate value. It should look like:</p>
+<p><img src="book_files/figure-html/plotlik-5-1.png" width="672" /></p>
+</div>
+<div id="section-example-unknown-coins-n-bigger-than-2" class="section level3">
+<h3><span class="header-section-number">8.1.3</span> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></h3>
+<p>For our last example, let’s flip the coin more times and look just at the likelihood
+function for our sample.</p>
+<p>You can flip a coin with probability of heads <code>p</code> <code>n</code> times in <code>R</code> by using <code>sample(c(1,0),n,replace = TRUE,prob = c(p,1-p))</code>.</p>
+<p>You’re going to write a function that takes in <span class="math inline">\(n\)</span>, generates a sample of size <span class="math inline">\(n\)</span>,
+and plots the likelihood for <span class="math inline">\(p\)</span> for this sample.</p>
+<p>To do this, you need to generate the sample with a known value of <span class="math inline">\(p\)</span> which we will
+call <span class="math inline">\(p_{0}\)</span>. You can then
+compare how your likelihood and MLE (Maximum Likelihood Estimator) look to the true
+value of <span class="math inline">\(p\)</span> that you’re trying to estimate, <span class="math inline">\(p_{0}\)</span>.</p>
+<p>Start with the following:</p>
+<div class="sourceCode" id="section-cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" title="1">plotlikelihood &lt;-<span class="st"> </span><span class="cf">function</span>(n,p0) {</a>
+<a class="sourceLine" id="cb259-2" title="2">  <span class="co"># Code goes here</span></a>
+<a class="sourceLine" id="cb259-3" title="3">}</a></code></pre></div>
+<p>You can generate the sample using the statement above. Call it <code>samp</code>. You can then
+make the plot using</p>
+<div class="sourceCode" id="section-cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" title="1">baseplot <span class="op">+</span></a>
+<a class="sourceLine" id="cb260-2" title="2"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> likelihood,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">y =</span> samp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb260-3" title="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;n = &quot;</span>,n)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb260-4" title="4"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> p0,<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb260-5" title="5"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="kw">mean</span>(samp),<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) </a></code></pre></div>
+<p>Notice I changed the title too. I also added two verticle lines: one for the true
+value of <span class="math inline">\(p\)</span>, <span class="math inline">\(p_{0}\)</span>, and one for the MLE from the sample, <span class="math inline">\(\hat{p}\)</span>.</p>
+<p>Put these two code chunks together into the above skeleton of a function. Then
+call your function as follows, and you should get the following output:</p>
+<div class="sourceCode" id="section-cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" title="1"><span class="kw">set.seed</span>(<span class="dv">56576</span>)</a>
+<a class="sourceLine" id="cb261-2" title="2"><span class="kw">plotlikelihood</span>(<span class="dv">10</span>,.<span class="dv">5</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/func-4-1.png" width="672" /></p>
+<p><strong>Exercise</strong>: write the function necessary to produce this output. Then with your
+new function, run it repeatedly, and with different values of <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>. Make sure
+<strong>not</strong> to reset the random seed each time you run it– you want to see what happens
+for different samples. Think about the following things:</p>
+<ol style="list-style-type: decimal">
+<li>How does the shape and location of the likelihood change as you sample the data over and over,
+for the same <span class="math inline">\(n\)</span>? Specifically,</li>
+<li>How does the shape and location of the likelihood change when you make <span class="math inline">\(n\)</span> smaller
+or larger?</li>
+<li>How does the shape and location of the likelihood change when you change <span class="math inline">\(p_{0}\)</span>?
+What happens when you push <span class="math inline">\(p_{0}\)</span> really close to <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>?</li>
+</ol>
+</div>
+</div>
+<div id="section-extended-example-rental-housing-in-toronto" class="section level2">
+<h2><span class="header-section-number">8.2</span> Extended example: rental housing in Toronto</h2>
+<p>Recall the Toronto Rental Housing dataset from Section 2.5 of these supplementary
+materials. We were interested in estimating the quality of rental housing for the
+different wards in Toronto, where “quality” is measured by the RentSafeTO score,
+which is composed of 20 sub-scores on various qualities of each building. We did
+this by computing the sample mean score in each ward, as follows:</p>
+<div class="sourceCode" id="section-cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" title="1"><span class="co"># Read in the data from disk</span></a>
+<a class="sourceLine" id="cb262-2" title="2">apartmentdata &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb262-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/apartment-data/toronto-apartment-building-evaluations.csv&quot;</span></a>
+<a class="sourceLine" id="cb262-4" title="4">)</a></code></pre></div>
+<pre><code>Parsed with column specification:
+cols(
+  .default = col_double(),
+  EVALUATION_COMPLETED_ON = col_character(),
+  PROPERTY_TYPE = col_character(),
+  RESULTS_OF_SCORE = col_character(),
+  SITE_ADDRESS = col_character(),
+  WARD = col_character()
+)</code></pre>
+<pre><code>See spec(...) for full column specifications.</code></pre>
+<div class="sourceCode" id="section-cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="co"># Clean it up</span></a>
+<a class="sourceLine" id="cb265-2" title="2">apartmentclean &lt;-<span class="st"> </span>apartmentdata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb265-3" title="3"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(SCORE)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Remove apartments with missing scores</span></a>
+<a class="sourceLine" id="cb265-4" title="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="dt">ward =</span> WARD,</a>
+<a class="sourceLine" id="cb265-5" title="5">                <span class="dt">score =</span> SCORE,</a>
+<a class="sourceLine" id="cb265-6" title="6">                <span class="dt">property_type =</span> PROPERTY_TYPE,</a>
+<a class="sourceLine" id="cb265-7" title="7">                <span class="dt">year_built =</span> YEAR_BUILT,</a>
+<a class="sourceLine" id="cb265-8" title="8">                <span class="dt">address =</span> SITE_ADDRESS</a>
+<a class="sourceLine" id="cb265-9" title="9">  )</a>
+<a class="sourceLine" id="cb265-10" title="10"><span class="kw">glimpse</span>(apartmentclean)</a></code></pre></div>
+<pre><code>Observations: 3,437
+Variables: 5
+$ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;04&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;08&quot;, &quot;13&quot;, &quot;12&quot;, &quot;15&quot;, &quot;04&quot;, &quot;11&quot;, &quot;05&quot;, &quot;12&quot;, &quot;21&quot;, &quot;14&quot;, &quot;0…
+$ score         &lt;dbl&gt; 71, 77, 71, 78, 98, 76, 93, 72, 74, 78, 73, 76, 57, 70, 67, 66, 66, 57, 69, 37, 67, 73, 74, 74, 68, 69, 67, 78…
+$ property_type &lt;chr&gt; &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;SOCIAL HOUSING&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRI…
+$ year_built    &lt;dbl&gt; 1976, 1953, 1948, 1920, 2017, 1967, 2015, 1970, 1976, 1968, 1950, 1971, 1900, 1963, 1968, 1969, 1980, 1950, 19…
+$ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACPHERSON AVE&quot;, &quot;1339  KING ST W&quot;, &quot;2  VENA WAY&quot;, &quot;359  KIPLING…</code></pre>
+<div class="sourceCode" id="section-cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1"><span class="co"># Make a table of average scores for private residences (i.e. not social housing)</span></a>
+<a class="sourceLine" id="cb267-2" title="2">apartmentclean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb267-3" title="3"><span class="st">  </span><span class="kw">filter</span>(property_type <span class="op">==</span><span class="st"> &quot;PRIVATE&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb267-4" title="4"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb267-5" title="5"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb267-6" title="6"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">ward</th>
+<th align="right">avg_score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">01</td>
+<td align="right">71</td>
+</tr>
+<tr class="even">
+<td align="left">02</td>
+<td align="right">73</td>
+</tr>
+<tr class="odd">
+<td align="left">03</td>
+<td align="right">71</td>
+</tr>
+<tr class="even">
+<td align="left">04</td>
+<td align="right">68</td>
+</tr>
+<tr class="odd">
+<td align="left">05</td>
+<td align="right">72</td>
+</tr>
+<tr class="even">
+<td align="left">06</td>
+<td align="right">72</td>
+</tr>
+<tr class="odd">
+<td align="left">07</td>
+<td align="right">70</td>
+</tr>
+<tr class="even">
+<td align="left">08</td>
+<td align="right">74</td>
+</tr>
+<tr class="odd">
+<td align="left">09</td>
+<td align="right">67</td>
+</tr>
+<tr class="even">
+<td align="left">10</td>
+<td align="right">72</td>
+</tr>
+<tr class="odd">
+<td align="left">11</td>
+<td align="right">70</td>
+</tr>
+<tr class="even">
+<td align="left">12</td>
+<td align="right">73</td>
+</tr>
+<tr class="odd">
+<td align="left">13</td>
+<td align="right">74</td>
+</tr>
+<tr class="even">
+<td align="left">14</td>
+<td align="right">73</td>
+</tr>
+<tr class="odd">
+<td align="left">15</td>
+<td align="right">74</td>
+</tr>
+<tr class="even">
+<td align="left">16</td>
+<td align="right">77</td>
+</tr>
+<tr class="odd">
+<td align="left">17</td>
+<td align="right">76</td>
+</tr>
+<tr class="even">
+<td align="left">18</td>
+<td align="right">76</td>
+</tr>
+<tr class="odd">
+<td align="left">19</td>
+<td align="right">72</td>
+</tr>
+<tr class="even">
+<td align="left">20</td>
+<td align="right">74</td>
+</tr>
+<tr class="odd">
+<td align="left">21</td>
+<td align="right">72</td>
+</tr>
+<tr class="even">
+<td align="left">22</td>
+<td align="right">75</td>
+</tr>
+<tr class="odd">
+<td align="left">23</td>
+<td align="right">74</td>
+</tr>
+<tr class="even">
+<td align="left">24</td>
+<td align="right">72</td>
+</tr>
+<tr class="odd">
+<td align="left">25</td>
+<td align="right">73</td>
+</tr>
+<tr class="even">
+<td align="left">YY</td>
+<td align="right">99</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exercise</strong>: suppose the data from any single ward follows a Normal model,
+<span class="math display">\[\begin{equation}
+X_{i} \overset{iid}{\sim}\text{Normal}\left(\mu,\sigma^{2}\right)
+\end{equation}\]</span>
+Prove that the <strong>maximum likelihood estimator</strong> of <span class="math inline">\(\mu\)</span> is <span class="math inline">\(\hat{\mu} = \bar{X}\)</span>,
+the sample mean. This justifies the use of the sample mean as an estimate of the
+average score of all buildings in the ward.</p>
+<p><strong>Exercise</strong>: now prove that the maximum likelihood estimator for <span class="math inline">\(\sigma^{2}\)</span> under
+this model is
+<span class="math display">\[\begin{equation}
+\hat{\sigma}^{2} = \frac{1}{n}\sum_{i=1}^{n}\left(X_{i} - \bar{X} \right)^{2}
+\end{equation}\]</span>
+Argue that based on the “invariance” property of the MLE, this implies that the
+MLE for the  <span class="math inline">\(\sigma = \sqrt{\sigma^{2}}\)</span> is
+<span class="math display">\[\begin{equation}
+\hat{\sigma} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(X_{i} - \bar{X} \right)^{2}}
+\end{equation}\]</span></p>
+<p><strong>Exercise</strong>: use the <code>sd()</code> function in <code>R</code> to modify the above code to
+compute the MLE for the standard deviation for
+each ward.</p>
+<p><strong>Exercise</strong>: why are we considering each ward separately? Now let <span class="math inline">\(X_{ij}\)</span> be
+the score of the <span class="math inline">\(i^{th}\)</span> building in the <span class="math inline">\(j^{th}\)</span> ward. Suppose the data follows
+the model
+<span class="math display">\[\begin{equation}\begin{aligned}
+X_{ij} &amp;\overset{ind}{\sim}\text{Normal}\left(\mu_{j},\sigma^{2} \right) \\
+i &amp;= 1\ldots n_{j} \\
+j &amp;= 1\ldots 25
+\end{aligned}\end{equation}\]</span>
+Note that “iid” has been replaced by “ind”, to indicate that the data are <strong>ind</strong>ependent
+but not <strong>id</strong>entically distributed, because they have different means <span class="math inline">\(\mu_{j}\)</span>.
+Note that I have taken the variance <span class="math inline">\(\sigma^{2}\)</span> to be the same for each ward,
+which may or may not be a reasonable thing to do.</p>
+<p>Prove that the MLE’s for the means and standard deviations are:
+<span class="math display">\[\begin{equation}\begin{aligned}
+\hat{\mu}_{j} &amp;= \frac{1}{n_{j}}\sum_{i=1}^{n_{j}}X_{ij} \\
+\hat{\sigma} &amp;= \sqrt{\frac{\sum_{j=1}^{25}\sum_{i=1}^{n_{j}}\left(X_{ij} - \hat{\mu}_{j} \right)^{2}}{\sum_{j=1}^{25}n_{j}}}
+\end{aligned}\end{equation}\]</span></p>
+<p>Compute the MLEs in this way for these data. I got:</p>
+<div class="sourceCode" id="section-cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" title="1">themeans &lt;-<span class="st"> </span>apartmentclean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb268-2" title="2"><span class="st">  </span><span class="kw">filter</span>(property_type <span class="op">==</span><span class="st"> &quot;PRIVATE&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb268-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb268-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score))</a>
+<a class="sourceLine" id="cb268-5" title="5"></a>
+<a class="sourceLine" id="cb268-6" title="6">thesd &lt;-<span class="st"> </span>apartmentclean <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb268-7" title="7"><span class="st">  </span><span class="kw">filter</span>(property_type <span class="op">==</span><span class="st"> &quot;PRIVATE&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb268-8" title="8"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">sd =</span> <span class="kw">sd</span>(score))</a>
+<a class="sourceLine" id="cb268-9" title="9"></a>
+<a class="sourceLine" id="cb268-10" title="10"><span class="kw">cat</span>(<span class="st">&quot;The means: </span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
+<pre><code>The means: </code></pre>
+<div class="sourceCode" id="section-cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" title="1">knitr<span class="op">::</span><span class="kw">kable</span>(themeans)</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">ward</th>
+<th align="right">avg_score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">01</td>
+<td align="right">71</td>
+</tr>
+<tr class="even">
+<td align="left">02</td>
+<td align="right">73</td>
+</tr>
+<tr class="odd">
+<td align="left">03</td>
+<td align="right">71</td>
+</tr>
+<tr class="even">
+<td align="left">04</td>
+<td align="right">68</td>
+</tr>
+<tr class="odd">
+<td align="left">05</td>
+<td align="right">72</td>
+</tr>
+<tr class="even">
+<td align="left">06</td>
+<td align="right">72</td>
+</tr>
+<tr class="odd">
+<td align="left">07</td>
+<td align="right">70</td>
+</tr>
+<tr class="even">
+<td align="left">08</td>
+<td align="right">74</td>
+</tr>
+<tr class="odd">
+<td align="left">09</td>
+<td align="right">67</td>
+</tr>
+<tr class="even">
+<td align="left">10</td>
+<td align="right">72</td>
+</tr>
+<tr class="odd">
+<td align="left">11</td>
+<td align="right">70</td>
+</tr>
+<tr class="even">
+<td align="left">12</td>
+<td align="right">73</td>
+</tr>
+<tr class="odd">
+<td align="left">13</td>
+<td align="right">74</td>
+</tr>
+<tr class="even">
+<td align="left">14</td>
+<td align="right">73</td>
+</tr>
+<tr class="odd">
+<td align="left">15</td>
+<td align="right">74</td>
+</tr>
+<tr class="even">
+<td align="left">16</td>
+<td align="right">77</td>
+</tr>
+<tr class="odd">
+<td align="left">17</td>
+<td align="right">76</td>
+</tr>
+<tr class="even">
+<td align="left">18</td>
+<td align="right">76</td>
+</tr>
+<tr class="odd">
+<td align="left">19</td>
+<td align="right">72</td>
+</tr>
+<tr class="even">
+<td align="left">20</td>
+<td align="right">74</td>
+</tr>
+<tr class="odd">
+<td align="left">21</td>
+<td align="right">72</td>
+</tr>
+<tr class="even">
+<td align="left">22</td>
+<td align="right">75</td>
+</tr>
+<tr class="odd">
+<td align="left">23</td>
+<td align="right">74</td>
+</tr>
+<tr class="even">
+<td align="left">24</td>
+<td align="right">72</td>
+</tr>
+<tr class="odd">
+<td align="left">25</td>
+<td align="right">73</td>
+</tr>
+<tr class="even">
+<td align="left">YY</td>
+<td align="right">99</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="section-cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" title="1"><span class="kw">cat</span>(<span class="st">&quot;The standard deviation: </span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
+<pre><code>The standard deviation: </code></pre>
+<div class="sourceCode" id="section-cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" title="1">thesd</a></code></pre></div>
+<pre><code># A tibble: 1 x 1
+     sd
+  &lt;dbl&gt;
+1  7.11</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="section-the-bootstrap.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-supplement-to-chapter-23-and-24.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
