@@ -1,16 +1,7 @@
-# Supplement to Chapter 18
+# The Bootstrap
 
-This chapter implements much of the analysis shown in chapter 18 of 
-A Modern Introduction to Probability and Statistics. R code is given for the
-simple textbook datasets used in the book, and then the concepts are
-illustrated on real data.
-
-All datasets from the book can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
-
-The assigned exercises associated with this material are from MIPS, as follows: 18.1 18.2; 18.3, 18.4; 18.6; 18.7; 18.8; 18.9; 18.11. Answers to selected exercises are in the 
-back of the book. You should also do all the "quick exercises" within chapter 18 
-(solutions are at the end of the chapter). Use `R` as much as possible when answering the
-questions.
+This chapter introduces the Bootstrap and shows how you can use simulation to
+enhance your statistical thinking. We use datasets from MIPS which can be downloaded here: https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/.
 
 ## The Bootstrap (Chapter 18)
 
@@ -34,10 +25,51 @@ of the best-named concepts in all of stats, in my opinion.
 
 ### Empirical bootstrap: Old Faithful data
 
-Let's recreate Figure 18.1:
+Recall the Old Faithful data: $n = 272$ measurements of the waiting time to eruption $X_{i}$ of
+the Old Faithful Geyser. A statistical model for these data was given as
+$$
+X_{i} \overset{iid}{\sim}F_{\mu}, i = 1,\ldots,n
+$$
+where $\mu = E(X_{i})$ is the unknown parameter to be estimated. We can estimate
+$\mu$ using the sample mean: $\hat{\mu} = \bar{X}$ which for these data gives $\hat{\mu} = 209.27$.
+
+But is this the whole story? No. The data are random: if we repeated this experiment we would
+get different measurements, and a different value for $\hat{\mu}$. So $\hat{\mu}$ is random
+too, because it depends on the data, which are random. So $\hat{\mu}$ has a probability distribution,
+called its sampling distribution, and we can **quantify uncertainty** in our estimate
+for $\hat{\mu}$ by analyzing this distribution. Or we could, if we knew what it was!
+
+For this simple example, we actually do know the sampling distribution of $\hat{\mu}$: by the CLT,
+it's $$\hat{\mu} \overset{approx}{\sim}\text{N}\left(\mu,\sigma/\sqrt{n}\right)$$
+where $\mu = E(X_{i})$ and $\sigma^{2} = \text{Var}(X_{i})$. In more complicated problems,
+we wouldn't know this. In fact, it's almost never known. So how can the notion of using
+the sampling distribution to assess uncertainty in an estimate be useful in practice? 
+
+This is where the **bootstrap** comes in. The **empirical bootstrap** refers to the 
+following algorithm:
+
+1. **Input**: sample $X_{1},\ldots,X_{n}$, estimate $\hat{\mu}$, number of desired
+bootstrap replicates $B$,
+
+2. **For**: $b = 1,\ldots,B$, **do**:
+
+    a. Take a **bootstrap sample** $X^{*}_{1},\ldots,X^{*}_{n}$ independently **with replacement**
+  from $X_{1},\ldots,X_{n}$,
+  
+    b. Compute the **bootstrap estimate** $\hat{\mu}^{*}_{b}$ using the bootstrap sample,
+
+3. **Output**: $\hat{\mu}^{*}_{1},\ldots,\hat{\mu}^{*}_{B}$, a sample from the sampling
+distribution of $\hat{\mu}$.
+
+This seems like magic: we got a sample from the sampling distribution of our estimator,
+without knowing anything about it mathematically. Let's do this in code:
+
+```{r loadtidy-43278983,warning=FALSE,message=FALSE}
+library(tidyverse)
+library(patchwork)
+```
 
 ```{r faithful-1}
-library(tidyverse)
 # Read in old faithful, copied from chapter 1:
 oldfaithful <- readr::read_csv(
   file = "data/MIPSdata/oldfaithful.txt", # Tell it where the file is
@@ -46,54 +78,143 @@ oldfaithful <- readr::read_csv(
 )
 # Check what was read in using the dplyr::glimpse() function
 dplyr::glimpse(oldfaithful)
+```
 
+```{r secret-1,echo=FALSE}
+normalapproxmean <- mean(oldfaithful$time)
+normalapproxsd <- sd(oldfaithful$time) / sqrt(nrow(oldfaithful))
+normalapproxmeanerror <- 0
+normalapproxsderror <- normalapproxsd
+```
+
+```{r faithfulboot-1}
 # Bootstrap: sample with replacement
 set.seed(45356) # So you can reproduce my results
 B <- 1000 # Number of bootstrap resamples to take
 n <- nrow(oldfaithful) # Sample size
-bootstrapmeans <- 1:B %>%
-  map(~sample(oldfaithful$time,n,replace = TRUE)) %>%
-  map(~(mean(.x) - mean(oldfaithful$time))) %>% # Compute the CENTRED mean
-  reduce(c)
+bootstrapmeans <- numeric(B)
+for (b in 1:B) {
+  # Draw a bootstrap sample
+  bootstrapsample <- sample(oldfaithful$time,n,replace = TRUE)
+  # Compute the bootstrap estimate
+  bootstrapmeans[b] <- mean(bootstrapsample)
+}
 
-# Plot the hisrogram and density estimate together
+# Plot a hisrogram and density estimate, along with
+# the normal approximation
 tibble(x = bootstrapmeans) %>%
   ggplot(aes(x = x)) +
   theme_classic() +
   geom_histogram(aes(y = ..density..),bins = 20,colour = "black",fill = "transparent") +
   geom_density() +
-  scale_x_continuous(breaks = seq(-18,18,by=6)) +
-  coord_cartesian(xlim = c(-18,18))
+  stat_function(fun = dnorm,args = list(mean = normalapproxmean,sd = normalapproxsd),col = "red") +
+  scale_x_continuous(breaks = seq(190,230,by=5))
 ```
 
-**Exercise**: compute the book's estimate of $P(|\bar{X}_{n} - \mu|)$. Using the
-above `set.seed(45356)` I got the following (slightly different than the book):
+The histogram and black kernel density estimate curve are obtained using the empirical
+bootstrap algorithm. The red curve is obtained using the CLT approximation to the
+sampling distribution of $\hat{\mu}$.
+
+**Exercise**: compute the mean and standard deviation that I secretly computed to
+fit that normal approximation. What are the values `normalapproxmean` and `normalapproxsd`?
+
+An even more remarkable use of the empirical bootstrap is as follows. Suppose we
+are interested in the **error** in our estimate:
+$$
+\hat{\mu} - \mu
+$$
+This is a random variable with an unknown sampling distribution, and further, it
+depends on the unknown parameter $\mu$. We can't even compute the value of this
+random variable from our sample! But, we can use the empirical bootstrap to get its
+sampling distribution. Consider the following:
+
+1. **Input**: sample $X_{1},\ldots,X_{n}$, estimate $\hat{\mu}$, number of desired
+bootstrap replicates $B$,
+
+2. **For**: $b = 1,\ldots,B$, **do**:
+
+    a. Take a **bootstrap sample** $X^{*}_{1},\ldots,X^{*}_{n}$ independently **with replacement**
+  from $X_{1},\ldots,X_{n}$,
+  
+    b. Compute the **bootstrap estimate** $\hat{\mu}^{*}_{b}$ using the bootstrap sample,
+
+    c. Compute the **bootstrap estimate** $(\hat{\mu} - \mu)^{*}_{b} = \hat{\mu}^{*}_{b} - \hat{\mu}$ using the bootstrap sample,
+
+3. **Output**: $(\hat{\mu} - \mu)^{*}_{1},\ldots,(\hat{\mu} - \mu)^{*}_{B}$, a sample from the sampling
+distribution of $(\hat{\mu} - \mu)$.
+
+Notice that **we compute** $(\hat{\mu} - \mu)^{*}_{b}$ **without knowing** $\mu$.
+
+We can do this in code as follows:
+
+```{r faithfulboot-22}
+# Bootstrap: sample with replacement
+set.seed(45356) # So you can reproduce my results
+B <- 1000 # Number of bootstrap resamples to take
+n <- nrow(oldfaithful) # Sample size
+bootstraperrors <- numeric(B)
+for (b in 1:B) {
+  # Draw a bootstrap sample
+  bootstrapsample <- sample(oldfaithful$time,n,replace = TRUE)
+  # Compute the bootstrap mean
+  bootstrapmean <- mean(bootstrapsample)
+  # Compute the bootstrap estimate
+  bootstraperrors[b] <- bootstrapmean - mean(oldfaithful$time)
+}
+
+# For the record, we could have just done
+# bootstraperrors <- bootstrapmeans - mean(oldfaithful$time)
+
+# Plot a hisrogram and density estimate, along with
+# the normal approximation
+tibble(x = bootstraperrors) %>%
+  ggplot(aes(x = x)) +
+  theme_classic() +
+  geom_histogram(aes(y = ..density..),bins = 20,colour = "black",fill = "transparent") +
+  geom_density() +
+  stat_function(fun = dnorm,args = list(mean = normalapproxmeanerror,sd = normalapproxsderror),col = "red") +
+  scale_x_continuous(breaks = seq(-14,14,by=2))
+```
+
+**Exercise**: again, how did I get the values of `normalapproxmeanerror` and `normalapproxsderror`?
+
+**Exercise**: compute an estimate of $P(|\bar{X}_{n} - \mu| > 5)$. Using the
+above `set.seed(45356)` I got the following:
 
 ```{r faithful-2,echo=FALSE}
-mean(abs(bootstrapmeans) > 5)
+mean(abs(bootstraperrors) > 5)
 ```
 
-**Exercise**: now, repeat the entire bootstrap procedure $1000$ times and
-plot a histogram and kernel density estimate of $P(|\bar{X}_{n} - \mu|)$.
-I got the following with `set.seed(8768432)`:
+*Hint*: consider the sample proportion of $\bar{X}_{n} - \mu$ that have absolute value
+greater than $5$.
+
+**Exercise**: even this $P(|\bar{X}_{n} - \mu| > 5)$ is just an estimate, and
+we can use the bootstrap to sample from *its* sampling distribution to quantify 
+uncertainty in it. Now, repeat the entire bootstrap procedure $1000$ times and
+plot a histogram and kernel density estimate of $P(|\bar{X}_{n} - \mu| > 5)$.
+I got the following with `set.seed(8768432)` and $200$ bootstrap replicates:
 
 ```{r faithful-3,cache = TRUE,echo = FALSE}
 set.seed(8768432)
 compute_bootstrap_sample <- function(B = 1000) {
   n <- nrow(oldfaithful) # Sample size
-  1:B %>%
-    map(~sample(oldfaithful$time,n,replace = TRUE)) %>%
-    map(~(mean(.x) - mean(oldfaithful$time))) %>% # Compute the CENTRED mean
-    reduce(c)
-}
-compute_bootstrap_prob <- function(samp) {
-  mean(abs(samp) > 5)
+  bootstraperrors <- numeric(B)
+  for (b in 1:B) {
+    # Draw a bootstrap sample
+    bootstrapsample <- sample(oldfaithful$time,n,replace = TRUE)
+    # Compute the bootstrap mean
+    bootstrapmean <- mean(bootstrapsample)
+    # Compute the bootstrap estimate
+    bootstraperrors[b] <- abs(bootstrapmean - mean(oldfaithful$time))
+  }
+  mean(bootstraperrors > 5)
 }
 
-bootstrapprobs <- 1:B %>%
-  map(~compute_bootstrap_sample(B = 1000)) %>%
-  map(compute_bootstrap_prob) %>%
-  reduce(c)
+B <- 200
+bootstrapprobs <- numeric(B)
+for (b in 1:B) {
+  bootstrapprobs[b] <- compute_bootstrap_sample()
+}
 
 tibble(x = bootstrapprobs) %>%
   ggplot(aes(x = x)) +
@@ -104,9 +225,17 @@ tibble(x = bootstrapprobs) %>%
   coord_cartesian(xlim = c(.18,.28))
 ```
 
+So it looks like we can be pretty sure the absolute error won't be more than $0.27$. 
+
 ### Parametric Bootstrap: software data
 
-Read in the software data. Try to do it yourself before looking:
+The empirical bootstrap is used to sample from the sampling distribution of an 
+estimator without knowing the distribution of the data. The **parametric bootstrap**
+is used to sample from the sampling distribution of an estimator when you know
+the family of distributions $F_{\theta}$ (like "Exponential" or "Normal" or "Poisson")
+from which the data is drawn, but you don't know the value of the parameter $\theta$.
+
+Recall the **software data*:
 
 ```{bash software-1}
 head data/MIPSdata/software.txt
@@ -122,29 +251,56 @@ software <- readr::read_csv(
 glimpse(software)
 ```
 
-Plot the CDF of the estimated distribution against the empirical CDF of the data.
-The $t_{ks}$ described in the book is the maximum vertical distance between these
-two curves:
+One possible model for these data is $X_{i}\overset{iid}{\sim}\text{Exponential}(\lambda)$ with
+$\lambda$ being the rate of failures of the software: $E(X_{i}) = \lambda^{-1}$. 
+
+We can
+estimate $\hat{\lambda} = \bar{X}^{-1}$ and plot the CDF $F_{\hat{\theta}}$ of the estimated $\text{Exponential}(\hat{\lambda})$ distribution against the empirical CDF $\hat{F}_{n}$ of the data. Of interest is the maximum possible
+error in estimating the CDF: $T_{ks} = \text{sup}_{x\in\mathbb{R}}|F_{\hat{\theta}}(x) - \hat{F}_{n}(x)|$. The "KS" stands for "Kolmogorov-Smirnov", who used this error in some statistical theory in the early
+20th century, and so $T_{ks}$ is sometimes called the "Kolmogorov-Smirnov distance". It's also
+sometimes called the "Total Variation" distance. It is the length of the red segment
+in the following plot:
 
 ```{r software-3}
 lambdahat <- 1/mean(software$time)
-samppoints <- seq(0,3000,by=1)
+samppoints <- seq(0,3000,by=.1)
 expcdf <- pexp(samppoints,rate = lambdahat)
 empcdf <- ecdf(software$time)
+tksestimate <- max(abs(expcdf - empcdf(samppoints)))
+whereisthetks <- which.max(abs(expcdf - empcdf(samppoints)))
 
 tibble(x = samppoints,y = expcdf) %>%
   ggplot(aes(x = x,y = y)) +
   theme_classic() + 
   geom_line() +
-  stat_function(fun = empcdf,linetype = "dotdash")
+  stat_function(fun = empcdf,linetype = "dotdash") +
+  geom_segment(aes(x = samppoints[whereisthetks],y = expcdf[whereisthetks],xend = samppoints[whereisthetks],yend = empcdf(samppoints[whereisthetks])),colour = 'red')
 ```
 
-Compute a bootstrap sample of $T_{ks}$:
+What a complicated statistic! 
+
+The statistic $T_{ks}$ is a random variable because it depends on the data through the
+statistic $\hat{F}_{n}$. We can use the **parametric bootstrap** to sample from its sampling distribution. Consider the following algorithm:
+
+1. **Input**: sample $X_{1},\ldots,X_{n}\overset{iid}{\sim}F_{\lambda}$ with $F$ known and $\theta$ unknown, estimate $\hat{\lambda}$, number of desired
+bootstrap replicates $B$,
+
+2. **For**: $b = 1,\ldots,B$, **do**:
+
+    a. Take a **bootstrap sample** $X^{*}_{1},\ldots,X^{*}_{n}\overset{iid}{\sim}F_{\hat{\lambda}}$
+  
+    b. Compute the **bootstrap estimate** $\hat{\lambda}^{*}_{b}$ using the bootstrap sample,
+
+3. **Output**: $\hat{\lambda}^{*}_{1},\ldots,\hat{\lambda}^{*}_{B}$, a sample from the sampling
+distribution of $\hat{\lambda}^{*}$.
+
+Let's use this algorithm to get a bootstrap sample from the sampling distribution
+of $T_{ks}$:
 
 ```{r software-4,cache = TRUE}
 set.seed(97876856)
 compute_tks <- function() {
-  samppoints <- seq(0,3000,by=1)
+  samppoints <- seq(0,3000,by=.1)
   n <- nrow(software)
   samp <- rexp(n,rate = lambdahat)
   ecdfboot <- ecdf(samp)(samppoints)
@@ -152,7 +308,9 @@ compute_tks <- function() {
   max(abs(ecdfboot - expcdf))
 }
 B <- 1000
-tksboot <- 1:B %>% map(~compute_tks()) %>% reduce(c)
+tksboot <- numeric(B)
+for (b in 1:B) tksboot[b] <- compute_tks()
+
 tibble(x = tksboot) %>%
   ggplot(aes(x = x)) +
   theme_classic() +
@@ -163,30 +321,24 @@ tibble(x = tksboot) %>%
 ```
 
 **Exercise**: the above `compute_tks()` is a bit tricky. Write out the exact algorithm
-I use to compute $T_{ks}$. Basically I am asking you to expand on step 2. of the
-algorithm presented in the book on page 279.
+I use to compute $T_{ks}$. Basically I compute both the ECDF and the parametric estimated
+CDF at a really fine grid of points and then take the max difference-- this question
+is asking you to formalize this into an algorithm (sequence of steps) using 
+mathematical notation, like I've done for the bootstraps.
 
 ### Extended example: the standard error of a proportion
 
 Dozens of news articles are published every day with claims that "xx% of Canadians
 say that yy", where xx is some percentage and yy is some claim that the news
-company wants to make. These articles have a significant impact on our public
-discourse.
-
-How could it be that every day, there are so many earth-shattering claims? It's
-almost like most of them aren't actually true. But then why are they published,
-and why do we believe them?
-
-The missing ingredient is *variability*. These news articles most often only
-report *point estimates*-- the "xx%". They don't report the *standard error* of
+company wants to make. These news articles most often only
+report *point estimates*-- the "xx%". They don't tend to report the *standard error* of
 these estimates, which give you a measure of the variability, and hence uncertainty,
 in the conclusions that are made based off of them.
 
 We can use the bootstrap to get an idea of the variability in estimates based off
-of surveys. Because most news articles don't link to the raw data (another reason
-not to believe the stuff that these for-profit companies push), we'll use a general
+of surveys. Because most news articles don't link to the raw data, we'll use a general
 budget survey from the Government of Canada, with responses from Alberta residents.
-You can get the data in excel format [https://open.canada.ca/data/en/dataset/2a5992c4-a050-46b8-b735-641cbc799a8e](here).
+You can get the data in excel format [here](https://open.canada.ca/data/en/dataset/2a5992c4-a050-46b8-b735-641cbc799a8e).
 You should open the file in excel and save it as a `.csv`, or if you don't have excel,
 I put the `.csv` file I used in the `data` folder.
 
@@ -218,9 +370,7 @@ all these data, we would have to go in excel and manually label the columns corr
 since the analysts at the government didn't.
 
 Look at the column names and start to think about the kind of news headlines they could
-generate. I like the first one: "Q1: To what extent do you think low oil prices impact the Alberta government's ability to budget?" could lead to things like "Albertans have given up hope: more than half 
-of Albertans believe their province is unable to budget due to the low price of oil." Hey,
-it generates clicks!
+generate. I like the first one: "Q1: To what extent do you think low oil prices impact the Alberta government's ability to budget?".
 
 Here, let's estimate the proportion of Albertans who would answer $1$ ("A Great Deal")
 to the above question.
@@ -243,11 +393,11 @@ sqrt(phat*(1-phat)/n)
 # So the mean is .5378 and the standard error is about 0.0025 (theoretically).
 # Bootstrap: repeatedly resample and calculate the mean. The estimated standard error
 # of the sample mean is then the standard error of these means.
+# This code is a bit more concise than the previous ones, and I put it in a function.
 doboot <- function(B) {
-  1:B %>%
-    map(~sample(origsamp,n,replace = TRUE)) %>%
-    map(mean) %>%
-    reduce(c)
+  boot <- numeric(B)
+  for (b in 1:B) boot[b] <- mean(sample(origsamp,n,replace = TRUE))
+  boot
 }
 bootmeans <- doboot(1000)
 mean(bootmeans) # Pretty close!
@@ -257,9 +407,9 @@ tibble(x = bootmeans) %>%
   ggplot(aes(x = x)) +
   theme_classic() +
   geom_histogram(aes(y = ..density..),bins = 30,colour = "black",fill = "transparent") +
-  stat_function(fun = rlang::as_function(~n * dbinom(round(n * .x),size = n,prob = phat))) +
+  stat_function(fun = rlang::as_function(~n * dbinom(round(n * .x),size = n,prob = phat)),col = "purple") +
   labs(title = "Bootstrap distribution of the sample mean",
-       subtitle = "Curve: theoretical distribution")
+       subtitle = "purple: theoretical distribution. red: CLT approximation")
 
 
 ```
@@ -282,7 +432,7 @@ tibble(x = bootmeans) %>%
        subtitle = "Curve: theoretical distribution")
 ```
 
-The normal approximation looks pretty good!
+The normal approximation looks pretty good! The sample is really big so this is to be expected.
 
 **Exercise**: suppose that based on this survey, a newspaper claims that "Albertans have given up hope: more than half 
 of Albertans believe their province is unable to budget due to the low price of oil.".
@@ -319,6 +469,3 @@ B <- 1000
   reduce(c) %>%
   mean()
 ```
-
-Are you going to check
-the sample size next time you read a news article that reports survey results?

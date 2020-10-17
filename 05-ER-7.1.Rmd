@@ -4,12 +4,9 @@ library(tidyverse)
 library(patchwork)
 ```
 
-# Supplement to Evans & Rosenthal Section 7.1
+# Introduction to Bayesian Inference
 
-This chapter is a supplement to Chapter 7: Bayesian Inference, section 1:
-The Prior and Posterior Distributions. This is to support the Bayesian Inference
-sections of STA238. Materials in this tutorial are taken from Alex Stringer's [comprehensive tutorial on Bayesian Inference](https://awstringer1.github.io/leaf2018/intro-to-bayesian.html), which is very long and outside the scope of this course.
-
+This chapter introduces the foundations of Bayesian inference. Materials in this tutorial are taken from Alex Stringer's [comprehensive tutorial on Bayesian Inference](https://awstringer1.github.io/leaf2018/intro-to-bayesian.html), which is very long and outside the scope of this course.
 
 ## Tutorial
 
