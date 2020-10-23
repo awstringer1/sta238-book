@@ -19,7 +19,7 @@ Often, the *point estimates* we get from our inferential procedures are themselv
 
 However, when measuring the *uncertainty* in our predictions, the situation is different. When doing inference, we have one source of uncertainty that we choose to address: the variability in the data. If we sampled the dataset again, we would get different inferences, and so on. In prediction, we have two sources of uncertainty: that from the model that we use for prediction, which we inferred from the data and hence is subject to variability; and that from the act of sampling a new datapoint from this model.
 
-ISLR referrs to these two sources of error as *reducible* and *irreducible*. We can always make our inferences less uncertain in theory by getting more data (reducibile uncertainty), but even if we knew the underlying data-generating mechanism perfectly, its output is still random (irreducible uncertainty)!
+ISLR refers to these two sources of error as *reducible* and *irreducible*. We can always make our inferences less uncertain in theory by getting more data (reducibile uncertainty), but even if we knew the underlying data-generating mechanism perfectly, its output is still random (irreducible uncertainty)!
 
 In fact: recall we measured the quality of an estimator $\hat{\theta}$ of a parameter $\theta$ using the Mean Squared Error (MSE): $\mathbb{E}(\hat{\theta} - \theta)^{2}$. The analagous concept in prediction is the Mean Square Prediction Error (MSPE). Suppose we use some function $\hat{Y} \equiv \hat{Y}(Y_{1},\ldots,Y_{n})$ to predict a new $Y_{n+1}$ using a random sample $Y_{1},\ldots,Y_{n}$, where $Y_{i}, i = 1\ldots n+1$ are drawn IID from the same (unknown) distribution. Then define:
 \begin{equation}
@@ -38,14 +38,14 @@ The key takeaway is that *the prediction error comes from two sources: error in 
 ## Plug-in prediction: coin flipping
 
 To illustrate the idea of multiple sources of error, let's briefly revist our now-classic coin flipping example. We are going to
-\begin{enumerate}
-\item Flip a bunch of coins, and use this sample to...
-\item ...estimate the probability of heads, and then use this estimate to...
-\item ...predict the results of the *next* toss.
-\end{enumerate}
-This is an example of a **classification** problem: we are predicting a binary event, something that either happens or it doesn't. We're either completely right, or completely wrong. Note that the MSPE here has a special form, because $|\hat{Y} - Y| \in \left\{ 0,1 \right\}$.
 
-**Exercise**: show that the MSPE here is equal to the probability of making an incorrect prediction.
+1. Flip a bunch of coins, and use this sample to...
+
+1. ...estimate the probability of heads, and then use this estimate to...
+
+1. ...predict the results of the *next* toss.
+
+This is an example of a **classification** problem: we are predicting a binary event, something that either happens or it doesn't. We're either completely right, or completely wrong. Note that the MSPE here has a special form, because $|\hat{Y} - Y| \in \left\{ 0,1 \right\}$.
 
 First let's draw a sample. We'll leave the parameters to be specified at the top of the program so you can play around with them:
 ```{r pred-1}
@@ -97,7 +97,7 @@ B <- 1000 # Number of simulations to do
 
 do_simulation <- function(n,p) {
   pmle <- mean(rbinom(n,1,p)) # Compute the MLE
-  newy <- rbinom(1,1,p) # Draw a new value from the true distribution
+  newy <- rbinom(1,1,p)
   if (pmle >= 0.5) {
     predy <- 1 # Predict 1 if pmle >= 0.5
   } else {
@@ -107,10 +107,9 @@ do_simulation <- function(n,p) {
 }
 
 # Do the simulation 
-sim_mspe <- 1:B %>%
-  map(~do_simulation(n = n,p = p0)) %>%
-  reduce(c) %>%
-  mean()
+sims <- numeric(B)
+for (b in 1:B) sims[b] <- do_simulation(n,p0)
+sim_mspe <- mean(sims)
 
 sim_mspe
 ```
@@ -127,7 +126,7 @@ B <- 1000 # Number of simulations to do
 
 do_simulation <- function(n,p) {
   pmle <- mean(rbinom(n,1,p)) # Compute the MLE
-  newy <- rbinom(1,1,pmle) # Draw a new value from the true distribution
+  newy <- rbinom(1,1,pmle)
   if (pmle >= 0.5) {
     predy <- 1 # Predict 1 if pmle >= 0.5
   } else {
@@ -157,7 +156,7 @@ So what's the problem? If we're in the frequentist paradigm, there is a big one:
 \begin{equation}
 \pi(Y_{n+1}|Y_{1},\ldots,Y_{n}) = \pi(Y_{n+1})
 \end{equation}
-Under this paradigm, the sample *provides no information* about the distribution of a new datapoint.
+Under this paradigm, the sample provides no *direct* information about the distribution of a new datapoint.
 
 In the Bayesian paradigm, things are a bit different. Following Evans and Rosenthal Section 7.2.4, we consider the **posterior predictive distribution**:
 \begin{equation}
@@ -213,10 +212,9 @@ do_simulation_bayes <- function(n,p) {
 }
 
 # Do the simulation 
-sim_mspe_bayes <- 1:B %>%
-  map(~do_simulation_bayes(n = n,p = p0)) %>%
-  reduce(c) %>%
-  mean()
+sim_bayes <- numeric(B)
+for (b in 1:B) sim_bayes[b] <- do_simulation_bayes(n,p0)
+sim_mspe_bayes <- mean(sim_bayes)
 
 sim_mspe_bayes
 ```
@@ -225,9 +223,8 @@ Notice anything odd about these results compared to what we got using the freque
 
 It turns out that if the prior is symmetric ($\alpha = \beta$), then the posterior mode *exactly equals* the prediction rule we obtained by minimizing the MSPE. If the prior is not symmetric, they won't be the same-- so which do you expect to be better?
 
-## Extended example: Income and Advertsing datasets
-
-Let's recreate the examples from chapter 2 of ISLR.
+**Exercise**: repeate the above simulation, but change the prior so that it is
+not symmetric (make $a\neq b$). What is the $MSPE$ of the Bayesian prediction?
 
 ## Extended example: predicting call centre wait times
 
@@ -335,13 +332,10 @@ prediction_plot <- function(mod) {
     geom_line(aes(y = pred),colour = "purple")
 }
 
-cowplot::plot_grid(
-  prediction_plot(contactmod_1),
-  prediction_plot(contactmod_2),
-  prediction_plot(contactmod_10),
-  prediction_plot(contactmod_100),
-  nrow = 2
-)
+library(patchwork)
+(prediction_plot(contactmod_1) | prediction_plot(contactmod_2)) /
+  (prediction_plot(contactmod_10) | prediction_plot(contactmod_100))
+
 ```
 
 **Exercise**: I deliberately didn't label the plots. Can you guess which plot is
@@ -369,12 +363,14 @@ datapoint, not one that you've already seen! To get a better estimate of the rea
 MSPE, and hence tell how the algorithm might do on new datapoints, we can bootstrap
 it. We'll use a slightly different kind of bootstrap, called **cross-validation**,
 where we
-\begin{enumerate}
-\item Split the data up randomly into, say, $K$ chunks, where $K = 10$ (say), and
-\item Fit the model of interest to data from each combination of $K-1$ chunks, and
-\item Predict the values on the $K^{th}$ chunk, and then average the 
+
+1. Split the data up randomly into, say, $K$ chunks, where $K = 10$ (say), and
+
+1. Fit the model of interest to data from each combination of $K-1$ chunks, and
+
+1. Predict the values on the $K^{th}$ chunk, and then average the 
 $K$ "out-of-sample" estimates of the MSPE we get from this.
-\end{enumerate}
+
 There are many types of cross-validation; this one is called "K-fold" cross validation.
 
 We can implement this as follows:

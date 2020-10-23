@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Extended Example: Reasoning About Goodness of Fit | STA238: Probability, Statistics, and Data Analysis</title>
+  <title>Chapter 10 Extended Example: Reasoning About Goodness of Fit | Probability, Statistics, and Data Analysis</title>
   <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
   <meta name="generator" content="bookdown 0.21.2 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Extended Example: Reasoning About Goodness of Fit | STA238: Probability, Statistics, and Data Analysis" />
+  <meta property="og:title" content="Chapter 10 Extended Example: Reasoning About Goodness of Fit | Probability, Statistics, and Data Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Extended Example: Reasoning About Goodness of Fit | STA238: Probability, Statistics, and Data Analysis" />
+  <meta name="twitter:title" content="Chapter 10 Extended Example: Reasoning About Goodness of Fit | Probability, Statistics, and Data Analysis" />
   
   <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2020-10-17" />
+<meta name="date" content="2020-10-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="section-confidence-intervals-and-quantifying-uncertainty.html"/>
-<link rel="next" href="section-supplement-to-evans-rosenthal-section-7-2.html"/>
+<link rel="next" href="section-bayesian-inference-estimation.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -224,23 +224,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html"><i class="fa fa-check"></i><b>11</b> Supplement to Evans &amp; Rosenthal Section 7.2</a><ul>
-<li class="chapter" data-level="11.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a><ul>
-<li class="chapter" data-level="11.1.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-the-prior"><i class="fa fa-check"></i><b>11.1.1</b> The Prior</a></li>
-<li class="chapter" data-level="11.1.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-the-posterior"><i class="fa fa-check"></i><b>11.1.2</b> The Posterior</a></li>
+<li class="chapter" data-level="11" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html"><i class="fa fa-check"></i><b>11</b> Bayesian Inference: Estimation</a><ul>
+<li class="chapter" data-level="11.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-prior"><i class="fa fa-check"></i><b>11.1.1</b> The Prior</a></li>
+<li class="chapter" data-level="11.1.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-posterior"><i class="fa fa-check"></i><b>11.1.2</b> The Posterior</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-estimation-in-bayesian-inference-point-and-interval-estimation"><i class="fa fa-check"></i><b>11.2</b> Estimation in Bayesian Inference: point and interval estimation</a></li>
-<li class="chapter" data-level="11.3" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-conjugate-priors"><i class="fa fa-check"></i><b>11.3.1</b> Conjugate Priors</a></li>
-<li class="chapter" data-level="11.3.2" data-path="section-supplement-to-evans-rosenthal-section-7-2.html"><a href="section-supplement-to-evans-rosenthal-section-7-2.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
+<li class="chapter" data-level="11.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-point-and-interval-estimation"><i class="fa fa-check"></i><b>11.2</b> Estimation in Bayesian Inference: point and interval estimation</a></li>
+<li class="chapter" data-level="11.3" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-conjugate-priors"><i class="fa fa-check"></i><b>11.3.1</b> Conjugate Priors</a></li>
+<li class="chapter" data-level="11.3.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a><ul>
 <li class="chapter" data-level="12.1" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-overview"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
 <li class="chapter" data-level="12.2" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-plug-in-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.2</b> Plug-in prediction: coin flipping</a></li>
 <li class="chapter" data-level="12.3" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-bayesian-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.3</b> Bayesian Prediction: coin flipping</a></li>
-<li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-income-and-advertsing-datasets"><i class="fa fa-check"></i><b>12.4</b> Extended example: Income and Advertsing datasets</a></li>
-<li class="chapter" data-level="12.5" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.5</b> Extended example: predicting call centre wait times</a></li>
+<li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.4</b> Extended example: predicting call centre wait times</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a><ul>
 <li class="chapter" data-level="13.1" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-r"><i class="fa fa-check"></i><b>13.1</b> Installing R</a></li>
@@ -252,10 +251,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.2" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-13-and-14"><i class="fa fa-check"></i><b>14.2</b> Chapters 13 and 14</a></li>
 <li class="chapter" data-level="14.3" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-17-and-19"><i class="fa fa-check"></i><b>14.3</b> Chapters 17 and 19</a></li>
 <li class="chapter" data-level="14.4" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-20"><i class="fa fa-check"></i><b>14.4</b> Chapter 20</a></li>
-<li class="chapter" data-level="14.5" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7"><i class="fa fa-check"></i><b>14.5</b> Evans and Rosenthal, Chapter 7</a></li>
+<li class="chapter" data-level="14.5" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7.1"><i class="fa fa-check"></i><b>14.5</b> Evans and Rosenthal, Chapter 7.1</a></li>
 <li class="chapter" data-level="14.6" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-18"><i class="fa fa-check"></i><b>14.6</b> Chapter 18</a></li>
 <li class="chapter" data-level="14.7" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-21"><i class="fa fa-check"></i><b>14.7</b> Chapter 21</a></li>
 <li class="chapter" data-level="14.8" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-23"><i class="fa fa-check"></i><b>14.8</b> Chapter 23</a></li>
+<li class="chapter" data-level="14.9" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7.2"><i class="fa fa-check"></i><b>14.9</b> Evans and Rosenthal, Chapter 7.2</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -269,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA238: Probability, Statistics, and Data Analysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Probability, Statistics, and Data Analysis</a>
           </h1>
         </div>
 
@@ -286,9 +286,7 @@ Psychology journal. You can find the article here: <a href="http://datacolada.or
 <div id="section-go-and-read-the-blog-post" class="section level2">
 <h2><span class="header-section-number">10.1</span> Go and read the blog post</h2>
 <p>To start, go read this blog post: <a href="http://datacolada.org/74">http://datacolada.org/74</a>.
-This should take you at least an hour or so to do in detail, if not longer. It
-is a major part of this week’s materials, effectively replacing textbook readings.
-It is not optional, and will be tested on assignments and tests.</p>
+This should take you at least an hour or so to do in detail, if not longer.</p>
 <p><strong>Exercise</strong>: summarize this study in your own words. Two or three sentences
 should suffice. What did they do, how did they do it, and what were they trying
 to find out? It is important that you understand this before you move on.</p>
@@ -302,8 +300,10 @@ the relative frequency with which different digits occur can indicate potential
 fraud if it differs from what you would expect. It is well-established that the
 last digit, in particular, of numeric data should be distributed pretty evenly
 between the numbers <span class="math inline">\(0 - 9\)</span> in any given set of data.</p>
+<p><strong>Remark</strong>: this isn’t trivial; for example, <a href="https://en.wikipedia.org/wiki/Benford%27s_law"><em>Benford’s Law</em></a>
+says that this is <em>not</em> true about the <em>first</em> digit in numbers in certain types of financial data.</p>
 <p>So, let’s look at the last digit of the measurements from the hand sanitizer study.
-The data is available from <a href="http://datacolada.org/appendix/74/">http://datacolada.org/appendix/74/</a> and their <code>R</code> code can be found at <a href="http://datacolada.org/appendix/74/74%20-%20DataColada%20-%20Decoy%20Sanitizer%20-%202018%2008%2023.R">http://datacolada.org/appendix/74/74%20-%20DataColada%20-%20Decoy%20Sanitizer%20-%202018%2008%2023.R</a>. Here we
+The data is available from <a href="http://datacolada.org/appendix/74/">http://datacolada.org/appendix/74/</a> and their <code>R</code> code can be found <a href="http://datacolada.org/appendix/74/74%20-%20DataColada%20-%20Decoy%20Sanitizer%20-%202018%2008%2023.R">here</a>. Here we
 use our own <code>R</code> code but I borrow parts from theirs.</p>
 <div id="section-read-in-the-data-1" class="section level3">
 <h3><span class="header-section-number">10.2.1</span> Read in the data</h3>
@@ -316,48 +316,48 @@ use our own <code>R</code> code but I borrow parts from theirs.</p>
 <a class="sourceLine" id="cb306-6" title="6"><span class="kw">glimpse</span>(study1)</a></code></pre></div>
 <pre><code>Observations: 40
 Variables: 42
-$ Subject                                                   &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,…
-$ `Group (1=experimental condition, 0 = control condition)` &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, …
-$ Day1                                                      &lt;dbl&gt; 55, 60, 63, 55, 60, 60, 35, 55, 45, 75, 50, 70, 60, 40, 35, 50, 50…
-$ Day2                                                      &lt;dbl&gt; 45, 55, 40, 50, 40, 20, 40, 40, 50, 55, 45, 55, 45, 45, 50, 55, 45…
-$ Day3                                                      &lt;dbl&gt; 45, 55, 50, 40, 15, 90, 85, 20, 90, 35, 55, 50, 30, 35, 60, 65, 45…
-$ Day4                                                      &lt;dbl&gt; 40, 55, 60, 40, 40, 60, 45, 35, 90, 45, 55, 55, 35, 35, 60, 60, 35…
-$ Day5                                                      &lt;dbl&gt; 45, 50, 25, 45, 75, 65, 55, 30, 55, 60, 53, 50, 50, 40, 65, 63, 47…
-$ Day6                                                      &lt;dbl&gt; 45, 45, 35, 60, 65, 60, 45, 50, 45, 40, 55, 50, 43, 50, 55, 65, 50…
-$ Day7                                                      &lt;dbl&gt; 55, 45, 55, 85, 60, 40, 40, 45, 45, 45, 50, 40, 40, 45, 55, 60, 37…
-$ Day8                                                      &lt;dbl&gt; 60, 40, 40, 55, 55, 37, 37, 60, 90, 50, 55, 45, 40, 30, 63, 60, 35…
-$ Day9                                                      &lt;dbl&gt; 45, 40, 33, 65, 60, 33, 40, 40, 100, 40, 45, 43, 37, 30, 60, 63, 3…
-$ Day10                                                     &lt;dbl&gt; 67, 40, 50, 80, 50, 60, 45, 50, 93, 36, 40, 40, 50, 45, 60, 65, 50…
-$ Day11                                                     &lt;dbl&gt; 65, 56, 40, 65, 60, 80, 65, 75, 87, 50, 50, 43, 53, 50, 65, 65, 47…
-$ Day12                                                     &lt;dbl&gt; 70, 40, 50, 65, 60, 60, 45, 55, 80, 60, 55, 43, 45, 55, 65, 60, 55…
-$ Day13                                                     &lt;dbl&gt; 80, 40, 25, 70, 60, 60, 55, 75, 89, 65, 45, 40, 37, 65, 65, 70, 40…
-$ Day14                                                     &lt;dbl&gt; 75, 45, 45, 50, 70, 70, 55, 70, 80, 70, 50, 40, 55, 55, 60, 60, 45…
-$ Day15                                                     &lt;dbl&gt; 70, 50, 50, 65, 60, 65, 55, 75, 75, 75, 50, 45, 55, 55, 65, 55, 45…
-$ Day16                                                     &lt;dbl&gt; 80, 55, 50, 65, 60, 55, 50, 95, 80, 70, 55, 45, 55, 50, 65, 75, 40…
-$ Day17                                                     &lt;dbl&gt; 70, 55, 45, 65, 55, 60, 50, 85, 85, 70, 55, 40, 65, 60, 60, 70, 43…
-$ Day18                                                     &lt;dbl&gt; 75, 50, 45, 55, 55, 55, 45, 80, 80, 60, 50, 40, 60, 50, 55, 70, 40…
-$ Day19                                                     &lt;dbl&gt; 70, 45, 45, 60, 65, 75, 40, 85, 80, 65, 45, 40, 65, 45, 55, 60, 47…
-$ Day20                                                     &lt;dbl&gt; 65, 50, 40, 60, 70, 70, 55, 85, 75, 55, 45, 43, 55, 65, 65, 55, 55…
-$ `Day21 (Beginning of intervention)`                       &lt;dbl&gt; 85, 55, 65, 80, 70, 90, 65, 85, 85, 75, 55, 40, 60, 70, 65, 65, 60…
-$ Day22                                                     &lt;dbl&gt; 85, 75, 65, 75, 75, 45, 50, 95, 60, 55, 50, 45, 65, 55, 55, 60, 55…
-$ Day23                                                     &lt;dbl&gt; 90, 45, 70, 90, 65, 75, 70, 90, 80, 70, 85, 55, 70, 45, 80, 70, 45…
-$ Day24                                                     &lt;dbl&gt; 85, 60, 55, 120, 80, 80, 75, 90, 85, 70, 70, 55, 70, 65, 75, 70, 6…
-$ Day25                                                     &lt;dbl&gt; 75, 50, 60, 105, 70, 100, 75, 95, 70, 75, 70, 75, 75, 60, 70, 85, …
-$ Day26                                                     &lt;dbl&gt; 75, 50, 70, 100, 70, 95, 65, 85, 60, 45, 75, 80, 55, 75, 70, 90, 6…
-$ Day27                                                     &lt;dbl&gt; 65, 35, 55, 95, 55, 75, 60, 70, 70, 70, 80, 60, 75, 45, 75, 75, 35…
-$ Day28                                                     &lt;dbl&gt; 75, 55, 40, 90, 60, 80, 75, 60, 70, 75, 55, 55, 65, 45, 80, 70, 45…
-$ Day29                                                     &lt;dbl&gt; 75, 60, 65, 90, 80, 75, 65, 75, 85, 70, 60, 65, 80, 70, 55, 85, 60…
-$ Day30                                                     &lt;dbl&gt; 80, 55, 65, 80, 85, 80, 60, 70, 75, 60, 65, 70, 75, 85, 75, 70, 65…
-$ Day31                                                     &lt;dbl&gt; 75, 65, 70, 85, 75, 60, 55, 65, 75, 65, 60, 55, 80, 65, 60, 85, 55…
-$ Day32                                                     &lt;dbl&gt; 50, 45, 75, 125, 75, 65, 40, 85, 75, 55, 60, 65, 65, 50, 75, 75, 5…
-$ Day33                                                     &lt;dbl&gt; 70, 40, 55, 120, 95, 70, 55, 80, 80, 50, 65, 70, 75, 55, 70, 65, 4…
-$ Day34                                                     &lt;dbl&gt; 75, 55, 50, 110, 70, 60, 60, 80, 85, 55, 55, 75, 75, 60, 55, 70, 7…
-$ Day35                                                     &lt;dbl&gt; 65, 55, 65, 90, 85, 85, 55, 95, 80, 45, 75, 55, 70, 40, 70, 70, 70…
-$ Day36                                                     &lt;dbl&gt; 75, 60, 45, 95, 90, 75, 60, 90, 85, 70, 65, 80, 90, 65, 65, 75, 45…
-$ Day37                                                     &lt;dbl&gt; 70, 50, 50, 105, 45, 65, 75, 75, 70, 35, 65, 85, 65, 70, 80, 90, 5…
-$ Day38                                                     &lt;dbl&gt; 75, 45, 55, 110, 75, 75, 70, 70, 80, 65, 70, 80, 60, 60, 65, 85, 5…
-$ Day39                                                     &lt;dbl&gt; 90, 65, 65, 115, 80, 80, 55, 65, 90, 60, 80, 70, 75, 55, 90, 80, 7…
-$ Day40                                                     &lt;dbl&gt; 85, 70, 65, 105, 75, 85, 75, 70, 95, 65, 65, 75, 70, 60, 85, 80, 6…</code></pre>
+$ Subject                                                   &lt;dbl&gt; 1, 2, 3, 4,…
+$ `Group (1=experimental condition, 0 = control condition)` &lt;dbl&gt; 1, 1, 1, 1,…
+$ Day1                                                      &lt;dbl&gt; 55, 60, 63,…
+$ Day2                                                      &lt;dbl&gt; 45, 55, 40,…
+$ Day3                                                      &lt;dbl&gt; 45, 55, 50,…
+$ Day4                                                      &lt;dbl&gt; 40, 55, 60,…
+$ Day5                                                      &lt;dbl&gt; 45, 50, 25,…
+$ Day6                                                      &lt;dbl&gt; 45, 45, 35,…
+$ Day7                                                      &lt;dbl&gt; 55, 45, 55,…
+$ Day8                                                      &lt;dbl&gt; 60, 40, 40,…
+$ Day9                                                      &lt;dbl&gt; 45, 40, 33,…
+$ Day10                                                     &lt;dbl&gt; 67, 40, 50,…
+$ Day11                                                     &lt;dbl&gt; 65, 56, 40,…
+$ Day12                                                     &lt;dbl&gt; 70, 40, 50,…
+$ Day13                                                     &lt;dbl&gt; 80, 40, 25,…
+$ Day14                                                     &lt;dbl&gt; 75, 45, 45,…
+$ Day15                                                     &lt;dbl&gt; 70, 50, 50,…
+$ Day16                                                     &lt;dbl&gt; 80, 55, 50,…
+$ Day17                                                     &lt;dbl&gt; 70, 55, 45,…
+$ Day18                                                     &lt;dbl&gt; 75, 50, 45,…
+$ Day19                                                     &lt;dbl&gt; 70, 45, 45,…
+$ Day20                                                     &lt;dbl&gt; 65, 50, 40,…
+$ `Day21 (Beginning of intervention)`                       &lt;dbl&gt; 85, 55, 65,…
+$ Day22                                                     &lt;dbl&gt; 85, 75, 65,…
+$ Day23                                                     &lt;dbl&gt; 90, 45, 70,…
+$ Day24                                                     &lt;dbl&gt; 85, 60, 55,…
+$ Day25                                                     &lt;dbl&gt; 75, 50, 60,…
+$ Day26                                                     &lt;dbl&gt; 75, 50, 70,…
+$ Day27                                                     &lt;dbl&gt; 65, 35, 55,…
+$ Day28                                                     &lt;dbl&gt; 75, 55, 40,…
+$ Day29                                                     &lt;dbl&gt; 75, 60, 65,…
+$ Day30                                                     &lt;dbl&gt; 80, 55, 65,…
+$ Day31                                                     &lt;dbl&gt; 75, 65, 70,…
+$ Day32                                                     &lt;dbl&gt; 50, 45, 75,…
+$ Day33                                                     &lt;dbl&gt; 70, 40, 55,…
+$ Day34                                                     &lt;dbl&gt; 75, 55, 50,…
+$ Day35                                                     &lt;dbl&gt; 65, 55, 65,…
+$ Day36                                                     &lt;dbl&gt; 75, 60, 45,…
+$ Day37                                                     &lt;dbl&gt; 70, 50, 50,…
+$ Day38                                                     &lt;dbl&gt; 75, 45, 55,…
+$ Day39                                                     &lt;dbl&gt; 90, 65, 65,…
+$ Day40                                                     &lt;dbl&gt; 85, 70, 65,…</code></pre>
 <p><strong>Exercise</strong>: download the data by pasting the link into a web browser.
 Print out the header on the command line or open the <code>.csv</code> file in Excel or
 otherwise. Verify that the <code>col_names</code> and <code>col_types</code> arguments I provided
@@ -365,14 +365,14 @@ are correct.</p>
 <p>The data is in “wide” format– each day has its own column. We want one column
 for subject ID, one for Day, and one for measurement. Let’s reformat the data:</p>
 <div class="sourceCode" id="section-cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" title="1">study1_long &lt;-<span class="st"> </span>study1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb308-2" title="2"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(day,measurement,Day1<span class="op">:</span>Day40)</a>
+<a class="sourceLine" id="cb308-2" title="2"><span class="st">  </span><span class="kw">pivot_longer</span>(Day1<span class="op">:</span>Day40,<span class="dt">names_to =</span> <span class="st">&quot;day&quot;</span>,<span class="dt">values_to =</span> <span class="st">&quot;measurement&quot;</span>)</a>
 <a class="sourceLine" id="cb308-3" title="3"><span class="kw">glimpse</span>(study1_long)</a></code></pre></div>
 <pre><code>Observations: 1,600
 Variables: 4
-$ Subject                                                   &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,…
-$ `Group (1=experimental condition, 0 = control condition)` &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, …
-$ day                                                       &lt;chr&gt; &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;D…
-$ measurement                                               &lt;dbl&gt; 55, 60, 63, 55, 60, 60, 35, 55, 45, 75, 50, 70, 60, 40, 35, 50, 50…</code></pre>
+$ Subject                                                   &lt;dbl&gt; 1, 1, 1, 1,…
+$ `Group (1=experimental condition, 0 = control condition)` &lt;dbl&gt; 1, 1, 1, 1,…
+$ day                                                       &lt;chr&gt; &quot;Day1&quot;, &quot;Da…
+$ measurement                                               &lt;dbl&gt; 55, 45, 45,…</code></pre>
 <p>We previously had <span class="math inline">\(40\)</span> subjects each with <span class="math inline">\(40\)</span> columns of measurements; now we
 have <span class="math inline">\(1,600\)</span> rows, which looks good to me. Let’s further clean up the data: we
 need to</p>
@@ -390,17 +390,17 @@ number. Type <code>?substr</code> to learn about this function.</p>
 <a class="sourceLine" id="cb310-6" title="6"><span class="kw">glimpse</span>(study1_clean)</a></code></pre></div>
 <pre><code>Observations: 1,600
 Variables: 5
-$ subject     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 3…
-$ group       &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-$ day         &lt;chr&gt; &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, &quot;Day1&quot;, …
-$ measurement &lt;dbl&gt; 55, 60, 63, 55, 60, 60, 35, 55, 45, 75, 50, 70, 60, 40, 35, 50, 50, 60, 55, 50, 50, 25, 45, 60, 70, 10, 60, 80, …
-$ last_digit  &lt;dbl&gt; 5, 0, 3, 5, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 5, 5, 0, 0, 0, 0, 0, 5, 0, 5, 5, 5, 5, 5, 5, 0, 0…</code></pre>
+$ subject     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ group       &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ day         &lt;chr&gt; &quot;Day1&quot;, &quot;Day2&quot;, &quot;Day3&quot;, &quot;Day4&quot;, &quot;Day5&quot;, &quot;Day6&quot;, &quot;Day7&quot;, &quot;…
+$ measurement &lt;dbl&gt; 55, 45, 45, 40, 45, 45, 55, 60, 45, 67, 65, 70, 80, 75, 7…
+$ last_digit  &lt;dbl&gt; 5, 5, 5, 0, 5, 5, 5, 0, 5, 7, 5, 0, 0, 5, 0, 0, 0, 5, 0, …</code></pre>
 <p>Looks clean to me!</p>
 </div>
 <div id="section-make-the-histogram" class="section level3">
 <h3><span class="header-section-number">10.2.2</span> Make the histogram</h3>
-<p>Okay, now consider Figure 1 in the blog post. They filter out observations
-ending in <span class="math inline">\(0\)</span> or <span class="math inline">\(5\)</span>, because the authors of the disputed paper claim to have
+<p>Okay, now consider Figure 1 in the blog post. <strong>They filter out observations ending in <span class="math inline">\(0\)</span> or <span class="math inline">\(5\)</span></strong>
+(remember this later), because the authors of the disputed paper claim to have
 occasionally used a scale with <span class="math inline">\(5\)</span>-gram precision, and occasionally one with
 <span class="math inline">\(1\)</span>-gram precision (this alone is suspect…). They then make a histogram
 of all the last digits. We can do this too:</p>
@@ -444,8 +444,7 @@ of 3’s or 7’s as high, or higher, as what we saw in our sample.</li>
 generated by sampling a bunch of values that ended in <span class="math inline">\(0&#39;s\)</span> or <span class="math inline">\(5&#39;s\)</span> and then filtering
 these out, which is behaviour that I don’t know how to replicate exactly. We also
 could consider the distribution of <span class="math inline">\(3&#39;s\)</span> and <span class="math inline">\(7&#39;s\)</span> separately, or jointly (using
-“and” instead of “or”). I order to keep this idea simple and big-picture, we’re
-going to ignore these details here.</p>
+“and” instead of “or”).</p>
 <p>The first question is, how do we generate data that has last digits evenly distributed?
 Well, <em>any</em> random numbers should work, but to keep things consistent with the real
 data, let’s try generating from a normal distribution with mean and variance equal
@@ -470,7 +469,7 @@ to the sample mean and variance of our data, rounded to the nearest integer:</p>
 <a class="sourceLine" id="cb314-3" title="3"><span class="co"># and returns the proportion of last digits</span></a>
 <a class="sourceLine" id="cb314-4" title="4"><span class="co"># that are either 3 or 7</span></a>
 <a class="sourceLine" id="cb314-5" title="5">N &lt;-<span class="st"> </span><span class="kw">nrow</span>(study1_clean <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>)))) <span class="co"># Size of dataset to simulate</span></a>
-<a class="sourceLine" id="cb314-6" title="6">B &lt;-<span class="st"> </span><span class="fl">1e04</span> <span class="co"># Number of simulations to do- 1 million (!)</span></a>
+<a class="sourceLine" id="cb314-6" title="6">B &lt;-<span class="st"> </span><span class="fl">1e04</span> <span class="co"># Number of simulations to do</span></a>
 <a class="sourceLine" id="cb314-7" title="7">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(study1_clean<span class="op">$</span>measurement)</a>
 <a class="sourceLine" id="cb314-8" title="8">ss &lt;-<span class="st"> </span><span class="kw">sd</span>(study1_clean<span class="op">$</span>measurement)</a>
 <a class="sourceLine" id="cb314-9" title="9">simulate_proportion &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
@@ -485,19 +484,17 @@ to the sample mean and variance of our data, rounded to the nearest integer:</p>
 <a class="sourceLine" id="cb314-18" title="18"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">7</span>))) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb314-19" title="19"><span class="st">  </span><span class="kw">pull</span>(p) </a>
 <a class="sourceLine" id="cb314-20" title="20">study_proportion</a></code></pre></div>
-<pre><code>[1] 0.88</code></pre>
+<pre><code>[1] 0.88148</code></pre>
 <div class="sourceCode" id="section-cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" title="1"><span class="co"># 88.1%. Wow.</span></a>
 <a class="sourceLine" id="cb316-2" title="2"></a>
 <a class="sourceLine" id="cb316-3" title="3"><span class="co"># Perform the simulation:</span></a>
-<a class="sourceLine" id="cb316-4" title="4">sim_results &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb316-5" title="5"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">simulate_proportion</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb316-6" title="6"><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">as.numeric</span>(.x <span class="op">&gt;=</span><span class="st"> </span>study_proportion)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb316-7" title="7"><span class="st">  </span><span class="kw">reduce</span>(c)</a>
-<a class="sourceLine" id="cb316-8" title="8"></a>
-<a class="sourceLine" id="cb316-9" title="9"><span class="co"># This is a vector of 0/1 which says whether each simulation&#39;s proportion of</span></a>
-<a class="sourceLine" id="cb316-10" title="10"><span class="co"># 3&#39;s and 7&#39;s exceeded the study proportion. Its mean is the simulated probability</span></a>
-<a class="sourceLine" id="cb316-11" title="11"><span class="co"># of seeing what we saw in the study, if the digits are actually evenly distributed:</span></a>
-<a class="sourceLine" id="cb316-12" title="12"><span class="kw">mean</span>(sim_results)</a></code></pre></div>
+<a class="sourceLine" id="cb316-4" title="4">sim_results &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
+<a class="sourceLine" id="cb316-5" title="5"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) sim_results[b] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">simulate_proportion</span>() <span class="op">&gt;=</span><span class="st"> </span>study_proportion)</a>
+<a class="sourceLine" id="cb316-6" title="6"></a>
+<a class="sourceLine" id="cb316-7" title="7"><span class="co"># This is a vector of 0/1 which says whether each simulation&#39;s proportion of</span></a>
+<a class="sourceLine" id="cb316-8" title="8"><span class="co"># 3&#39;s and 7&#39;s exceeded the study proportion. Its mean is the simulated probability</span></a>
+<a class="sourceLine" id="cb316-9" title="9"><span class="co"># of seeing what we saw in the study, if the digits are actually evenly distributed:</span></a>
+<a class="sourceLine" id="cb316-10" title="10"><span class="kw">mean</span>(sim_results)</a></code></pre></div>
 <pre><code>[1] 0</code></pre>
 <div class="sourceCode" id="section-cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" title="1"><span class="co"># Okay... how many?</span></a>
 <a class="sourceLine" id="cb318-2" title="2"><span class="kw">sum</span>(sim_results)</a></code></pre></div>
@@ -507,6 +504,17 @@ as ours. This provides strong evidence against the notion that the digits are, i
 fact, evenly distributed.</p>
 <p><strong>Exercise</strong>: how many simulations do you need before you get even one that is as
 extreme as our dataset?</p>
+<p><strong>Exercise</strong>: investigate the manner in which we generated these random digits. Try the following:</p>
+<ol style="list-style-type: decimal">
+<li><p>Simulate from a continuous uniform distribution with mean and variance equal to the sample
+mean and variance (you have to figure out how to do this),</p></li>
+<li><p>Simulate from a discrete uniform distribution with mean and variance equal to the
+sample mean and variance,</p></li>
+<li><p>(<em>Advanced</em>) Simulate from a discrete uniform distribution as above, but then, chop off the last
+digit and replace it with one simulated from a discrete uniform distribution on <span class="math inline">\(\left\{0,\ldots,9\right\}\)</span>.</p></li>
+</ol>
+<p><strong>Exercise</strong>: repeate the simulation, but filter out numbers ending in <span class="math inline">\(0\)</span> or <span class="math inline">\(5\)</span> from
+the simulated datasets. Do the results change at all?</p>
 </div>
 <div id="section-testing-goodness-of-fit-math" class="section level3">
 <h3><span class="header-section-number">10.2.4</span> Testing goodness of fit: math</h3>
@@ -524,7 +532,8 @@ of the truth. And since the model was built under the premise that the digits ar
 evenly distributed, a lack of fit of the model to the observed data provides
 evidence against the notion that the digits are evenly distributed.</p>
 <p>Let’s develop a model. Define <span class="math inline">\(y_{ij} = 1\)</span> if the last digit of the <span class="math inline">\(i^{th}\)</span> measurement
-equals <span class="math inline">\(j\)</span>, for <span class="math inline">\(j \in J = \left\{1,2,3,4,6,7,8,9\right\}\)</span>, and equals <span class="math inline">\(0\)</span> otherwise. So for example,
+equals <span class="math inline">\(j\)</span>, for <span class="math inline">\(j \in J = \left\{1,2,3,4,6,7,8,9\right\}\)</span> (remember: they filtered out
+measurements ending in <span class="math inline">\(0\)</span> or <span class="math inline">\(5\)</span>), and equals <span class="math inline">\(0\)</span> otherwise. So for example,
 if the <span class="math inline">\(i^{th}\)</span> measurement is <span class="math inline">\(42\)</span> then <span class="math inline">\(y_{i1} = 0\)</span> and <span class="math inline">\(y_{i2} = 1\)</span> and <span class="math inline">\(y_{i3} = 0\)</span>
 and so on. Define <span class="math inline">\(y_{i} = (y_{i1},\ldots,y_{i9})\)</span>, a vector containing all zeroes
 except for exactly one <span class="math inline">\(1\)</span>. Then the <span class="math inline">\(y_{i}\)</span> are independent draws from a <strong>Multinomial</strong>
@@ -591,17 +600,23 @@ observations to some sort of reference, like we’re doing here.</p>
 <a class="sourceLine" id="cb320-9" title="9">obsvec &lt;-<span class="st"> </span>pmledat<span class="op">$</span>cnt</a>
 <a class="sourceLine" id="cb320-10" title="10"><span class="kw">names</span>(obsvec) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</a>
 <a class="sourceLine" id="cb320-11" title="11"></a>
-<a class="sourceLine" id="cb320-12" title="12">pmle &lt;-<span class="st"> </span>pmledat<span class="op">$</span>pp</a>
-<a class="sourceLine" id="cb320-13" title="13"><span class="kw">names</span>(pmle) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</a>
-<a class="sourceLine" id="cb320-14" title="14">pmle</a></code></pre></div>
-<pre><code>        2         3         4         6         7         8         9 
-0.0074074 0.5259259 0.0148148 0.0222222 0.3555556 0.0518519 0.0222222 </code></pre>
+<a class="sourceLine" id="cb320-12" title="12"><span class="co"># Notice how there are no digits ending in 1 in the data</span></a>
+<a class="sourceLine" id="cb320-13" title="13"><span class="co"># So the MLE for p1 is zero.</span></a>
+<a class="sourceLine" id="cb320-14" title="14"><span class="co"># Need to account for this manually</span></a>
+<a class="sourceLine" id="cb320-15" title="15">pmle &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb320-16" title="16"><span class="kw">names</span>(pmle) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb320-17" title="17">pmlevals &lt;-<span class="st"> </span>pmledat<span class="op">$</span>pp</a>
+<a class="sourceLine" id="cb320-18" title="18"><span class="kw">names</span>(pmlevals) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</a>
+<a class="sourceLine" id="cb320-19" title="19">pmle[<span class="kw">names</span>(pmlevals)] &lt;-<span class="st"> </span>pmlevals</a>
+<a class="sourceLine" id="cb320-20" title="20">pmle</a></code></pre></div>
+<pre><code>        1         2         3         4         6         7         8         9 
+0.0000000 0.0074074 0.5259259 0.0148148 0.0222222 0.3555556 0.0518519 0.0222222 </code></pre>
 <div class="sourceCode" id="section-cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" title="1"><span class="co"># Truth, if digits evenly distributed</span></a>
 <a class="sourceLine" id="cb322-2" title="2">p0 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(pmle)) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(pmle)</a>
 <a class="sourceLine" id="cb322-3" title="3"><span class="kw">names</span>(p0) &lt;-<span class="st"> </span><span class="kw">names</span>(pmle)</a>
 <a class="sourceLine" id="cb322-4" title="4">p0</a></code></pre></div>
-<pre><code>      2       3       4       6       7       8       9 
-0.14286 0.14286 0.14286 0.14286 0.14286 0.14286 0.14286 </code></pre>
+<pre><code>    1     2     3     4     6     7     8     9 
+0.125 0.125 0.125 0.125 0.125 0.125 0.125 0.125 </code></pre>
 <div class="sourceCode" id="section-cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1"><span class="co"># Compute minus twice the likelihood ratio</span></a>
 <a class="sourceLine" id="cb324-2" title="2">multinom_log_likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(x,p) {</a>
 <a class="sourceLine" id="cb324-3" title="3">  <span class="co"># x: named vector where the name is j and the value is the count of </span></a>
@@ -613,7 +628,7 @@ observations to some sort of reference, like we’re doing here.</p>
 <a class="sourceLine" id="cb324-9" title="9"></a>
 <a class="sourceLine" id="cb324-10" title="10">lr &lt;-<span class="st"> </span><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span>(<span class="kw">multinom_log_likelihood</span>(obsvec,p0) <span class="op">-</span><span class="st"> </span><span class="kw">multinom_log_likelihood</span>(obsvec,pmle))</a>
 <a class="sourceLine" id="cb324-11" title="11">lr</a></code></pre></div>
-<pre><code>[1] 221.11</code></pre>
+<pre><code>[1] 257.16</code></pre>
 <div class="sourceCode" id="section-cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" title="1"><span class="co"># Compute the probability that a chisquare random variable is greater than this</span></a>
 <a class="sourceLine" id="cb326-2" title="2"><span class="co"># value:</span></a>
 <a class="sourceLine" id="cb326-3" title="3"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pchisq</span>(lr,<span class="dt">df =</span> <span class="kw">length</span>(pmle) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># zero.</span></a></code></pre></div>
@@ -639,7 +654,7 @@ than statistics is so very much more than just a ritual or toolbox!</p>
         </div>
       </div>
 <a href="section-confidence-intervals-and-quantifying-uncertainty.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="section-supplement-to-evans-rosenthal-section-7-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="section-bayesian-inference-estimation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

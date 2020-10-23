@@ -1,5 +1,5 @@
 --- 
-title: "STA238: Probability, Statistics, and Data Analysis"
+title: "Probability, Statistics, and Data Analysis"
 author: "Alison Gibbs and Alex Stringer"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -23,10 +23,14 @@ knitr::write_bib(c(
 knitr::opts_chunk$set(comment = NA)
 ```
 
-This "book" serves as supplementary materials for the assigned readings from the
-course textbooks for STA238: Probability, Statistics and Data Analysis, Winter 2020
-at the University of Toronto, taught by Alison Gibbs and Alex Stringer. The course
-textbooks are as follows:
+This materials cover concepts from a traditional mathematical statistics
+course with less of a focus on theory and more on simulation and data analysis. 
+They are designed to accompany or supplement such a course and were first used
+in STA238: Probability, Statistics and Data Analysis, Winter 2020
+at the University of Toronto, taught by Alison Gibbs and Alex Stringer. 
+
+These notes are designed to stand alone, however the content pulls heavily from 
+the following sources:
 
 - **[MIPS]** F.M. Dekking, C. Kraaikamp H.P. Lopuha ̈a and L.E. Meester (2005). A modern Introduction to Probability and Statistics: Understanding  How  and  Why. Springer-Verlag. This is the primary reference for the course. This book is available in the University of Toronto bookstore. A pdf version of this textbook is freely available  through the University of Toronto library website.
 
@@ -34,23 +38,14 @@ textbooks are as follows:
 
 - **[ISL]** G. James, D. Witten, T. Hastie and R. Tibshirani (2013). An Introduction to Statistical Learning with Applications in R. Springer. Available in pdf here:http://faculty.marshall.usc.edu/gareth-james/ISL
 
-The primary course text is **MIPS**. The other two are included because they contain
-certain important sections that **MIPS** is missing; we won't go over them in nearly
-as much detail as we will **MIPS**.
-
-These supplementary materials are structured as follows. Each "chapter" corresponds
-to a chapter in one of the course texts, usually **MIPS**. You should read the chapter
-in the course text **before** reading the supplementary notes, and you should do
-both of these things **before** coming to lecture. 
-
-Each chapter of supplementary
-notes contains required practice problems from the relevant textbook chapters, which
-you should attempt before lecture and then solve in detail after lecture. Also 
-do all of the "quick exercises" in **MIPS** and all of the exercises within these
-supplementary notes. Answers to selected exercises are available in the back of
-**MIPS**.
+Suggested practice problems from these sources are listed in the final chapter
+of these materials.
 
 You can find the code used to create this book [here](https://github.com/awstringer1/sta238-book).
 All of the data is stored in the `data` folder in this repository. You can look at
 the code for each chapter and copy bits and run them, though of course
 we recommend typing them out yourself!
+
+Thanks and enjoy!
+
+Alex Stringer, Alison Gibbs, and Sam Caetano

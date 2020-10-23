@@ -474,8 +474,8 @@ t_interval <- sort(c(
 )^-1)
 
 empboot_interval <- sort(c(
-  "lower" = mn + conflim[1] * ss/sqrt(n),
-  "upper" = mn + conflim[2] * ss/sqrt(n)
+  "lower" = mn + conflim[1] * sn/sqrt(n),
+  "upper" = mn + conflim[2] * sn/sqrt(n)
 )^-1)
 t_interval
 empboot_interval

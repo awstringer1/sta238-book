@@ -3,15 +3,17 @@
 library(tidyverse)
 ```
 
-# Supplement to Evans & Rosenthal Section 7.2
+# Bayesian Inference: Estimation
 
-This chapter is a supplement to Chapter 7: Bayesian Inference, section 2:
-Estimation. This is to support the Bayesian Inference
-sections of STA238. Materials in this tutorial are taken from Alex's [comprehensive tutorial on Bayesian Inference](https://awstringer1.github.io/leaf2018/intro-to-bayesian.html), which is very long and outside the scope of this course.
-
-The assigned exercises associated with this material are from Evans and Rosenthal (E\&R), as follows: E&R 7.2.1, 7.2.2, 7.2.3, 7.2.4, 7.2.5, 7.2.6; 7.2.12a; 7.2.14
+This chapter describes how to use Bayesian inference for estimation. Materials in this tutorial are taken from Alex's [comprehensive tutorial on Bayesian Inference](https://awstringer1.github.io/leaf2018/intro-to-bayesian.html), which is very long and outside the scope of this course.
 
 ## Estimation in Bayesian Inference: general ideas
+
+Recall our basic setup: we flip a coin and define the random variable $X$ which takes
+value $1$ if the coin comes up heads and $0$ if tails. We know our sample 
+$X_{i}\overset{iid}{\sim}\text{Bernoulli}(\theta)$ and we wish to use the observed flips
+to estimate $\theta$. We had previously looked at Bayesian inference for doing this
+when $\theta$ could only take the values $0.3$ or $0.7$.
 
 The case where there are only two possible parameter values is useful for examples, but not common in practice. More realistic is the case where $0 < \theta < 1$, and we need to use the observed data to *estimate* $\theta$.
 
@@ -30,7 +32,7 @@ In a nutshell, we should choose our prior distribution such that values of $\the
 A popular choice for a prior for a binomial likelihood like we have here is the **beta distribution**,
 $$
 \begin{aligned}
-\theta &\sim Beta(a,b) \\
+\theta &\sim \text{Beta}(a,b) \\
 f(\theta;a,b) &= \theta^{a-1}(1-\theta)^{b-1}, 0 < \theta < 1, a > 0, b > 0 \\
 E(\theta) &= \frac{a}{a+b} \\
 Var(\theta) &= \frac{ab}{(a+b)^2 (a+b+1)}
@@ -40,10 +42,19 @@ The Beta distribution is defined on $0,1$ and itself has two parameters $a,b$ wh
 
 Let's visualize the prior distribution in order to help us specify the parameters $a,b$ that will give us a reasonable prior:
 ```{r betaprior-vis1,fig.width=20,fig.height=20}
-# Generate plot data- dbeta evaluated at x and a,b for x on a grid between 0 and 1 and various values of a,b
+# Generate plot data:
+# dbeta evaluated at x and a,b for x on a grid between 0 and 1 and various values of a,b
+x <- seq(0.01,0.99,by=0.01)
+ngrid <- length(x)
 
-expand.grid(a = c(.5,1,2),b = c(.5,1,2)) %>%
-  pmap_dfr(~data_frame(x = seq(0.01,0.99,by=0.01),y = dbeta(x = x,shape1=.x,shape2=.y),a = .x,b = .y)) %>%
+expand.grid(a = c(.5,5,15),b = c(.5,5,15)) %>%
+  as_tibble() %>%
+  # Add the grid values and the density values
+  # Here's a cool trick: to replicate each row of a dataframe n times, 
+  # use slice(df,rep(1:n,each = n))
+  slice(rep(1:n(),each = ngrid)) %>%
+  mutate(x = rep(x,n() / ngrid),
+         y = dbeta(x,a,b)) %>%
   ggplot(aes(x = x,y = y)) +
   theme_classic() +
   facet_wrap(a~b) +
@@ -174,7 +185,7 @@ The situation isn't so different here. The posterior is analagous to the samplin
 
 Specifically, to obtain **point estimates** of parameters, we may use either the *posterior mean*:
 $$
-\hat{\theta}_{post. mean} = E(\theta|X) = \int_{\theta}\theta p(\theta|X)d\theta
+\hat{\theta}_{post. mean} = E(\theta|X) = \int\theta p(\theta|X)d\theta
 $$
 interpreted as a weighted average of possible values of $\theta$, with weights corresponding to their posterior probabilities (densities); or, we may use the *posterior mode*:
 $$
@@ -189,7 +200,7 @@ For interval estimation, the frequentist notion of a *confidence interval* is re
 Computing such a credible interval is a matter of finding the corresponding quantiles of the posterior, which is either simple or complicated depending on what the posterior is. In our example the posterior is known completely, and we can get a $95\%$ credible interval using the `qbeta` function:
 ```{r credint-1}
 # E.g. for n = 10 and sumx = 5
-c(qbeta(0.025,shape1=12 + 5,shape2 = 12 + 5),qbeta(0.975,shape1=12 + 5,shape2 = 12 + 5))
+c(qbeta(0.025,shape1=12 + 5,shape2 = 12 + 10 - 5),qbeta(0.975,shape1=12 + 5,shape2 = 12 + 10 - 5))
 ```
 
 The point estimate based off the posterior mode is the same as the frequentist estimate for these data, $\hat{\theta}_{freq} = \hat{\theta}_{post. mode} = 0.5$, as can be seen from the plot above. The corresponding frequentist confidence interval is given by

@@ -67,7 +67,7 @@ section-read-in-the-data-1
 section-make-the-histogram
 section-testing-goodness-of-fit-simulation
 section-testing-goodness-of-fit-math
-section-supplement-to-evans-rosenthal-section-7.2
+section-bayesian-inference-estimation
 section-estimation-in-bayesian-inference-general-ideas
 section-the-prior
 section-the-posterior
@@ -79,7 +79,6 @@ section-predictive-modelling
 section-overview
 section-plug-in-prediction-coin-flipping
 section-bayesian-prediction-coin-flipping
-section-extended-example-income-and-advertsing-datasets
 section-extended-example-predicting-call-centre-wait-times
 section-installing-r-and-rstudio
 section-installing-r
@@ -90,7 +89,8 @@ section-chapters-15-and-16
 section-chapters-13-and-14
 section-chapters-17-and-19
 section-chapter-20
-section-evans-and-rosenthal-chapter-7
+section-evans-and-rosenthal-chapter-7.1
 section-chapter-18
 section-chapter-21
 section-chapter-23
+section-evans-and-rosenthal-chapter-7.2
