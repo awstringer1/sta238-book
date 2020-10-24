@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 15 Extended Example: World Population Data | Probability, Statistics, and Data Analysis</title>
+  <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  <meta name="generator" content="bookdown 0.21.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 15 Extended Example: World Population Data | Probability, Statistics, and Data Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 15 Extended Example: World Population Data | Probability, Statistics, and Data Analysis" />
+  
+  <meta name="twitter:description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
+  
+
+<meta name="author" content="Alison Gibbs and Alex Stringer" />
+
+
+<meta name="date" content="2020-10-24" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="section-assigned-exercises-from-mips.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STA238 University of Toronto</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a><ul>
+<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="2.1.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="2.2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries-1"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.4.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-association-between-smoking-and-mortality"><i class="fa fa-check"></i><b>2.4.2</b> Association between smoking and mortality</a></li>
+<li class="chapter" data-level="2.4.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
+<li class="chapter" data-level="2.5.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
+<li class="chapter" data-level="2.5.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-iii-trends-in-quality-over-time"><i class="fa fa-check"></i><b>2.5.4</b> Analysis III: trends in quality over time</a></li>
+<li class="chapter" data-level="2.5.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-summary"><i class="fa fa-check"></i><b>2.5.5</b> Summary</a></li>
+<li class="chapter" data-level="2.5.6" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a><ul>
+<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a><ul>
+<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.1.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-simulated-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a><ul>
+<li class="chapter" data-level="5.1" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-estimating-a-uniform-maximum"><i class="fa fa-check"></i><b>5.1</b> Estimating a Uniform Maximum</a></li>
+<li class="chapter" data-level="5.2" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-efficiency"><i class="fa fa-check"></i><b>5.2</b> Efficiency</a></li>
+<li class="chapter" data-level="5.3" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-mean-squared-error"><i class="fa fa-check"></i><b>5.3</b> Mean Squared Error</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a><ul>
+<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-frequentistlikelihood-perspective"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist/Likelihood Perspective</a></li>
+<li class="chapter" data-level="6.1.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-bayesian-inference-introduction"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Inference: introduction</a></li>
+<li class="chapter" data-level="6.1.3" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-flipping-more-coins"><i class="fa fa-check"></i><b>6.1.3</b> Flipping More Coins</a></li>
+<li class="chapter" data-level="6.1.4" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-visualization"><i class="fa fa-check"></i><b>6.1.4</b> Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-interactive-app"><i class="fa fa-check"></i><b>6.2</b> Interactive App</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a><ul>
+<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-empirical-bootstrap-old-faithful-data"><i class="fa fa-check"></i><b>7.1.1</b> Empirical bootstrap: Old Faithful data</a></li>
+<li class="chapter" data-level="7.1.2" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-parametric-bootstrap-software-data"><i class="fa fa-check"></i><b>7.1.2</b> Parametric Bootstrap: software data</a></li>
+<li class="chapter" data-level="7.1.3" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-extended-example-the-standard-error-of-a-proportion"><i class="fa fa-check"></i><b>7.1.3</b> Extended example: the standard error of a proportion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html"><i class="fa fa-check"></i><b>8</b> Maximum Likelihood</a><ul>
+<li class="chapter" data-level="8.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
+<li class="chapter" data-level="8.1.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
+<li class="chapter" data-level="8.1.3" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.2</b> Extended example: rental housing in Toronto</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html"><i class="fa fa-check"></i><b>9</b> Confidence Intervals and Quantifying Uncertainty</a><ul>
+<li class="chapter" data-level="9.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-simulation-an-example"><i class="fa fa-check"></i><b>9.1.1</b> Simulation: an example</a></li>
+<li class="chapter" data-level="9.1.2" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
+<li class="chapter" data-level="9.1.3" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-when-you-dont-know-sigma"><i class="fa fa-check"></i><b>9.1.3</b> When you don’t know <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="9.1.4" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-gross-calorific-value-measurements-for-daw-mill-258gb41"><i class="fa fa-check"></i><b>9.1.4</b> Gross calorific value measurements for Daw Mill 258GB41</a></li>
+<li class="chapter" data-level="9.1.5" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.5</b> Bootstrap Confidence Intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
+<li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
+<li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
+<li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html"><i class="fa fa-check"></i><b>11</b> Bayesian Inference: Estimation</a><ul>
+<li class="chapter" data-level="11.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-prior"><i class="fa fa-check"></i><b>11.1.1</b> The Prior</a></li>
+<li class="chapter" data-level="11.1.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-posterior"><i class="fa fa-check"></i><b>11.1.2</b> The Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-point-and-interval-estimation"><i class="fa fa-check"></i><b>11.2</b> Estimation in Bayesian Inference: point and interval estimation</a></li>
+<li class="chapter" data-level="11.3" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-conjugate-priors"><i class="fa fa-check"></i><b>11.3.1</b> Conjugate Priors</a></li>
+<li class="chapter" data-level="11.3.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a><ul>
+<li class="chapter" data-level="12.1" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-overview"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
+<li class="chapter" data-level="12.2" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-plug-in-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.2</b> Plug-in prediction: coin flipping</a></li>
+<li class="chapter" data-level="12.3" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-bayesian-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.3</b> Bayesian Prediction: coin flipping</a></li>
+<li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.4</b> Extended example: predicting call centre wait times</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="13.1" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-r"><i class="fa fa-check"></i><b>13.1</b> Installing R</a></li>
+<li class="chapter" data-level="13.2" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-rstudio"><i class="fa fa-check"></i><b>13.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="13.3" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-using-rmarkdown"><i class="fa fa-check"></i><b>13.3</b> Using RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a><ul>
+<li class="chapter" data-level="14.1" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-15-and-16"><i class="fa fa-check"></i><b>14.1</b> Chapters 15 and 16</a></li>
+<li class="chapter" data-level="14.2" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-13-and-14"><i class="fa fa-check"></i><b>14.2</b> Chapters 13 and 14</a></li>
+<li class="chapter" data-level="14.3" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-17-and-19"><i class="fa fa-check"></i><b>14.3</b> Chapters 17 and 19</a></li>
+<li class="chapter" data-level="14.4" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-20"><i class="fa fa-check"></i><b>14.4</b> Chapter 20</a></li>
+<li class="chapter" data-level="14.5" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7.1"><i class="fa fa-check"></i><b>14.5</b> Evans and Rosenthal, Chapter 7.1</a></li>
+<li class="chapter" data-level="14.6" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-18"><i class="fa fa-check"></i><b>14.6</b> Chapter 18</a></li>
+<li class="chapter" data-level="14.7" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-21"><i class="fa fa-check"></i><b>14.7</b> Chapter 21</a></li>
+<li class="chapter" data-level="14.8" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-23"><i class="fa fa-check"></i><b>14.8</b> Chapter 23</a></li>
+<li class="chapter" data-level="14.9" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7.2"><i class="fa fa-check"></i><b>14.9</b> Evans and Rosenthal, Chapter 7.2</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html"><i class="fa fa-check"></i><b>15</b> Extended Example: World Population Data</a><ul>
+<li class="chapter" data-level="15.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-read-in-and-prepare-the-data-for-analysis"><i class="fa fa-check"></i><b>15.1</b> Read in and prepare the data for analysis</a></li>
+<li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-investigate-the-properties-of-the-average-population-of-the-worlds-countries"><i class="fa fa-check"></i><b>15.2</b> Investigate the properties of the average population of the worlds’ countries</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Probability, Statistics, and Data Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section-extended-example-world-population-data" class="section level1">
+<h1><span class="header-section-number">Chapter 15</span> Extended Example: World Population Data</h1>
+<p>In this chapter, we analyze the United Nations’ <a href="https://population.un.org/wpp/Download/Standard/Population/">World Population Prospects</a> data. These
+data contain estimated population sizes for each country for single years from
+1950–2020, and projections for five year blocks from 2025–2100.</p>
+<p>We will apply methods from each chapter of this course to answer questions
+about these data, the underlying true population of the world, and what the
+population will look like in the future. More specifically, we will:</p>
+<ol style="list-style-type: decimal">
+<li><p>Read in and prepare the data for analysis (<strong>Chapter 2</strong>),</p></li>
+<li><p>Investigate the properties of the average population of the worlds’ countries
+(<strong>Chapter 3</strong>),</p></li>
+<li><p>Build a simple linear regression model for the total world population over time
+(<strong>Chapter 4</strong>),</p></li>
+<li><p>Derive two estimators for the total world population and contrast them
+on simulated data (<strong>Chapter 5</strong>),</p></li>
+<li><p>Develop a Bayesian model for total world population (<strong>Chapter 6</strong>),</p></li>
+<li><p>Contrast the two estimators for total world population on the real data,
+using bootstrapping (<strong>Chapter 7</strong>),</p></li>
+<li><p>Find and do inference for the maximum likelihood estimator for total
+world population (<strong>Chapter 8</strong>),</p></li>
+<li><p>Quantify uncertainty in our estimate for total world population (<strong>Chapter 9</strong>),</p></li>
+<li><p>Assess the goodness of fit of our model for total world population (<strong>Chapter 10</strong>),</p></li>
+<li><p>Develop a Bayesian estimator for total world population (<strong>Chapter 11</strong>),</p></li>
+<li><p>Predict the population to the year 2100 and compare our predictions and
+uncertainty quantification with those reported by the UN (<strong>Chapter 12</strong>).</p></li>
+</ol>
+<div id="section-read-in-and-prepare-the-data-for-analysis" class="section level2">
+<h2><span class="header-section-number">15.1</span> Read in and prepare the data for analysis</h2>
+<p>The <a href="https://population.un.org/wpp/Download/Standard/Population/">World Population Prospects</a> data
+contain estimated population sizes for each country for single years from
+1950–2020, and projections for five year blocks from 2025–2100. They are available
+for free download from that link. They are not in any form suitable for analysis,
+however. The data are contained in a spreadsheet with variables in both rows and
+columns, and summary statistics mixed in with the raw data.</p>
+<p>I have done a bit of manual editing and posted the files to the book data folder
+at <code>data/worldpop/*</code>. Let’s read in the data corresponding to the world population
+estimates from 1950–2020. First, look at it, either in excel or on the command line:</p>
+<div class="sourceCode" id="section-cb382"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb382-1" title="1"><span class="fu">head</span> data/worldpop/worldpop-estimates.csv</a></code></pre></div>
+<pre><code>﻿country,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020
+WORLD, 2 536 431, 2 584 034, 2 630 862, 2 677 609, 2 724 847, 2 773 020, 2 822 443, 2 873 306, 2 925 687, 2 979 576, 3 034 950, 3 091 844, 3 150 421, 3 211 001, 3 273 978, 3 339 584, 3 407 923, 3 478 770, 3 551 599, 3 625 681, 3 700 437, 3 775 760, 3 851 651, 3 927 781, 4 003 794, 4 079 480, 4 154 667, 4 229 506, 4 304 534, 4 380 506, 4 458 003, 4 536 997, 4 617 387, 4 699 569, 4 784 012, 4 870 922, 4 960 568, 5 052 522, 5 145 426, 5 237 441, 5 327 231, 5 414 289, 5 498 920, 5 581 598, 5 663 150, 5 744 213, 5 824 892, 5 905 046, 5 984 794, 6 064 239, 6 143 494, 6 222 627, 6 301 773, 6 381 185, 6 461 159, 6 541 907, 6 623 518, 6 705 947, 6 789 089, 6 872 767, 6 956 824, 7 041 194, 7 125 828, 7 210 582, 7 295 291, 7 379 797, 7 464 022, 7 547 859, 7 631 091, 7 713 468, 7 794 799
+Burundi,  2 309,  2 360,  2 406,  2 449,  2 492,  2 537,  2 585,  2 636,  2 689,  2 743,  2 798,  2 852,  2 907,  2 964,  3 026,  3 094,  3 170,  3 253,  3 337,  3 414,  3 479,  3 530,  3 570,  3 605,  3 646,  3 701,  3 771,  3 854,  3 949,  4 051,  4 157,  4 267,  4 380,  4 498,  4 621,  4 751,  4 887,  5 027,  5 169,  5 307,  5 439,  5 565,  5 686,  5 798,  5 899,  5 987,  6 060,  6 122,  6 186,  6 267,  6 379,  6 526,  6 704,  6 909,  7 132,  7 365,  7 608,  7 862,  8 126,  8 398,  8 676,  8 958,  9 246,  9 540,  9 844,  10 160,  10 488,  10 827,  11 175,  11 531,  11 891
+Comoros,   159,   163,   167,   170,   173,   176,   179,   182,   185,   188,   191,   194,   197,   200,   204,   207,   211,   216,   221,   225,   230,   235,   239,   244,   250,   257,   266,   276,   287,   297,   308,   318,   327,   336,   345,   355,   366,   377,   388,   400,   412,   424,   436,   449,   462,   475,   489,   502,   515,   529,   542,   556,   569,   583,   597,   612,   626,   642,   657,   673,   690,   707,   724,   742,   759,   777,   796,   814,   832,   851,   870
+Djibouti,   62,   63,   65,   66,   68,   70,   71,   74,   76,   80,   84,   89,   94,   101,   108,   115,   123,   131,   140,   150,   160,   169,   179,   191,   205,   224,   249,   277,   308,   336,   359,   375,   385,   394,   406,   426,   454,   490,   529,   564,   590,   607,   615,   619,   622,   630,   644,   661,   680,   700,   718,   733,   747,   760,   772,   783,   795,   805,   816,   828,   840,   854,   868,   883,   899,   914,   929,   944,   959,   974,   988
+Eritrea,   822,   835,   849,   865,   882,   900,   919,   939,   961,   983,  1 008,  1 033,  1 060,  1 089,  1 118,  1 148,  1 179,  1 210,  1 243,  1 276,  1 311,  1 347,  1 385,  1 424,  1 464,  1 505,  1 548,  1 592,  1 637,  1 684,  1 733,  1 785,  1 837,  1 891,  1 946,  2 004,  2 065,  2 127,  2 186,  2 231,  2 259,  2 266,  2 258,  2 239,  2 218,  2 204,  2 196,  2 195,  2 206,  2 237,  2 292,  2 375,  2 481,  2 601,  2 720,  2 827,  2 918,  2 997,  3 063,  3 120,  3 170,  3 214,  3 250,  3 281,  3 311,  3 343,  3 377,  3 413,  3 453,  3 497,  3 546
+Ethiopia,  18 128,  18 467,  18 820,  19 184,  19 560,  19 947,  20 348,  20 764,  21 201,  21 662,  22 151,  22 671,  23 221,  23 798,  24 397,  25 014,  25 641,  26 280,  26 944,  27 653,  28 415,  29 249,  30 141,  31 037,  31 861,  32 567,  33 128,  33 577,  33 993,  34 488,  35 142,  35 985,  36 995,  38 143,  39 374,  40 652,  41 966,  43 329,  44 757,  46 272,  47 888,  49 610,  51 424,  53 296,  55 181,  57 048,  58 884,  60 697,  62 508,  64 343,  66 225,  68 159,  70 142,  72 171,  74 240,  76 346,  78 489,  80 674,  82 916,  85 234,  87 640,  90 140,  92 727,  95 386,  98 094,  100 835,  103 603,  106 400,  109 224,  112 079,  114 964
+Kenya,  6 077,  6 242,  6 416,  6 598,  6 789,  6 988,  7 195,  7 412,  7 638,  7 874,  8 120,  8 378,  8 647,  8 929,  9 223,  9 530,  9 851,  10 187,  10 540,  10 911,  11 301,  11 713,  12 146,  12 601,  13 077,  13 576,  14 096,  14 639,  15 205,  15 798,  16 417,  17 064,  17 736,  18 432,  19 146,  19 877,  20 623,  21 382,  22 154,  22 935,  23 725,  24 522,  25 326,  26 136,  26 951,  27 768,  28 589,  29 416,  30 250,  31 099,  31 965,  32 849,  33 752,  34 679,  35 635,  36 625,  37 649,  38 706,  39 792,  40 902,  42 031,  43 178,  44 343,  45 520,  46 700,  47 878,  49 052,  50 221,  51 393,  52 574,  53 771
+Madagascar,  4 084,  4 168,  4 257,  4 349,  4 444,  4 544,  4 647,  4 754,  4 865,  4 980,  5 099,  5 224,  5 352,  5 486,  5 625,  5 769,  5 919,  6 074,  6 234,  6 402,  6 576,  6 758,  6 947,  7 143,  7 346,  7 556,  7 773,  7 998,  8 230,  8 470,  8 717,  8 971,  9 234,  9 504,  9 781,  10 063,  10 352,  10 648,  10 952,  11 269,  11 599,  11 943,  12 301,  12 675,  13 067,  13 475,  13 903,  14 348,  14 809,  15 283,  15 767,  16 261,  16 765,  17 279,  17 803,  18 337,  18 880,  19 434,  19 996,  20 569,  21 152,  21 744,  22 347,  22 961,  23 590,  24 234,  24 894,  25 571,  26 262,  26 969,  27 691
+Malawi,  2 954,  3 012,  3 072,  3 136,  3 202,  3 271,  3 342,  3 417,  3 495,  3 576,  3 660,  3 748,  3 839,  3 934,  4 032,  4 134,  4 240,  4 350,  4 464,  4 582,  4 704,  4 829,  4 959,  5 093,  5 235,  5 385,  5 546,  5 718,  5 897,  6 075,  6 250,  6 412,  6 566,  6 738,  6 965,  7 268,  7 666,  8 141,  8 637,  9 076,  9 404,  9 600,  9 686,  9 710,  9 746,  9 844,  10 023,  10 265,  10 552,  10 854,  11 149,  11 432,  11 714,  12 000,  12 302,  12 626,  12 974,  13 342,  13 728,  14 128,  14 540,  14 962,  15 396,  15 839,  16 290,  16 745,  17 205,  17 670,  18 143,  18 629,  19 130</code></pre>
+<p>There is one character column containing the country and then <span class="math inline">\((2020 - 1950 + 1) = 71\)</span>
+numeric columns containing population counts.</p>
+<p>Let’s read it in with those specs:</p>
+<div class="sourceCode" id="section-cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1">worldpop &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb384-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;data/worldpop/worldpop-estimates.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb384-3" title="3">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb384-4" title="4">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">c</span>(<span class="st">&quot;c&quot;</span>,<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">71</span>)),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb384-5" title="5">)</a>
+<a class="sourceLine" id="cb384-6" title="6"><span class="kw">glimpse</span>(worldpop)</a></code></pre></div>
+<pre><code>Observations: 236
+Variables: 72
+$ country &lt;chr&gt; &quot;WORLD&quot;, &quot;Burundi&quot;, &quot;Comoros&quot;, &quot;Djibouti&quot;, &quot;Eritrea&quot;, &quot;Ethiop…
+$ `1950`  &lt;dbl&gt; 2, 2, 159, 62, 822, 18, 6, 4, 2, 493, 15, 5, 248, 2, 36, 2, 2…
+$ `1951`  &lt;dbl&gt; 2, 2, 163, 63, 835, 18, 6, 4, 3, 506, 16, 6, 259, 2, 37, 2, 2…
+$ `1952`  &lt;dbl&gt; 2, 2, 167, 65, 849, 18, 6, 4, 3, 521, 16, 6, 268, 2, 37, 2, 2…
+$ `1953`  &lt;dbl&gt; 2, 2, 170, 66, 865, 19, 6, 4, 3, 537, 17, 6, 277, 2, 38, 2, 2…
+$ `1954`  &lt;dbl&gt; 2, 2, 173, 68, 882, 19, 6, 4, 3, 554, 18, 6, 284, 2, 39, 2, 2…
+$ `1955`  &lt;dbl&gt; 2, 2, 176, 70, 900, 19, 6, 4, 3, 571, 19, 6, 292, 2, 39, 2, 2…
+$ `1956`  &lt;dbl&gt; 2, 2, 179, 71, 919, 20, 7, 4, 3, 588, 20, 6, 300, 2, 39, 2, 2…
+$ `1957`  &lt;dbl&gt; 2, 2, 182, 74, 939, 20, 7, 4, 3, 605, 21, 6, 308, 2, 40, 2, 2…
+$ `1958`  &lt;dbl&gt; 2, 2, 185, 76, 961, 21, 7, 4, 3, 623, 22, 6, 317, 2, 40, 2, 2…
+$ `1959`  &lt;dbl&gt; 2, 2, 188, 80, 983, 21, 7, 4, 3, 641, 23, 7, 326, 2, 41, 2, 2…
+$ `1960`  &lt;dbl&gt; 3, 2, 191, 84, 1, 22, 8, 5, 3, 660, 24, 7, 336, 2, 42, 2, 2, …
+$ `1961`  &lt;dbl&gt; 3, 2, 194, 89, 1, 22, 8, 5, 3, 679, 25, 7, 345, 2, 42, 2, 2, …
+$ `1962`  &lt;dbl&gt; 3, 2, 197, 94, 1, 23, 8, 5, 3, 698, 27, 7, 355, 3, 43, 2, 2, …
+$ `1963`  &lt;dbl&gt; 3, 2, 200, 101, 1, 23, 8, 5, 3, 717, 28, 7, 366, 3, 45, 2, 3,…
+$ `1964`  &lt;dbl&gt; 3, 3, 204, 108, 1, 24, 9, 5, 4, 736, 29, 7, 378, 3, 46, 3, 3,…
+$ `1965`  &lt;dbl&gt; 3, 3, 207, 115, 1, 25, 9, 5, 4, 753, 31, 8, 391, 3, 47, 3, 3,…
+$ `1966`  &lt;dbl&gt; 3, 3, 211, 123, 1, 25, 9, 5, 4, 770, 32, 8, 405, 3, 48, 3, 3,…
+$ `1967`  &lt;dbl&gt; 3, 3, 216, 131, 1, 26, 10, 6, 4, 785, 33, 8, 421, 3, 49, 3, 3…
+$ `1968`  &lt;dbl&gt; 3, 3, 221, 140, 1, 26, 10, 6, 4, 799, 34, 8, 437, 3, 50, 3, 3…
+$ `1969`  &lt;dbl&gt; 3, 3, 225, 150, 1, 27, 10, 6, 4, 813, 36, 8, 451, 3, 51, 3, 3…
+$ `1970`  &lt;dbl&gt; 3, 3, 230, 160, 1, 28, 11, 6, 4, 826, 37, 9, 462, 3, 52, 3, 3…
+$ `1971`  &lt;dbl&gt; 3, 3, 235, 169, 1, 29, 11, 6, 4, 840, 39, 9, 470, 3, 54, 3, 3…
+$ `1972`  &lt;dbl&gt; 3, 3, 239, 179, 1, 30, 12, 6, 4, 852, 40, 9, 475, 3, 55, 3, 3…
+$ `1973`  &lt;dbl&gt; 3, 3, 244, 191, 1, 31, 12, 7, 5, 865, 42, 9, 479, 4, 57, 3, 3…
+$ `1974`  &lt;dbl&gt; 4, 3, 250, 205, 1, 31, 13, 7, 5, 878, 44, 9, 482, 4, 58, 3, 3…
+$ `1975`  &lt;dbl&gt; 4, 3, 257, 224, 1, 32, 13, 7, 5, 892, 45, 10, 485, 4, 60, 3, …
+$ `1976`  &lt;dbl&gt; 4, 3, 266, 249, 1, 33, 14, 7, 5, 907, 47, 10, 488, 4, 61, 4, …
+$ `1977`  &lt;dbl&gt; 4, 3, 276, 277, 1, 33, 14, 7, 5, 922, 49, 10, 492, 4, 62, 4, …
+$ `1978`  &lt;dbl&gt; 4, 3, 287, 308, 1, 33, 15, 8, 5, 938, 51, 11, 497, 4, 64, 5, …
+$ `1979`  &lt;dbl&gt; 4, 4, 297, 336, 1, 34, 15, 8, 6, 953, 53, 11, 502, 4, 65, 5, …
+$ `1980`  &lt;dbl&gt; 4, 4, 308, 359, 1, 35, 16, 8, 6, 966, 55, 11, 509, 5, 66, 6, …
+$ `1981`  &lt;dbl&gt; 4, 4, 318, 375, 1, 35, 17, 8, 6, 978, 58, 11, 517, 5, 67, 6, …
+$ `1982`  &lt;dbl&gt; 4, 4, 327, 385, 1, 36, 17, 9, 6, 989, 61, 12, 527, 5, 68, 6, …
+$ `1983`  &lt;dbl&gt; 4, 4, 336, 394, 1, 38, 18, 9, 6, 999, 64, 12, 537, 5, 69, 6, …
+$ `1984`  &lt;dbl&gt; 4, 4, 345, 406, 1, 39, 19, 9, 6, 1, 68, 12, 548, 5, 69, 6, 5,…
+$ `1985`  &lt;dbl&gt; 4, 4, 355, 426, 2, 40, 19, 10, 7, 1, 72, 12, 559, 6, 70, 6, 5…
+$ `1986`  &lt;dbl&gt; 4, 4, 366, 454, 2, 41, 20, 10, 7, 1, 76, 12, 569, 6, 70, 6, 5…
+$ `1987`  &lt;dbl&gt; 5, 5, 377, 490, 2, 43, 21, 10, 8, 1, 80, 12, 579, 6, 70, 6, 5…
+$ `1988`  &lt;dbl&gt; 5, 5, 388, 529, 2, 44, 22, 10, 8, 1, 85, 12, 589, 7, 70, 7, 5…
+$ `1989`  &lt;dbl&gt; 5, 5, 400, 564, 2, 46, 22, 11, 9, 1, 90, 12, 599, 7, 70, 7, 5…
+$ `1990`  &lt;dbl&gt; 5, 5, 412, 590, 2, 47, 23, 11, 9, 1, 95, 12, 611, 7, 71, 7, 5…
+$ `1991`  &lt;dbl&gt; 5, 5, 424, 607, 2, 49, 24, 11, 9, 1, 100, 13, 622, 7, 71, 7, …
+$ `1992`  &lt;dbl&gt; 5, 5, 436, 615, 2, 51, 25, 12, 9, 1, 106, 13, 635, 6, 73, 7, …
+$ `1993`  &lt;dbl&gt; 5, 5, 449, 619, 2, 53, 26, 12, 9, 1, 112, 14, 648, 6, 74, 7, …
+$ `1994`  &lt;dbl&gt; 5, 5, 462, 622, 2, 55, 26, 13, 9, 1, 117, 14, 661, 5, 75, 7, …
+$ `1995`  &lt;dbl&gt; 5, 5, 475, 630, 2, 57, 27, 13, 9, 1, 123, 15, 674, 5, 77, 7, …
+$ `1996`  &lt;dbl&gt; 5, 6, 489, 644, 2, 58, 28, 13, 10, 1, 129, 15, 686, 6, 78, 7,…
+$ `1997`  &lt;dbl&gt; 5, 6, 502, 661, 2, 60, 29, 14, 10, 1, 134, 16, 699, 6, 78, 7,…
+$ `1998`  &lt;dbl&gt; 5, 6, 515, 680, 2, 62, 30, 14, 10, 1, 140, 16, 712, 6, 79, 8,…
+$ `1999`  &lt;dbl&gt; 6, 6, 529, 700, 2, 64, 31, 15, 10, 1, 145, 17, 724, 7, 80, 8,…
+$ `2000`  &lt;dbl&gt; 6, 6, 542, 718, 2, 66, 31, 15, 11, 1, 150, 17, 737, 7, 81, 8,…
+$ `2001`  &lt;dbl&gt; 6, 6, 556, 733, 2, 68, 32, 16, 11, 1, 156, 18, 749, 8, 82, 9,…
+$ `2002`  &lt;dbl&gt; 6, 6, 569, 747, 2, 70, 33, 16, 11, 1, 161, 18, 760, 8, 84, 9,…
+$ `2003`  &lt;dbl&gt; 6, 6, 583, 760, 2, 72, 34, 17, 12, 1, 167, 19, 771, 8, 86, 9,…
+$ `2004`  &lt;dbl&gt; 6, 7, 597, 772, 2, 74, 35, 17, 12, 1, 172, 19, 782, 8, 87, 10…
+$ `2005`  &lt;dbl&gt; 6, 7, 612, 783, 2, 76, 36, 18, 12, 1, 178, 20, 792, 8, 89, 10…
+$ `2006`  &lt;dbl&gt; 6, 7, 626, 795, 2, 78, 37, 18, 12, 1, 184, 21, 801, 9, 90, 10…
+$ `2007`  &lt;dbl&gt; 6, 7, 642, 805, 2, 80, 38, 19, 13, 1, 190, 21, 809, 9, 90, 11…
+$ `2008`  &lt;dbl&gt; 6, 8, 657, 816, 3, 82, 39, 19, 13, 1, 196, 22, 816, 9, 90, 11…
+$ `2009`  &lt;dbl&gt; 6, 8, 673, 828, 3, 85, 40, 20, 14, 1, 202, 22, 824, 9, 91, 11…
+$ `2010`  &lt;dbl&gt; 6, 8, 690, 840, 3, 87, 42, 21, 14, 1, 209, 23, 831, 10, 91, 1…
+$ `2011`  &lt;dbl&gt; 7, 8, 707, 854, 3, 90, 43, 21, 14, 1, 215, 24, 837, 10, 92, 1…
+$ `2012`  &lt;dbl&gt; 7, 9, 724, 868, 3, 92, 44, 22, 15, 1, 221, 24, 844, 10, 93, 1…
+$ `2013`  &lt;dbl&gt; 7, 9, 742, 883, 3, 95, 45, 22, 15, 1, 227, 25, 851, 10, 93, 1…
+$ `2014`  &lt;dbl&gt; 7, 9, 759, 899, 3, 98, 46, 23, 16, 1, 234, 26, 857, 11, 94, 1…
+$ `2015`  &lt;dbl&gt; 7, 10, 777, 914, 3, 100, 47, 24, 16, 1, 240, 27, 863, 11, 95,…
+$ `2016`  &lt;dbl&gt; 7, 10, 796, 929, 3, 103, 49, 24, 17, 1, 246, 27, 870, 11, 96,…
+$ `2017`  &lt;dbl&gt; 7, 10, 814, 944, 3, 106, 50, 25, 17, 1, 253, 28, 876, 11, 96,…
+$ `2018`  &lt;dbl&gt; 7, 11, 832, 959, 3, 109, 51, 26, 18, 1, 260, 29, 883, 12, 97,…
+$ `2019`  &lt;dbl&gt; 7, 11, 851, 974, 3, 112, 52, 26, 18, 1, 266, 30, 889, 12, 98,…
+$ `2020`  &lt;dbl&gt; 7, 11, 870, 988, 3, 114, 53, 27, 19, 1, 273, 31, 895, 12, 98,…</code></pre>
+<p>Does that look correct to you?</p>
+<p>No. Why is the world population only 2 for 1950? If you read the documentation
+for the data, you may notice that population is recorded in thousands, but I still
+think that there were more than <span class="math inline">\(2,000\)</span> people in the world in 1950. Also, I’m
+pretty sure the single country of Comoros shouldn’t have more people than the
+entire world.</p>
+<p>Always look at the data when you read it in.</p>
+<p>The problem is debugged by printing the data out on the command line like we did above,
+and noticing that in the original file, numbers are stored with spaces in them.
+We have to remove these spaces for <code>R</code> to read in the data correctly. This kind
+of simple but annoying thing happens <em>all the time</em> when analyzing data “in the wild”.</p>
+<p>To remove the spaces (this works for any annoying character like a period, or a
+dollar sign, or whatever), read the data in with all columns as character, process
+the data in <code>R</code>, and then convert to numeric. Check it out:</p>
+<div class="sourceCode" id="section-cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" title="1">remove_space &lt;-<span class="st"> </span><span class="cf">function</span>(x) stringr<span class="op">::</span><span class="kw">str_remove_all</span>(x,<span class="st">&quot; &quot;</span>)</a>
+<a class="sourceLine" id="cb386-2" title="2">worldpop &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb386-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/worldpop/worldpop-estimates.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb386-4" title="4">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb386-5" title="5">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">72</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb386-6" title="6">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb386-7" title="7"><span class="st">  </span><span class="co"># Remove the space</span></a>
+<a class="sourceLine" id="cb386-8" title="8"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">1950</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>),remove_space) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb386-9" title="9"><span class="st">  </span><span class="co"># Convert to numeric</span></a>
+<a class="sourceLine" id="cb386-10" title="10"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">1950</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>),as.numeric)</a>
+<a class="sourceLine" id="cb386-11" title="11"><span class="kw">glimpse</span>(worldpop)</a></code></pre></div>
+<pre><code>Observations: 236
+Variables: 72
+$ country &lt;chr&gt; &quot;WORLD&quot;, &quot;Burundi&quot;, &quot;Comoros&quot;, &quot;Djibouti&quot;, &quot;Eritrea&quot;, &quot;Ethiop…
+$ `1950`  &lt;dbl&gt; 2536431, 2309, 159, 62, 822, 18128, 6077, 4084, 2954, 493, 15…
+$ `1951`  &lt;dbl&gt; 2584034, 2360, 163, 63, 835, 18467, 6242, 4168, 3012, 506, 16…
+$ `1952`  &lt;dbl&gt; 2630862, 2406, 167, 65, 849, 18820, 6416, 4257, 3072, 521, 16…
+$ `1953`  &lt;dbl&gt; 2677609, 2449, 170, 66, 865, 19184, 6598, 4349, 3136, 537, 17…
+$ `1954`  &lt;dbl&gt; 2724847, 2492, 173, 68, 882, 19560, 6789, 4444, 3202, 554, 18…
+$ `1955`  &lt;dbl&gt; 2773020, 2537, 176, 70, 900, 19947, 6988, 4544, 3271, 571, 19…
+$ `1956`  &lt;dbl&gt; 2822443, 2585, 179, 71, 919, 20348, 7195, 4647, 3342, 588, 20…
+$ `1957`  &lt;dbl&gt; 2873306, 2636, 182, 74, 939, 20764, 7412, 4754, 3417, 605, 21…
+$ `1958`  &lt;dbl&gt; 2925687, 2689, 185, 76, 961, 21201, 7638, 4865, 3495, 623, 22…
+$ `1959`  &lt;dbl&gt; 2979576, 2743, 188, 80, 983, 21662, 7874, 4980, 3576, 641, 23…
+$ `1960`  &lt;dbl&gt; 3034950, 2798, 191, 84, 1008, 22151, 8120, 5099, 3660, 660, 2…
+$ `1961`  &lt;dbl&gt; 3091844, 2852, 194, 89, 1033, 22671, 8378, 5224, 3748, 679, 2…
+$ `1962`  &lt;dbl&gt; 3150421, 2907, 197, 94, 1060, 23221, 8647, 5352, 3839, 698, 2…
+$ `1963`  &lt;dbl&gt; 3211001, 2964, 200, 101, 1089, 23798, 8929, 5486, 3934, 717, …
+$ `1964`  &lt;dbl&gt; 3273978, 3026, 204, 108, 1118, 24397, 9223, 5625, 4032, 736, …
+$ `1965`  &lt;dbl&gt; 3339584, 3094, 207, 115, 1148, 25014, 9530, 5769, 4134, 753, …
+$ `1966`  &lt;dbl&gt; 3407923, 3170, 211, 123, 1179, 25641, 9851, 5919, 4240, 770, …
+$ `1967`  &lt;dbl&gt; 3478770, 3253, 216, 131, 1210, 26280, 10187, 6074, 4350, 785,…
+$ `1968`  &lt;dbl&gt; 3551599, 3337, 221, 140, 1243, 26944, 10540, 6234, 4464, 799,…
+$ `1969`  &lt;dbl&gt; 3625681, 3414, 225, 150, 1276, 27653, 10911, 6402, 4582, 813,…
+$ `1970`  &lt;dbl&gt; 3700437, 3479, 230, 160, 1311, 28415, 11301, 6576, 4704, 826,…
+$ `1971`  &lt;dbl&gt; 3775760, 3530, 235, 169, 1347, 29249, 11713, 6758, 4829, 840,…
+$ `1972`  &lt;dbl&gt; 3851651, 3570, 239, 179, 1385, 30141, 12146, 6947, 4959, 852,…
+$ `1973`  &lt;dbl&gt; 3927781, 3605, 244, 191, 1424, 31037, 12601, 7143, 5093, 865,…
+$ `1974`  &lt;dbl&gt; 4003794, 3646, 250, 205, 1464, 31861, 13077, 7346, 5235, 878,…
+$ `1975`  &lt;dbl&gt; 4079480, 3701, 257, 224, 1505, 32567, 13576, 7556, 5385, 892,…
+$ `1976`  &lt;dbl&gt; 4154667, 3771, 266, 249, 1548, 33128, 14096, 7773, 5546, 907,…
+$ `1977`  &lt;dbl&gt; 4229506, 3854, 276, 277, 1592, 33577, 14639, 7998, 5718, 922,…
+$ `1978`  &lt;dbl&gt; 4304534, 3949, 287, 308, 1637, 33993, 15205, 8230, 5897, 938,…
+$ `1979`  &lt;dbl&gt; 4380506, 4051, 297, 336, 1684, 34488, 15798, 8470, 6075, 953,…
+$ `1980`  &lt;dbl&gt; 4458003, 4157, 308, 359, 1733, 35142, 16417, 8717, 6250, 966,…
+$ `1981`  &lt;dbl&gt; 4536997, 4267, 318, 375, 1785, 35985, 17064, 8971, 6412, 978,…
+$ `1982`  &lt;dbl&gt; 4617387, 4380, 327, 385, 1837, 36995, 17736, 9234, 6566, 989,…
+$ `1983`  &lt;dbl&gt; 4699569, 4498, 336, 394, 1891, 38143, 18432, 9504, 6738, 999,…
+$ `1984`  &lt;dbl&gt; 4784012, 4621, 345, 406, 1946, 39374, 19146, 9781, 6965, 1008…
+$ `1985`  &lt;dbl&gt; 4870922, 4751, 355, 426, 2004, 40652, 19877, 10063, 7268, 101…
+$ `1986`  &lt;dbl&gt; 4960568, 4887, 366, 454, 2065, 41966, 20623, 10352, 7666, 102…
+$ `1987`  &lt;dbl&gt; 5052522, 5027, 377, 490, 2127, 43329, 21382, 10648, 8141, 103…
+$ `1988`  &lt;dbl&gt; 5145426, 5169, 388, 529, 2186, 44757, 22154, 10952, 8637, 103…
+$ `1989`  &lt;dbl&gt; 5237441, 5307, 400, 564, 2231, 46272, 22935, 11269, 9076, 104…
+$ `1990`  &lt;dbl&gt; 5327231, 5439, 412, 590, 2259, 47888, 23725, 11599, 9404, 105…
+$ `1991`  &lt;dbl&gt; 5414289, 5565, 424, 607, 2266, 49610, 24522, 11943, 9600, 106…
+$ `1992`  &lt;dbl&gt; 5498920, 5686, 436, 615, 2258, 51424, 25326, 12301, 9686, 108…
+$ `1993`  &lt;dbl&gt; 5581598, 5798, 449, 619, 2239, 53296, 26136, 12675, 9710, 109…
+$ `1994`  &lt;dbl&gt; 5663150, 5899, 462, 622, 2218, 55181, 26951, 13067, 9746, 111…
+$ `1995`  &lt;dbl&gt; 5744213, 5987, 475, 630, 2204, 57048, 27768, 13475, 9844, 112…
+$ `1996`  &lt;dbl&gt; 5824892, 6060, 489, 644, 2196, 58884, 28589, 13903, 10023, 11…
+$ `1997`  &lt;dbl&gt; 5905046, 6122, 502, 661, 2195, 60697, 29416, 14348, 10265, 11…
+$ `1998`  &lt;dbl&gt; 5984794, 6186, 515, 680, 2206, 62508, 30250, 14809, 10552, 11…
+$ `1999`  &lt;dbl&gt; 6064239, 6267, 529, 700, 2237, 64343, 31099, 15283, 10854, 11…
+$ `2000`  &lt;dbl&gt; 6143494, 6379, 542, 718, 2292, 66225, 31965, 15767, 11149, 11…
+$ `2001`  &lt;dbl&gt; 6222627, 6526, 556, 733, 2375, 68159, 32849, 16261, 11432, 11…
+$ `2002`  &lt;dbl&gt; 6301773, 6704, 569, 747, 2481, 70142, 33752, 16765, 11714, 12…
+$ `2003`  &lt;dbl&gt; 6381185, 6909, 583, 760, 2601, 72171, 34679, 17279, 12000, 12…
+$ `2004`  &lt;dbl&gt; 6461159, 7132, 597, 772, 2720, 74240, 35635, 17803, 12302, 12…
+$ `2005`  &lt;dbl&gt; 6541907, 7365, 612, 783, 2827, 76346, 36625, 18337, 12626, 12…
+$ `2006`  &lt;dbl&gt; 6623518, 7608, 626, 795, 2918, 78489, 37649, 18880, 12974, 12…
+$ `2007`  &lt;dbl&gt; 6705947, 7862, 642, 805, 2997, 80674, 38706, 19434, 13342, 12…
+$ `2008`  &lt;dbl&gt; 6789089, 8126, 657, 816, 3063, 82916, 39792, 19996, 13728, 12…
+$ `2009`  &lt;dbl&gt; 6872767, 8398, 673, 828, 3120, 85234, 40902, 20569, 14128, 12…
+$ `2010`  &lt;dbl&gt; 6956824, 8676, 690, 840, 3170, 87640, 42031, 21152, 14540, 12…
+$ `2011`  &lt;dbl&gt; 7041194, 8958, 707, 854, 3214, 90140, 43178, 21744, 14962, 12…
+$ `2012`  &lt;dbl&gt; 7125828, 9246, 724, 868, 3250, 92727, 44343, 22347, 15396, 12…
+$ `2013`  &lt;dbl&gt; 7210582, 9540, 742, 883, 3281, 95386, 45520, 22961, 15839, 12…
+$ `2014`  &lt;dbl&gt; 7295291, 9844, 759, 899, 3311, 98094, 46700, 23590, 16290, 12…
+$ `2015`  &lt;dbl&gt; 7379797, 10160, 777, 914, 3343, 100835, 47878, 24234, 16745, …
+$ `2016`  &lt;dbl&gt; 7464022, 10488, 796, 929, 3377, 103603, 49052, 24894, 17205, …
+$ `2017`  &lt;dbl&gt; 7547859, 10827, 814, 944, 3413, 106400, 50221, 25571, 17670, …
+$ `2018`  &lt;dbl&gt; 7631091, 11175, 832, 959, 3453, 109224, 51393, 26262, 18143, …
+$ `2019`  &lt;dbl&gt; 7713468, 11531, 851, 974, 3497, 112079, 52574, 26969, 18629, …
+$ `2020`  &lt;dbl&gt; 7794799, 11891, 870, 988, 3546, 114964, 53771, 27691, 19130, …</code></pre>
+<p>Good. Verify that a few values of your choosing match their entries in the original
+text data.</p>
+<p>The data are in wide format, with the “year” variable contained in the columns. We
+want the data in long format for analysis, with two variables, <code>country</code> and <code>year</code>,
+and a variable containing the population count.</p>
+<p>We can do that:</p>
+<div class="sourceCode" id="section-cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" title="1">worldpop &lt;-<span class="st"> </span>worldpop <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb388-2" title="2"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb388-3" title="3">    <span class="st">`</span><span class="dt">1950</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb388-4" title="4">    <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</a>
+<a class="sourceLine" id="cb388-5" title="5">    <span class="dt">values_to =</span> <span class="st">&quot;population&quot;</span></a>
+<a class="sourceLine" id="cb388-6" title="6">  )</a>
+<a class="sourceLine" id="cb388-7" title="7"><span class="kw">glimpse</span>(worldpop)</a></code></pre></div>
+<pre><code>Observations: 16,756
+Variables: 3
+$ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
+$ year       &lt;chr&gt; &quot;1950&quot;, &quot;1951&quot;, &quot;1952&quot;, &quot;1953&quot;, &quot;1954&quot;, &quot;1955&quot;, &quot;1956&quot;, &quot;1…
+$ population &lt;dbl&gt; 2536431, 2584034, 2630862, 2677609, 2724847, 2773020, 2822…</code></pre>
+<p>That looks better! Do the following exercises:</p>
+<p><strong>Exercises</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><p>What is the estimated world population in 2020 (remember, the recorded
+values are in <strong>thousands</strong> of people. Answer this question in terms of
+<strong>number of people</strong>)?</p></li>
+<li><p>What is the estimated world population in Canada in 1975? Use the <code>filter</code> function.</p></li>
+<li><p>The total world population should equal the sum of the population in each country.
+Check this. Do the following:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Compute the world population by summing the population of each country.
+Use the <code>filter</code> function to remove the <code>WORLD</code> row from each year. Then use
+<code>group_by</code> and <code>summarize</code> to sum <code>population</code> over <code>country</code>. Save the result
+in a dataframe called <code>worldpop_summed</code>.</p></li>
+<li><p>Pull the UN’s estimated world population by using the <code>filter</code> function to
+<em>keep</em> only the <code>WORLD</code> row from each year. Save this in a dataframe called
+<code>worldpop_un</code>.</p></li>
+<li><p>Join them, and make a plot of the <em>difference</em> between the sum of the countries’
+populations and the UN’s estimate, for each year. Here’s what I got for both the
+data and the plot:</p></li>
+</ol></li>
+</ol>
+<pre><code>Observations: 71
+Variables: 4
+$ year       &lt;chr&gt; &quot;1950&quot;, &quot;1951&quot;, &quot;1952&quot;, &quot;1953&quot;, &quot;1954&quot;, &quot;1955&quot;, &quot;1956&quot;, &quot;1…
+$ worldpop   &lt;dbl&gt; 2536428, 2584029, 2630861, 2677604, 2724850, 2773023, 2822…
+$ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
+$ population &lt;dbl&gt; 2536431, 2584034, 2630862, 2677609, 2724847, 2773020, 2822…</code></pre>
+<p><img src="book_files/figure-html/worldpopexercise-1-1.png" width="672" /></p>
+<p><em>Hints</em>: use <code>scale_x_discrete(breaks = as.character(seq(1950,2020,by=5)))</code> to get
+the five-year axis, and use <code>theme(axis.text.x = element_text(angle = 90))</code> to make the axis text
+sideways. Use <code>geom_bar(stat = &quot;identity&quot;)</code> to get the bar plot. Or, make another
+type of plot of your choosing! Don’t be afraid to have some fun.</p>
+<p>Now, for later in this chapter, we’re going to need data on the world population projections
+from 2020–2100. The median and “95% intervals” (you’ll learn what this means later)
+are all stored in seperate files. I’ll read in the “median” one and then you’ll read
+in the “interval” ones and then join them all together.</p>
+<p>The prediction data is mostly in the same format as the population estimates. The
+numbers are now stored with quotes and with thousands separated by commas, however.
+Like when it was stored with thousands separated by spaces, we have to read it in
+as a character, and then process the data in <code>R</code> and convert to numeric.</p>
+<div class="sourceCode" id="section-cb391"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb391-1" title="1"><span class="fu">head</span> data/worldpop/worldpop-pred-median.csv</a></code></pre></div>
+<pre><code>﻿country,2020,2025,2030,2035,2040,2045,2050,2055,2060,2065,2070,2075,2080,2085,2090,2095,2100
+WORLD,&quot;7,794,799&quot;,&quot;8,184,437&quot;,&quot;8,548,487&quot;,&quot;8,887,524&quot;,&quot;9,198,847&quot;,&quot;9,481,803&quot;,&quot;9,735,034&quot;,&quot;9,958,099&quot;,&quot;10,151,470&quot;,&quot;10,317,879&quot;,&quot;10,459,240&quot;,&quot;10,577,288&quot;,&quot;10,673,904&quot;,&quot;10,750,662&quot;,&quot;10,809,892&quot;,&quot;10,851,860&quot;,&quot;10,875,394&quot;
+Eastern Africa,&quot;445,406&quot;,&quot;505,292&quot;,&quot;569,705&quot;,&quot;637,437&quot;,&quot;707,393&quot;,&quot;778,916&quot;,&quot;851,218&quot;,&quot;923,483&quot;,&quot;994,888&quot;,&quot;1,064,642&quot;,&quot;1,131,895&quot;,&quot;1,195,953&quot;,&quot;1,256,219&quot;,&quot;1,312,230&quot;,&quot;1,363,577&quot;,&quot;1,410,118&quot;,&quot;1,451,842&quot;
+Burundi,&quot;11,891&quot;,&quot;13,764&quot;,&quot;15,773&quot;,&quot;17,932&quot;,&quot;20,253&quot;,&quot;22,728&quot;,&quot;25,325&quot;,&quot;27,995&quot;,&quot;30,701&quot;,&quot;33,408&quot;,&quot;36,107&quot;,&quot;38,790&quot;,&quot;41,427&quot;,&quot;43,993&quot;,&quot;46,451&quot;,&quot;48,761&quot;,&quot;50,904&quot;
+Comoros,870,965,&quot;1,063&quot;,&quot;1,164&quot;,&quot;1,266&quot;,&quot;1,370&quot;,&quot;1,472&quot;,&quot;1,571&quot;,&quot;1,666&quot;,&quot;1,756&quot;,&quot;1,841&quot;,&quot;1,919&quot;,&quot;1,990&quot;,&quot;2,052&quot;,&quot;2,106&quot;,&quot;2,151&quot;,&quot;2,187&quot;
+Djibouti,988,&quot;1,056&quot;,&quot;1,117&quot;,&quot;1,170&quot;,&quot;1,217&quot;,&quot;1,259&quot;,&quot;1,295&quot;,&quot;1,325&quot;,&quot;1,346&quot;,&quot;1,358&quot;,&quot;1,364&quot;,&quot;1,365&quot;,&quot;1,363&quot;,&quot;1,359&quot;,&quot;1,353&quot;,&quot;1,343&quot;,&quot;1,332&quot;
+Eritrea,&quot;3,546&quot;,&quot;3,866&quot;,&quot;4,240&quot;,&quot;4,664&quot;,&quot;5,114&quot;,&quot;5,567&quot;,&quot;6,005&quot;,&quot;6,427&quot;,&quot;6,836&quot;,&quot;7,231&quot;,&quot;7,605&quot;,&quot;7,946&quot;,&quot;8,248&quot;,&quot;8,510&quot;,&quot;8,731&quot;,&quot;8,915&quot;,&quot;9,062&quot;
+Ethiopia,&quot;114,964&quot;,&quot;129,749&quot;,&quot;144,944&quot;,&quot;160,231&quot;,&quot;175,466&quot;,&quot;190,611&quot;,&quot;205,411&quot;,&quot;219,639&quot;,&quot;232,994&quot;,&quot;245,316&quot;,&quot;256,441&quot;,&quot;266,190&quot;,&quot;274,558&quot;,&quot;281,512&quot;,&quot;287,056&quot;,&quot;291,317&quot;,&quot;294,393&quot;
+Kenya,&quot;53,771&quot;,&quot;59,981&quot;,&quot;66,450&quot;,&quot;73,026&quot;,&quot;79,470&quot;,&quot;85,669&quot;,&quot;91,575&quot;,&quot;97,175&quot;,&quot;102,398&quot;,&quot;107,170&quot;,&quot;111,411&quot;,&quot;115,093&quot;,&quot;118,214&quot;,&quot;120,777&quot;,&quot;122,807&quot;,&quot;124,341&quot;,&quot;125,424&quot;
+Madagascar,&quot;27,691&quot;,&quot;31,510&quot;,&quot;35,622&quot;,&quot;39,949&quot;,&quot;44,471&quot;,&quot;49,175&quot;,&quot;54,048&quot;,&quot;59,033&quot;,&quot;64,059&quot;,&quot;69,074&quot;,&quot;74,035&quot;,&quot;78,897&quot;,&quot;83,598&quot;,&quot;88,090&quot;,&quot;92,343&quot;,&quot;96,310&quot;,&quot;99,957&quot;</code></pre>
+<div class="sourceCode" id="section-cb393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb393-1" title="1">remove_comma &lt;-<span class="st"> </span><span class="cf">function</span>(x) stringr<span class="op">::</span><span class="kw">str_remove_all</span>(x,<span class="st">&quot;,&quot;</span>)</a>
+<a class="sourceLine" id="cb393-2" title="2">worldpop_pred_median &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb393-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/worldpop/worldpop-pred-median.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb393-4" title="4">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb393-5" title="5">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">18</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb393-6" title="6">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb393-7" title="7"><span class="st">  </span><span class="co"># Remove the commas. R already removed the quotes.</span></a>
+<a class="sourceLine" id="cb393-8" title="8"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">2020</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2100</span><span class="st">`</span>),remove_comma) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb393-9" title="9"><span class="st">  </span><span class="co"># Convert to numeric</span></a>
+<a class="sourceLine" id="cb393-10" title="10"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">2020</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2100</span><span class="st">`</span>),as.numeric) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb393-11" title="11"><span class="st">  </span><span class="co"># Pivot to long format</span></a>
+<a class="sourceLine" id="cb393-12" title="12"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb393-13" title="13">    <span class="st">`</span><span class="dt">2020</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2100</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb393-14" title="14">    <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</a>
+<a class="sourceLine" id="cb393-15" title="15">    <span class="dt">values_to =</span> <span class="st">&quot;population&quot;</span></a>
+<a class="sourceLine" id="cb393-16" title="16">  )</a>
+<a class="sourceLine" id="cb393-17" title="17"><span class="kw">glimpse</span>(worldpop_pred_median)</a></code></pre></div>
+<pre><code>Observations: 4,029
+Variables: 3
+$ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
+$ year       &lt;chr&gt; &quot;2020&quot;, &quot;2025&quot;, &quot;2030&quot;, &quot;2035&quot;, &quot;2040&quot;, &quot;2045&quot;, &quot;2050&quot;, &quot;2…
+$ population &lt;dbl&gt; 7794799, 8184437, 8548487, 8887524, 9198847, 9481803, 9735…</code></pre>
+<p><strong>Exercise</strong>: read in the <code>worldpop-pred-lower95.csv</code> and <code>worldpop-pred-upper95.csv</code>
+datasets into dataframes called <code>worldpop_pred_lower95</code> and <code>worldpop_pred_upper95</code>,
+with the <code>population</code> variable named <code>population_lower95</code> and <code>population_upper95</code>.
+Join the three dataframes into a dataframe <code>worldpop_pred</code> which looks like this:</p>
+<pre><code>Observations: 4,012
+Variables: 5
+$ country            &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORL…
+$ year               &lt;chr&gt; &quot;2020&quot;, &quot;2025&quot;, &quot;2030&quot;, &quot;2035&quot;, &quot;2040&quot;, &quot;2045&quot;, &quot;2…
+$ population         &lt;dbl&gt; 7794799, 8184437, 8548487, 8887524, 9198847, 94818…
+$ population_lower95 &lt;dbl&gt; 7794799, 8144343, 8460182, 8746077, 8996324, 92131…
+$ population_upper95 &lt;dbl&gt; 7794799, 8223574, 8636041, 9029502, 9396987, 97448…</code></pre>
+<p>We’ll use these data later in this chapter.</p>
+</div>
+<div id="section-investigate-the-properties-of-the-average-population-of-the-worlds-countries" class="section level2">
+<h2><span class="header-section-number">15.2</span> Investigate the properties of the average population of the worlds’ countries</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="section-assigned-exercises-from-mips.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

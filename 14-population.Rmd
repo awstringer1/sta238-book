@@ -1,0 +1,262 @@
+```{r load-tidy-123266341,message=FALSE,warning=FALSE}
+library(tidyverse)
+```
+
+# Extended Example: World Population Data
+
+In this chapter, we analyze the United Nations' [World Population Prospects](https://population.un.org/wpp/Download/Standard/Population/) data. These
+data contain estimated population sizes for each country for single years from
+1950--2020, and projections for five year blocks from 2025--2100. 
+
+We will apply methods from each chapter of this course to answer questions
+about these data, the underlying true population of the world, and what the 
+population will look like in the future. More specifically, we will:
+
+1. Read in and prepare the data for analysis (**Chapter 2**),
+
+1. Investigate the properties of the average population of the worlds' countries
+(**Chapter 3**),
+
+1. Build a simple linear regression model for the total world population over time
+(**Chapter 4**),
+
+1. Derive two estimators for the total world population and contrast them 
+on simulated data (**Chapter 5**),
+
+1. Develop a Bayesian model for total world population (**Chapter 6**),
+
+1. Contrast the two estimators for total world population on the real data,
+using bootstrapping (**Chapter 7**),
+
+1. Find and do inference for the maximum likelihood estimator for total
+world population (**Chapter 8**),
+
+1. Quantify uncertainty in our estimate for total world population (**Chapter 9**),
+
+1. Assess the goodness of fit of our model for total world population (**Chapter 10**),
+
+1. Develop a Bayesian estimator for total world population (**Chapter 11**),
+
+1. Predict the population to the year 2100 and compare our predictions and
+uncertainty quantification with those reported by the UN (**Chapter 12**).
+
+## Read in and prepare the data for analysis
+
+The [World Population Prospects](https://population.un.org/wpp/Download/Standard/Population/) data
+contain estimated population sizes for each country for single years from
+1950--2020, and projections for five year blocks from 2025--2100. They are available
+for free download from that link. They are not in any form suitable for analysis,
+however. The data are contained in a spreadsheet with variables in both rows and
+columns, and summary statistics mixed in with the raw data.
+
+I have done a bit of manual editing and posted the files to the book data folder
+at `data/worldpop/*`. Let's read in the data corresponding to the world population
+estimates from 1950--2020. First, look at it, either in excel or on the command line:
+
+```{bash printworldpop-1}
+head data/worldpop/worldpop-estimates.csv
+```
+
+There is one character column containing the country and then $(2020 - 1950 + 1) = 71$
+numeric columns containing population counts.
+
+Let's read it in with those specs:
+```{r readworldpop-1}
+worldpop <- readr::read_csv(
+  file = "data/worldpop/worldpop-estimates.csv",
+  col_names = TRUE,
+  col_types = stringr::str_c(c("c",rep("n",71)),collapse = "")
+)
+glimpse(worldpop)
+```
+
+Does that look correct to you?
+
+No. Why is the world population only 2 for 1950? If you read the documentation
+for the data, you may notice that population is recorded in thousands, but I still
+think that there were more than $2,000$ people in the world in 1950. Also, I'm 
+pretty sure the single country of Comoros shouldn't have more people than the 
+entire world. 
+
+Always look at the data when you read it in.
+
+The problem is debugged by printing the data out on the command line like we did above,
+and noticing that in the original file, numbers are stored with spaces in them.
+We have to remove these spaces for `R` to read in the data correctly. This kind
+of simple but annoying thing happens *all the time* when analyzing data "in the wild".
+
+To remove the spaces (this works for any annoying character like a period, or a 
+dollar sign, or whatever), read the data in with all columns as character, process
+the data in `R`, and then convert to numeric. Check it out:
+
+```{r readworldpop-11}
+remove_space <- function(x) stringr::str_remove_all(x," ")
+worldpop <- readr::read_csv(
+  file = "data/worldpop/worldpop-estimates.csv",
+  col_names = TRUE,
+  col_types = stringr::str_c(rep("c",72),collapse = "")
+) %>%
+  # Remove the space
+  mutate_at(vars(`1950`:`2020`),remove_space) %>%
+  # Convert to numeric
+  mutate_at(vars(`1950`:`2020`),as.numeric)
+glimpse(worldpop)
+```
+
+Good. Verify that a few values of your choosing match their entries in the original
+text data.
+
+The data are in wide format, with the "year" variable contained in the columns. We
+want the data in long format for analysis, with two variables, `country` and `year`,
+and a variable containing the population count.
+
+We can do that:
+
+```{r readworldpop-2}
+worldpop <- worldpop %>%
+  pivot_longer(
+    `1950`:`2020`,
+    names_to = "year",
+    values_to = "population"
+  )
+glimpse(worldpop)
+
+
+
+
+  
+```
+
+That looks better! Do the following exercises:
+
+**Exercises**:
+
+1. What is the estimated world population in 2020 (remember, the recorded
+values are in **thousands** of people. Answer this question in terms of
+**number of people**)?
+
+1. What is the estimated world population in Canada in 1975? Use the `filter` function.
+
+1. The total world population should equal the sum of the population in each country.
+Check this. Do the following:
+
+    a. Compute the world population by summing the population of each country.
+    Use the `filter` function to remove the `WORLD` row from each year. Then use
+    `group_by` and `summarize` to sum `population` over `country`. Save the result
+    in a dataframe called `worldpop_summed`.
+    
+    b. Pull the UN's estimated world population by using the `filter` function to
+    *keep* only the `WORLD` row from each year. Save this in a dataframe called
+    `worldpop_un`.
+    
+    c. Join them, and make a plot of the *difference* between the sum of the countries'
+    populations and the UN's estimate, for each year. Here's what I got for both the
+    data and the plot:
+    
+```{r worldpopexercise-1,echo=FALSE}
+worldpop_summed <- worldpop %>%
+  filter(country != "WORLD") %>%
+  group_by(year) %>%
+  summarize(worldpop = sum(population))
+
+worldpop_un <- worldpop %>% filter(country == "WORLD")
+
+worldpop_joined <- inner_join(worldpop_summed,worldpop_un,by = "year")
+glimpse(worldpop_joined)
+worldpop_joined %>%
+  ggplot(aes(x = year,y = worldpop - population)) +
+  theme_classic() + 
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "Difference in population estimates",
+       x = "Year",
+       y = "Sum of countries - UN estimate") +
+  scale_x_discrete(breaks = as.character(seq(1950,2020,by=5)))
+```
+
+*Hints*: use `scale_x_discrete(breaks = as.character(seq(1950,2020,by=5)))` to get
+the five-year axis, and use `theme(axis.text.x = element_text(angle = 90))` to make the axis text
+sideways. Use `geom_bar(stat = "identity")` to get the bar plot. Or, make another
+type of plot of your choosing! Don't be afraid to have some fun.
+
+Now, for later in this chapter, we're going to need data on the world population projections
+from 2020--2100. The median and "95\% intervals" (you'll learn what this means later)
+are all stored in seperate files. I'll read in the "median" one and then you'll read
+in the "interval" ones and then join them all together.
+
+The prediction data is mostly in the same format as the population estimates. The
+numbers are now stored with quotes and with thousands separated by commas, however.
+Like when it was stored with thousands separated by spaces, we have to read it in 
+as a character, and then process the data in `R` and convert to numeric.
+
+```{bash printmedian}
+head data/worldpop/worldpop-pred-median.csv
+```
+
+```{r readmedian-1}
+remove_comma <- function(x) stringr::str_remove_all(x,",")
+worldpop_pred_median <- readr::read_csv(
+  file = "data/worldpop/worldpop-pred-median.csv",
+  col_names = TRUE,
+  col_types = stringr::str_c(rep("c",18),collapse = "")
+) %>%
+  # Remove the commas. R already removed the quotes.
+  mutate_at(vars(`2020`:`2100`),remove_comma) %>%
+  # Convert to numeric
+  mutate_at(vars(`2020`:`2100`),as.numeric) %>%
+  # Pivot to long format
+  pivot_longer(
+    `2020`:`2100`,
+    names_to = "year",
+    values_to = "population"
+  )
+glimpse(worldpop_pred_median)
+```
+
+**Exercise**: read in the `worldpop-pred-lower95.csv` and `worldpop-pred-upper95.csv`
+datasets into dataframes called `worldpop_pred_lower95` and `worldpop_pred_upper95`,
+with the `population` variable named `population_lower95` and `population_upper95`.
+Join the three dataframes into a dataframe `worldpop_pred` which looks like this:
+
+```{r readpoppred-11,echo = FALSE}
+worldpop_pred_lower95 <- readr::read_csv(
+  file = "data/worldpop/worldpop-pred-lower95.csv",
+  col_names = TRUE,
+  col_types = stringr::str_c(rep("c",18),collapse = "")
+) %>%
+  # Remove the commas. R already removed the quotes.
+  mutate_at(vars(`2020`:`2100`),remove_comma) %>%
+  # Convert to numeric
+  mutate_at(vars(`2020`:`2100`),as.numeric) %>%
+  # Pivot to long format
+  pivot_longer(
+    `2020`:`2100`,
+    names_to = "year",
+    values_to = "population_lower95"
+  )
+worldpop_pred_upper95 <- readr::read_csv(
+  file = "data/worldpop/worldpop-pred-upper95.csv",
+  col_names = TRUE,
+  col_types = stringr::str_c(rep("c",18),collapse = "")
+) %>%
+  # Remove the commas. R already removed the quotes.
+  mutate_at(vars(`2020`:`2100`),remove_comma) %>%
+  # Convert to numeric
+  mutate_at(vars(`2020`:`2100`),as.numeric) %>%
+  # Pivot to long format
+  pivot_longer(
+    `2020`:`2100`,
+    names_to = "year",
+    values_to = "population_upper95"
+  )
+
+worldpop_pred <- worldpop_pred_median %>%
+  inner_join(worldpop_pred_lower95,by = c("country","year")) %>%
+  inner_join(worldpop_pred_upper95,by = c("country","year"))
+
+glimpse(worldpop_pred)
+```
+
+We'll use these data later in this chapter.
+
+## Investigate the properties of the average population of the worlds' countries
