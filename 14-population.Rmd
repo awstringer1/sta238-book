@@ -14,22 +14,13 @@ population will look like in the future. More specifically, we will:
 
 1. Read in and prepare the data for analysis (**Chapter 2**),
 
-1. Investigate the properties of the average population of the worlds' countries
-(**Chapter 3**),
-
 1. Build a simple linear regression model for the total world population over time
 (**Chapter 4**),
-
-1. Derive two estimators for the total world population and contrast them 
-on simulated data (**Chapter 5**),
 
 1. Develop a Bayesian model for total world population (**Chapter 6**),
 
 1. Contrast the two estimators for total world population on the real data,
 using bootstrapping (**Chapter 7**),
-
-1. Find and do inference for the maximum likelihood estimator for total
-world population (**Chapter 8**),
 
 1. Quantify uncertainty in our estimate for total world population (**Chapter 9**),
 
@@ -118,7 +109,8 @@ worldpop <- worldpop %>%
     `1950`:`2020`,
     names_to = "year",
     values_to = "population"
-  )
+  ) %>%
+  mutate(year = as.numeric(year))
 glimpse(worldpop)
 
 
@@ -209,7 +201,8 @@ worldpop_pred_median <- readr::read_csv(
     `2020`:`2100`,
     names_to = "year",
     values_to = "population"
-  )
+  ) %>%
+  mutate(year = as.numeric(year))
 glimpse(worldpop_pred_median)
 ```
 
@@ -233,7 +226,8 @@ worldpop_pred_lower95 <- readr::read_csv(
     `2020`:`2100`,
     names_to = "year",
     values_to = "population_lower95"
-  )
+  ) %>%
+  mutate(year = as.numeric(year))
 worldpop_pred_upper95 <- readr::read_csv(
   file = "data/worldpop/worldpop-pred-upper95.csv",
   col_names = TRUE,
@@ -248,7 +242,8 @@ worldpop_pred_upper95 <- readr::read_csv(
     `2020`:`2100`,
     names_to = "year",
     values_to = "population_upper95"
-  )
+  ) %>%
+  mutate(year = as.numeric(year))
 
 worldpop_pred <- worldpop_pred_median %>%
   inner_join(worldpop_pred_lower95,by = c("country","year")) %>%
@@ -259,4 +254,149 @@ glimpse(worldpop_pred)
 
 We'll use these data later in this chapter.
 
-## Investigate the properties of the average population of the worlds' countries
+## Model world population over time
+
+Look at the world population across years:
+
+```{r countryhist}
+worldpopplot <- worldpop %>%
+  filter(country=='WORLD') %>%
+  ggplot(aes(x = year,y = population)) +
+  theme_classic() +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "World population over time",
+       x = "Year",
+       y = "World Population (Billions)") +
+  scale_x_continuous(breaks = seq(1950,2020,by=5)) +
+  scale_y_continuous(labels = function(x) x*1e-06)
+worldpopplot
+```
+
+It looks like population may be growing at a pretty constant rate, or 
+equivalently (sort of- bear with me), may be increasing by a constant 
+amount each year. What is this rate/increase?
+
+This is an **inference problem**. We have **data** (population counts for each year)
+and a **model** (population grows at a constant rate from year to year) and we 
+need to **infer** the value of an unknown **parameter** (the rate at which population
+grows).
+
+In order to do this, we need to write down our model more formally. Let $Y_{i}$ 
+be the random variable representing the world population in year $i$ with $i = 1950,\ldots,2020$.
+We think the population increases by the same amount per year on average, but want
+to allow for a bit of variability. We can model:
+$$
+Y_{i+1} - Y_{i} \overset{iid}{\sim}\text{Normal}\left(\Delta,\sigma^{2}\right)
+$$
+and then infer $\Delta$, the average increase in population. 
+
+**Exercise**: estimate $\Delta$ using the **sample mean** of the *differences*
+in population. You can use the `diff` function, or the `lag` function to
+compute the differences-- look up their documentation for help. I got the following:
+```{r countrydiffs1,echo = FALSE}
+popofworld <- worldpop %>% filter(country == 'WORLD') %>% pull(population)
+cat("Mean: ",mean(diff(popofworld)),"\n")
+```
+
+So it looks like the population increases by about 7.5 million on average (remember,
+population here is in thousands).
+
+It turns out that what we just did is similar to the following 
+**linear regression model**:
+$$
+Y_{i} = \beta_{0} + \Delta i + \epsilon_{i}, \ \epsilon_{i} \overset{iid}{\sim}\text{Normal}\left(0,\sigma^{2}/2\right)
+$$
+This is because:
+\begin{equation}\begin{aligned}
+Y_{i} &= \beta_{0} + \Delta i + \epsilon_{i} \\
+Y_{i+1} &= \beta_{0} + \Delta (i+1) + \epsilon_{i+1} \\
+\implies Y_{i+1} - Y_{i} = \Delta + \left(\epsilon_{i+1} - \epsilon_{i}\right)
+\end{aligned}\end{equation}
+and $\left(\epsilon_{i+1} - \epsilon_{i}\right)\overset{iid}{\sim}\text{Normal}\left(0,\sigma^{2}\right)$. 
+
+```{r countrylm1}
+diffmod <- lm(population ~ as.numeric(year),data = filter(worldpop,country == 'WORLD'))
+summary(diffmod)
+unname(coef(diffmod)[2]) # Should be close to the mean difference
+```
+
+The estimated slope of the regression line is $\hat{\Delta} = 77877$, close to 
+the mean difference (estimating the standard deviation is a bit trickier).
+
+Plot the model:
+
+```{r plotdiffmod1}
+worldpopplot + geom_abline(slope = coef(diffmod)[2],intercept = coef(diffmod)[1])
+```
+
+It's ok. It looks like maybe the growth isn't by some constant value each year, 
+but rather maybe the *emph* rate of growth is constant.
+
+We can build a linear regression model for that, too. Consider the following
+growth model:
+$$
+Y_{i+1} = Y_{i}(1+\Delta)
+$$
+where the parameter $\Delta$ is now the *rate* of population growth. 
+We can model this approximately as a linear regression model:
+$$
+Y_{i} = \exp\left( \beta_{0} + \Delta i + \epsilon_{i}\right)
+$$
+This gives
+$$
+Y_{i+1}/Y_{i} = \exp\left(\Delta + \epsilon_{i+1} - \epsilon_{i}\right)
+$$
+which, ignoring the errors, gives $\exp(\Delta) \approx 1 + \Delta$. You may or may
+not recall that the approximation $e^{x} \approx 1 + x$ is a first-order Taylor
+expansion of $e^{x}$. 
+
+Wait, how is this even a *linear* regression model? That's obtained by taking logs:
+$$
+\log Y_{i} = \beta_{0} + \Delta i + \epsilon_{i}
+$$
+so we fit this model by computing a new variable $\log Y_{i}$ in the data, and then
+doing a linear regression model for that.
+
+**Exercise**: fit this model: 
+
+1. Create a new variable `logpopulation` using `mutate()`,
+
+1. Do a linear regression as above, like `lm(logpopulation ~ ...)`.
+
+Here's what I got, calling my model object `logmodel`:
+
+```{r logmodel1,echo=FALSE}
+logpopdat <- worldpop %>%
+  filter(country == 'WORLD') %>%
+  mutate(logpopulation = log(population))
+logmodel <- lm(logpopulation ~ year,data = logpopdat)
+```
+
+```{r logmodel2}
+summary(logmodel)
+exp(unname(coef(logmodel)[2])) - 1 # Delta
+```
+
+So it looks like population increases by about $1.66\%$ each year on average. 
+
+Check out how it looks (I called my new data `logpopdat`):
+
+```{r logmodel3}
+logpopdat %>%
+  ggplot(aes(x = year,y = logpopulation)) +
+  theme_classic() + 
+  geom_point() +
+  geom_abline(slope = coef(logmodel)[2],intercept = coef(logmodel)[1]) + 
+  coord_trans(y = "exp") + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "World population over time",
+       x = "Year",
+       y = "World Population (Billions)") +
+  scale_x_continuous(breaks = seq(1950,2020,by=5)) +
+  scale_y_continuous(breaks = log(3:8 * 1e06),labels = function(x) exp(x)*1e-06)
+```
+
+We don't yet have the tools to tell if one model is "better" than the other!
+
+

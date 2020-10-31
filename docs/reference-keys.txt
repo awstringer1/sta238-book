@@ -96,4 +96,4 @@ section-chapter-23
 section-evans-and-rosenthal-chapter-7.2
 section-extended-example-world-population-data
 section-read-in-and-prepare-the-data-for-analysis
-section-investigate-the-properties-of-the-average-population-of-the-worlds-countries
+section-model-world-population-over-time

@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2020-10-24" />
+<meta name="date" content="2020-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -259,7 +259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="15" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html"><i class="fa fa-check"></i><b>15</b> Extended Example: World Population Data</a><ul>
 <li class="chapter" data-level="15.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-read-in-and-prepare-the-data-for-analysis"><i class="fa fa-check"></i><b>15.1</b> Read in and prepare the data for analysis</a></li>
-<li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-investigate-the-properties-of-the-average-population-of-the-worlds-countries"><i class="fa fa-check"></i><b>15.2</b> Investigate the properties of the average population of the worlds’ countries</a></li>
+<li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-model-world-population-over-time"><i class="fa fa-check"></i><b>15.2</b> Model world population over time</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -291,17 +291,11 @@ about these data, the underlying true population of the world, and what the
 population will look like in the future. More specifically, we will:</p>
 <ol style="list-style-type: decimal">
 <li><p>Read in and prepare the data for analysis (<strong>Chapter 2</strong>),</p></li>
-<li><p>Investigate the properties of the average population of the worlds’ countries
-(<strong>Chapter 3</strong>),</p></li>
 <li><p>Build a simple linear regression model for the total world population over time
 (<strong>Chapter 4</strong>),</p></li>
-<li><p>Derive two estimators for the total world population and contrast them
-on simulated data (<strong>Chapter 5</strong>),</p></li>
 <li><p>Develop a Bayesian model for total world population (<strong>Chapter 6</strong>),</p></li>
 <li><p>Contrast the two estimators for total world population on the real data,
 using bootstrapping (<strong>Chapter 7</strong>),</p></li>
-<li><p>Find and do inference for the maximum likelihood estimator for total
-world population (<strong>Chapter 8</strong>),</p></li>
 <li><p>Quantify uncertainty in our estimate for total world population (<strong>Chapter 9</strong>),</p></li>
 <li><p>Assess the goodness of fit of our model for total world population (<strong>Chapter 10</strong>),</p></li>
 <li><p>Develop a Bayesian estimator for total world population (<strong>Chapter 11</strong>),</p></li>
@@ -523,12 +517,13 @@ and a variable containing the population count.</p>
 <a class="sourceLine" id="cb388-3" title="3">    <span class="st">`</span><span class="dt">1950</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>,</a>
 <a class="sourceLine" id="cb388-4" title="4">    <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</a>
 <a class="sourceLine" id="cb388-5" title="5">    <span class="dt">values_to =</span> <span class="st">&quot;population&quot;</span></a>
-<a class="sourceLine" id="cb388-6" title="6">  )</a>
-<a class="sourceLine" id="cb388-7" title="7"><span class="kw">glimpse</span>(worldpop)</a></code></pre></div>
+<a class="sourceLine" id="cb388-6" title="6">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb388-7" title="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.numeric</span>(year))</a>
+<a class="sourceLine" id="cb388-8" title="8"><span class="kw">glimpse</span>(worldpop)</a></code></pre></div>
 <pre><code>Observations: 16,756
 Variables: 3
 $ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
-$ year       &lt;chr&gt; &quot;1950&quot;, &quot;1951&quot;, &quot;1952&quot;, &quot;1953&quot;, &quot;1954&quot;, &quot;1955&quot;, &quot;1956&quot;, &quot;1…
+$ year       &lt;dbl&gt; 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959…
 $ population &lt;dbl&gt; 2536431, 2584034, 2630862, 2677609, 2724847, 2773020, 2822…</code></pre>
 <p>That looks better! Do the following exercises:</p>
 <p><strong>Exercises</strong>:</p>
@@ -554,7 +549,7 @@ data and the plot:</p></li>
 </ol>
 <pre><code>Observations: 71
 Variables: 4
-$ year       &lt;chr&gt; &quot;1950&quot;, &quot;1951&quot;, &quot;1952&quot;, &quot;1953&quot;, &quot;1954&quot;, &quot;1955&quot;, &quot;1956&quot;, &quot;1…
+$ year       &lt;dbl&gt; 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959…
 $ worldpop   &lt;dbl&gt; 2536428, 2584029, 2630861, 2677604, 2724850, 2773023, 2822…
 $ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
 $ population &lt;dbl&gt; 2536431, 2584034, 2630862, 2677609, 2724847, 2773020, 2822…</code></pre>
@@ -597,12 +592,13 @@ Madagascar,&quot;27,691&quot;,&quot;31,510&quot;,&quot;35,622&quot;,&quot;39,949
 <a class="sourceLine" id="cb393-13" title="13">    <span class="st">`</span><span class="dt">2020</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2100</span><span class="st">`</span>,</a>
 <a class="sourceLine" id="cb393-14" title="14">    <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</a>
 <a class="sourceLine" id="cb393-15" title="15">    <span class="dt">values_to =</span> <span class="st">&quot;population&quot;</span></a>
-<a class="sourceLine" id="cb393-16" title="16">  )</a>
-<a class="sourceLine" id="cb393-17" title="17"><span class="kw">glimpse</span>(worldpop_pred_median)</a></code></pre></div>
+<a class="sourceLine" id="cb393-16" title="16">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb393-17" title="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.numeric</span>(year))</a>
+<a class="sourceLine" id="cb393-18" title="18"><span class="kw">glimpse</span>(worldpop_pred_median)</a></code></pre></div>
 <pre><code>Observations: 4,029
 Variables: 3
 $ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
-$ year       &lt;chr&gt; &quot;2020&quot;, &quot;2025&quot;, &quot;2030&quot;, &quot;2035&quot;, &quot;2040&quot;, &quot;2045&quot;, &quot;2050&quot;, &quot;2…
+$ year       &lt;dbl&gt; 2020, 2025, 2030, 2035, 2040, 2045, 2050, 2055, 2060, 2065…
 $ population &lt;dbl&gt; 7794799, 8184437, 8548487, 8887524, 9198847, 9481803, 9735…</code></pre>
 <p><strong>Exercise</strong>: read in the <code>worldpop-pred-lower95.csv</code> and <code>worldpop-pred-upper95.csv</code>
 datasets into dataframes called <code>worldpop_pred_lower95</code> and <code>worldpop_pred_upper95</code>,
@@ -611,14 +607,157 @@ Join the three dataframes into a dataframe <code>worldpop_pred</code> which look
 <pre><code>Observations: 4,012
 Variables: 5
 $ country            &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORL…
-$ year               &lt;chr&gt; &quot;2020&quot;, &quot;2025&quot;, &quot;2030&quot;, &quot;2035&quot;, &quot;2040&quot;, &quot;2045&quot;, &quot;2…
+$ year               &lt;dbl&gt; 2020, 2025, 2030, 2035, 2040, 2045, 2050, 2055, 20…
 $ population         &lt;dbl&gt; 7794799, 8184437, 8548487, 8887524, 9198847, 94818…
 $ population_lower95 &lt;dbl&gt; 7794799, 8144343, 8460182, 8746077, 8996324, 92131…
 $ population_upper95 &lt;dbl&gt; 7794799, 8223574, 8636041, 9029502, 9396987, 97448…</code></pre>
 <p>We’ll use these data later in this chapter.</p>
 </div>
-<div id="section-investigate-the-properties-of-the-average-population-of-the-worlds-countries" class="section level2">
-<h2><span class="header-section-number">15.2</span> Investigate the properties of the average population of the worlds’ countries</h2>
+<div id="section-model-world-population-over-time" class="section level2">
+<h2><span class="header-section-number">15.2</span> Model world population over time</h2>
+<p>Look at the world population across years:</p>
+<div class="sourceCode" id="section-cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" title="1">worldpopplot &lt;-<span class="st"> </span>worldpop <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb396-2" title="2"><span class="st">  </span><span class="kw">filter</span>(country<span class="op">==</span><span class="st">&#39;WORLD&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb396-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> population)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb396-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb396-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb396-6" title="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb396-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population over time&quot;</span>,</a>
+<a class="sourceLine" id="cb396-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
+<a class="sourceLine" id="cb396-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb396-10" title="10"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb396-11" title="11"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) x<span class="op">*</span><span class="fl">1e-06</span>)</a>
+<a class="sourceLine" id="cb396-12" title="12">worldpopplot</a></code></pre></div>
+<p><img src="book_files/figure-html/countryhist-1.png" width="672" /></p>
+<p>It looks like population may be growing at a pretty constant rate, or
+equivalently (sort of- bear with me), may be increasing by a constant
+amount each year. What is this rate/increase?</p>
+<p>This is an <strong>inference problem</strong>. We have <strong>data</strong> (population counts for each year)
+and a <strong>model</strong> (population grows at a constant rate from year to year) and we
+need to <strong>infer</strong> the value of an unknown <strong>parameter</strong> (the rate at which population
+grows).</p>
+<p>In order to do this, we need to write down our model more formally. Let <span class="math inline">\(Y_{i}\)</span>
+be the random variable representing the world population in year <span class="math inline">\(i\)</span> with <span class="math inline">\(i = 1950,\ldots,2020\)</span>.
+We think the population increases by the same amount per year on average, but want
+to allow for a bit of variability. We can model:
+<span class="math display">\[
+Y_{i+1} - Y_{i} \overset{iid}{\sim}\text{Normal}\left(\Delta,\sigma^{2}\right)
+\]</span>
+and then infer <span class="math inline">\(\Delta\)</span>, the average increase in population.</p>
+<p><strong>Exercise</strong>: estimate <span class="math inline">\(\Delta\)</span> using the <strong>sample mean</strong> of the <em>differences</em>
+in population. You can use the <code>diff</code> function, or the <code>lag</code> function to
+compute the differences– look up their documentation for help. I got the following:</p>
+<pre><code>Mean:  75120 </code></pre>
+<p>So it looks like the population increases by about 7.5 million on average (remember,
+population here is in thousands).</p>
+<p>It turns out that what we just did is similar to the following
+<strong>linear regression model</strong>:
+<span class="math display">\[
+Y_{i} = \beta_{0} + \Delta i + \epsilon_{i}, \ \epsilon_{i} \overset{iid}{\sim}\text{Normal}\left(0,\sigma^{2}/2\right)
+\]</span>
+This is because:
+<span class="math display">\[\begin{equation}\begin{aligned}
+Y_{i} &amp;= \beta_{0} + \Delta i + \epsilon_{i} \\
+Y_{i+1} &amp;= \beta_{0} + \Delta (i+1) + \epsilon_{i+1} \\
+\implies Y_{i+1} - Y_{i} = \Delta + \left(\epsilon_{i+1} - \epsilon_{i}\right)
+\end{aligned}\end{equation}\]</span>
+and <span class="math inline">\(\left(\epsilon_{i+1} - \epsilon_{i}\right)\overset{iid}{\sim}\text{Normal}\left(0,\sigma^{2}\right)\)</span>.</p>
+<div class="sourceCode" id="section-cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" title="1">diffmod &lt;-<span class="st"> </span><span class="kw">lm</span>(population <span class="op">~</span><span class="st"> </span><span class="kw">as.numeric</span>(year),<span class="dt">data =</span> <span class="kw">filter</span>(worldpop,country <span class="op">==</span><span class="st"> &#39;WORLD&#39;</span>))</a>
+<a class="sourceLine" id="cb398-2" title="2"><span class="kw">summary</span>(diffmod)</a></code></pre></div>
+<pre><code>
+Call:
+lm(formula = population ~ as.numeric(year), data = filter(worldpop, 
+    country == &quot;WORLD&quot;))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-119897  -89256     964   52493  294834 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      -1.50e+08   1.12e+06    -134   &lt;2e-16 ***
+as.numeric(year)  7.79e+04   5.63e+02     138   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 97200 on 69 degrees of freedom
+Multiple R-squared:  0.996, Adjusted R-squared:  0.996 
+F-statistic: 1.91e+04 on 1 and 69 DF,  p-value: &lt;2e-16</code></pre>
+<div class="sourceCode" id="section-cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" title="1"><span class="kw">unname</span>(<span class="kw">coef</span>(diffmod)[<span class="dv">2</span>]) <span class="co"># Should be close to the mean difference</span></a></code></pre></div>
+<pre><code>[1] 77877</code></pre>
+<p>The estimated slope of the regression line is <span class="math inline">\(\hat{\Delta} = 77877\)</span>, close to
+the mean difference (estimating the standard deviation is a bit trickier).</p>
+<p>Plot the model:</p>
+<div class="sourceCode" id="section-cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1">worldpopplot <span class="op">+</span><span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">2</span>],<span class="dt">intercept =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">1</span>])</a></code></pre></div>
+<p><img src="book_files/figure-html/plotdiffmod1-1.png" width="672" /></p>
+<p>It’s ok. It looks like maybe the growth isn’t by some constant value each year,
+but rather maybe the <em>emph</em> rate of growth is constant.</p>
+<p>We can build a linear regression model for that, too. Consider the following
+growth model:
+<span class="math display">\[
+Y_{i+1} = Y_{i}(1+\Delta)
+\]</span>
+where the parameter <span class="math inline">\(\Delta\)</span> is now the <em>rate</em> of population growth.
+We can model this approximately as a linear regression model:
+<span class="math display">\[
+Y_{i} = \exp\left( \beta_{0} + \Delta i + \epsilon_{i}\right)
+\]</span>
+This gives
+<span class="math display">\[
+Y_{i+1}/Y_{i} = \exp\left(\Delta + \epsilon_{i+1} - \epsilon_{i}\right)
+\]</span>
+which, ignoring the errors, gives <span class="math inline">\(\exp(\Delta) \approx 1 + \Delta\)</span>. You may or may
+not recall that the approximation <span class="math inline">\(e^{x} \approx 1 + x\)</span> is a first-order Taylor
+expansion of <span class="math inline">\(e^{x}\)</span>.</p>
+<p>Wait, how is this even a <em>linear</em> regression model? That’s obtained by taking logs:
+<span class="math display">\[
+\log Y_{i} = \beta_{0} + \Delta i + \epsilon_{i}
+\]</span>
+so we fit this model by computing a new variable <span class="math inline">\(\log Y_{i}\)</span> in the data, and then
+doing a linear regression model for that.</p>
+<p><strong>Exercise</strong>: fit this model:</p>
+<ol style="list-style-type: decimal">
+<li><p>Create a new variable <code>logpopulation</code> using <code>mutate()</code>,</p></li>
+<li><p>Do a linear regression as above, like <code>lm(logpopulation ~ ...)</code>.</p></li>
+</ol>
+<p>Here’s what I got, calling my model object <code>logmodel</code>:</p>
+<div class="sourceCode" id="section-cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" title="1"><span class="kw">summary</span>(logmodel)</a></code></pre></div>
+<pre><code>
+Call:
+lm(formula = logpopulation ~ year, data = logpopdat)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.07032 -0.02804  0.00389  0.02891  0.04295 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -1.73e+01   3.66e-01   -47.3   &lt;2e-16 ***
+year         1.65e-02   1.85e-04    89.2   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.0319 on 69 degrees of freedom
+Multiple R-squared:  0.991, Adjusted R-squared:  0.991 
+F-statistic: 7.96e+03 on 1 and 69 DF,  p-value: &lt;2e-16</code></pre>
+<div class="sourceCode" id="section-cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" title="1"><span class="kw">exp</span>(<span class="kw">unname</span>(<span class="kw">coef</span>(logmodel)[<span class="dv">2</span>])) <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="co"># Delta</span></a></code></pre></div>
+<pre><code>[1] 0.016599</code></pre>
+<p>So it looks like population increases by about <span class="math inline">\(1.66\%\)</span> each year on average.</p>
+<p>Check out how it looks (I called my new data <code>logpopdat</code>):</p>
+<div class="sourceCode" id="section-cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" title="1">logpopdat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb407-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> logpopulation)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb407-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb407-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb407-5" title="5"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coef</span>(logmodel)[<span class="dv">2</span>],<span class="dt">intercept =</span> <span class="kw">coef</span>(logmodel)[<span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb407-6" title="6"><span class="st">  </span><span class="kw">coord_trans</span>(<span class="dt">y =</span> <span class="st">&quot;exp&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb407-7" title="7"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb407-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population over time&quot;</span>,</a>
+<a class="sourceLine" id="cb407-9" title="9">       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
+<a class="sourceLine" id="cb407-10" title="10">       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb407-11" title="11"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb407-12" title="12"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">log</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">8</span> <span class="op">*</span><span class="st"> </span><span class="fl">1e06</span>),<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">exp</span>(x)<span class="op">*</span><span class="fl">1e-06</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/logmodel3-1.png" width="672" /></p>
+<p>We don’t yet have the tools to tell if one model is “better” than the other!</p>
 
 </div>
 </div>
