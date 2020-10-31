@@ -260,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html"><i class="fa fa-check"></i><b>15</b> Extended Example: World Population Data</a><ul>
 <li class="chapter" data-level="15.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-read-in-and-prepare-the-data-for-analysis"><i class="fa fa-check"></i><b>15.1</b> Read in and prepare the data for analysis</a></li>
 <li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-model-world-population-over-time"><i class="fa fa-check"></i><b>15.2</b> Model world population over time</a></li>
+<li class="chapter" data-level="15.3" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-model-for-world-population"><i class="fa fa-check"></i><b>15.3</b> Bayesian model for world population</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -294,8 +295,6 @@ population will look like in the future. More specifically, we will:</p>
 <li><p>Build a simple linear regression model for the total world population over time
 (<strong>Chapter 4</strong>),</p></li>
 <li><p>Develop a Bayesian model for total world population (<strong>Chapter 6</strong>),</p></li>
-<li><p>Contrast the two estimators for total world population on the real data,
-using bootstrapping (<strong>Chapter 7</strong>),</p></li>
 <li><p>Quantify uncertainty in our estimate for total world population (<strong>Chapter 9</strong>),</p></li>
 <li><p>Assess the goodness of fit of our model for total world population (<strong>Chapter 10</strong>),</p></li>
 <li><p>Develop a Bayesian estimator for total world population (<strong>Chapter 11</strong>),</p></li>
@@ -659,7 +658,7 @@ This is because:
 <span class="math display">\[\begin{equation}\begin{aligned}
 Y_{i} &amp;= \beta_{0} + \Delta i + \epsilon_{i} \\
 Y_{i+1} &amp;= \beta_{0} + \Delta (i+1) + \epsilon_{i+1} \\
-\implies Y_{i+1} - Y_{i} = \Delta + \left(\epsilon_{i+1} - \epsilon_{i}\right)
+\implies Y_{i+1} - Y_{i} &amp;= \Delta + \left(\epsilon_{i+1} - \epsilon_{i}\right)
 \end{aligned}\end{equation}\]</span>
 and <span class="math inline">\(\left(\epsilon_{i+1} - \epsilon_{i}\right)\overset{iid}{\sim}\text{Normal}\left(0,\sigma^{2}\right)\)</span>.</p>
 <div class="sourceCode" id="section-cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" title="1">diffmod &lt;-<span class="st"> </span><span class="kw">lm</span>(population <span class="op">~</span><span class="st"> </span><span class="kw">as.numeric</span>(year),<span class="dt">data =</span> <span class="kw">filter</span>(worldpop,country <span class="op">==</span><span class="st"> &#39;WORLD&#39;</span>))</a>
@@ -691,7 +690,7 @@ the mean difference (estimating the standard deviation is a bit trickier).</p>
 <div class="sourceCode" id="section-cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1">worldpopplot <span class="op">+</span><span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">2</span>],<span class="dt">intercept =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">1</span>])</a></code></pre></div>
 <p><img src="book_files/figure-html/plotdiffmod1-1.png" width="672" /></p>
 <p>It’s ok. It looks like maybe the growth isn’t by some constant value each year,
-but rather maybe the <em>emph</em> rate of growth is constant.</p>
+but rather maybe the <em>rate</em> of growth is constant.</p>
 <p>We can build a linear regression model for that, too. Consider the following
 growth model:
 <span class="math display">\[
@@ -758,6 +757,89 @@ F-statistic: 7.96e+03 on 1 and 69 DF,  p-value: &lt;2e-16</code></pre>
 <a class="sourceLine" id="cb407-12" title="12"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">log</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">8</span> <span class="op">*</span><span class="st"> </span><span class="fl">1e06</span>),<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">exp</span>(x)<span class="op">*</span><span class="fl">1e-06</span>)</a></code></pre></div>
 <p><img src="book_files/figure-html/logmodel3-1.png" width="672" /></p>
 <p>We don’t yet have the tools to tell if one model is “better” than the other!</p>
+</div>
+<div id="section-bayesian-model-for-world-population" class="section level2">
+<h2><span class="header-section-number">15.3</span> Bayesian model for world population</h2>
+<p>The reported world populations are just estimates. We saw that when you sum up
+the populations for each country, the answer does not exactly equal the reported
+world population. Here we will describe a Bayesian method for estimating the
+total world population in a given year, based on the reported value for that year,
+attempting to account for error.</p>
+<p>For any chosen year, let <span class="math inline">\(Y\)</span> represent the reported world population. Let <span class="math inline">\(\lambda\)</span> be the true world population. We might have <span class="math inline">\(Y &gt; \lambda\)</span> or <span class="math inline">\(Y &lt; \lambda\)</span> due to
+reporting error– <span class="math inline">\(Y\)</span> is random, <span class="math inline">\(\lambda\)</span> is fixed and unknown. We want
+to write down a <strong>statistical model</strong> for <span class="math inline">\(Y\)</span> which depends on <span class="math inline">\(\lambda\)</span>
+and then use <span class="math inline">\(Y\)</span> to <strong>infer</strong> <span class="math inline">\(\lambda\)</span>. One such model is
+<span class="math display">\[
+Y \sim \text{Poisson}(\lambda)
+\]</span>
+To do Bayesian inference, we require a prior distribution on <span class="math inline">\(\lambda\)</span>. How do we
+choose this? This is completely subjective, and it might seem like we have absolutely
+no information (without looking at the data, of course). But this isn’t true: we
+know <span class="math inline">\(\lambda &gt; 0\)</span> (there can’t, on average, be less than zero people on earth)
+and we know that <span class="math inline">\(\lambda\)</span> can’t be something absurd like <span class="math inline">\(10^{100}\)</span>. We want to
+choose what is called a <em>weakly informative</em> prior: one that restricts <span class="math inline">\(\lambda\)</span>
+to be in a not-absurd range. Let’s try a Gamma distribution with <span class="math inline">\(95^{th}\)</span> percentile
+equal to <span class="math inline">\(10\)</span>billion and <span class="math inline">\(5^{th}\)</span> percentile equal to <span class="math inline">\(1\)</span> billion. Measuring
+<span class="math inline">\(\lambda\)</span> in billions, this corresponds to parameters of about
+<span class="math inline">\(\alpha = 3.358\)</span> and <span class="math inline">\(\beta = 0.778\)</span>:
+<span class="math display">\[
+\lambda \sim\text{Gamma}(3.358,0.778)
+\]</span>
+Let’s plot this prior to see what it looks like:</p>
+<div class="sourceCode" id="section-cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1">alpha &lt;-<span class="st"> </span><span class="fl">3.358</span></a>
+<a class="sourceLine" id="cb408-2" title="2">beta &lt;-<span class="st"> </span><span class="fl">0.778</span></a>
+<a class="sourceLine" id="cb408-3" title="3">priorplot &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">xx =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dt">length.out =</span> <span class="dv">10000</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> xx)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb408-5" title="5"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb408-6" title="6"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha,<span class="dt">rate =</span> beta)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb408-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Prior on total world population&quot;</span>,</a>
+<a class="sourceLine" id="cb408-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Total world population (billions)&quot;</span>,</a>
+<a class="sourceLine" id="cb408-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Prior density&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb408-10" title="10"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dt">by =</span> <span class="dv">1</span>),<span class="dt">labels =</span> <span class="cf">function</span>(x) scales<span class="op">::</span><span class="kw">comma</span>(x))</a>
+<a class="sourceLine" id="cb408-11" title="11">priorplot</a></code></pre></div>
+<p><img src="book_files/figure-html/plotgamma1-1.png" width="672" /></p>
+<p>Now, you have to get the posterior for <span class="math inline">\(\lambda|Y\)</span>. The likelihood is
+<span class="math display">\[
+P(Y = y|\lambda) = \frac{\lambda^{y}e^{-\lambda}}{y!}
+\]</span>
+The prior is
+<span class="math display">\[
+\pi(\lambda) = \frac{\beta^{\alpha}}{\Gamma(\alpha)}\lambda^{\alpha-1}e^{-\beta\lambda}
+\]</span>
+<strong>Exercise</strong>: show that the posterior is
+<span class="math display">\[
+\lambda|Y \sim\Gamma\left( \alpha + y,\beta + 1\right)
+\]</span>
+Now, with the posterior determined, we can infer the world population for any given
+year. For <span class="math inline">\(2010\)</span>, say, we can plot the posterior (note that <span class="math inline">\(Y\)</span> is now converted to billions,
+from thousands):</p>
+<div class="sourceCode" id="section-cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1">observedpop &lt;-<span class="st"> </span>worldpop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &#39;WORLD&#39;</span>,year <span class="op">==</span><span class="st"> </span><span class="dv">2010</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(population)</a>
+<a class="sourceLine" id="cb409-2" title="2">observedpop &lt;-<span class="st"> </span>observedpop <span class="op">*</span><span class="st"> </span><span class="fl">1e-06</span> <span class="co"># Convert to billions, from thousands</span></a>
+<a class="sourceLine" id="cb409-3" title="3">priorplot <span class="op">+</span></a>
+<a class="sourceLine" id="cb409-4" title="4"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha <span class="op">+</span><span class="st"> </span>observedpop,<span class="dt">rate =</span> beta<span class="op">+</span><span class="dv">1</span>),<span class="dt">colour =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb409-5" title="5"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> observedpop,<span class="dt">linetype =</span> <span class="st">&#39;dashed&#39;</span>,<span class="dt">colour=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb409-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Prior (black) and posterior (orange) for total world population&quot;</span>,</a>
+<a class="sourceLine" id="cb409-7" title="7">       <span class="dt">subtitle =</span> <span class="st">&quot;Red line: observed world population&quot;</span>,</a>
+<a class="sourceLine" id="cb409-8" title="8">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/plotgammapost1-1.png" width="672" /></p>
+<p>We will see later how to use this to estimate the world population in a given year.</p>
+<p><strong>Exercise</strong>: the prior pulls the posterior to the left of the observed values,
+favouring the notion that the reported world population is an <em>overestimate</em> of
+the true value. Is this reasonable? Try it out with some different priors. I wrote
+you a helper function which lets you put in the <span class="math inline">\(2.5\%\)</span> and <span class="math inline">\(97.5\%\)</span> quantiles you
+want, and gives you the <span class="math inline">\(\alpha,\beta\)</span> that give you these quantiles:</p>
+<div class="sourceCode" id="section-cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1"><span class="kw">getgammaparams</span>(<span class="dv">1</span>,<span class="dv">10</span>)</a></code></pre></div>
+<pre><code> alpha   beta 
+3.3582 0.7787 </code></pre>
+<p>For example, if you wanted to use a Gamma distribution with lower quantile <span class="math inline">\(0.1\)</span> billion
+and upper quantile <span class="math inline">\(15\)</span> billion, you would use</p>
+<div class="sourceCode" id="section-cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" title="1"><span class="kw">getgammaparams</span>(.<span class="dv">1</span>,<span class="dv">15</span>)</a></code></pre></div>
+<pre><code>  alpha    beta 
+0.99196 0.24480 </code></pre>
+<p>and so on.</p>
+<p>Try it with any/all unique combinations of
+lower quantile <span class="math inline">\(.01,.1,1,2,5\)</span> billion and upper quantile <span class="math inline">\(6,10,15,20,50\)</span> billion.
+Is the posterior very sensitive to the choice of prior?</p>
 
 </div>
 </div>

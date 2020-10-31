@@ -19,9 +19,6 @@ population will look like in the future. More specifically, we will:
 
 1. Develop a Bayesian model for total world population (**Chapter 6**),
 
-1. Contrast the two estimators for total world population on the real data,
-using bootstrapping (**Chapter 7**),
-
 1. Quantify uncertainty in our estimate for total world population (**Chapter 9**),
 
 1. Assess the goodness of fit of our model for total world population (**Chapter 10**),
@@ -311,7 +308,7 @@ This is because:
 \begin{equation}\begin{aligned}
 Y_{i} &= \beta_{0} + \Delta i + \epsilon_{i} \\
 Y_{i+1} &= \beta_{0} + \Delta (i+1) + \epsilon_{i+1} \\
-\implies Y_{i+1} - Y_{i} = \Delta + \left(\epsilon_{i+1} - \epsilon_{i}\right)
+\implies Y_{i+1} - Y_{i} &= \Delta + \left(\epsilon_{i+1} - \epsilon_{i}\right)
 \end{aligned}\end{equation}
 and $\left(\epsilon_{i+1} - \epsilon_{i}\right)\overset{iid}{\sim}\text{Normal}\left(0,\sigma^{2}\right)$. 
 
@@ -331,7 +328,7 @@ worldpopplot + geom_abline(slope = coef(diffmod)[2],intercept = coef(diffmod)[1]
 ```
 
 It's ok. It looks like maybe the growth isn't by some constant value each year, 
-but rather maybe the *emph* rate of growth is constant.
+but rather maybe the *rate* of growth is constant.
 
 We can build a linear regression model for that, too. Consider the following
 growth model:
@@ -399,4 +396,115 @@ logpopdat %>%
 
 We don't yet have the tools to tell if one model is "better" than the other!
 
+## Bayesian model for world population
 
+The reported world populations are just estimates. We saw that when you sum up
+the populations for each country, the answer does not exactly equal the reported
+world population. Here we will describe a Bayesian method for estimating the
+total world population in a given year, based on the reported value for that year,
+attempting to account for error.
+
+For any chosen year, let $Y$ represent the reported world population. Let $\lambda$ be the true world population. We might have $Y > \lambda$ or $Y < \lambda$ due to
+reporting error-- $Y$ is random, $\lambda$ is fixed and unknown. We want
+to write down a **statistical model** for $Y$ which depends on $\lambda$
+and then use $Y$ to **infer** $\lambda$. One such model is
+$$
+Y \sim \text{Poisson}(\lambda)
+$$
+To do Bayesian inference, we require a prior distribution on $\lambda$. How do we
+choose this? This is completely subjective, and it might seem like we have absolutely
+no information (without looking at the data, of course). But this isn't true: we
+know $\lambda > 0$ (there can't, on average, be less than zero people on earth)
+and we know that $\lambda$ can't be something absurd like $10^{100}$. We want to
+choose what is called a *weakly informative* prior: one that restricts $\lambda$
+to be in a not-absurd range. Let's try a Gamma distribution with $95^{th}$ percentile
+equal to $10$billion and $5^{th}$ percentile equal to $1$ billion. Measuring
+$\lambda$ in billions, this corresponds to parameters of about 
+$\alpha = 3.358$ and $\beta = 0.778$:
+$$
+\lambda \sim\text{Gamma}(3.358,0.778)
+$$
+Let's plot this prior to see what it looks like:
+```{r plotgamma1}
+alpha <- 3.358
+beta <- 0.778
+priorplot <- tibble(xx = seq(0,15,length.out = 10000)) %>%
+  ggplot(aes(x = xx)) +
+  theme_classic() + 
+  stat_function(fun = dgamma,args = list(shape = alpha,rate = beta)) +
+  labs(title = "Prior on total world population",
+       x = "Total world population (billions)",
+       y = "Prior density") + 
+  scale_x_continuous(breaks = seq(0,15,by = 1),labels = function(x) scales::comma(x))
+priorplot
+```
+
+Now, you have to get the posterior for $\lambda|Y$. The likelihood is
+$$
+P(Y = y|\lambda) = \frac{\lambda^{y}e^{-\lambda}}{y!}
+$$
+The prior is
+$$
+\pi(\lambda) = \frac{\beta^{\alpha}}{\Gamma(\alpha)}\lambda^{\alpha-1}e^{-\beta\lambda}
+$$
+**Exercise**: show that the posterior is
+$$
+\lambda|Y \sim\Gamma\left( \alpha + y,\beta + 1\right)
+$$
+Now, with the posterior determined, we can infer the world population for any given
+year. For $2010$, say, we can plot the posterior (note that $Y$ is now converted to billions,
+from thousands):
+
+```{r plotgammapost1}
+observedpop <- worldpop %>% filter(country == 'WORLD',year == 2010) %>% pull(population)
+observedpop <- observedpop * 1e-06 # Convert to billions, from thousands
+priorplot +
+  stat_function(fun = dgamma,args = list(shape = alpha + observedpop,rate = beta+1),colour = "orange") +
+  geom_vline(xintercept = observedpop,linetype = 'dashed',colour='red') +
+  labs(title = "Prior (black) and posterior (orange) for total world population",
+       subtitle = "Red line: observed world population",
+       y = "Density")
+```
+
+We will see later how to use this to estimate the world population in a given year.
+
+**Exercise**: the prior pulls the posterior to the left of the observed values, 
+favouring the notion that the reported world population is an *overestimate* of
+the true value. Is this reasonable? Try it out with some different priors. I wrote
+you a helper function which lets you put in the $2.5\%$ and $97.5\%$ quantiles you
+want, and gives you the $\alpha,\beta$ that give you these quantiles:
+
+```{r helperfunction1,echo = FALSE}
+getgammaparams <- function(qlower,qupper) {
+    error <- function(x) {
+      alpha <- exp(x[1])
+      beta <- exp(x[2])
+      
+      e1 <- qgamma(.025,alpha,beta) - qlower
+      e2 <- qgamma(.975,alpha,beta) - qupper
+      
+      e1^2 + e2^2
+  }
+  erd <- function(x) numDeriv::grad(error,x)
+  opt <- optim(c(1,1),error,erd,method = "BFGS")
+  out <- exp(opt$par)
+  names(out) <- c('alpha','beta')
+  out
+}
+```
+
+```{r heplerfunction2}
+getgammaparams(1,10)
+```
+
+For example, if you wanted to use a Gamma distribution with lower quantile $0.1$ billion
+and upper quantile $15$ billion, you would use
+```{r heplerfunction3}
+getgammaparams(.1,15)
+```
+
+and so on.
+
+Try it with any/all unique combinations of 
+lower quantile $.01,.1,1,2,5$ billion and upper quantile $6,10,15,20,50$ billion.
+Is the posterior very sensitive to the choice of prior?

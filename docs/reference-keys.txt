@@ -97,3 +97,4 @@ section-evans-and-rosenthal-chapter-7.2
 section-extended-example-world-population-data
 section-read-in-and-prepare-the-data-for-analysis
 section-model-world-population-over-time
+section-bayesian-model-for-world-population
