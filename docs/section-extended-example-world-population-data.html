@@ -261,6 +261,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-read-in-and-prepare-the-data-for-analysis"><i class="fa fa-check"></i><b>15.1</b> Read in and prepare the data for analysis</a></li>
 <li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-model-world-population-over-time"><i class="fa fa-check"></i><b>15.2</b> Model world population over time</a></li>
 <li class="chapter" data-level="15.3" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-model-for-world-population"><i class="fa fa-check"></i><b>15.3</b> Bayesian model for world population</a></li>
+<li class="chapter" data-level="15.4" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-quantifying-uncertainty-in-estimates-of-world-population-regression-model"><i class="fa fa-check"></i><b>15.4</b> Quantifying uncertainty in estimates of world population: regression model</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -840,6 +841,143 @@ and upper quantile <span class="math inline">\(15\)</span> billion, you would us
 <p>Try it with any/all unique combinations of
 lower quantile <span class="math inline">\(.01,.1,1,2,5\)</span> billion and upper quantile <span class="math inline">\(6,10,15,20,50\)</span> billion.
 Is the posterior very sensitive to the choice of prior?</p>
+</div>
+<div id="section-quantifying-uncertainty-in-estimates-of-world-population-regression-model" class="section level2">
+<h2><span class="header-section-number">15.4</span> Quantifying uncertainty in estimates of world population: regression model</h2>
+<p>We have done the following linear regression for world population:</p>
+<div class="sourceCode" id="section-cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1">worldpopplot <span class="op">+</span><span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">2</span>],<span class="dt">intercept =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">1</span>])</a></code></pre></div>
+<p><img src="book_files/figure-html/plotdiffmodagain1-1.png" width="672" />
+The value of the regression line at any year gives an estimate of the population
+in that year.</p>
+<p>However, statistics is the study of <strong>uncertainty</strong>. We don’t just want to give
+a single estimate of population, we want to <strong>quantify uncertainty</strong> in this estimate.
+We do so using the probability distribution of the predicted value, and constructing
+an interval in which the predicted value has a high probability of falling, under the
+model.</p>
+<p>The observed world population in year <span class="math inline">\(i\)</span> is:
+<span class="math display">\[
+Y_{i} = \beta_{0} + \Delta i + \epsilon_{i}
+\]</span>
+This can be written as
+<span class="math display">\[
+Y_{i} = \mu_{i} + \epsilon_{i}
+\]</span>
+where <span class="math inline">\(\mu_{i} = \beta_{0} + \Delta_{i} i\)</span> is the actual world population, and <span class="math inline">\(\epsilon_{i}\)</span>
+is some random error. In the linear regression output, we obtain estimates <span class="math inline">\(\hat{\beta}_{0}\)</span> and
+<span class="math inline">\(\hat{\Delta}\)</span>. The regression line that is actually plotted is
+<span class="math display">\[
+\hat{\mu}_{i} = \hat{\beta}_{0} + \hat{\Delta}i
+\]</span>
+The predicted value of the world population in year <span class="math inline">\(i\)</span> is simply <span class="math inline">\(\hat{\mu}_{i}\)</span>.
+Its value along with its standard deviation, <span class="math inline">\(\text{SD}(\hat{\mu}_{i})\)</span>, can be obtained from the regression
+output using the <code>predict</code> function. To get the estimated world population and <span class="math inline">\(95\%\)</span>
+confidence interval for 2010, for example, you could do</p>
+<div class="sourceCode" id="section-cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1"><span class="kw">predict</span>(diffmod,<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">year =</span> <span class="dv">2010</span>),<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)<span class="op">$</span>fit</a></code></pre></div>
+<pre><code>      fit     lwr     upr
+1 6914203 6877901 6950504</code></pre>
+<p>There is a problem, though. A subtle problem. A confidence interval is interpreted as
+“if we repeated the experiment over and over again and calculated this interval, <span class="math inline">\(95\%\)</span>
+of the intervals we calculated would contain the true value”. This means that for
+the interval we just calculated, if we were to go into some parallel universe over
+and over again and measure the population of the world from 1950 – 2020 and build
+this regression model and calculate this interval, the intervals would contain
+the true population of the world <span class="math inline">\(95\%\)</span> of the time.</p>
+<p>That’s really confusing.</p>
+<p>What may instead calculate an interval which has a <span class="math inline">\(95\%\)</span> chance of containing the
+<em>measured</em> world population value for 2010 (say), accounting for both uncertainty
+in the estimated world population and the variability in the measurement of world
+population on any given year. If we went back and measured the population for 2010
+over and over again, we think that <span class="math inline">\(95\%\)</span> of such measurements would fall within
+this interval. We call this a <strong>prediction interval</strong> instead of a confidence interval.
+It is based off both the variability in <span class="math inline">\(\hat{\mu}_{i}\)</span> and the variability in
+<span class="math inline">\(\epsilon_{i}\)</span>. It is obtained as</p>
+<div class="sourceCode" id="section-cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1"><span class="kw">predict</span>(diffmod,<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">year =</span> <span class="dv">2010</span>),<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)<span class="op">$</span>fit</a></code></pre></div>
+<pre><code>      fit     lwr     upr
+1 6914203 6716913 7111492</code></pre>
+<p>Notice how it is <strong>wider</strong> than the confidence interval, because it accounts for more
+types of uncertainty.</p>
+<p>Let’s plot the confidence intervals on our plot:</p>
+<div class="sourceCode" id="section-cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1"><span class="co"># Note: removing the &quot;newdata&quot; argument gives</span></a>
+<a class="sourceLine" id="cb419-2" title="2"><span class="co"># predictions on the original values</span></a>
+<a class="sourceLine" id="cb419-3" title="3">worldpoponlyworld &lt;-<span class="st"> </span><span class="kw">filter</span>(worldpop,country<span class="op">==</span><span class="st">&#39;WORLD&#39;</span>)</a>
+<a class="sourceLine" id="cb419-4" title="4">preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(diffmod,<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)<span class="op">$</span>fit <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb419-5" title="5"><span class="st">  </span><span class="kw">as_tibble</span>()</a>
+<a class="sourceLine" id="cb419-6" title="6">preddat<span class="op">$</span>year &lt;-<span class="st"> </span>worldpoponlyworld<span class="op">$</span>year</a>
+<a class="sourceLine" id="cb419-7" title="7">worldpoppred &lt;-<span class="st"> </span><span class="kw">inner_join</span>(worldpoponlyworld,preddat,<span class="dt">by =</span> <span class="st">&quot;year&quot;</span>)</a>
+<a class="sourceLine" id="cb419-8" title="8"><span class="kw">glimpse</span>(worldpoppred)</a></code></pre></div>
+<pre><code>Observations: 71
+Variables: 6
+$ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
+$ year       &lt;dbl&gt; 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959…
+$ population &lt;dbl&gt; 2536431, 2584034, 2630862, 2677609, 2724847, 2773020, 2822…
+$ fit        &lt;dbl&gt; 2241597, 2319473, 2397350, 2475227, 2553104, 2630980, 2708…
+$ lwr        &lt;dbl&gt; 2196050, 2274892, 2353727, 2432554, 2511372, 2590181, 2668…
+$ upr        &lt;dbl&gt; 2287143, 2364054, 2440973, 2517900, 2594836, 2671780, 2748…</code></pre>
+<div class="sourceCode" id="section-cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1">predplotconfint &lt;-<span class="st"> </span>worldpoppred <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb421-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> fit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb421-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb421-4" title="4"><span class="st">  </span><span class="co"># Shaded region for the interval</span></a>
+<a class="sourceLine" id="cb421-5" title="5"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lwr,<span class="dt">ymax =</span> upr),<span class="dt">fill =</span> <span class="st">&quot;darkgrey&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb421-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb421-7" title="7"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> population)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb421-8" title="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb421-9" title="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population with estimate and 95% CI&quot;</span>,</a>
+<a class="sourceLine" id="cb421-10" title="10">       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
+<a class="sourceLine" id="cb421-11" title="11">       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb421-12" title="12"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb421-13" title="13"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) x<span class="op">*</span><span class="fl">1e-06</span>)</a>
+<a class="sourceLine" id="cb421-14" title="14">  </a>
+<a class="sourceLine" id="cb421-15" title="15">  </a>
+<a class="sourceLine" id="cb421-16" title="16"></a>
+<a class="sourceLine" id="cb421-17" title="17">predplotconfint</a></code></pre></div>
+<p><img src="book_files/figure-html/plotconfdiffmod1-1.png" width="672" />
+Notice how the interval is really narrow, and doesn’t contain most of the actual
+measured values. This is because it is an interval for the true, unknown value
+of the world population, not the actual measured values themselves.</p>
+<p><strong>Exercise</strong>: create the same plot but with a <strong>prediction interval</strong>. I got the
+following:</p>
+<div class="sourceCode" id="section-cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1"><span class="co"># Note: removing the &quot;newdata&quot; argument gives</span></a>
+<a class="sourceLine" id="cb422-2" title="2"><span class="co"># predictions on the original values</span></a>
+<a class="sourceLine" id="cb422-3" title="3">worldpoponlyworld &lt;-<span class="st"> </span><span class="kw">filter</span>(worldpop,country<span class="op">==</span><span class="st">&#39;WORLD&#39;</span>)</a>
+<a class="sourceLine" id="cb422-4" title="4">preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(diffmod,<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)<span class="op">$</span>fit <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb422-5" title="5"><span class="st">  </span><span class="kw">as_tibble</span>()</a></code></pre></div>
+<pre><code>Warning in predict.lm(diffmod, se.fit = TRUE, interval = &quot;prediction&quot;): predictions on current data refer to _future_ responses</code></pre>
+<div class="sourceCode" id="section-cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1">preddat<span class="op">$</span>year &lt;-<span class="st"> </span>worldpoponlyworld<span class="op">$</span>year</a>
+<a class="sourceLine" id="cb424-2" title="2">worldpoppred &lt;-<span class="st"> </span><span class="kw">inner_join</span>(worldpoponlyworld,preddat,<span class="dt">by =</span> <span class="st">&quot;year&quot;</span>)</a>
+<a class="sourceLine" id="cb424-3" title="3"><span class="kw">glimpse</span>(worldpoppred)</a></code></pre></div>
+<pre><code>Observations: 71
+Variables: 6
+$ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
+$ year       &lt;dbl&gt; 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959…
+$ population &lt;dbl&gt; 2536431, 2584034, 2630862, 2677609, 2724847, 2773020, 2822…
+$ fit        &lt;dbl&gt; 2241597, 2319473, 2397350, 2475227, 2553104, 2630980, 2708…
+$ lwr        &lt;dbl&gt; 2042399, 2120494, 2198583, 2276666, 2354743, 2432814, 2510…
+$ upr        &lt;dbl&gt; 2440795, 2518453, 2596117, 2673788, 2751464, 2829147, 2906…</code></pre>
+<div class="sourceCode" id="section-cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1">predplotpredint &lt;-<span class="st"> </span>worldpoppred <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb426-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> fit)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb426-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb426-4" title="4"><span class="st">  </span><span class="co"># Shaded region for the interval</span></a>
+<a class="sourceLine" id="cb426-5" title="5"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lwr,<span class="dt">ymax =</span> upr),<span class="dt">fill =</span> <span class="st">&quot;darkgrey&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb426-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb426-7" title="7"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> population)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb426-8" title="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb426-9" title="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population with estimate and 95% PI&quot;</span>,</a>
+<a class="sourceLine" id="cb426-10" title="10">       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
+<a class="sourceLine" id="cb426-11" title="11">       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb426-12" title="12"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb426-13" title="13"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) x<span class="op">*</span><span class="fl">1e-06</span>)</a>
+<a class="sourceLine" id="cb426-14" title="14">  </a>
+<a class="sourceLine" id="cb426-15" title="15">  </a>
+<a class="sourceLine" id="cb426-16" title="16"></a>
+<a class="sourceLine" id="cb426-17" title="17">predplotpredint</a></code></pre></div>
+<p><img src="book_files/figure-html/plotpreddiffmod1-1.png" width="672" /></p>
+<p>Note how the interval is <em>much</em> wider, and contains about 19/20 <span class="math inline">\(95\%\)</span> of the measured
+values.</p>
+<p><strong>Exercise</strong>: create the same two plots but for the <strong>rate model</strong> (the other
+regression model we did). I got:</p>
+<pre><code>Warning in predict.lm(logmodel, se.fit = TRUE, interval = &quot;prediction&quot;): predictions on current data refer to _future_ responses</code></pre>
+<p><img src="book_files/figure-html/plotratemod1-1.png" width="672" /></p>
+<p>Comment on the difference in width of the two intervals.</p>
 
 </div>
 </div>

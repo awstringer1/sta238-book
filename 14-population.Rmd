@@ -1,5 +1,6 @@
 ```{r load-tidy-123266341,message=FALSE,warning=FALSE}
 library(tidyverse)
+library(patchwork)
 ```
 
 # Extended Example: World Population Data
@@ -508,3 +509,185 @@ and so on.
 Try it with any/all unique combinations of 
 lower quantile $.01,.1,1,2,5$ billion and upper quantile $6,10,15,20,50$ billion.
 Is the posterior very sensitive to the choice of prior?
+
+## Quantifying uncertainty in estimates of world population: regression model
+
+We have done the following linear regression for world population:
+```{r plotdiffmodagain1}
+worldpopplot + geom_abline(slope = coef(diffmod)[2],intercept = coef(diffmod)[1])
+```
+The value of the regression line at any year gives an estimate of the population
+in that year.
+
+However, statistics is the study of **uncertainty**. We don't just want to give
+a single estimate of population, we want to **quantify uncertainty** in this estimate.
+We do so using the probability distribution of the predicted value, and constructing
+an interval in which the predicted value has a high probability of falling, under the
+model. 
+
+The observed world population in year $i$ is:
+$$
+Y_{i} = \beta_{0} + \Delta i + \epsilon_{i}
+$$
+This can be written as
+$$
+Y_{i} = \mu_{i} + \epsilon_{i}
+$$
+where $\mu_{i} = \beta_{0} + \Delta_{i} i$ is the actual world population, and $\epsilon_{i}$
+is some random error. In the linear regression output, we obtain estimates $\hat{\beta}_{0}$ and
+$\hat{\Delta}$. The regression line that is actually plotted is
+$$
+\hat{\mu}_{i} = \hat{\beta}_{0} + \hat{\Delta}i
+$$
+The predicted value of the world population in year $i$ is simply $\hat{\mu}_{i}$.
+Its value along with its standard deviation, $\text{SD}(\hat{\mu}_{i})$, can be obtained from the regression
+output using the `predict` function. To get the estimated world population and $95\%$
+confidence interval for 2010, for example, you could do
+```{r preddiffmod1}
+predict(diffmod,newdata = data.frame(year = 2010),se.fit = TRUE,interval = "confidence")$fit
+```
+
+There is a problem, though. A subtle problem. A confidence interval is interpreted as
+"if we repeated the experiment over and over again and calculated this interval, $95\%$
+of the intervals we calculated would contain the true value". This means that for
+the interval we just calculated, if we were to go into some parallel universe over
+and over again and measure the population of the world from 1950 -- 2020 and build
+this regression model and calculate this interval, the intervals would contain
+the true population of the world $95\%$ of the time.
+
+That's really confusing.
+
+What may instead calculate an interval which has a $95\%$ chance of containing the
+*measured* world population value for 2010 (say), accounting for both uncertainty
+in the estimated world population and the variability in the measurement of world
+population on any given year. If we went back and measured the population for 2010
+over and over again, we think that $95\%$ of such measurements would fall within
+this interval. We call this a **prediction interval** instead of a confidence interval.
+It is based off both the variability in $\hat{\mu}_{i}$ and the variability in
+$\epsilon_{i}$. It is obtained as 
+```{r preddiffmod2}
+predict(diffmod,newdata = data.frame(year = 2010),se.fit = TRUE,interval = "prediction")$fit
+```
+Notice how it is **wider** than the confidence interval, because it accounts for more
+types of uncertainty.
+
+Let's plot the confidence intervals on our plot:
+```{r plotconfdiffmod1}
+# Note: removing the "newdata" argument gives
+# predictions on the original values
+worldpoponlyworld <- filter(worldpop,country=='WORLD')
+preddat <- predict(diffmod,se.fit = TRUE,interval = "confidence")$fit %>%
+  as_tibble()
+preddat$year <- worldpoponlyworld$year
+worldpoppred <- inner_join(worldpoponlyworld,preddat,by = "year")
+glimpse(worldpoppred)
+
+predplotconfint <- worldpoppred %>%
+  ggplot(aes(x = year,y = fit)) +
+  theme_classic() + 
+  # Shaded region for the interval
+  geom_ribbon(aes(ymin = lwr,ymax = upr),fill = "darkgrey") +
+  geom_line() + 
+  geom_point(aes(y = population)) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "World population with estimate and 95% CI",
+       x = "Year",
+       y = "World Population (Billions)") +
+  scale_x_continuous(breaks = seq(1950,2020,by=5)) +
+  scale_y_continuous(labels = function(x) x*1e-06)
+  
+  
+
+predplotconfint
+```
+Notice how the interval is really narrow, and doesn't contain most of the actual
+measured values. This is because it is an interval for the true, unknown value
+of the world population, not the actual measured values themselves.
+
+**Exercise**: create the same plot but with a **prediction interval**. I got the
+following:
+
+```{r plotpreddiffmod1}
+# Note: removing the "newdata" argument gives
+# predictions on the original values
+worldpoponlyworld <- filter(worldpop,country=='WORLD')
+preddat <- predict(diffmod,se.fit = TRUE,interval = "prediction")$fit %>%
+  as_tibble()
+preddat$year <- worldpoponlyworld$year
+worldpoppred <- inner_join(worldpoponlyworld,preddat,by = "year")
+glimpse(worldpoppred)
+
+predplotpredint <- worldpoppred %>%
+  ggplot(aes(x = year,y = fit)) +
+  theme_classic() + 
+  # Shaded region for the interval
+  geom_ribbon(aes(ymin = lwr,ymax = upr),fill = "darkgrey") +
+  geom_line() + 
+  geom_point(aes(y = population)) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "World population with estimate and 95% PI",
+       x = "Year",
+       y = "World Population (Billions)") +
+  scale_x_continuous(breaks = seq(1950,2020,by=5)) +
+  scale_y_continuous(labels = function(x) x*1e-06)
+  
+  
+
+predplotpredint
+```
+
+Note how the interval is *much* wider, and contains about 19/20 $95\%$ of the measured
+values.
+
+**Exercise**: create the same two plots but for the **rate model** (the other
+regression model we did). I got:
+
+```{r plotratemod1,echo = FALSE}
+worldpoponlyworld <- filter(worldpop,country=='WORLD')
+preddat <- predict(logmodel,se.fit = TRUE,interval = "confidence")$fit %>%
+  as_tibble()
+preddat$year <- worldpoponlyworld$year
+worldpoppred <- inner_join(worldpoponlyworld,preddat,by = "year")
+
+logmodconfint <- worldpoppred %>%
+  ggplot(aes(x = year,y = fit)) +
+  theme_classic() + 
+  # Shaded region for the interval
+  geom_ribbon(aes(ymin = lwr,ymax = upr),fill = "darkgrey") +
+  geom_line() + 
+  geom_point(aes(y = log(population))) +
+  coord_trans(y = "exp") + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "World population with estimate and 95% CI",
+       x = "Year",
+       y = "World Population (Billions)") +
+  scale_x_continuous(breaks = seq(1950,2020,by=5)) +
+  scale_y_continuous(breaks = log(3:8 * 1e06),labels = function(x) exp(x)*1e-06)
+  
+worldpoponlyworld <- filter(worldpop,country=='WORLD')
+preddat <- predict(logmodel,se.fit = TRUE,interval = "prediction")$fit %>%
+  as_tibble()
+preddat$year <- worldpoponlyworld$year
+worldpoppred <- inner_join(worldpoponlyworld,preddat,by = "year")
+
+logmodpredint <- worldpoppred %>%
+  ggplot(aes(x = year,y = fit)) +
+  theme_classic() + 
+  # Shaded region for the interval
+  geom_ribbon(aes(ymin = lwr,ymax = upr),fill = "darkgrey") +
+  geom_line() + 
+  geom_point(aes(y = log(population))) +
+  coord_trans(y = "exp") + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "World population with estimate and 95% PI",
+       x = "Year",
+       y = "World Population (Billions)") +
+  scale_x_continuous(breaks = seq(1950,2020,by=5)) +
+  scale_y_continuous(breaks = log(3:8 * 1e06),labels = function(x) exp(x)*1e-06)
+  
+
+
+logmodconfint | logmodpredint
+```
+
+Comment on the difference in width of the two intervals.

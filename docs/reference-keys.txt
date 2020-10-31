@@ -98,3 +98,4 @@ section-extended-example-world-population-data
 section-read-in-and-prepare-the-data-for-analysis
 section-model-world-population-over-time
 section-bayesian-model-for-world-population
+section-quantifying-uncertainty-in-estimates-of-world-population-regression-model
