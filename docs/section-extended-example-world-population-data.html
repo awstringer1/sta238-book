@@ -269,7 +269,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.5.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-and-uncertainty-quantification"><i class="fa fa-check"></i><b>15.5.1</b> Estimation and uncertainty quantification</a></li>
 <li class="chapter" data-level="15.5.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-by-sampling"><i class="fa fa-check"></i><b>15.5.2</b> Estimation by sampling</a></li>
 </ul></li>
-<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a></li>
+<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a><ul>
+<li class="chapter" data-level="15.6.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-why-arent-our-predictions-accurate"><i class="fa fa-check"></i><b>15.6.1</b> Why aren’t our predictions accurate?</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -1180,11 +1182,119 @@ having to do math. Check it out and compare to what we did before:</p>
 <div class="sourceCode" id="section-cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="section-extended-example-world-population-data.html#cb444-1"></a><span class="kw">c</span>(middleint[<span class="dv">1</span>],lambda_med,middleint[<span class="dv">2</span>])</span></code></pre></div>
 <pre><code>[1] 2.8194 5.6150 9.8411</code></pre>
 <p>Sample-based Bayesian inference is a subject of entire upper year courses!</p>
+<p><strong>Exercise</strong>: these estimates and intervals are for the entire world population,
+and for 2010. Do the following:</p>
+<ul>
+<li><p>Pick any country, and year (perhaps the current year, or the year you were born or first
+attended university),</p></li>
+<li><p>Use Bayesian inference to estimate the population of that country in that year.
+Come up with a suitable prior (still use the Gamma, but change the parameters),
+and give a point and interval estimate based upon the posterior distribution.</p></li>
+</ul>
 </div>
 </div>
 <div id="section-predicting-world-population" class="section level2">
 <h2><span class="header-section-number">15.6</span> Predicting world population</h2>
+<p>Finally, let’s predict world population through 2100 and see how our results
+compare to the predictions given by the WHO.</p>
+<p>In section 1 of this chapter we read in the files containing the WHO’s predictions
+for world population until 2100:</p>
+<div class="sourceCode" id="section-cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="section-extended-example-world-population-data.html#cb446-1"></a><span class="kw">glimpse</span>(worldpop_pred)</span></code></pre></div>
+<pre><code>Observations: 4,012
+Variables: 5
+$ country            &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORL…
+$ year               &lt;dbl&gt; 2020, 2025, 2030, 2035, 2040, 2045, 2050, 2055, 20…
+$ population         &lt;dbl&gt; 7794799, 8184437, 8548487, 8887524, 9198847, 94818…
+$ population_lower95 &lt;dbl&gt; 7794799, 8144343, 8460182, 8746077, 8996324, 92131…
+$ population_upper95 &lt;dbl&gt; 7794799, 8223574, 8636041, 9029502, 9396987, 97448…</code></pre>
+<p>The <code>population</code> variable contains their predicted world population for each <code>year</code>
+and the <code>population_lower95</code> and <code>population_upper95</code> contain the endpoints of
+a <span class="math inline">\(95\%\)</span> prediction interval for population. Let’s plot their predictions:</p>
+<div class="sourceCode" id="section-cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="section-extended-example-world-population-data.html#cb448-1"></a>whopredplot &lt;-<span class="st"> </span>worldpop_pred <span class="op">%&gt;%</span></span>
+<span id="cb448-2"><a href="section-extended-example-world-population-data.html#cb448-2"></a><span class="st">  </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &#39;WORLD&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb448-3"><a href="section-extended-example-world-population-data.html#cb448-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year)) <span class="op">+</span></span>
+<span id="cb448-4"><a href="section-extended-example-world-population-data.html#cb448-4"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb448-5"><a href="section-extended-example-world-population-data.html#cb448-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> population<span class="op">*</span><span class="fl">1e-06</span>)) <span class="op">+</span></span>
+<span id="cb448-6"><a href="section-extended-example-world-population-data.html#cb448-6"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> population_lower95<span class="op">*</span><span class="fl">1e-06</span>,<span class="dt">ymax =</span> population_upper95<span class="op">*</span><span class="fl">1e-06</span>),<span class="dt">alpha =</span> <span class="fl">.1</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb448-7"><a href="section-extended-example-world-population-data.html#cb448-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;WHO predicted world population with 95% prediction interval&quot;</span>,</span>
+<span id="cb448-8"><a href="section-extended-example-world-population-data.html#cb448-8"></a>       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</span>
+<span id="cb448-9"><a href="section-extended-example-world-population-data.html#cb448-9"></a>       <span class="dt">y =</span> <span class="st">&quot;World population (Billions)&quot;</span>)</span>
+<span id="cb448-10"><a href="section-extended-example-world-population-data.html#cb448-10"></a>whopredplot</span></code></pre></div>
+<p><img src="book_files/figure-html/plotwhopred1-1.png" width="672" />
+It doesn’t look like the WHO used a simple linear model like we did. We can plot
+<em>our</em> predictions with their associated prediction intervals like this:</p>
+<div class="sourceCode" id="section-cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="section-extended-example-world-population-data.html#cb449-1"></a><span class="co"># Predict for the same years as the WHO</span></span>
+<span id="cb449-2"><a href="section-extended-example-world-population-data.html#cb449-2"></a>datatopredict &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">year =</span> <span class="kw">sort</span>(<span class="kw">unique</span>(worldpop_pred<span class="op">$</span>year)))</span>
+<span id="cb449-3"><a href="section-extended-example-world-population-data.html#cb449-3"></a>preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(diffmod,<span class="dt">newdata =</span> datatopredict,<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)<span class="op">$</span>fit <span class="op">%&gt;%</span></span>
+<span id="cb449-4"><a href="section-extended-example-world-population-data.html#cb449-4"></a><span class="st">  </span><span class="kw">as_tibble</span>()</span>
+<span id="cb449-5"><a href="section-extended-example-world-population-data.html#cb449-5"></a>preddat<span class="op">$</span>year &lt;-<span class="st"> </span>datatopredict<span class="op">$</span>year</span>
+<span id="cb449-6"><a href="section-extended-example-world-population-data.html#cb449-6"></a>worldpoppred &lt;-<span class="st"> </span><span class="kw">inner_join</span>(datatopredict,preddat,<span class="dt">by =</span> <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb449-7"><a href="section-extended-example-world-population-data.html#cb449-7"></a><span class="kw">glimpse</span>(worldpoppred)</span></code></pre></div>
+<pre><code>Observations: 17
+Variables: 4
+$ year &lt;dbl&gt; 2020, 2025, 2030, 2035, 2040, 2045, 2050, 2055, 2060, 2065, 2070…
+$ fit  &lt;dbl&gt; 7692970, 8082354, 8471738, 8861122, 9250505, 9639889, 10029273, …
+$ lwr  &lt;dbl&gt; 7493772, 7881972, 8270023, 8657928, 9045689, 9433310, 9820795, 1…
+$ upr  &lt;dbl&gt; 7892168, 8282736, 8673452, 9064315, 9455322, 9846468, 10237751, …</code></pre>
+<div class="sourceCode" id="section-cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="section-extended-example-world-population-data.html#cb451-1"></a>predplotpredint &lt;-<span class="st"> </span>worldpoppred <span class="op">%&gt;%</span></span>
+<span id="cb451-2"><a href="section-extended-example-world-population-data.html#cb451-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> fit)) <span class="op">+</span></span>
+<span id="cb451-3"><a href="section-extended-example-world-population-data.html#cb451-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb451-4"><a href="section-extended-example-world-population-data.html#cb451-4"></a><span class="st">  </span><span class="co"># Shaded region for the interval</span></span>
+<span id="cb451-5"><a href="section-extended-example-world-population-data.html#cb451-5"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lwr,<span class="dt">ymax =</span> upr),<span class="dt">alpha =</span> <span class="fl">.1</span>) <span class="op">+</span></span>
+<span id="cb451-6"><a href="section-extended-example-world-population-data.html#cb451-6"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb451-7"><a href="section-extended-example-world-population-data.html#cb451-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></span>
+<span id="cb451-8"><a href="section-extended-example-world-population-data.html#cb451-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population with estimate and 95% PI&quot;</span>,</span>
+<span id="cb451-9"><a href="section-extended-example-world-population-data.html#cb451-9"></a>       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</span>
+<span id="cb451-10"><a href="section-extended-example-world-population-data.html#cb451-10"></a>       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></span>
+<span id="cb451-11"><a href="section-extended-example-world-population-data.html#cb451-11"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">2020</span>,<span class="dv">2100</span>,<span class="dt">by=</span><span class="dv">10</span>)) <span class="op">+</span></span>
+<span id="cb451-12"><a href="section-extended-example-world-population-data.html#cb451-12"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) x<span class="op">*</span><span class="fl">1e-06</span>,<span class="dt">breaks =</span> (<span class="dv">8</span><span class="op">:</span><span class="dv">14</span>)<span class="op">*</span><span class="fl">1e06</span>)</span>
+<span id="cb451-13"><a href="section-extended-example-world-population-data.html#cb451-13"></a>  </span>
+<span id="cb451-14"><a href="section-extended-example-world-population-data.html#cb451-14"></a>  </span>
+<span id="cb451-15"><a href="section-extended-example-world-population-data.html#cb451-15"></a></span>
+<span id="cb451-16"><a href="section-extended-example-world-population-data.html#cb451-16"></a>predplotpredint <span class="op">|</span><span class="st"> </span>whopredplot</span></code></pre></div>
+<p><img src="book_files/figure-html/plotourpreds1-1.png" width="672" />
+Our model is simpler than whatever the WHO did: we predict that population is
+going to go up by the same amount each year for the next 80 years. Does that seem
+reasonable? Because we impose such a stringent assumption on the phenomenon
+we’re trying to model, we get really confident predictions, as measured by the
+width of the prediction interval. But, this is not necessarily good: we might be
+confidently incorrect! We probably are; the WHO knows what they are doing, and they
+built a model which allows for a curvy relationship between time and population,
+but with much wider uncertainty bands. Predictive modelling is an art as well as
+a science.</p>
+<p><strong>Exercise</strong>: try it yourself. Use our previous “log” model which assumed a constant
+<em>rate</em> of population growth over time. I got the following:</p>
+<pre><code>Observations: 17
+Variables: 4
+$ year &lt;dbl&gt; 2020, 2025, 2030, 2035, 2040, 2045, 2050, 2055, 2060, 2065, 2070…
+$ fit  &lt;dbl&gt; 15.939, 16.022, 16.104, 16.186, 16.269, 16.351, 16.433, 16.515, …
+$ lwr  &lt;dbl&gt; 15.874, 15.956, 16.038, 16.120, 16.201, 16.283, 16.365, 16.446, …
+$ upr  &lt;dbl&gt; 16.005, 16.087, 16.170, 16.253, 16.336, 16.419, 16.502, 16.584, …</code></pre>
+<p><img src="book_files/figure-html/plotourpreds2-1.png" width="672" />
+Woah! This model looks even worse. However, it is a bit more flexible (just a bit) than
+the simple linear model, and the prediction interval is even wider.</p>
+<p><strong>Exercise</strong>: pick your favourite country and year, and predict its population to
+2100 and compare with the WHO. Are your predictions more or less reasonable than
+what we did for the total world population?</p>
+<div id="section-why-arent-our-predictions-accurate" class="section level3">
+<h3><span class="header-section-number">15.6.1</span> Why aren’t our predictions accurate?</h3>
+<p>The WHO uses decades (centuries?) of demographic theory and research, combined
+with data on mortality, fertility, and other demographic factors to make its
+predictions. They are constantly changing as new information and theories become
+available. In contrast, we just took some numbers and plugged them into a textbook
+statistical procedure. It would be troubling if we got anything remotely comparable
+to what the WHO got using this approach.</p>
+<p>Keep this in mind as you approach your future projects and industry or academic
+work. This example was useful for teaching the mechanics of prediction, but
+there is an upper limit to how good you can get without domain-specific knowledge
+and additional data sources. In upper year courses you’ll learn about new types
+of fancy predictive (and other) models, which is great, but it always always always
+pays to think about the problem harder too! Better statistical techniques are
+not a replacement for better science.</p>
+<p>With that, you’re done STA238. Hope you enjoyed the course, and maybe see you
+in future courses too :).</p>
 
+</div>
 </div>
 </div>
             </section>

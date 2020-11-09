@@ -901,4 +901,130 @@ c(middleint[1],lambda_med,middleint[2])
 
 Sample-based Bayesian inference is a subject of entire upper year courses!
 
+**Exercise**: these estimates and intervals are for the entire world population,
+and for 2010. Do the following:
+
+- Pick any country, and year (perhaps the current year, or the year you were born or first
+attended university),
+
+- Use Bayesian inference to estimate the population of that country in that year.
+Come up with a suitable prior (still use the Gamma, but change the parameters),
+and give a point and interval estimate based upon the posterior distribution.
+
 ## Predicting world population
+
+Finally, let's predict world population through 2100 and see how our results
+compare to the predictions given by the WHO.
+
+In section 1 of this chapter we read in the files containing the WHO's predictions
+for world population until 2100:
+```{r worldpoppred1}
+glimpse(worldpop_pred)
+```
+The `population` variable contains their predicted world population for each `year`
+and the `population_lower95` and `population_upper95` contain the endpoints of 
+a $95\%$ prediction interval for population. Let's plot their predictions:
+
+```{r plotwhopred1}
+whopredplot <- worldpop_pred %>%
+  filter(country == 'WORLD') %>%
+  ggplot(aes(x = year)) +
+  theme_classic() +
+  geom_point(aes(y = population*1e-06)) +
+  geom_ribbon(aes(ymin = population_lower95*1e-06,ymax = population_upper95*1e-06),alpha = .1) + 
+  labs(title = "WHO predicted world population with 95% prediction interval",
+       x = "Year",
+       y = "World population (Billions)")
+whopredplot
+```
+It doesn't look like the WHO used a simple linear model like we did. We can plot
+*our* predictions with their associated prediction intervals like this:
+
+```{r plotourpreds1}
+# Predict for the same years as the WHO
+datatopredict <- data.frame(year = sort(unique(worldpop_pred$year)))
+preddat <- predict(diffmod,newdata = datatopredict,se.fit = TRUE,interval = "prediction")$fit %>%
+  as_tibble()
+preddat$year <- datatopredict$year
+worldpoppred <- inner_join(datatopredict,preddat,by = "year")
+glimpse(worldpoppred)
+
+predplotpredint <- worldpoppred %>%
+  ggplot(aes(x = year,y = fit)) +
+  theme_classic() + 
+  # Shaded region for the interval
+  geom_ribbon(aes(ymin = lwr,ymax = upr),alpha = .1) +
+  geom_line() + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "World population with estimate and 95% PI",
+       x = "Year",
+       y = "World Population (Billions)") +
+  scale_x_continuous(breaks = seq(2020,2100,by=10)) +
+  scale_y_continuous(labels = function(x) x*1e-06,breaks = (8:14)*1e06)
+  
+  
+
+predplotpredint | whopredplot
+```
+Our model is simpler than whatever the WHO did: we predict that population is
+going to go up by the same amount each year for the next 80 years. Does that seem
+reasonable? Because we impose such a stringent assumption on the phenomenon
+we're trying to model, we get really confident predictions, as measured by the
+width of the prediction interval. But, this is not necessarily good: we might be
+confidently incorrect! We probably are; the WHO knows what they are doing, and they
+built a model which allows for a curvy relationship between time and population,
+but with much wider uncertainty bands. Predictive modelling is an art as well as
+a science.
+
+**Exercise**: try it yourself. Use our previous "log" model which assumed a constant
+*rate* of population growth over time. I got the following:
+
+```{r plotourpreds2,echo=FALSE}
+datatopredict <- data.frame(year = sort(unique(worldpop_pred$year)))
+preddat <- predict(logmodel,newdata = datatopredict,se.fit = TRUE,interval = "prediction")$fit %>%
+  as_tibble()
+preddat$year <- datatopredict$year
+worldpoppred <- inner_join(datatopredict,preddat,by = "year")
+glimpse(worldpoppred)
+
+predplotpredint <- worldpoppred %>%
+  ggplot(aes(x = year,y = exp(fit))) +
+  theme_classic() + 
+  # Shaded region for the interval
+  geom_ribbon(aes(ymin = exp(lwr),ymax = exp(upr)),alpha = .1) +
+  geom_line() + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "World population with estimate and 95% PI",
+       x = "Year",
+       y = "World Population (Billions)") +
+  scale_x_continuous(breaks = seq(2020,2100,by=10)) +
+  scale_y_continuous(labels = function(x) x*1e-06,breaks = seq(5,40,by=2)*1e06)
+  
+predplotpredint | whopredplot
+```
+Woah! This model looks even worse. However, it is a bit more flexible (just a bit) than
+the simple linear model, and the prediction interval is even wider.
+
+**Exercise**: pick your favourite country and year, and predict its population to
+2100 and compare with the WHO. Are your predictions more or less reasonable than
+what we did for the total world population?
+
+### Why aren't our predictions accurate?
+
+The WHO uses decades (centuries?) of demographic theory and research, combined
+with data on mortality, fertility, and other demographic factors to make its
+predictions. They are constantly changing as new information and theories become
+available. In contrast, we just took some numbers and plugged them into a textbook
+statistical procedure. It would be troubling if we got anything remotely comparable
+to what the WHO got using this approach.
+
+Keep this in mind as you approach your future projects and industry or academic
+work. This example was useful for teaching the mechanics of prediction, but
+there is an upper limit to how good you can get without domain-specific knowledge
+and additional data sources. In upper year courses you'll learn about new types
+of fancy predictive (and other) models, which is great, but it always always always
+pays to think about the problem harder too! Better statistical techniques are
+not a replacement for better science.
+
+With that, you're done STA238. Hope you enjoyed the course, and maybe see you
+in future courses too :).
