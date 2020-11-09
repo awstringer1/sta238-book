@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2020-10-31" />
+<meta name="date" content="2020-11-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,14 +50,15 @@
 
 
 
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -66,14 +67,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -262,6 +265,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-model-world-population-over-time"><i class="fa fa-check"></i><b>15.2</b> Model world population over time</a></li>
 <li class="chapter" data-level="15.3" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-model-for-world-population"><i class="fa fa-check"></i><b>15.3</b> Bayesian model for world population</a></li>
 <li class="chapter" data-level="15.4" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-quantifying-uncertainty-in-estimates-of-world-population-regression-model"><i class="fa fa-check"></i><b>15.4</b> Quantifying uncertainty in estimates of world population: regression model</a></li>
+<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-and-uncertainty-quantification"><i class="fa fa-check"></i><b>15.5.1</b> Estimation and uncertainty quantification</a></li>
+<li class="chapter" data-level="15.5.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-by-sampling"><i class="fa fa-check"></i><b>15.5.2</b> Estimation by sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -342,7 +350,7 @@ to relate the average hardness of the wood to its density. So <span class="math 
 and <span class="math inline">\(x_{i}\)</span> is density and we will do inference for the two unknown parameters
 in the linear regression model.</p>
 <p>First read in the data. Print it out on the command line:</p>
-<div class="sourceCode" id="section-cb141"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb141-1" title="1"><span class="fu">head</span> data/MIPSdata/jankahardness.txt</a></code></pre></div>
+<div class="sourceCode" id="section-cb141"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb141-1"><a href="section-statistical-models.html#cb141-1"></a><span class="fu">head</span> data/MIPSdata/jankahardness.txt</span></code></pre></div>
 <pre><code>24.7    484
 24.8    427
 27.3    413
@@ -355,43 +363,43 @@ in the linear regression model.</p>
 38.5    914</code></pre>
 <p>By printing it out on the command line, you can tell that the file is <em>tab-delimited</em>.
 Use <code>readr::read_delim()</code> to read it in:</p>
-<div class="sourceCode" id="section-cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb143-2" title="2"><span class="kw">library</span>(patchwork)</a>
-<a class="sourceLine" id="cb143-3" title="3">janka &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_delim</span>(</a>
-<a class="sourceLine" id="cb143-4" title="4">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/jankahardness.txt&quot;</span>,</a>
-<a class="sourceLine" id="cb143-5" title="5">  <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>,</a>
-<a class="sourceLine" id="cb143-6" title="6">  <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;density&quot;</span>,<span class="st">&quot;hardness&quot;</span>),</a>
-<a class="sourceLine" id="cb143-7" title="7">  <span class="dt">col_types =</span> <span class="st">&quot;nn&quot;</span></a>
-<a class="sourceLine" id="cb143-8" title="8">)</a>
-<a class="sourceLine" id="cb143-9" title="9"><span class="kw">glimpse</span>(janka)</a></code></pre></div>
+<div class="sourceCode" id="section-cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="section-statistical-models.html#cb143-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb143-2"><a href="section-statistical-models.html#cb143-2"></a><span class="kw">library</span>(patchwork)</span>
+<span id="cb143-3"><a href="section-statistical-models.html#cb143-3"></a>janka &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_delim</span>(</span>
+<span id="cb143-4"><a href="section-statistical-models.html#cb143-4"></a>  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/jankahardness.txt&quot;</span>,</span>
+<span id="cb143-5"><a href="section-statistical-models.html#cb143-5"></a>  <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>,</span>
+<span id="cb143-6"><a href="section-statistical-models.html#cb143-6"></a>  <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;density&quot;</span>,<span class="st">&quot;hardness&quot;</span>),</span>
+<span id="cb143-7"><a href="section-statistical-models.html#cb143-7"></a>  <span class="dt">col_types =</span> <span class="st">&quot;nn&quot;</span></span>
+<span id="cb143-8"><a href="section-statistical-models.html#cb143-8"></a>)</span>
+<span id="cb143-9"><a href="section-statistical-models.html#cb143-9"></a><span class="kw">glimpse</span>(janka)</span></code></pre></div>
 <pre><code>Observations: 36
 Variables: 2
 $ density  &lt;dbl&gt; 25, 25, 27, 28, 28, 29, 30, 33, 36, 38, 39, 39, 39, 40, 40, …
 $ hardness &lt;dbl&gt; 484, 427, 413, 517, 549, 648, 587, 704, 979, 914, 1070, 1020…</code></pre>
 <p>Create a scatterplot with <code>ggplot2</code>:</p>
-<div class="sourceCode" id="section-cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1">jankascatter &lt;-<span class="st"> </span>janka <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb145-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> density,<span class="dt">y =</span> hardness)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb145-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb145-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb145-5" title="5"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">20</span>,<span class="dv">80</span>,<span class="dt">by=</span><span class="dv">10</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb145-6" title="6"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3500</span>,<span class="dt">by=</span><span class="dv">500</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb145-7" title="7"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">20</span>,<span class="dv">80</span>),<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">3500</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb145-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wood density&quot;</span>,</a>
-<a class="sourceLine" id="cb145-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Hardness&quot;</span>)</a>
-<a class="sourceLine" id="cb145-10" title="10">jankascatter</a></code></pre></div>
+<div class="sourceCode" id="section-cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="section-statistical-models.html#cb145-1"></a>jankascatter &lt;-<span class="st"> </span>janka <span class="op">%&gt;%</span></span>
+<span id="cb145-2"><a href="section-statistical-models.html#cb145-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> density,<span class="dt">y =</span> hardness)) <span class="op">+</span></span>
+<span id="cb145-3"><a href="section-statistical-models.html#cb145-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb145-4"><a href="section-statistical-models.html#cb145-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb145-5"><a href="section-statistical-models.html#cb145-5"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">20</span>,<span class="dv">80</span>,<span class="dt">by=</span><span class="dv">10</span>)) <span class="op">+</span></span>
+<span id="cb145-6"><a href="section-statistical-models.html#cb145-6"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3500</span>,<span class="dt">by=</span><span class="dv">500</span>)) <span class="op">+</span></span>
+<span id="cb145-7"><a href="section-statistical-models.html#cb145-7"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">20</span>,<span class="dv">80</span>),<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">3500</span>)) <span class="op">+</span></span>
+<span id="cb145-8"><a href="section-statistical-models.html#cb145-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wood density&quot;</span>,</span>
+<span id="cb145-9"><a href="section-statistical-models.html#cb145-9"></a>       <span class="dt">y =</span> <span class="st">&quot;Hardness&quot;</span>)</span>
+<span id="cb145-10"><a href="section-statistical-models.html#cb145-10"></a>jankascatter</span></code></pre></div>
 <p><img src="book_files/figure-html/janka-2-1.png" width="672" /></p>
 <p>It looks like on average, the hardness of the wood increases linearly with its density.
 A linear regression model might be appropriate.</p>
 <p>To add a line to a plot, use <code>geom_abline()</code>:</p>
-<div class="sourceCode" id="section-cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1">jankascatter <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb146-2" title="2"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="fl">57.51</span>,<span class="dt">intercept =</span> <span class="fl">-1160.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="section-statistical-models.html#cb146-1"></a>jankascatter <span class="op">+</span><span class="st"> </span></span>
+<span id="cb146-2"><a href="section-statistical-models.html#cb146-2"></a><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="fl">57.51</span>,<span class="dt">intercept =</span> <span class="fl">-1160.5</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/janka-3-1.png" width="672" /></p>
 <p>In a later chapter, you will learn how to calculate the <span class="math inline">\(-1160.5\)</span> and the <span class="math inline">\(57.51\)</span>
 yourself. But for now, it would still be nice to get the computer to compute these
 values for us rather than typing them in manually. We can do this using the
 <code>geom_smooth()</code> function in <code>ggplot2</code>:</p>
-<div class="sourceCode" id="section-cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">jankascatter <span class="op">+</span></a>
-<a class="sourceLine" id="cb147-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="section-statistical-models.html#cb147-1"></a>jankascatter <span class="op">+</span></span>
+<span id="cb147-2"><a href="section-statistical-models.html#cb147-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/janka-4-1.png" width="672" /></p>
 <p>The “lm” stands for “linear model” and the “se” stands for “standard error”; leaving
 this at its default of “TRUE” would add error bars to the line. We haven’t learned
@@ -402,8 +410,8 @@ by breaking the <span class="math inline">\(x\)</span> axis up into chunks and t
 chunk and then joining the resulting lines together.
 It roughly stands for “local regression and smoothing
 splines”. We can add this using <code>ggplot2</code> as well:</p>
-<div class="sourceCode" id="section-cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1">jankascatter <span class="op">+</span></a>
-<a class="sourceLine" id="cb148-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="section-statistical-models.html#cb148-1"></a>jankascatter <span class="op">+</span></span>
+<span id="cb148-2"><a href="section-statistical-models.html#cb148-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/janka-5-1.png" width="672" /></p>
 <p>For these data, this isn’t much different.</p>
 </div>
@@ -423,8 +431,8 @@ since it’s a bit tricky to describe exactly how, I have put the file
 and analyze the relationship between <code>year</code> and <code>revenue</code>.</p>
 <p>If you’re thinking “that sounds really easy, we just did that!”… just keep reading.</p>
 <p>First, print the data out and count the number of rows on the command line:</p>
-<div class="sourceCode" id="section-cb149"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb149-1" title="1"><span class="fu">head</span> data/ttc-ridership-revenues.csv</a>
-<a class="sourceLine" id="cb149-2" title="2"><span class="fu">wc</span> -l data/ttc-ridership-revenues.csv</a></code></pre></div>
+<div class="sourceCode" id="section-cb149"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb149-1"><a href="section-statistical-models.html#cb149-1"></a><span class="fu">head</span> data/ttc-ridership-revenues.csv</span>
+<span id="cb149-2"><a href="section-statistical-models.html#cb149-2"></a><span class="fu">wc</span> -l data/ttc-ridership-revenues.csv</span></code></pre></div>
 <pre><code>Year,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec
 2007 YTD Actual,$70600000,$131200000,$204600000,$264900000,$322000000,$395100000,$452100000,$507500000,$585600000,$646900000,$712500000,$774700000
 2008 YTD Actual,$72700000,$137600000,$217500000,$278200000,$340600000,$419600000,$482400000,$544100000,$629000000,$696400000,$766600000,$837000000
@@ -445,13 +453,13 @@ and super common.</p>
 similar UNIX-based tool, but I prefer whenever possible to keep all my analysis
 on one platform. We’ll read it into <code>R</code> as-is and then parse and change datatypes
 there:</p>
-<div class="sourceCode" id="section-cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1"><span class="co"># Read in the data</span></a>
-<a class="sourceLine" id="cb151-2" title="2">ridership &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb151-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/ttc-ridership-revenues.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb151-4" title="4">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>, <span class="co"># Tells readr to read the column names from the first line of the file.</span></a>
-<a class="sourceLine" id="cb151-5" title="5">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">13</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>) <span class="co"># Read all 13 columns as &quot;c&quot;haracter</span></a>
-<a class="sourceLine" id="cb151-6" title="6">)</a>
-<a class="sourceLine" id="cb151-7" title="7"><span class="kw">glimpse</span>(ridership)</a></code></pre></div>
+<div class="sourceCode" id="section-cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="section-statistical-models.html#cb151-1"></a><span class="co"># Read in the data</span></span>
+<span id="cb151-2"><a href="section-statistical-models.html#cb151-2"></a>ridership &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
+<span id="cb151-3"><a href="section-statistical-models.html#cb151-3"></a>  <span class="dt">file =</span> <span class="st">&quot;data/ttc-ridership-revenues.csv&quot;</span>,</span>
+<span id="cb151-4"><a href="section-statistical-models.html#cb151-4"></a>  <span class="dt">col_names =</span> <span class="ot">TRUE</span>, <span class="co"># Tells readr to read the column names from the first line of the file.</span></span>
+<span id="cb151-5"><a href="section-statistical-models.html#cb151-5"></a>  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">13</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>) <span class="co"># Read all 13 columns as &quot;c&quot;haracter</span></span>
+<span id="cb151-6"><a href="section-statistical-models.html#cb151-6"></a>)</span>
+<span id="cb151-7"><a href="section-statistical-models.html#cb151-7"></a><span class="kw">glimpse</span>(ridership)</span></code></pre></div>
 <pre><code>Observations: 13
 Variables: 13
 $ Year &lt;chr&gt; &quot;2007 YTD Actual&quot;, &quot;2008 YTD Actual&quot;, &quot;2009 YTD Actual&quot;, &quot;2010 Y…
@@ -480,26 +488,26 @@ We want the monthly revenues.</li>
 </ol>
 <p>Problems 1 and 3 require a bit of text parsing; Problem 2 requires converting from
 “wide” to “long” format. Let’s do it:</p>
-<div class="sourceCode" id="section-cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1"><span class="co"># PROBLEM 1: Year</span></a>
-<a class="sourceLine" id="cb153-2" title="2"><span class="co"># To parse out only the number part, use a regular expression.</span></a>
-<a class="sourceLine" id="cb153-3" title="3"><span class="co"># Our string starts with a four digit number which starts with 20. We want to capture this number</span></a>
-<a class="sourceLine" id="cb153-4" title="4"><span class="co"># and nothing else.</span></a>
-<a class="sourceLine" id="cb153-5" title="5"><span class="co"># The ^ means &quot;the start of the string&quot;.</span></a>
-<a class="sourceLine" id="cb153-6" title="6"><span class="co"># The [20]{2} means &quot;a 0 or a 2, exactly twice&quot;</span></a>
-<a class="sourceLine" id="cb153-7" title="7"><span class="co"># The [0-9]{2} means &quot;anything from 0 - 9, exactly twice&quot;</span></a>
-<a class="sourceLine" id="cb153-8" title="8">year_regex &lt;-<span class="st"> &quot;^[20]{2}[0-9]{2}&quot;</span></a>
-<a class="sourceLine" id="cb153-9" title="9"><span class="co"># Use stringr::str_extract to extract a substring matching the regular expression:</span></a>
-<a class="sourceLine" id="cb153-10" title="10">stringr<span class="op">::</span><span class="kw">str_extract</span>(<span class="st">&quot;2007 YTD Actual&quot;</span>,year_regex)</a></code></pre></div>
+<div class="sourceCode" id="section-cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="section-statistical-models.html#cb153-1"></a><span class="co"># PROBLEM 1: Year</span></span>
+<span id="cb153-2"><a href="section-statistical-models.html#cb153-2"></a><span class="co"># To parse out only the number part, use a regular expression.</span></span>
+<span id="cb153-3"><a href="section-statistical-models.html#cb153-3"></a><span class="co"># Our string starts with a four digit number which starts with 20. We want to capture this number</span></span>
+<span id="cb153-4"><a href="section-statistical-models.html#cb153-4"></a><span class="co"># and nothing else.</span></span>
+<span id="cb153-5"><a href="section-statistical-models.html#cb153-5"></a><span class="co"># The ^ means &quot;the start of the string&quot;.</span></span>
+<span id="cb153-6"><a href="section-statistical-models.html#cb153-6"></a><span class="co"># The [20]{2} means &quot;a 0 or a 2, exactly twice&quot;</span></span>
+<span id="cb153-7"><a href="section-statistical-models.html#cb153-7"></a><span class="co"># The [0-9]{2} means &quot;anything from 0 - 9, exactly twice&quot;</span></span>
+<span id="cb153-8"><a href="section-statistical-models.html#cb153-8"></a>year_regex &lt;-<span class="st"> &quot;^[20]{2}[0-9]{2}&quot;</span></span>
+<span id="cb153-9"><a href="section-statistical-models.html#cb153-9"></a><span class="co"># Use stringr::str_extract to extract a substring matching the regular expression:</span></span>
+<span id="cb153-10"><a href="section-statistical-models.html#cb153-10"></a>stringr<span class="op">::</span><span class="kw">str_extract</span>(<span class="st">&quot;2007 YTD Actual&quot;</span>,year_regex)</span></code></pre></div>
 <pre><code>[1] &quot;2007&quot;</code></pre>
-<div class="sourceCode" id="section-cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1"><span class="co"># PROBLEM 2: wide to long</span></a>
-<a class="sourceLine" id="cb155-2" title="2"><span class="co"># Use the tidyr::pivot_longer() function for gathering columns and putting them</span></a>
-<a class="sourceLine" id="cb155-3" title="3"><span class="co"># into one column:</span></a>
-<a class="sourceLine" id="cb155-4" title="4">ridership <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb155-5" title="5"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</a>
-<a class="sourceLine" id="cb155-6" title="6">    Jan<span class="op">:</span>Dec, <span class="co"># Collect columns Jan through Dec, including everything between</span></a>
-<a class="sourceLine" id="cb155-7" title="7">    <span class="dt">names_to =</span> <span class="st">&quot;month&quot;</span>, <span class="co"># Create a new column called &quot;month&quot; which contains the names of the old columns</span></a>
-<a class="sourceLine" id="cb155-8" title="8">    <span class="dt">values_to =</span> <span class="st">&quot;revenue&quot;</span> <span class="co"># Create a new column called &quot;revenue&quot; which contains the values of the old columns</span></a>
-<a class="sourceLine" id="cb155-9" title="9">  )</a></code></pre></div>
+<div class="sourceCode" id="section-cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="section-statistical-models.html#cb155-1"></a><span class="co"># PROBLEM 2: wide to long</span></span>
+<span id="cb155-2"><a href="section-statistical-models.html#cb155-2"></a><span class="co"># Use the tidyr::pivot_longer() function for gathering columns and putting them</span></span>
+<span id="cb155-3"><a href="section-statistical-models.html#cb155-3"></a><span class="co"># into one column:</span></span>
+<span id="cb155-4"><a href="section-statistical-models.html#cb155-4"></a>ridership <span class="op">%&gt;%</span></span>
+<span id="cb155-5"><a href="section-statistical-models.html#cb155-5"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</span>
+<span id="cb155-6"><a href="section-statistical-models.html#cb155-6"></a>    Jan<span class="op">:</span>Dec, <span class="co"># Collect columns Jan through Dec, including everything between</span></span>
+<span id="cb155-7"><a href="section-statistical-models.html#cb155-7"></a>    <span class="dt">names_to =</span> <span class="st">&quot;month&quot;</span>, <span class="co"># Create a new column called &quot;month&quot; which contains the names of the old columns</span></span>
+<span id="cb155-8"><a href="section-statistical-models.html#cb155-8"></a>    <span class="dt">values_to =</span> <span class="st">&quot;revenue&quot;</span> <span class="co"># Create a new column called &quot;revenue&quot; which contains the values of the old columns</span></span>
+<span id="cb155-9"><a href="section-statistical-models.html#cb155-9"></a>  )</span></code></pre></div>
 <pre><code># A tibble: 156 x 3
    Year            month revenue   
    &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;     
@@ -514,57 +522,57 @@ We want the monthly revenues.</li>
  9 2007 YTD Actual Sep   $585600000
 10 2007 YTD Actual Oct   $646900000
 # … with 146 more rows</code></pre>
-<div class="sourceCode" id="section-cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="co"># PROBLEM 3: removing the dollar sign</span></a>
-<a class="sourceLine" id="cb157-2" title="2"><span class="co"># Again, use text matching. Because $ is itself a special character,</span></a>
-<a class="sourceLine" id="cb157-3" title="3"><span class="co"># to match it, you have to &quot;escape&quot; it using a backslash</span></a>
-<a class="sourceLine" id="cb157-4" title="4">dollar_regex &lt;-<span class="st"> &quot;</span><span class="ch">\\</span><span class="st">$&quot;</span></a>
-<a class="sourceLine" id="cb157-5" title="5"><span class="co"># Remove matching strings using stringr::str_remove()</span></a>
-<a class="sourceLine" id="cb157-6" title="6">stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;$1234&quot;</span>,dollar_regex)</a></code></pre></div>
+<div class="sourceCode" id="section-cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="section-statistical-models.html#cb157-1"></a><span class="co"># PROBLEM 3: removing the dollar sign</span></span>
+<span id="cb157-2"><a href="section-statistical-models.html#cb157-2"></a><span class="co"># Again, use text matching. Because $ is itself a special character,</span></span>
+<span id="cb157-3"><a href="section-statistical-models.html#cb157-3"></a><span class="co"># to match it, you have to &quot;escape&quot; it using a backslash</span></span>
+<span id="cb157-4"><a href="section-statistical-models.html#cb157-4"></a>dollar_regex &lt;-<span class="st"> &quot;</span><span class="ch">\\</span><span class="st">$&quot;</span></span>
+<span id="cb157-5"><a href="section-statistical-models.html#cb157-5"></a><span class="co"># Remove matching strings using stringr::str_remove()</span></span>
+<span id="cb157-6"><a href="section-statistical-models.html#cb157-6"></a>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;$1234&quot;</span>,dollar_regex)</span></code></pre></div>
 <pre><code>[1] &quot;1234&quot;</code></pre>
-<div class="sourceCode" id="section-cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="co"># PROBLEM 4: going from cumulative to monthly revenue</span></a>
-<a class="sourceLine" id="cb159-2" title="2"><span class="co"># The cumulative revenue for 2007 is:</span></a>
-<a class="sourceLine" id="cb159-3" title="3">cumrev2007 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="kw">as.character</span>(ridership[<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>]),dollar_regex))</a>
-<a class="sourceLine" id="cb159-4" title="4">cumrev2007</a></code></pre></div>
+<div class="sourceCode" id="section-cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="section-statistical-models.html#cb159-1"></a><span class="co"># PROBLEM 4: going from cumulative to monthly revenue</span></span>
+<span id="cb159-2"><a href="section-statistical-models.html#cb159-2"></a><span class="co"># The cumulative revenue for 2007 is:</span></span>
+<span id="cb159-3"><a href="section-statistical-models.html#cb159-3"></a>cumrev2007 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="kw">as.character</span>(ridership[<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>]),dollar_regex))</span>
+<span id="cb159-4"><a href="section-statistical-models.html#cb159-4"></a>cumrev2007</span></code></pre></div>
 <pre><code> [1] 7.1e+07 1.3e+08 2.0e+08 2.6e+08 3.2e+08 4.0e+08 4.5e+08 5.1e+08 5.9e+08
 [10] 6.5e+08 7.1e+08 7.7e+08</code></pre>
-<div class="sourceCode" id="section-cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="co"># The monthly revenue for (e.g.) Feb is</span></a>
-<a class="sourceLine" id="cb161-2" title="2">cumrev2007[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>cumrev2007[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="section-cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="section-statistical-models.html#cb161-1"></a><span class="co"># The monthly revenue for (e.g.) Feb is</span></span>
+<span id="cb161-2"><a href="section-statistical-models.html#cb161-2"></a>cumrev2007[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>cumrev2007[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>[1] 6.1e+07</code></pre>
-<div class="sourceCode" id="section-cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="co"># Can do this all at once like</span></a>
-<a class="sourceLine" id="cb163-2" title="2"><span class="kw">c</span>(cumrev2007[<span class="dv">1</span>],cumrev2007[<span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(cumrev2007)] <span class="op">-</span><span class="st"> </span>cumrev2007[<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(cumrev2007)<span class="op">-</span><span class="dv">1</span>)])</a></code></pre></div>
+<div class="sourceCode" id="section-cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="section-statistical-models.html#cb163-1"></a><span class="co"># Can do this all at once like</span></span>
+<span id="cb163-2"><a href="section-statistical-models.html#cb163-2"></a><span class="kw">c</span>(cumrev2007[<span class="dv">1</span>],cumrev2007[<span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(cumrev2007)] <span class="op">-</span><span class="st"> </span>cumrev2007[<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(cumrev2007)<span class="op">-</span><span class="dv">1</span>)])</span></code></pre></div>
 <pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07
 [10] 6.1e+07 6.6e+07 6.2e+07</code></pre>
-<div class="sourceCode" id="section-cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1"><span class="co"># or</span></a>
-<a class="sourceLine" id="cb165-2" title="2"><span class="kw">c</span>(cumrev2007[<span class="dv">1</span>],<span class="kw">diff</span>(cumrev2007))</a></code></pre></div>
+<div class="sourceCode" id="section-cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="section-statistical-models.html#cb165-1"></a><span class="co"># or</span></span>
+<span id="cb165-2"><a href="section-statistical-models.html#cb165-2"></a><span class="kw">c</span>(cumrev2007[<span class="dv">1</span>],<span class="kw">diff</span>(cumrev2007))</span></code></pre></div>
 <pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07
 [10] 6.1e+07 6.6e+07 6.2e+07</code></pre>
-<div class="sourceCode" id="section-cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="co"># but both those are a bit clumsy, and won&#39;t work inside a data processing</span></a>
-<a class="sourceLine" id="cb167-2" title="2"><span class="co"># pipeline with grouping. The lag() function in the dplyr package</span></a>
-<a class="sourceLine" id="cb167-3" title="3"><span class="co"># is meant for use within a data processing pipeline:</span></a>
-<a class="sourceLine" id="cb167-4" title="4">cumrev2007 <span class="op">-</span><span class="st"> </span><span class="kw">lag</span>(cumrev2007,<span class="dt">n=</span><span class="dv">1</span>,<span class="dt">default =</span> <span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="section-statistical-models.html#cb167-1"></a><span class="co"># but both those are a bit clumsy, and won&#39;t work inside a data processing</span></span>
+<span id="cb167-2"><a href="section-statistical-models.html#cb167-2"></a><span class="co"># pipeline with grouping. The lag() function in the dplyr package</span></span>
+<span id="cb167-3"><a href="section-statistical-models.html#cb167-3"></a><span class="co"># is meant for use within a data processing pipeline:</span></span>
+<span id="cb167-4"><a href="section-statistical-models.html#cb167-4"></a>cumrev2007 <span class="op">-</span><span class="st"> </span><span class="kw">lag</span>(cumrev2007,<span class="dt">n=</span><span class="dv">1</span>,<span class="dt">default =</span> <span class="dv">0</span>)</span></code></pre></div>
 <pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07
 [10] 6.1e+07 6.6e+07 6.2e+07</code></pre>
-<div class="sourceCode" id="section-cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1"><span class="co"># and will let us do this for all years at once using one line of code below.</span></a>
-<a class="sourceLine" id="cb169-2" title="2"></a>
-<a class="sourceLine" id="cb169-3" title="3"><span class="co"># Now, combine all these into one data cleaning pipeline.</span></a>
-<a class="sourceLine" id="cb169-4" title="4"><span class="co"># Remember we have monthly revenue, so to get yearly revenue, we sum</span></a>
-<a class="sourceLine" id="cb169-5" title="5"><span class="co"># over months.</span></a>
-<a class="sourceLine" id="cb169-6" title="6">ridership_clean &lt;-<span class="st"> </span>ridership <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb169-7" title="7"><span class="st">    </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</a>
-<a class="sourceLine" id="cb169-8" title="8">    Jan<span class="op">:</span>Dec,</a>
-<a class="sourceLine" id="cb169-9" title="9">    <span class="dt">names_to =</span> <span class="st">&quot;month&quot;</span>,</a>
-<a class="sourceLine" id="cb169-10" title="10">    <span class="dt">values_to =</span> <span class="st">&quot;revenue&quot;</span></a>
-<a class="sourceLine" id="cb169-11" title="11">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb169-12" title="12"><span class="st">  </span><span class="co"># &quot;transmute&quot; is like mutate, but it deletes all original columns</span></a>
-<a class="sourceLine" id="cb169-13" title="13"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> stringr<span class="op">::</span><span class="kw">str_extract</span>(Year,year_regex),</a>
-<a class="sourceLine" id="cb169-14" title="14">            <span class="dt">revenue =</span> stringr<span class="op">::</span><span class="kw">str_remove</span>(revenue,dollar_regex)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb169-15" title="15"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;revenue&quot;</span>),as.numeric) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Turn both year and revenue into numeric variables</span></a>
-<a class="sourceLine" id="cb169-16" title="16"><span class="st">  </span><span class="co"># Compute the monthly revenue, by year</span></a>
-<a class="sourceLine" id="cb169-17" title="17"><span class="st">  </span><span class="co"># Grouping by year...</span></a>
-<a class="sourceLine" id="cb169-18" title="18"><span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb169-19" title="19"><span class="st">  </span><span class="co"># ...causes everything in the mutate() to be done separately for each year.</span></a>
-<a class="sourceLine" id="cb169-20" title="20"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">monthly_revenue =</span> revenue <span class="op">-</span><span class="st"> </span><span class="kw">lag</span>(revenue,<span class="dt">n=</span><span class="dv">1</span>,<span class="dt">default=</span><span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb169-21" title="21"><span class="kw">glimpse</span>(ridership_clean)</a></code></pre></div>
+<div class="sourceCode" id="section-cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="section-statistical-models.html#cb169-1"></a><span class="co"># and will let us do this for all years at once using one line of code below.</span></span>
+<span id="cb169-2"><a href="section-statistical-models.html#cb169-2"></a></span>
+<span id="cb169-3"><a href="section-statistical-models.html#cb169-3"></a><span class="co"># Now, combine all these into one data cleaning pipeline.</span></span>
+<span id="cb169-4"><a href="section-statistical-models.html#cb169-4"></a><span class="co"># Remember we have monthly revenue, so to get yearly revenue, we sum</span></span>
+<span id="cb169-5"><a href="section-statistical-models.html#cb169-5"></a><span class="co"># over months.</span></span>
+<span id="cb169-6"><a href="section-statistical-models.html#cb169-6"></a>ridership_clean &lt;-<span class="st"> </span>ridership <span class="op">%&gt;%</span></span>
+<span id="cb169-7"><a href="section-statistical-models.html#cb169-7"></a><span class="st">    </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</span>
+<span id="cb169-8"><a href="section-statistical-models.html#cb169-8"></a>    Jan<span class="op">:</span>Dec,</span>
+<span id="cb169-9"><a href="section-statistical-models.html#cb169-9"></a>    <span class="dt">names_to =</span> <span class="st">&quot;month&quot;</span>,</span>
+<span id="cb169-10"><a href="section-statistical-models.html#cb169-10"></a>    <span class="dt">values_to =</span> <span class="st">&quot;revenue&quot;</span></span>
+<span id="cb169-11"><a href="section-statistical-models.html#cb169-11"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb169-12"><a href="section-statistical-models.html#cb169-12"></a><span class="st">  </span><span class="co"># &quot;transmute&quot; is like mutate, but it deletes all original columns</span></span>
+<span id="cb169-13"><a href="section-statistical-models.html#cb169-13"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> stringr<span class="op">::</span><span class="kw">str_extract</span>(Year,year_regex),</span>
+<span id="cb169-14"><a href="section-statistical-models.html#cb169-14"></a>            <span class="dt">revenue =</span> stringr<span class="op">::</span><span class="kw">str_remove</span>(revenue,dollar_regex)) <span class="op">%&gt;%</span></span>
+<span id="cb169-15"><a href="section-statistical-models.html#cb169-15"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;revenue&quot;</span>),as.numeric) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Turn both year and revenue into numeric variables</span></span>
+<span id="cb169-16"><a href="section-statistical-models.html#cb169-16"></a><span class="st">  </span><span class="co"># Compute the monthly revenue, by year</span></span>
+<span id="cb169-17"><a href="section-statistical-models.html#cb169-17"></a><span class="st">  </span><span class="co"># Grouping by year...</span></span>
+<span id="cb169-18"><a href="section-statistical-models.html#cb169-18"></a><span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span></span>
+<span id="cb169-19"><a href="section-statistical-models.html#cb169-19"></a><span class="st">  </span><span class="co"># ...causes everything in the mutate() to be done separately for each year.</span></span>
+<span id="cb169-20"><a href="section-statistical-models.html#cb169-20"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">monthly_revenue =</span> revenue <span class="op">-</span><span class="st"> </span><span class="kw">lag</span>(revenue,<span class="dt">n=</span><span class="dv">1</span>,<span class="dt">default=</span><span class="dv">0</span>))</span>
+<span id="cb169-21"><a href="section-statistical-models.html#cb169-21"></a><span class="kw">glimpse</span>(ridership_clean)</span></code></pre></div>
 <pre><code>Observations: 156
 Variables: 5
 Groups: year [13]
@@ -579,26 +587,26 @@ understand what is happening.</p>
 plot the monthly revenue over time. This requires creating a variable that represents
 time– currently we have two, year and month. We can do this using the 
 function:</p>
-<div class="sourceCode" id="section-cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"><span class="co"># Cumulative revenue</span></a>
-<a class="sourceLine" id="cb171-2" title="2">ridershipscattermonthly &lt;-<span class="st"> </span>ridership_clean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb171-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="kw">paste0</span>(year,month,<span class="st">&quot;01&quot;</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb171-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date,<span class="dt">y =</span> monthly_revenue)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb171-5" title="5"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb171-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb171-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb171-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Monthly ridership revenues for the TTC&quot;</span>,</a>
-<a class="sourceLine" id="cb171-9" title="9">       <span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>,</a>
-<a class="sourceLine" id="cb171-10" title="10">       <span class="dt">y =</span> <span class="st">&quot;Revenue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb171-11" title="11"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">dollar_format</span>()) <span class="co"># Make the y-axis pretty</span></a>
-<a class="sourceLine" id="cb171-12" title="12">ridershipscattermonthly</a></code></pre></div>
+<div class="sourceCode" id="section-cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="section-statistical-models.html#cb171-1"></a><span class="co"># Cumulative revenue</span></span>
+<span id="cb171-2"><a href="section-statistical-models.html#cb171-2"></a>ridershipscattermonthly &lt;-<span class="st"> </span>ridership_clean <span class="op">%&gt;%</span></span>
+<span id="cb171-3"><a href="section-statistical-models.html#cb171-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="kw">paste0</span>(year,month,<span class="st">&quot;01&quot;</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb171-4"><a href="section-statistical-models.html#cb171-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date,<span class="dt">y =</span> monthly_revenue)) <span class="op">+</span></span>
+<span id="cb171-5"><a href="section-statistical-models.html#cb171-5"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb171-6"><a href="section-statistical-models.html#cb171-6"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb171-7"><a href="section-statistical-models.html#cb171-7"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb171-8"><a href="section-statistical-models.html#cb171-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Monthly ridership revenues for the TTC&quot;</span>,</span>
+<span id="cb171-9"><a href="section-statistical-models.html#cb171-9"></a>       <span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>,</span>
+<span id="cb171-10"><a href="section-statistical-models.html#cb171-10"></a>       <span class="dt">y =</span> <span class="st">&quot;Revenue&quot;</span>) <span class="op">+</span></span>
+<span id="cb171-11"><a href="section-statistical-models.html#cb171-11"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">dollar_format</span>()) <span class="co"># Make the y-axis pretty</span></span>
+<span id="cb171-12"><a href="section-statistical-models.html#cb171-12"></a>ridershipscattermonthly</span></code></pre></div>
 <pre><code>Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
 <pre><code>Warning: Removed 6 rows containing missing values (geom_path).</code></pre>
 <p><img src="book_files/figure-html/ttc-41-1.png" width="672" /></p>
 <p>I added a line joining the points
 together to make the pattern clearer.</p>
 <p>It looks like monthly revenue is pretty cyclical. Can we add a regression line? Sure!</p>
-<div class="sourceCode" id="section-cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1">ridershipscattermonthly <span class="op">+</span></a>
-<a class="sourceLine" id="cb174-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="section-statistical-models.html#cb174-1"></a>ridershipscattermonthly <span class="op">+</span></span>
+<span id="cb174-2"><a href="section-statistical-models.html#cb174-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <pre><code>Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
 <pre><code>Warning: Removed 6 rows containing missing values (geom_path).</code></pre>
@@ -662,47 +670,47 @@ estimating the population mean <span class="math inline">\(\lambda\)</span> usin
 then plugging this in to the actual formula for the value <span class="math inline">\(p_{0}\)</span>. How we come
 up with stuff like this will be revealed in later chapters.</p>
 <p>Let’s investigate their sampling distributions and (hence) unbiasedness via simulations:</p>
-<div class="sourceCode" id="section-cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="kw">set.seed</span>(<span class="dv">6574564</span>)</a>
-<a class="sourceLine" id="cb179-2" title="2"><span class="co"># Simulate 500 random samples of size 30 from a poisson(log(10))</span></a>
-<a class="sourceLine" id="cb179-3" title="3">N &lt;-<span class="st"> </span><span class="dv">500</span></a>
-<a class="sourceLine" id="cb179-4" title="4">n &lt;-<span class="st"> </span><span class="dv">30</span></a>
-<a class="sourceLine" id="cb179-5" title="5">lambda &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb179-6" title="6">p0 &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>lambda) <span class="co"># True value of p0</span></a>
-<a class="sourceLine" id="cb179-7" title="7"></a>
-<a class="sourceLine" id="cb179-8" title="8"><span class="co"># Write functions to compute each estimator</span></a>
-<a class="sourceLine" id="cb179-9" title="9">compute_S &lt;-<span class="st"> </span><span class="cf">function</span>(samp) <span class="kw">mean</span>(samp <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb179-10" title="10">compute_T &lt;-<span class="st"> </span><span class="cf">function</span>(samp) <span class="kw">exp</span>(<span class="op">-</span><span class="kw">mean</span>(samp))</a>
-<a class="sourceLine" id="cb179-11" title="11"></a>
-<a class="sourceLine" id="cb179-12" title="12"><span class="co"># Simulate the samples and calculate the estimators for each sample</span></a>
-<a class="sourceLine" id="cb179-13" title="13">samples &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>,<span class="dt">length =</span> N)</a>
-<a class="sourceLine" id="cb179-14" title="14">SS &lt;-<span class="st"> </span>TT &lt;-<span class="st"> </span><span class="kw">numeric</span>(N)</a>
-<a class="sourceLine" id="cb179-15" title="15"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</a>
-<a class="sourceLine" id="cb179-16" title="16">  samples[[i]] &lt;-<span class="st"> </span><span class="kw">rpois</span>(n,lambda)</a>
-<a class="sourceLine" id="cb179-17" title="17">  SS[i] &lt;-<span class="st"> </span><span class="kw">compute_S</span>(samples[[i]])</a>
-<a class="sourceLine" id="cb179-18" title="18">  TT[i] &lt;-<span class="st"> </span><span class="kw">compute_T</span>(samples[[i]])</a>
-<a class="sourceLine" id="cb179-19" title="19">}</a>
-<a class="sourceLine" id="cb179-20" title="20"></a>
-<a class="sourceLine" id="cb179-21" title="21"><span class="co"># Create the plots</span></a>
-<a class="sourceLine" id="cb179-22" title="22">plt_S &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">SS =</span> SS) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb179-23" title="23"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> SS)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-24" title="24"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-25" title="25"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">bins =</span> <span class="dv">7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-26" title="26"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">250</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-27" title="27"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> p0,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</a>
-<a class="sourceLine" id="cb179-28" title="28"></a>
-<a class="sourceLine" id="cb179-29" title="29">plt_T &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">TT =</span> TT) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb179-30" title="30"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> TT)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-31" title="31"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-32" title="32"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">bins =</span> <span class="dv">7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-33" title="33"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">250</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-34" title="34"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> p0,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</a>
-<a class="sourceLine" id="cb179-35" title="35"></a>
-<a class="sourceLine" id="cb179-36" title="36">plt_S <span class="op">|</span><span class="st"> </span>plt_T</a></code></pre></div>
+<div class="sourceCode" id="section-cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="section-statistical-models.html#cb179-1"></a><span class="kw">set.seed</span>(<span class="dv">6574564</span>)</span>
+<span id="cb179-2"><a href="section-statistical-models.html#cb179-2"></a><span class="co"># Simulate 500 random samples of size 30 from a poisson(log(10))</span></span>
+<span id="cb179-3"><a href="section-statistical-models.html#cb179-3"></a>N &lt;-<span class="st"> </span><span class="dv">500</span></span>
+<span id="cb179-4"><a href="section-statistical-models.html#cb179-4"></a>n &lt;-<span class="st"> </span><span class="dv">30</span></span>
+<span id="cb179-5"><a href="section-statistical-models.html#cb179-5"></a>lambda &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="dv">10</span>)</span>
+<span id="cb179-6"><a href="section-statistical-models.html#cb179-6"></a>p0 &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>lambda) <span class="co"># True value of p0</span></span>
+<span id="cb179-7"><a href="section-statistical-models.html#cb179-7"></a></span>
+<span id="cb179-8"><a href="section-statistical-models.html#cb179-8"></a><span class="co"># Write functions to compute each estimator</span></span>
+<span id="cb179-9"><a href="section-statistical-models.html#cb179-9"></a>compute_S &lt;-<span class="st"> </span><span class="cf">function</span>(samp) <span class="kw">mean</span>(samp <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</span>
+<span id="cb179-10"><a href="section-statistical-models.html#cb179-10"></a>compute_T &lt;-<span class="st"> </span><span class="cf">function</span>(samp) <span class="kw">exp</span>(<span class="op">-</span><span class="kw">mean</span>(samp))</span>
+<span id="cb179-11"><a href="section-statistical-models.html#cb179-11"></a></span>
+<span id="cb179-12"><a href="section-statistical-models.html#cb179-12"></a><span class="co"># Simulate the samples and calculate the estimators for each sample</span></span>
+<span id="cb179-13"><a href="section-statistical-models.html#cb179-13"></a>samples &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>,<span class="dt">length =</span> N)</span>
+<span id="cb179-14"><a href="section-statistical-models.html#cb179-14"></a>SS &lt;-<span class="st"> </span>TT &lt;-<span class="st"> </span><span class="kw">numeric</span>(N)</span>
+<span id="cb179-15"><a href="section-statistical-models.html#cb179-15"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</span>
+<span id="cb179-16"><a href="section-statistical-models.html#cb179-16"></a>  samples[[i]] &lt;-<span class="st"> </span><span class="kw">rpois</span>(n,lambda)</span>
+<span id="cb179-17"><a href="section-statistical-models.html#cb179-17"></a>  SS[i] &lt;-<span class="st"> </span><span class="kw">compute_S</span>(samples[[i]])</span>
+<span id="cb179-18"><a href="section-statistical-models.html#cb179-18"></a>  TT[i] &lt;-<span class="st"> </span><span class="kw">compute_T</span>(samples[[i]])</span>
+<span id="cb179-19"><a href="section-statistical-models.html#cb179-19"></a>}</span>
+<span id="cb179-20"><a href="section-statistical-models.html#cb179-20"></a></span>
+<span id="cb179-21"><a href="section-statistical-models.html#cb179-21"></a><span class="co"># Create the plots</span></span>
+<span id="cb179-22"><a href="section-statistical-models.html#cb179-22"></a>plt_S &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">SS =</span> SS) <span class="op">%&gt;%</span></span>
+<span id="cb179-23"><a href="section-statistical-models.html#cb179-23"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> SS)) <span class="op">+</span></span>
+<span id="cb179-24"><a href="section-statistical-models.html#cb179-24"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb179-25"><a href="section-statistical-models.html#cb179-25"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">bins =</span> <span class="dv">7</span>) <span class="op">+</span></span>
+<span id="cb179-26"><a href="section-statistical-models.html#cb179-26"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">250</span>)) <span class="op">+</span></span>
+<span id="cb179-27"><a href="section-statistical-models.html#cb179-27"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> p0,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</span>
+<span id="cb179-28"><a href="section-statistical-models.html#cb179-28"></a></span>
+<span id="cb179-29"><a href="section-statistical-models.html#cb179-29"></a>plt_T &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">TT =</span> TT) <span class="op">%&gt;%</span></span>
+<span id="cb179-30"><a href="section-statistical-models.html#cb179-30"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> TT)) <span class="op">+</span></span>
+<span id="cb179-31"><a href="section-statistical-models.html#cb179-31"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb179-32"><a href="section-statistical-models.html#cb179-32"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">bins =</span> <span class="dv">7</span>) <span class="op">+</span></span>
+<span id="cb179-33"><a href="section-statistical-models.html#cb179-33"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">250</span>)) <span class="op">+</span></span>
+<span id="cb179-34"><a href="section-statistical-models.html#cb179-34"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> p0,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</span>
+<span id="cb179-35"><a href="section-statistical-models.html#cb179-35"></a></span>
+<span id="cb179-36"><a href="section-statistical-models.html#cb179-36"></a>plt_S <span class="op">|</span><span class="st"> </span>plt_T</span></code></pre></div>
 <p><img src="book_files/figure-html/poisson-1-1.png" width="672" /></p>
-<div class="sourceCode" id="section-cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1"><span class="co"># Compute the mean of each:</span></a>
-<a class="sourceLine" id="cb180-2" title="2"><span class="kw">mean</span>(SS)</a></code></pre></div>
+<div class="sourceCode" id="section-cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="section-statistical-models.html#cb180-1"></a><span class="co"># Compute the mean of each:</span></span>
+<span id="cb180-2"><a href="section-statistical-models.html#cb180-2"></a><span class="kw">mean</span>(SS)</span></code></pre></div>
 <pre><code>[1] 0.1</code></pre>
-<div class="sourceCode" id="section-cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">mean</span>(TT)</a></code></pre></div>
+<div class="sourceCode" id="section-cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="section-statistical-models.html#cb182-1"></a><span class="kw">mean</span>(TT)</span></code></pre></div>
 <pre><code>[1] 0.1</code></pre>
 <p><strong>Exercise</strong>: it turns out that, mathematically, <span class="math inline">\(S\)</span> is unbiased and <span class="math inline">\(T\)</span> is biased. Which estimator
 would you prefer? Compute a five number summary for <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span> from our simulations,

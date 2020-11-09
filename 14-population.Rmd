@@ -22,8 +22,6 @@ population will look like in the future. More specifically, we will:
 
 1. Quantify uncertainty in our estimate for total world population (**Chapter 9**),
 
-1. Assess the goodness of fit of our model for total world population (**Chapter 10**),
-
 1. Develop a Bayesian estimator for total world population (**Chapter 11**),
 
 1. Predict the population to the year 2100 and compare our predictions and
@@ -691,3 +689,216 @@ logmodconfint | logmodpredint
 ```
 
 Comment on the difference in width of the two intervals.
+
+## Bayesian estimate of world population
+
+We previously looked at the model
+
+\begin{equation}\begin{aligned}
+Y &\sim \text{Poisson}(\lambda)
+\lambda &\sim\text{Gamma}(3.358,0.778)
+\implies \lambda | Y &\sim \Gamma(3.358 + Y,0.788 + 1)
+\end{aligned}\end{equation}
+where $Y$ is the measured value of world population in Billions, $\lambda$ is the real value
+of world population in Billions, and the prior on $\lambda$ was chosen so that
+$P(1 \leq \lambda \leq 10) = 95\%$. Previously we derived the posterior distribution,
+but we didn't actually use it to estimate or quantify uncertainty in $\lambda$.
+We'll do that now.
+
+### Estimation and uncertainty quantification
+
+The posterior distribution gives us both estimation and uncertainty quantification,
+but it's up to us to decide how to use it. There are three common ways to use a
+posterior for point estimation: the **posterior mode**,
+$$
+\hat{\lambda}_{\texttt{mode}} = \text{argmax}_{\lambda}\pi(\lambda | Y),
+$$
+the **posterior mean**,
+$$
+\hat{\lambda}_{\texttt{mean}} = E(\lambda|Y),
+$$
+and the **posterior median**, which is the value $\hat{\lambda}_{\texttt{med}}$ which
+satisfies
+$$
+P(\lambda < \hat{\lambda}_{\texttt{med}}|Y) = 0.5
+$$
+You can determine an expression for each of these posterior summaries using 
+your usual probability techniques.
+
+**Exercise**: show that $$\hat{\lambda}_{\texttt{mode}} = \frac{\alpha + Y - 1}{\beta + 1}$$
+where $(\alpha,\beta)$ are the prior parameters (i.e. $\lambda$ has a $\text{Gamma}(\alpha,\beta)$
+prior).
+
+**Exercise**: show that $$\hat{\lambda}_{\texttt{mean}} = \frac{\alpha + Y}{\beta + 1}.$$
+
+The posterior median does not have a closed-form expression in this example, although
+we can still compute it using `R`.
+
+Let's compute these three statistics:
+```{r computepost1}
+# Prior params
+alpha <- 3.358
+beta <- 0.778
+# Y: observed world population
+observedpop <- worldpop %>% filter(country == 'WORLD',year == 2010) %>% pull(population)
+observedpop <- observedpop * 1e-06 # Convert to billions, from thousands
+# Posterior mode
+lambda_mode <- (alpha + observedpop - 1) / (beta + 1)
+# Posterior mean
+lambda_mean <- (alpha + observedpop) / (beta + 1)
+# Posterior median
+lambda_med <- qgamma(.5,alpha + observedpop,beta+1)
+# Look at them all
+c(
+  'observed' = observedpop,
+  'post_mode' = lambda_mode,
+  'post_mean' = lambda_mean,
+  'post_med' = lambda_med
+)
+```
+
+Compare these to their corresponding *prior* values:
+
+```{r computepost2}
+# Prior params
+alpha <- 3.358
+beta <- 0.778
+# Prior mode
+prior_mode <- (alpha - 1) / (beta)
+# Prior mean
+prior_mean <- (alpha) / (beta)
+# Prior median
+prior_med <- qgamma(.5,alpha,beta)
+# Look at them all
+c(
+  'observed' = observedpop,
+  'prior_mode' = prior_mode,
+  'prior_mean' = prior_mean,
+  'prior_med' = prior_med
+)
+```
+
+Each statistic is pulled towards its corresponding prior value. The skewness in 
+the Gamma distribution means that the mode and median are less than the mean.
+The observed data affects not only the location but also the shape of the posterior
+relative to the prior. The observed value being higher than the prior mean and 
+mode causes them to be pulled up, but the median is actually pulled down.
+
+Since computing the posterior seems harder than working with a likelihood, and
+since coming up with a point estimator based on the posterior seems harder than
+maximizing a likelihood, you might be wondering why we're bothering with Bayesian
+inference at all. One compelling answer comes from **uncertainty quantification**.
+Using the non-Bayesian methods, it was difficult to come up with a way to quantify
+uncertainty. We did a lot of work and came up with an interval that "if you were
+to repeat the experiment over and over and calculate many such intervals, $95\%$
+of them would cover the true value of the parameter". This is difficult to explain
+and interpret, and also, when you move into more complicated statistical procedures,
+it becomes difficult or impossible to derive such a confidence interval. Because of this,
+some of the most popular modern statistical procedures use Bayesian inference to
+compute uncertainty estimates (even nominally frequentist techniques), or don't
+compute them at all. Since Statistics is the science of uncertainty, this means
+Bayesian inference is a lot more mainstream than it might appear to be when taught
+in introductory courses such as this.
+
+The reason is that computing uncertainty intervals in Bayesian stats is, for the
+most part, pretty straightforward. Uncertainty for $\lambda|Y$ is quantified by
+means of a **credible interval**. A $95\%$ (or some other level) credible interval
+is *any* pair of numbers $(L,U)$ which satisfy
+$$
+P(L \leq \lambda \leq U | Y) = 95\%.
+$$
+The interpretation is straightforward: given the observed data, $\lambda$ has a
+$95\%$ posterior probability of being between $L$ and $U$.
+
+You can use any $L$ and $U$ that satisfy this, but the common choice is to just
+use the $2.5\%$ and $97.5\%$ posterior quantiles, in analogy to the construction
+of frequentist confidence intervals. Less common but still sometimes done is to
+compute one sided intervals, taking $L$ or $U$ to be the endpoint of the parameter
+space (which might be $\pm\infty$). Here are three calculations and visualizations
+of posterior credible intervals:
+
+```{r postquants1}
+# Lower interval
+lowerint <- c(0,qgamma(.95,alpha+observedpop,beta+1))
+# Upper interval
+# Top point should be Inf, had to use big finite value for plotting
+upperint <- c(qgamma(.05,alpha+observedpop,beta+1),15) # Should be Inf
+# Middle interval, most common
+middleint <- qgamma(c(.025,.975),alpha+observedpop,beta+1)
+# Plot them
+baseplot <- tibble(x = c(0,15)) %>%
+  ggplot(aes(x = x)) +
+  theme_classic() + 
+  stat_function(fun = dgamma,args = list(shape = alpha+observedpop,rate = beta+1))
+
+lowerplot <- baseplot + 
+  stat_function(fun = dgamma,
+                args = list(shape = alpha+observedpop,rate = beta+1),
+                xlim = lowerint,
+                geom = "area",
+                alpha = 0.3) +
+  labs(title = "Lower one-sided 95% posterior credible interval",
+       x = expression(lambda),y = "Posterior Density")
+
+upperplot <- baseplot + 
+  stat_function(fun = dgamma,
+                args = list(shape = alpha+observedpop,rate = beta+1),
+                xlim = upperint,
+                geom = "area",
+                alpha = 0.3) +
+  labs(title = "Upper one-sided 95% posterior credible interval",
+       x = expression(lambda),y = "Posterior Density")
+
+middleplot <- baseplot + 
+  stat_function(fun = dgamma,
+                args = list(shape = alpha+observedpop,rate = beta+1),
+                xlim = middleint,
+                geom = "area",
+                alpha = 0.3) +
+  labs(title = "Two-sided 95% posterior credible interval",
+       x = expression(lambda),y = "Posterior Density")
+
+lowerplot / middleplot / upperplot
+
+
+```
+
+### Estimation by sampling
+
+Usually in practice you won't know the posterior distribution exactly, but
+you might have a sample from it. Alternatively, you might just want to calculate
+any estimates you want without having to do tedious math. Bayesian inference can
+be done using only a sample from the posterior. In fact, this is very desirable:
+all of your data analytic skills can be carried over and used for inference. We
+will briefly touch on this here.
+
+Suppose we have a sample from the posterior:
+```{r postsamp1}
+sample_from_the_posterior <- rgamma(1000,alpha+observedpop,beta+1)
+```
+You can compute an estimate of any quantity you like from this sample, without
+having to do math. Check it out and compare to what we did before:
+```{r postsamp2}
+# Mean
+mean(sample_from_the_posterior)
+lambda_mean
+# Ok, the mode is a bit trickier (actually in practice this is the one
+# that I would always calculate using math or brute-force optimization):
+ss <- round(sample_from_the_posterior,3)
+sst <- table(ss)
+names(sst[sst == max(sst)])
+lambda_mode
+# Difficult to calculate and not that accurate
+# Everything else is pretty good though:
+# Quantiles and median
+mm <- median(sample_from_the_posterior)
+q2.5 <- quantile(sample_from_the_posterior,.025)
+q97.5 <- quantile(sample_from_the_posterior,.975)
+c(q2.5,mm,q97.5)
+
+c(middleint[1],lambda_med,middleint[2])
+```
+
+Sample-based Bayesian inference is a subject of entire upper year courses!
+
+## Predicting world population

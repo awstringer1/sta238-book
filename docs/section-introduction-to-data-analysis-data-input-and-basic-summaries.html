@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2020-10-31" />
+<meta name="date" content="2020-11-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,14 +50,15 @@
 
 
 
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -66,14 +67,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -262,6 +265,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-model-world-population-over-time"><i class="fa fa-check"></i><b>15.2</b> Model world population over time</a></li>
 <li class="chapter" data-level="15.3" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-model-for-world-population"><i class="fa fa-check"></i><b>15.3</b> Bayesian model for world population</a></li>
 <li class="chapter" data-level="15.4" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-quantifying-uncertainty-in-estimates-of-world-population-regression-model"><i class="fa fa-check"></i><b>15.4</b> Quantifying uncertainty in estimates of world population: regression model</a></li>
+<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-and-uncertainty-quantification"><i class="fa fa-check"></i><b>15.5.1</b> Estimation and uncertainty quantification</a></li>
+<li class="chapter" data-level="15.5.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-by-sampling"><i class="fa fa-check"></i><b>15.5.2</b> Estimation by sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -317,7 +325,7 @@ lets you change to a new directory. So if you’re in <code>/home/alex</code>, y
 called <code>data</code>. You can type <code>cd data</code> to go there, and repeat the process. Navigate
 to where you downloaded the data to– it’s kind of like a game. A really, really repetative game.</p>
 <p>Anyways, once you’re there, type:</p>
-<div class="sourceCode" id="section-cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">head</span> data/MIPSdata/oldfaithful.txt</a></code></pre></div>
+<div class="sourceCode" id="section-cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb1-1"></a><span class="fu">head</span> data/MIPSdata/oldfaithful.txt</span></code></pre></div>
 <pre><code>216  
 108  
 200  
@@ -336,14 +344,14 @@ package. The <code>readr</code> package is automatically loaded when we load the
 package. If this sentence is confusing (no worries!) I recommend you check out
 <a href="https://awstringer1.github.io/ssu-r-workshop/ssu-r-workshop.html">my R tutorial</a>.</p>
 <p>We’ll just do that:</p>
-<div class="sourceCode" id="section-cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb3-2" title="2">oldfaithful &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb3-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/oldfaithful.txt&quot;</span>, <span class="co"># Tell it where the file is</span></a>
-<a class="sourceLine" id="cb3-4" title="4">  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>, <span class="co"># Tell it that the first row is NOT column names, and at the same time, tell it what name you want for the column.</span></a>
-<a class="sourceLine" id="cb3-5" title="5">  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span> <span class="co"># Tell it that there is one column, and it is &quot;numeric&quot; (n)</span></a>
-<a class="sourceLine" id="cb3-6" title="6">)</a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co"># Check what was read in using the dplyr::glimpse() function</span></a>
-<a class="sourceLine" id="cb3-8" title="8">dplyr<span class="op">::</span><span class="kw">glimpse</span>(oldfaithful)</a></code></pre></div>
+<div class="sourceCode" id="section-cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb3-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb3-2"></a>oldfaithful &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
+<span id="cb3-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb3-3"></a>  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/oldfaithful.txt&quot;</span>, <span class="co"># Tell it where the file is</span></span>
+<span id="cb3-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb3-4"></a>  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>, <span class="co"># Tell it that the first row is NOT column names, and at the same time, tell it what name you want for the column.</span></span>
+<span id="cb3-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb3-5"></a>  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span> <span class="co"># Tell it that there is one column, and it is &quot;numeric&quot; (n)</span></span>
+<span id="cb3-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb3-6"></a>)</span>
+<span id="cb3-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb3-7"></a><span class="co"># Check what was read in using the dplyr::glimpse() function</span></span>
+<span id="cb3-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb3-8"></a>dplyr<span class="op">::</span><span class="kw">glimpse</span>(oldfaithful)</span></code></pre></div>
 <pre><code>Observations: 272
 Variables: 1
 $ time &lt;dbl&gt; 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235, 252,…</code></pre>
@@ -351,12 +359,12 @@ $ time &lt;dbl&gt; 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235, 2
 file, and we are given the number of rows too. Check that the number of rows matches
 what was in the raw file by printing out the number of rows on the command line
 using the <code>wc -l</code> command (“wc” = “word count” and “-l” means count “lines”):</p>
-<div class="sourceCode" id="section-cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="fu">wc</span> -l data/MIPSdata/oldfaithful.txt</a></code></pre></div>
+<div class="sourceCode" id="section-cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb5-1"></a><span class="fu">wc</span> -l data/MIPSdata/oldfaithful.txt</span></code></pre></div>
 <pre><code>     271 data/MIPSdata/oldfaithful.txt</code></pre>
 <p>What happened, why don’t they match? They do. The <code>wc -l</code> command actually counts
 the number of “newline” characters in the file. It is customary to end a data file
 with a newline character. This file doesn’t, though. How do I know? Type the following:</p>
-<div class="sourceCode" id="section-cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="fu">tail</span> data/MIPSdata/oldfaithful.txt</a></code></pre></div>
+<div class="sourceCode" id="section-cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb7-1"></a><span class="fu">tail</span> data/MIPSdata/oldfaithful.txt</span></code></pre></div>
 <pre><code>111  
 255  
 119  
@@ -381,8 +389,8 @@ in an introductory chapter on the basics of data analysis. But catching and fixi
 <h3><span class="header-section-number">2.1.2</span> Graphical Summaries</h3>
 <p>Now that the data has been read in and checked, we can make summaries of it.</p>
 <p><strong>Histograms</strong></p>
-<div class="sourceCode" id="section-cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># Tabular display</span></a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="kw">print</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="section-cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb9-1"></a><span class="co"># Tabular display</span></span>
+<span id="cb9-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb9-2"></a><span class="kw">print</span>(oldfaithful<span class="op">$</span>time)</span></code></pre></div>
 <pre><code>  [1] 216 108 200 137 272 173 282 216 117 261 110 235 252 105 282 130 105 288
  [19]  96 255 108 105 207 184 272 216 118 245 231 266 258 268 202 242 230 121
  [37] 112 290 110 287 261 113 274 105 272 199 230 126 278 120 288 283 110 290
@@ -399,38 +407,38 @@ in an introductory chapter on the basics of data analysis. But catching and fixi
 [235] 267 113 111 257 237 140 249 141 296 174 275 230 125 262 128 261 132 267
 [253] 214 270 249 229 235 267 120 257 286 272 111 255 119 135 285 247 129 265
 [271] 109 268</code></pre>
-<div class="sourceCode" id="section-cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># Ugly! You can use the View() function to open the data in a spreadsheet</span></a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="co"># Not run:</span></a>
-<a class="sourceLine" id="cb11-3" title="3"><span class="co"># View(oldfaithful)</span></a>
-<a class="sourceLine" id="cb11-4" title="4"></a>
-<a class="sourceLine" id="cb11-5" title="5"><span class="co"># Histogram using base R</span></a>
-<a class="sourceLine" id="cb11-6" title="6"><span class="kw">hist</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="section-cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb11-1"></a><span class="co"># Ugly! You can use the View() function to open the data in a spreadsheet</span></span>
+<span id="cb11-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb11-2"></a><span class="co"># Not run:</span></span>
+<span id="cb11-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb11-3"></a><span class="co"># View(oldfaithful)</span></span>
+<span id="cb11-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb11-4"></a></span>
+<span id="cb11-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb11-5"></a><span class="co"># Histogram using base R</span></span>
+<span id="cb11-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb11-6"></a><span class="kw">hist</span>(oldfaithful<span class="op">$</span>time)</span></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithful-analysis-1-1.png" width="672" /></p>
-<div class="sourceCode" id="section-cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># Base R graphics are outdated. Use ggplot2, which is loaded automatically with the tidyverse:</span></a>
-<a class="sourceLine" id="cb12-2" title="2">oldfaithful <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-5" title="5"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Eruption times for Old Faithful geyser&quot;</span>,</a>
-<a class="sourceLine" id="cb12-7" title="7">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
-<a class="sourceLine" id="cb12-8" title="8">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb12-1"></a><span class="co"># Base R graphics are outdated. Use ggplot2, which is loaded automatically with the tidyverse:</span></span>
+<span id="cb12-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb12-2"></a>oldfaithful <span class="op">%&gt;%</span></span>
+<span id="cb12-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb12-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></span>
+<span id="cb12-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb12-4"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb12-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb12-5"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></span>
+<span id="cb12-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb12-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Eruption times for Old Faithful geyser&quot;</span>,</span>
+<span id="cb12-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb12-7"></a>       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</span>
+<span id="cb12-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb12-8"></a>       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithful-analysis-1-2.png" width="672" /></p>
-<div class="sourceCode" id="section-cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># Try different numbers of bins and you might see different patterns. Do you think this is a</span></a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="co"># good or bad thing, or both?</span></a>
-<a class="sourceLine" id="cb13-3" title="3"><span class="co"># Their &quot;optimal&quot; bin width:</span></a>
-<a class="sourceLine" id="cb13-4" title="4">s &lt;-<span class="st"> </span><span class="kw">sd</span>(oldfaithful<span class="op">$</span>time)</a>
-<a class="sourceLine" id="cb13-5" title="5">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(oldfaithful)</a>
-<a class="sourceLine" id="cb13-6" title="6">b &lt;-<span class="st"> </span>(<span class="dv">24</span><span class="op">*</span><span class="kw">sqrt</span>(pi))<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>) <span class="op">*</span><span class="st"> </span>s <span class="op">*</span><span class="st"> </span>(n<span class="op">^</span>(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb13-7" title="7">b</a></code></pre></div>
+<div class="sourceCode" id="section-cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb13-1"></a><span class="co"># Try different numbers of bins and you might see different patterns. Do you think this is a</span></span>
+<span id="cb13-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb13-2"></a><span class="co"># good or bad thing, or both?</span></span>
+<span id="cb13-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb13-3"></a><span class="co"># Their &quot;optimal&quot; bin width:</span></span>
+<span id="cb13-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb13-4"></a>s &lt;-<span class="st"> </span><span class="kw">sd</span>(oldfaithful<span class="op">$</span>time)</span>
+<span id="cb13-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb13-5"></a>n &lt;-<span class="st"> </span><span class="kw">nrow</span>(oldfaithful)</span>
+<span id="cb13-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb13-6"></a>b &lt;-<span class="st"> </span>(<span class="dv">24</span><span class="op">*</span><span class="kw">sqrt</span>(pi))<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>) <span class="op">*</span><span class="st"> </span>s <span class="op">*</span><span class="st"> </span>(n<span class="op">^</span>(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</span>
+<span id="cb13-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb13-7"></a>b</span></code></pre></div>
 <pre><code>[1] 36.89694</code></pre>
-<div class="sourceCode" id="section-cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">oldfaithful <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb15-4" title="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="kw">round</span>(b),<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb15-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Eruption times for Old Faithful geyser&quot;</span>,</a>
-<a class="sourceLine" id="cb15-6" title="6">       <span class="dt">subtitle =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;&#39;Optimal&#39; bin width of b = &quot;</span>,<span class="kw">round</span>(b)),</a>
-<a class="sourceLine" id="cb15-7" title="7">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
-<a class="sourceLine" id="cb15-8" title="8">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb15-1"></a>oldfaithful <span class="op">%&gt;%</span></span>
+<span id="cb15-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb15-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></span>
+<span id="cb15-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb15-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb15-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb15-4"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="kw">round</span>(b),<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></span>
+<span id="cb15-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb15-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Eruption times for Old Faithful geyser&quot;</span>,</span>
+<span id="cb15-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb15-6"></a>       <span class="dt">subtitle =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;&#39;Optimal&#39; bin width of b = &quot;</span>,<span class="kw">round</span>(b)),</span>
+<span id="cb15-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb15-7"></a>       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</span>
+<span id="cb15-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb15-8"></a>       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithful-analysis-1-3.png" width="672" /></p>
 <p><strong>Kernel Density Estimates</strong></p>
 <p>To get kernel density estimates, there are a couple different ways. The <code>density</code>
@@ -439,9 +447,9 @@ are taken to be Gaussian density functions with mean and standard deviation
 determined by the data). You can plot the output of <code>density</code> using base <code>R</code> or
 <code>ggplot</code>. You can also use the <code>ggplot</code> <code>geom_density</code> function to do something
 similar automatically.</p>
-<div class="sourceCode" id="section-cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co"># Kernel density estimation in R</span></a>
-<a class="sourceLine" id="cb16-2" title="2">dens &lt;-<span class="st"> </span><span class="kw">density</span>(oldfaithful<span class="op">$</span>time)</a>
-<a class="sourceLine" id="cb16-3" title="3">dens</a></code></pre></div>
+<div class="sourceCode" id="section-cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb16-1"></a><span class="co"># Kernel density estimation in R</span></span>
+<span id="cb16-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb16-2"></a>dens &lt;-<span class="st"> </span><span class="kw">density</span>(oldfaithful<span class="op">$</span>time)</span>
+<span id="cb16-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb16-3"></a>dens</span></code></pre></div>
 <pre><code>
 Call:
     density.default(x = oldfaithful$time)
@@ -455,49 +463,49 @@ Data: oldfaithful$time (272 obs.);  Bandwidth &#39;bw&#39; = 20.09
  Mean   :201.00   Mean   :3.022e-03  
  3rd Qu.:283.63   3rd Qu.:5.143e-03  
  Max.   :366.26   Max.   :8.070e-03  </code></pre>
-<div class="sourceCode" id="section-cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">plot</span>(dens)</a></code></pre></div>
+<div class="sourceCode" id="section-cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb18-1"></a><span class="kw">plot</span>(dens)</span></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithfulanalysis-2-1.png" width="672" /></p>
-<div class="sourceCode" id="section-cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># Okay... ggplot?</span></a>
-<a class="sourceLine" id="cb19-2" title="2"><span class="kw">tibble</span>(<span class="dt">x =</span> dens<span class="op">$</span>x,<span class="dt">y =</span> dens<span class="op">$</span>y) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb19-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb19-5" title="5"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb19-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Kernel density estimate, Old Faithful data&quot;</span>,</a>
-<a class="sourceLine" id="cb19-7" title="7">       <span class="dt">subtitle =</span> <span class="st">&quot;Manually-calculated values&quot;</span>,</a>
-<a class="sourceLine" id="cb19-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
-<a class="sourceLine" id="cb19-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb19-1"></a><span class="co"># Okay... ggplot?</span></span>
+<span id="cb19-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb19-2"></a><span class="kw">tibble</span>(<span class="dt">x =</span> dens<span class="op">$</span>x,<span class="dt">y =</span> dens<span class="op">$</span>y) <span class="op">%&gt;%</span></span>
+<span id="cb19-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb19-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></span>
+<span id="cb19-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb19-4"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb19-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb19-5"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb19-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb19-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Kernel density estimate, Old Faithful data&quot;</span>,</span>
+<span id="cb19-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb19-7"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Manually-calculated values&quot;</span>,</span>
+<span id="cb19-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb19-8"></a>       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</span>
+<span id="cb19-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb19-9"></a>       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithfulanalysis-2-2.png" width="672" /></p>
-<div class="sourceCode" id="section-cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># Can also do automatically:</span></a>
-<a class="sourceLine" id="cb20-2" title="2">oldfaithful <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb20-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb20-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb20-5" title="5"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb20-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Kernel density estimate, Old Faithful data&quot;</span>,</a>
-<a class="sourceLine" id="cb20-7" title="7">       <span class="dt">subtitle =</span> <span class="st">&quot;Automatically-calculated values&quot;</span>,</a>
-<a class="sourceLine" id="cb20-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
-<a class="sourceLine" id="cb20-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb20-1"></a><span class="co"># Can also do automatically:</span></span>
+<span id="cb20-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb20-2"></a>oldfaithful <span class="op">%&gt;%</span></span>
+<span id="cb20-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb20-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></span>
+<span id="cb20-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb20-4"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb20-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb20-5"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
+<span id="cb20-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb20-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Kernel density estimate, Old Faithful data&quot;</span>,</span>
+<span id="cb20-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb20-7"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Automatically-calculated values&quot;</span>,</span>
+<span id="cb20-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb20-8"></a>       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</span>
+<span id="cb20-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb20-9"></a>       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithfulanalysis-2-3.png" width="672" /></p>
-<div class="sourceCode" id="section-cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># The reason to manually calculate the values is because you have more control.</span></a>
-<a class="sourceLine" id="cb21-2" title="2"><span class="co"># I don&#39;t know what&#39;s happening at the endpoints there, and it&#39;s too much work</span></a>
-<a class="sourceLine" id="cb21-3" title="3"><span class="co"># to go and figure out how to make ggplot not do that.</span></a>
-<a class="sourceLine" id="cb21-4" title="4"><span class="co"># When you calculate the plotting values yourself and then put them into ggplot,</span></a>
-<a class="sourceLine" id="cb21-5" title="5"><span class="co"># you have total control!</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb21-1"></a><span class="co"># The reason to manually calculate the values is because you have more control.</span></span>
+<span id="cb21-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb21-2"></a><span class="co"># I don&#39;t know what&#39;s happening at the endpoints there, and it&#39;s too much work</span></span>
+<span id="cb21-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb21-3"></a><span class="co"># to go and figure out how to make ggplot not do that.</span></span>
+<span id="cb21-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb21-4"></a><span class="co"># When you calculate the plotting values yourself and then put them into ggplot,</span></span>
+<span id="cb21-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb21-5"></a><span class="co"># you have total control!</span></span></code></pre></div>
 <p><strong>Empirical Distribution Function</strong></p>
 <p>For the empirical distribution function, we use the <code>ecdf</code> function in <code>R</code>. You
 would think this function should behave in a similar manner to the <code>density</code> function,
 but it doesn’t. It returns a function which computes the ecdf. It still has a <code>plot</code>
 method, but to use it with <code>ggplot</code> we have to use <code>stat_function</code>:</p>
-<div class="sourceCode" id="section-cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">faithful_ecdf &lt;-<span class="st"> </span><span class="kw">ecdf</span>(oldfaithful<span class="op">$</span>time)</a>
-<a class="sourceLine" id="cb22-2" title="2"><span class="kw">plot</span>(faithful_ecdf)</a></code></pre></div>
+<div class="sourceCode" id="section-cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb22-1"></a>faithful_ecdf &lt;-<span class="st"> </span><span class="kw">ecdf</span>(oldfaithful<span class="op">$</span>time)</span>
+<span id="cb22-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb22-2"></a><span class="kw">plot</span>(faithful_ecdf)</span></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithfulanalysis-3-1.png" width="672" /></p>
-<div class="sourceCode" id="section-cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="co"># ggplot</span></a>
-<a class="sourceLine" id="cb23-2" title="2"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">300</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Tell ggplot we want to plot the ecdf from 100 to 300</span></a>
-<a class="sourceLine" id="cb23-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb23-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb23-5" title="5"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> faithful_ecdf) <span class="op">+</span></a>
-<a class="sourceLine" id="cb23-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Empirical CDF for Old Faithful Eruption Times&quot;</span>,</a>
-<a class="sourceLine" id="cb23-7" title="7">       <span class="dt">x =</span> <span class="st">&quot;Eruption Time&quot;</span>,</a>
-<a class="sourceLine" id="cb23-8" title="8">       <span class="dt">y =</span> <span class="st">&quot;Empirical probability that an eruption time is less than x&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb23-1"></a><span class="co"># ggplot</span></span>
+<span id="cb23-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb23-2"></a><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">300</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Tell ggplot we want to plot the ecdf from 100 to 300</span></span>
+<span id="cb23-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb23-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
+<span id="cb23-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb23-4"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb23-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb23-5"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> faithful_ecdf) <span class="op">+</span></span>
+<span id="cb23-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb23-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Empirical CDF for Old Faithful Eruption Times&quot;</span>,</span>
+<span id="cb23-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb23-7"></a>       <span class="dt">x =</span> <span class="st">&quot;Eruption Time&quot;</span>,</span>
+<span id="cb23-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb23-8"></a>       <span class="dt">y =</span> <span class="st">&quot;Empirical probability that an eruption time is less than x&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithfulanalysis-3-2.png" width="672" /></p>
 <p><strong>Advanced</strong>: the CDF is the integrated pdf:
 <span class="math display">\[
@@ -508,93 +516,93 @@ One of the great benefits of taking a computation-forward approach to statistica
 inference is that we can “shoot first and ask questions later”- just try it, and
 then (maybe) use math to explain the results.</p>
 <p>Here is the world’s most naive numerical integration-based estimate of a CDF:</p>
-<div class="sourceCode" id="section-cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb24-2" title="2">  <span class="dt">x =</span> dens<span class="op">$</span>x[<span class="op">-</span><span class="dv">1</span>],</a>
-<a class="sourceLine" id="cb24-3" title="3">  <span class="dt">y =</span> <span class="kw">cumsum</span>(dens<span class="op">$</span>y[<span class="op">-</span><span class="dv">1</span>]) <span class="op">*</span><span class="st"> </span><span class="kw">diff</span>(dens<span class="op">$</span>x) <span class="co"># Quick and dirty numerical integration. Can you put something better?</span></a>
-<a class="sourceLine" id="cb24-4" title="4">) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb24-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb24-6" title="6"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb24-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb24-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Numerical integration-based empirical CDF for Old Faithful data&quot;</span>,</a>
-<a class="sourceLine" id="cb24-9" title="9">       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</a>
-<a class="sourceLine" id="cb24-10" title="10">       <span class="dt">y =</span> <span class="st">&quot;Empirical probability that an eruption time is less than x&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb24-1"></a><span class="kw">tibble</span>(</span>
+<span id="cb24-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb24-2"></a>  <span class="dt">x =</span> dens<span class="op">$</span>x[<span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb24-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb24-3"></a>  <span class="dt">y =</span> <span class="kw">cumsum</span>(dens<span class="op">$</span>y[<span class="op">-</span><span class="dv">1</span>]) <span class="op">*</span><span class="st"> </span><span class="kw">diff</span>(dens<span class="op">$</span>x) <span class="co"># Quick and dirty numerical integration. Can you put something better?</span></span>
+<span id="cb24-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb24-4"></a>) <span class="op">%&gt;%</span></span>
+<span id="cb24-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb24-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></span>
+<span id="cb24-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb24-6"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb24-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb24-7"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb24-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb24-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Numerical integration-based empirical CDF for Old Faithful data&quot;</span>,</span>
+<span id="cb24-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb24-9"></a>       <span class="dt">x =</span> <span class="st">&quot;Eruption time&quot;</span>,</span>
+<span id="cb24-10"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb24-10"></a>       <span class="dt">y =</span> <span class="st">&quot;Empirical probability that an eruption time is less than x&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithfulanalysis-4-1.png" width="672" /></p>
 <p>What do you think? Is this better, worse, or just different than the ECDF?</p>
 <p><strong>Boxplots</strong></p>
 <p>To get a boxplot, again, you can use base <code>R</code> or <code>ggplot</code>.
 We have:</p>
-<div class="sourceCode" id="section-cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="co"># Base R</span></a>
-<a class="sourceLine" id="cb25-2" title="2"><span class="kw">boxplot</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="section-cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb25-1"></a><span class="co"># Base R</span></span>
+<span id="cb25-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb25-2"></a><span class="kw">boxplot</span>(oldfaithful<span class="op">$</span>time)</span></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithful-boxplot-1-1.png" width="672" /></p>
-<div class="sourceCode" id="section-cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="co"># ggplot</span></a>
-<a class="sourceLine" id="cb26-2" title="2">oldfaithful <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb26-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> time)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb26-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb26-5" title="5"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb26-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Boxplot of eruption times, Old Faithful data&quot;</span>,</a>
-<a class="sourceLine" id="cb26-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;Eruption time&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb26-8" title="8"><span class="st">  </span><span class="co"># Have to play around with the x axis to get it to look nice *shrug*</span></a>
-<a class="sourceLine" id="cb26-9" title="9"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">2</span>,.<span class="dv">2</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb26-10" title="10"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>())</a></code></pre></div>
+<div class="sourceCode" id="section-cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb26-1"></a><span class="co"># ggplot</span></span>
+<span id="cb26-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb26-2"></a>oldfaithful <span class="op">%&gt;%</span></span>
+<span id="cb26-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb26-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> time)) <span class="op">+</span></span>
+<span id="cb26-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb26-4"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb26-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb26-5"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.1</span>) <span class="op">+</span></span>
+<span id="cb26-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb26-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Boxplot of eruption times, Old Faithful data&quot;</span>,</span>
+<span id="cb26-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb26-7"></a>       <span class="dt">y =</span> <span class="st">&quot;Eruption time&quot;</span>) <span class="op">+</span></span>
+<span id="cb26-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb26-8"></a><span class="st">  </span><span class="co"># Have to play around with the x axis to get it to look nice *shrug*</span></span>
+<span id="cb26-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb26-9"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">2</span>,.<span class="dv">2</span>)) <span class="op">+</span></span>
+<span id="cb26-10"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb26-10"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>())</span></code></pre></div>
 <p><img src="book_files/figure-html/oldfaithful-boxplot-1-2.png" width="672" /></p>
 </div>
 <div id="section-numerical-summaries" class="section level3">
 <h3><span class="header-section-number">2.1.3</span> Numerical Summaries</h3>
 <p>A numerical summary is any number or numbers you calculate from the data. The basic numerical summaries of interest include the sample mean and median, sample
 standard deviation and mean absolute deviation, and quantiles.</p>
-<div class="sourceCode" id="section-cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="co"># Mean</span></a>
-<a class="sourceLine" id="cb27-2" title="2"><span class="kw">mean</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="section-cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb27-1"></a><span class="co"># Mean</span></span>
+<span id="cb27-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb27-2"></a><span class="kw">mean</span>(oldfaithful<span class="op">$</span>time)</span></code></pre></div>
 <pre><code>[1] 209.2684</code></pre>
-<div class="sourceCode" id="section-cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="co"># Median</span></a>
-<a class="sourceLine" id="cb29-2" title="2"><span class="kw">median</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="section-cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb29-1"></a><span class="co"># Median</span></span>
+<span id="cb29-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb29-2"></a><span class="kw">median</span>(oldfaithful<span class="op">$</span>time)</span></code></pre></div>
 <pre><code>[1] 240</code></pre>
-<div class="sourceCode" id="section-cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="co"># Standard deviation</span></a>
-<a class="sourceLine" id="cb31-2" title="2"><span class="kw">sd</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="section-cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb31-1"></a><span class="co"># Standard deviation</span></span>
+<span id="cb31-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb31-2"></a><span class="kw">sd</span>(oldfaithful<span class="op">$</span>time)</span></code></pre></div>
 <pre><code>[1] 68.48329</code></pre>
-<div class="sourceCode" id="section-cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="co"># Quantiles: tell it which ones you want. I want 0, 25, 50, 75, 100</span></a>
-<a class="sourceLine" id="cb33-2" title="2"><span class="kw">quantile</span>(oldfaithful<span class="op">$</span>time,<span class="dt">probs =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">25</span>,.<span class="dv">50</span>,.<span class="dv">75</span>,<span class="fl">1.00</span>))</a></code></pre></div>
+<div class="sourceCode" id="section-cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb33-1"></a><span class="co"># Quantiles: tell it which ones you want. I want 0, 25, 50, 75, 100</span></span>
+<span id="cb33-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb33-2"></a><span class="kw">quantile</span>(oldfaithful<span class="op">$</span>time,<span class="dt">probs =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">25</span>,.<span class="dv">50</span>,.<span class="dv">75</span>,<span class="fl">1.00</span>))</span></code></pre></div>
 <pre><code>    0%    25%    50%    75%   100% 
  96.00 129.75 240.00 267.25 306.00 </code></pre>
-<div class="sourceCode" id="section-cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="co"># The zeroth and hundredth quantiles are the sample minimum and maximum:</span></a>
-<a class="sourceLine" id="cb35-2" title="2"><span class="kw">min</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="section-cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb35-1"></a><span class="co"># The zeroth and hundredth quantiles are the sample minimum and maximum:</span></span>
+<span id="cb35-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb35-2"></a><span class="kw">min</span>(oldfaithful<span class="op">$</span>time)</span></code></pre></div>
 <pre><code>[1] 96</code></pre>
-<div class="sourceCode" id="section-cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">max</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="section-cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb37-1"></a><span class="kw">max</span>(oldfaithful<span class="op">$</span>time)</span></code></pre></div>
 <pre><code>[1] 306</code></pre>
-<div class="sourceCode" id="section-cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="co"># Actually, you can get all this with the summary() function:</span></a>
-<a class="sourceLine" id="cb39-2" title="2"><span class="kw">summary</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="section-cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb39-1"></a><span class="co"># Actually, you can get all this with the summary() function:</span></span>
+<span id="cb39-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb39-2"></a><span class="kw">summary</span>(oldfaithful<span class="op">$</span>time)</span></code></pre></div>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    96.0   129.8   240.0   209.3   267.2   306.0 </code></pre>
-<div class="sourceCode" id="section-cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="co"># Mean absolute deviation</span></a>
-<a class="sourceLine" id="cb41-2" title="2"><span class="co"># I don&#39;t know an R function for this off the top of my head (maybe you can find one?)</span></a>
-<a class="sourceLine" id="cb41-3" title="3"><span class="co"># So let&#39;s calculate it manually.</span></a>
-<a class="sourceLine" id="cb41-4" title="4"><span class="co"># Actually, let&#39;s calculate them ALL manually!</span></a>
-<a class="sourceLine" id="cb41-5" title="5"><span class="co"># Mean:</span></a>
-<a class="sourceLine" id="cb41-6" title="6"><span class="kw">sum</span>(oldfaithful<span class="op">$</span>time) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(oldfaithful<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="section-cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb41-1"></a><span class="co"># Mean absolute deviation</span></span>
+<span id="cb41-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb41-2"></a><span class="co"># I don&#39;t know an R function for this off the top of my head (maybe you can find one?)</span></span>
+<span id="cb41-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb41-3"></a><span class="co"># So let&#39;s calculate it manually.</span></span>
+<span id="cb41-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb41-4"></a><span class="co"># Actually, let&#39;s calculate them ALL manually!</span></span>
+<span id="cb41-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb41-5"></a><span class="co"># Mean:</span></span>
+<span id="cb41-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb41-6"></a><span class="kw">sum</span>(oldfaithful<span class="op">$</span>time) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(oldfaithful<span class="op">$</span>time)</span></code></pre></div>
 <pre><code>[1] 209.2684</code></pre>
-<div class="sourceCode" id="section-cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="co"># Median: it&#39;s the 50th percentile</span></a>
-<a class="sourceLine" id="cb43-2" title="2"><span class="kw">quantile</span>(oldfaithful<span class="op">$</span>time,<span class="dt">probs =</span> <span class="fl">.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb43-1"></a><span class="co"># Median: it&#39;s the 50th percentile</span></span>
+<span id="cb43-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb43-2"></a><span class="kw">quantile</span>(oldfaithful<span class="op">$</span>time,<span class="dt">probs =</span> <span class="fl">.5</span>)</span></code></pre></div>
 <pre><code>50% 
 240 </code></pre>
-<div class="sourceCode" id="section-cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="co"># Can get it manually too:</span></a>
-<a class="sourceLine" id="cb45-2" title="2"><span class="kw">sort</span>(oldfaithful<span class="op">$</span>time)[<span class="kw">length</span>(oldfaithful<span class="op">$</span>time)<span class="op">/</span><span class="dv">2</span>]</a></code></pre></div>
+<div class="sourceCode" id="section-cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb45-1"></a><span class="co"># Can get it manually too:</span></span>
+<span id="cb45-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb45-2"></a><span class="kw">sort</span>(oldfaithful<span class="op">$</span>time)[<span class="kw">length</span>(oldfaithful<span class="op">$</span>time)<span class="op">/</span><span class="dv">2</span>]</span></code></pre></div>
 <pre><code>[1] 240</code></pre>
-<div class="sourceCode" id="section-cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="co"># Better to use the quantile() function though.</span></a>
-<a class="sourceLine" id="cb47-2" title="2"><span class="co"># Standard deviation. Need to save the mean to a variable first:</span></a>
-<a class="sourceLine" id="cb47-3" title="3">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(oldfaithful<span class="op">$</span>time)</a>
-<a class="sourceLine" id="cb47-4" title="4"><span class="kw">sqrt</span>( <span class="kw">sum</span>( (oldfaithful<span class="op">$</span>time <span class="op">-</span><span class="st"> </span>mn)<span class="op">^</span><span class="dv">2</span> ) <span class="op">/</span><span class="st"> </span>( <span class="kw">length</span>(oldfaithful<span class="op">$</span>time) <span class="op">-</span><span class="st"> </span><span class="dv">1</span> ) )</a></code></pre></div>
+<div class="sourceCode" id="section-cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb47-1"></a><span class="co"># Better to use the quantile() function though.</span></span>
+<span id="cb47-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb47-2"></a><span class="co"># Standard deviation. Need to save the mean to a variable first:</span></span>
+<span id="cb47-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb47-3"></a>mn &lt;-<span class="st"> </span><span class="kw">mean</span>(oldfaithful<span class="op">$</span>time)</span>
+<span id="cb47-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb47-4"></a><span class="kw">sqrt</span>( <span class="kw">sum</span>( (oldfaithful<span class="op">$</span>time <span class="op">-</span><span class="st"> </span>mn)<span class="op">^</span><span class="dv">2</span> ) <span class="op">/</span><span class="st"> </span>( <span class="kw">length</span>(oldfaithful<span class="op">$</span>time) <span class="op">-</span><span class="st"> </span><span class="dv">1</span> ) )</span></code></pre></div>
 <pre><code>[1] 68.48329</code></pre>
-<div class="sourceCode" id="section-cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1"><span class="co"># MAD. Similar to sd:</span></a>
-<a class="sourceLine" id="cb49-2" title="2">md &lt;-<span class="st"> </span><span class="kw">median</span>(oldfaithful<span class="op">$</span>time)</a>
-<a class="sourceLine" id="cb49-3" title="3"><span class="kw">median</span>( <span class="kw">abs</span>(oldfaithful<span class="op">$</span>time <span class="op">-</span><span class="st"> </span>md) )</a></code></pre></div>
+<div class="sourceCode" id="section-cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb49-1"></a><span class="co"># MAD. Similar to sd:</span></span>
+<span id="cb49-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb49-2"></a>md &lt;-<span class="st"> </span><span class="kw">median</span>(oldfaithful<span class="op">$</span>time)</span>
+<span id="cb49-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb49-3"></a><span class="kw">median</span>( <span class="kw">abs</span>(oldfaithful<span class="op">$</span>time <span class="op">-</span><span class="st"> </span>md) )</span></code></pre></div>
 <pre><code>[1] 38.5</code></pre>
-<div class="sourceCode" id="section-cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1"><span class="co"># IQR:</span></a>
-<a class="sourceLine" id="cb51-2" title="2"><span class="kw">quantile</span>(oldfaithful<span class="op">$</span>time,<span class="dt">probs =</span> <span class="fl">.75</span>) <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(oldfaithful<span class="op">$</span>time,<span class="dt">probs =</span> <span class="fl">.25</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb51-1"></a><span class="co"># IQR:</span></span>
+<span id="cb51-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb51-2"></a><span class="kw">quantile</span>(oldfaithful<span class="op">$</span>time,<span class="dt">probs =</span> <span class="fl">.75</span>) <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(oldfaithful<span class="op">$</span>time,<span class="dt">probs =</span> <span class="fl">.25</span>)</span></code></pre></div>
 <pre><code>  75% 
 137.5 </code></pre>
-<div class="sourceCode" id="section-cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="co"># Note that there are various ways to correct for the fact that not all quantiles</span></a>
-<a class="sourceLine" id="cb53-2" title="2"><span class="co"># are exact (you may not have a datapoint which has EXACTLY 25% of the data below it,</span></a>
-<a class="sourceLine" id="cb53-3" title="3"><span class="co"># like if the sample size isn&#39;t divisible by 4). R probably uses a different method</span></a>
-<a class="sourceLine" id="cb53-4" title="4"><span class="co"># than the book, so the results here are slightly different.</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb53-1"></a><span class="co"># Note that there are various ways to correct for the fact that not all quantiles</span></span>
+<span id="cb53-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb53-2"></a><span class="co"># are exact (you may not have a datapoint which has EXACTLY 25% of the data below it,</span></span>
+<span id="cb53-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb53-3"></a><span class="co"># like if the sample size isn&#39;t divisible by 4). R probably uses a different method</span></span>
+<span id="cb53-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb53-4"></a><span class="co"># than the book, so the results here are slightly different.</span></span></code></pre></div>
 </div>
 </div>
 <div id="section-drilling" class="section level2">
@@ -605,7 +613,7 @@ containing more than one variable.</p>
 <div id="section-read-in-data" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Read in data</h3>
 <p>Read in the <code>drilling.txt</code> file:</p>
-<div class="sourceCode" id="section-cb54"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb54-1" title="1"><span class="fu">head</span> data/MIPSdata/drilling.txt</a></code></pre></div>
+<div class="sourceCode" id="section-cb54"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb54-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb54-1"></a><span class="fu">head</span> data/MIPSdata/drilling.txt</span></code></pre></div>
 <pre><code>5   640.67  830
 10  674.67  800
 15  708 711.33
@@ -616,14 +624,14 @@ containing more than one variable.</p>
 40  727.67  873
 45  658.67  874.67
 50  658 843.33</code></pre>
-<div class="sourceCode" id="section-cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1"><span class="co"># Use the read_tsv (not csv), because this file is &quot;tab-delimited&quot;; the spaces</span></a>
-<a class="sourceLine" id="cb56-2" title="2"><span class="co"># between columns contain tab characters.</span></a>
-<a class="sourceLine" id="cb56-3" title="3">drilling &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_tsv</span>(</a>
-<a class="sourceLine" id="cb56-4" title="4">  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/drilling.txt&quot;</span>,</a>
-<a class="sourceLine" id="cb56-5" title="5">  <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;depth&quot;</span>,<span class="st">&quot;dry&quot;</span>,<span class="st">&quot;wet&quot;</span>),</a>
-<a class="sourceLine" id="cb56-6" title="6">  <span class="dt">col_types =</span> <span class="st">&quot;nnn&quot;</span></a>
-<a class="sourceLine" id="cb56-7" title="7">)</a>
-<a class="sourceLine" id="cb56-8" title="8"><span class="kw">glimpse</span>(drilling)</a></code></pre></div>
+<div class="sourceCode" id="section-cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb56-1"></a><span class="co"># Use the read_tsv (not csv), because this file is &quot;tab-delimited&quot;; the spaces</span></span>
+<span id="cb56-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb56-2"></a><span class="co"># between columns contain tab characters.</span></span>
+<span id="cb56-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb56-3"></a>drilling &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_tsv</span>(</span>
+<span id="cb56-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb56-4"></a>  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/drilling.txt&quot;</span>,</span>
+<span id="cb56-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb56-5"></a>  <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;depth&quot;</span>,<span class="st">&quot;dry&quot;</span>,<span class="st">&quot;wet&quot;</span>),</span>
+<span id="cb56-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb56-6"></a>  <span class="dt">col_types =</span> <span class="st">&quot;nnn&quot;</span></span>
+<span id="cb56-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb56-7"></a>)</span>
+<span id="cb56-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb56-8"></a><span class="kw">glimpse</span>(drilling)</span></code></pre></div>
 <pre><code>Observations: 80
 Variables: 3
 $ depth &lt;dbl&gt; 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, …
@@ -636,98 +644,98 @@ $ wet   &lt;dbl&gt; 830.00, 800.00, 711.33, 867.67, 940.67, 941.33, 924.33, 873.
 <p>To make a scatterplot, you can again use base <code>R</code> or <code>ggplot</code>. We want separate plots
 for dry and wet holes. You can do this by plotting these data separately, or you
 can re-format the data and have <code>ggplot</code> do it automatically:</p>
-<div class="sourceCode" id="section-cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1"><span class="co"># Base R</span></a>
-<a class="sourceLine" id="cb58-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># Plots on a 1 x 2 grid</span></a>
-<a class="sourceLine" id="cb58-3" title="3"><span class="kw">plot</span>(dry<span class="op">~</span>depth,<span class="dt">data =</span> drilling)</a>
-<a class="sourceLine" id="cb58-4" title="4"><span class="kw">plot</span>(wet<span class="op">~</span>depth,<span class="dt">data =</span> drilling)</a></code></pre></div>
+<div class="sourceCode" id="section-cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb58-1"></a><span class="co"># Base R</span></span>
+<span id="cb58-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb58-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># Plots on a 1 x 2 grid</span></span>
+<span id="cb58-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb58-3"></a><span class="kw">plot</span>(dry<span class="op">~</span>depth,<span class="dt">data =</span> drilling)</span>
+<span id="cb58-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb58-4"></a><span class="kw">plot</span>(wet<span class="op">~</span>depth,<span class="dt">data =</span> drilling)</span></code></pre></div>
 <p><img src="book_files/figure-html/plot-drilling-1-1.png" width="672" /></p>
-<div class="sourceCode" id="section-cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="co"># ggplot</span></a>
-<a class="sourceLine" id="cb59-2" title="2"><span class="co"># Two separate plots:</span></a>
-<a class="sourceLine" id="cb59-3" title="3">dryplt &lt;-<span class="st"> </span>drilling <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb59-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> depth,<span class="dt">y =</span> dry)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb59-5" title="5"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb59-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span><span class="st"> </span><span class="co"># pch=21 is the magic command to give you hollow points</span></a>
-<a class="sourceLine" id="cb59-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Dry Holes&quot;</span>,</a>
-<a class="sourceLine" id="cb59-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Depth&quot;</span>,</a>
-<a class="sourceLine" id="cb59-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Mean drill time&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb59-10" title="10"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">500</span>,<span class="dv">1300</span>,<span class="dt">by =</span> <span class="dv">200</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb59-11" title="11"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">500</span>,<span class="dv">1300</span>))</a>
-<a class="sourceLine" id="cb59-12" title="12">wetplt &lt;-<span class="st"> </span>drilling <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb59-13" title="13"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> depth,<span class="dt">y =</span> wet)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb59-14" title="14"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb59-15" title="15"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span><span class="st"> </span><span class="co"># pch=21 is the magic command to give you hollow points</span></a>
-<a class="sourceLine" id="cb59-16" title="16"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Wet Holes&quot;</span>,</a>
-<a class="sourceLine" id="cb59-17" title="17">       <span class="dt">x =</span> <span class="st">&quot;Depth&quot;</span>,</a>
-<a class="sourceLine" id="cb59-18" title="18">       <span class="dt">y =</span> <span class="st">&quot;Mean drill time&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb59-19" title="19"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">500</span>,<span class="dv">1300</span>,<span class="dt">by =</span> <span class="dv">200</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb59-20" title="20"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">500</span>,<span class="dv">1300</span>))</a>
-<a class="sourceLine" id="cb59-21" title="21"></a>
-<a class="sourceLine" id="cb59-22" title="22">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(dryplt,wetplt,<span class="dt">nrow =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-1"></a><span class="co"># ggplot</span></span>
+<span id="cb59-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-2"></a><span class="co"># Two separate plots:</span></span>
+<span id="cb59-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-3"></a>dryplt &lt;-<span class="st"> </span>drilling <span class="op">%&gt;%</span></span>
+<span id="cb59-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> depth,<span class="dt">y =</span> dry)) <span class="op">+</span></span>
+<span id="cb59-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-5"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb59-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-6"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span><span class="st"> </span><span class="co"># pch=21 is the magic command to give you hollow points</span></span>
+<span id="cb59-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Dry Holes&quot;</span>,</span>
+<span id="cb59-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-8"></a>       <span class="dt">x =</span> <span class="st">&quot;Depth&quot;</span>,</span>
+<span id="cb59-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-9"></a>       <span class="dt">y =</span> <span class="st">&quot;Mean drill time&quot;</span>) <span class="op">+</span></span>
+<span id="cb59-10"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-10"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">500</span>,<span class="dv">1300</span>,<span class="dt">by =</span> <span class="dv">200</span>)) <span class="op">+</span></span>
+<span id="cb59-11"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-11"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">500</span>,<span class="dv">1300</span>))</span>
+<span id="cb59-12"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-12"></a>wetplt &lt;-<span class="st"> </span>drilling <span class="op">%&gt;%</span></span>
+<span id="cb59-13"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-13"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> depth,<span class="dt">y =</span> wet)) <span class="op">+</span></span>
+<span id="cb59-14"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-14"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb59-15"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-15"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span><span class="st"> </span><span class="co"># pch=21 is the magic command to give you hollow points</span></span>
+<span id="cb59-16"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-16"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Wet Holes&quot;</span>,</span>
+<span id="cb59-17"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-17"></a>       <span class="dt">x =</span> <span class="st">&quot;Depth&quot;</span>,</span>
+<span id="cb59-18"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-18"></a>       <span class="dt">y =</span> <span class="st">&quot;Mean drill time&quot;</span>) <span class="op">+</span></span>
+<span id="cb59-19"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-19"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">500</span>,<span class="dv">1300</span>,<span class="dt">by =</span> <span class="dv">200</span>)) <span class="op">+</span></span>
+<span id="cb59-20"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-20"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">500</span>,<span class="dv">1300</span>))</span>
+<span id="cb59-21"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-21"></a></span>
+<span id="cb59-22"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb59-22"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(dryplt,wetplt,<span class="dt">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/plot-drilling-1-2.png" width="672" /></p>
-<div class="sourceCode" id="section-cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="co"># There is a lot of repeated code here. For a better way to make these two</span></a>
-<a class="sourceLine" id="cb60-2" title="2"><span class="co"># plots, first create a base plot object and then reuse it:</span></a>
-<a class="sourceLine" id="cb60-3" title="3">drillingplt &lt;-<span class="st"> </span>drilling <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb60-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> depth)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb60-5" title="5"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb60-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Depth&quot;</span>,</a>
-<a class="sourceLine" id="cb60-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;Mean drill time&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb60-8" title="8"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">500</span>,<span class="dv">1300</span>,<span class="dt">by =</span> <span class="dv">200</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb60-9" title="9"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">500</span>,<span class="dv">1300</span>))</a>
-<a class="sourceLine" id="cb60-10" title="10"></a>
-<a class="sourceLine" id="cb60-11" title="11">dryplt2 &lt;-<span class="st"> </span>drillingplt <span class="op">+</span></a>
-<a class="sourceLine" id="cb60-12" title="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Dry holes&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb60-13" title="13"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dry),<span class="dt">pch =</span> <span class="dv">21</span>)</a>
-<a class="sourceLine" id="cb60-14" title="14"></a>
-<a class="sourceLine" id="cb60-15" title="15">wetplt2 &lt;-<span class="st"> </span>drillingplt <span class="op">+</span></a>
-<a class="sourceLine" id="cb60-16" title="16"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Wet holes&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb60-17" title="17"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> wet),<span class="dt">pch =</span> <span class="dv">21</span>)</a>
-<a class="sourceLine" id="cb60-18" title="18"></a>
-<a class="sourceLine" id="cb60-19" title="19">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(dryplt2,wetplt2,<span class="dt">nrow =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-1"></a><span class="co"># There is a lot of repeated code here. For a better way to make these two</span></span>
+<span id="cb60-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-2"></a><span class="co"># plots, first create a base plot object and then reuse it:</span></span>
+<span id="cb60-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-3"></a>drillingplt &lt;-<span class="st"> </span>drilling <span class="op">%&gt;%</span></span>
+<span id="cb60-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> depth)) <span class="op">+</span></span>
+<span id="cb60-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-5"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb60-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Depth&quot;</span>,</span>
+<span id="cb60-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-7"></a>       <span class="dt">y =</span> <span class="st">&quot;Mean drill time&quot;</span>) <span class="op">+</span></span>
+<span id="cb60-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-8"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">500</span>,<span class="dv">1300</span>,<span class="dt">by =</span> <span class="dv">200</span>)) <span class="op">+</span></span>
+<span id="cb60-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-9"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">500</span>,<span class="dv">1300</span>))</span>
+<span id="cb60-10"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-10"></a></span>
+<span id="cb60-11"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-11"></a>dryplt2 &lt;-<span class="st"> </span>drillingplt <span class="op">+</span></span>
+<span id="cb60-12"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-12"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Dry holes&quot;</span>) <span class="op">+</span></span>
+<span id="cb60-13"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-13"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dry),<span class="dt">pch =</span> <span class="dv">21</span>)</span>
+<span id="cb60-14"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-14"></a></span>
+<span id="cb60-15"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-15"></a>wetplt2 &lt;-<span class="st"> </span>drillingplt <span class="op">+</span></span>
+<span id="cb60-16"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-16"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Wet holes&quot;</span>) <span class="op">+</span></span>
+<span id="cb60-17"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-17"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> wet),<span class="dt">pch =</span> <span class="dv">21</span>)</span>
+<span id="cb60-18"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-18"></a></span>
+<span id="cb60-19"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb60-19"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(dryplt2,wetplt2,<span class="dt">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/plot-drilling-1-3.png" width="672" /></p>
-<div class="sourceCode" id="section-cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1"><span class="co"># Much better</span></a>
-<a class="sourceLine" id="cb61-2" title="2"><span class="co"># Another option is to reformat the data and create the plot</span></a>
-<a class="sourceLine" id="cb61-3" title="3"><span class="co"># with a single command. To do this we stack the dry and wet measurements</span></a>
-<a class="sourceLine" id="cb61-4" title="4"><span class="co"># on top of each other, and create a new variable which indicates whether the</span></a>
-<a class="sourceLine" id="cb61-5" title="5"><span class="co"># measurements are dry or wet. This is called putting the data into &quot;long&quot; format.</span></a>
-<a class="sourceLine" id="cb61-6" title="6"><span class="co"># ggplot then knows how to &quot;facet&quot; the plots according to this new variable.</span></a>
-<a class="sourceLine" id="cb61-7" title="7"><span class="co"># Check it out:</span></a>
-<a class="sourceLine" id="cb61-8" title="8">drilling_long &lt;-<span class="st"> </span>drilling <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb61-9" title="9"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</a>
-<a class="sourceLine" id="cb61-10" title="10">    dry<span class="op">:</span>wet, <span class="co"># Gather up the columns &quot;dry&quot; and &quot;wet&quot;</span></a>
-<a class="sourceLine" id="cb61-11" title="11">    <span class="dt">names_to =</span> <span class="st">&quot;type&quot;</span>, <span class="co"># Create a new column called &quot;type&quot; which says whether a hole is dry or wet</span></a>
-<a class="sourceLine" id="cb61-12" title="12">    <span class="dt">values_to =</span> <span class="st">&quot;time&quot;</span> <span class="co"># Create a new column called &quot;time&quot; with the drilling time for each hole</span></a>
-<a class="sourceLine" id="cb61-13" title="13">    ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb61-14" title="14"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="kw">case_when</span>( <span class="co"># Rename the type values for plotting</span></a>
-<a class="sourceLine" id="cb61-15" title="15">    type <span class="op">==</span><span class="st"> &quot;dry&quot;</span> <span class="op">~</span><span class="st"> &quot;Dry Holes&quot;</span>,</a>
-<a class="sourceLine" id="cb61-16" title="16">    type <span class="op">==</span><span class="st"> &quot;wet&quot;</span> <span class="op">~</span><span class="st"> &quot;Wet Holes&quot;</span></a>
-<a class="sourceLine" id="cb61-17" title="17">  )) </a>
-<a class="sourceLine" id="cb61-18" title="18">dplyr<span class="op">::</span><span class="kw">glimpse</span>(drilling_long)</a></code></pre></div>
+<div class="sourceCode" id="section-cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-1"></a><span class="co"># Much better</span></span>
+<span id="cb61-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-2"></a><span class="co"># Another option is to reformat the data and create the plot</span></span>
+<span id="cb61-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-3"></a><span class="co"># with a single command. To do this we stack the dry and wet measurements</span></span>
+<span id="cb61-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-4"></a><span class="co"># on top of each other, and create a new variable which indicates whether the</span></span>
+<span id="cb61-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-5"></a><span class="co"># measurements are dry or wet. This is called putting the data into &quot;long&quot; format.</span></span>
+<span id="cb61-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-6"></a><span class="co"># ggplot then knows how to &quot;facet&quot; the plots according to this new variable.</span></span>
+<span id="cb61-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-7"></a><span class="co"># Check it out:</span></span>
+<span id="cb61-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-8"></a>drilling_long &lt;-<span class="st"> </span>drilling <span class="op">%&gt;%</span></span>
+<span id="cb61-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-9"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</span>
+<span id="cb61-10"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-10"></a>    dry<span class="op">:</span>wet, <span class="co"># Gather up the columns &quot;dry&quot; and &quot;wet&quot;</span></span>
+<span id="cb61-11"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-11"></a>    <span class="dt">names_to =</span> <span class="st">&quot;type&quot;</span>, <span class="co"># Create a new column called &quot;type&quot; which says whether a hole is dry or wet</span></span>
+<span id="cb61-12"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-12"></a>    <span class="dt">values_to =</span> <span class="st">&quot;time&quot;</span> <span class="co"># Create a new column called &quot;time&quot; with the drilling time for each hole</span></span>
+<span id="cb61-13"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-13"></a>    ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb61-14"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-14"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="kw">case_when</span>( <span class="co"># Rename the type values for plotting</span></span>
+<span id="cb61-15"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-15"></a>    type <span class="op">==</span><span class="st"> &quot;dry&quot;</span> <span class="op">~</span><span class="st"> &quot;Dry Holes&quot;</span>,</span>
+<span id="cb61-16"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-16"></a>    type <span class="op">==</span><span class="st"> &quot;wet&quot;</span> <span class="op">~</span><span class="st"> &quot;Wet Holes&quot;</span></span>
+<span id="cb61-17"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-17"></a>  )) </span>
+<span id="cb61-18"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb61-18"></a>dplyr<span class="op">::</span><span class="kw">glimpse</span>(drilling_long)</span></code></pre></div>
 <pre><code>Observations: 160
 Variables: 3
 $ depth &lt;dbl&gt; 5, 5, 10, 10, 15, 15, 20, 20, 25, 25, 30, 30, 35, 35, 40, 40, 4…
 $ type  &lt;chr&gt; &quot;Dry Holes&quot;, &quot;Wet Holes&quot;, &quot;Dry Holes&quot;, &quot;Wet Holes&quot;, &quot;Dry Holes&quot;…
 $ time  &lt;dbl&gt; 640.67, 830.00, 674.67, 800.00, 708.00, 711.33, 735.67, 867.67,…</code></pre>
-<div class="sourceCode" id="section-cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1">drilling_long <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb63-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> depth,<span class="dt">y =</span> time)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb63-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb63-4" title="4"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type) <span class="op">+</span></a>
-<a class="sourceLine" id="cb63-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb63-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Mean drilling times&quot;</span>,</a>
-<a class="sourceLine" id="cb63-7" title="7">       <span class="dt">x =</span> <span class="st">&quot;Depth&quot;</span>,</a>
-<a class="sourceLine" id="cb63-8" title="8">       <span class="dt">y =</span> <span class="st">&quot;Mean drilling time&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb63-1"></a>drilling_long <span class="op">%&gt;%</span></span>
+<span id="cb63-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb63-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> depth,<span class="dt">y =</span> time)) <span class="op">+</span></span>
+<span id="cb63-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb63-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb63-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb63-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type) <span class="op">+</span></span>
+<span id="cb63-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb63-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb63-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb63-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Mean drilling times&quot;</span>,</span>
+<span id="cb63-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb63-7"></a>       <span class="dt">x =</span> <span class="st">&quot;Depth&quot;</span>,</span>
+<span id="cb63-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb63-8"></a>       <span class="dt">y =</span> <span class="st">&quot;Mean drilling time&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/plot-drilling-1-4.png" width="672" /></p>
-<div class="sourceCode" id="section-cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1"><span class="co"># Even though there is more overhead with this method, I recommend it because</span></a>
-<a class="sourceLine" id="cb64-2" title="2"><span class="co"># it scales to more variables. If you wanted to make 20 plots, you&#39;d have to </span></a>
-<a class="sourceLine" id="cb64-3" title="3"><span class="co"># have 20 plots in the previous method but here, the code is actually identical.</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb64-1"></a><span class="co"># Even though there is more overhead with this method, I recommend it because</span></span>
+<span id="cb64-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb64-2"></a><span class="co"># it scales to more variables. If you wanted to make 20 plots, you&#39;d have to </span></span>
+<span id="cb64-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb64-3"></a><span class="co"># have 20 plots in the previous method but here, the code is actually identical.</span></span></code></pre></div>
 <p>To make boxplots, transform the data in the same way as for the side-by-side
 scatterplots, and give to <code>ggplot</code>:</p>
-<div class="sourceCode" id="section-cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">drilling_long <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb65-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> type,<span class="dt">y =</span> time)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb65-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb65-4" title="4"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb65-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Boxplots for wet and dry drilling times, Drilling data&quot;</span>,</a>
-<a class="sourceLine" id="cb65-6" title="6">       <span class="dt">x =</span> <span class="st">&quot;Hole Type&quot;</span>,</a>
-<a class="sourceLine" id="cb65-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;Mean drilling time&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb65-1"></a>drilling_long <span class="op">%&gt;%</span></span>
+<span id="cb65-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb65-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> type,<span class="dt">y =</span> time)) <span class="op">+</span></span>
+<span id="cb65-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb65-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb65-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb65-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb65-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb65-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Boxplots for wet and dry drilling times, Drilling data&quot;</span>,</span>
+<span id="cb65-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb65-6"></a>       <span class="dt">x =</span> <span class="st">&quot;Hole Type&quot;</span>,</span>
+<span id="cb65-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb65-7"></a>       <span class="dt">y =</span> <span class="st">&quot;Mean drilling time&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/plot-drilling-2-1.png" width="672" /></p>
 </div>
 <div id="section-numerical-summaries-1" class="section level3">
@@ -740,17 +748,17 @@ formal grouping operations. We need the data in long format for this, which we h
 <p>The following is a bit more work but is the basis
 of a really powerful strategy for summarizing complex datasets.</p>
 <p>Check it out:</p>
-<div class="sourceCode" id="section-cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1">drilling_long <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb66-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(type) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Everything that happens now happens separately for Wet Holes and Dry Holes</span></a>
-<a class="sourceLine" id="cb66-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(</a>
-<a class="sourceLine" id="cb66-4" title="4">    <span class="dt">mean =</span> <span class="kw">mean</span>(time),</a>
-<a class="sourceLine" id="cb66-5" title="5">    <span class="dt">sd =</span> <span class="kw">sd</span>(time),</a>
-<a class="sourceLine" id="cb66-6" title="6">    <span class="dt">min =</span> <span class="kw">min</span>(time),</a>
-<a class="sourceLine" id="cb66-7" title="7">    <span class="dt">median =</span> <span class="kw">median</span>(time),</a>
-<a class="sourceLine" id="cb66-8" title="8">    <span class="dt">quant_25 =</span> <span class="kw">quantile</span>(time,<span class="dt">probs =</span> <span class="fl">.25</span>),</a>
-<a class="sourceLine" id="cb66-9" title="9">    <span class="dt">quant_75 =</span> <span class="kw">quantile</span>(time,<span class="dt">probs =</span> <span class="fl">.75</span>),</a>
-<a class="sourceLine" id="cb66-10" title="10">    <span class="dt">max =</span> <span class="kw">max</span>(time)</a>
-<a class="sourceLine" id="cb66-11" title="11">  )</a></code></pre></div>
+<div class="sourceCode" id="section-cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb66-1"></a>drilling_long <span class="op">%&gt;%</span></span>
+<span id="cb66-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb66-2"></a><span class="st">  </span><span class="kw">group_by</span>(type) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Everything that happens now happens separately for Wet Holes and Dry Holes</span></span>
+<span id="cb66-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb66-3"></a><span class="st">  </span><span class="kw">summarize</span>(</span>
+<span id="cb66-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb66-4"></a>    <span class="dt">mean =</span> <span class="kw">mean</span>(time),</span>
+<span id="cb66-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb66-5"></a>    <span class="dt">sd =</span> <span class="kw">sd</span>(time),</span>
+<span id="cb66-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb66-6"></a>    <span class="dt">min =</span> <span class="kw">min</span>(time),</span>
+<span id="cb66-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb66-7"></a>    <span class="dt">median =</span> <span class="kw">median</span>(time),</span>
+<span id="cb66-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb66-8"></a>    <span class="dt">quant_25 =</span> <span class="kw">quantile</span>(time,<span class="dt">probs =</span> <span class="fl">.25</span>),</span>
+<span id="cb66-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb66-9"></a>    <span class="dt">quant_75 =</span> <span class="kw">quantile</span>(time,<span class="dt">probs =</span> <span class="fl">.75</span>),</span>
+<span id="cb66-10"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb66-10"></a>    <span class="dt">max =</span> <span class="kw">max</span>(time)</span>
+<span id="cb66-11"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb66-11"></a>  )</span></code></pre></div>
 <pre><code># A tibble: 2 x 8
   type       mean    sd   min median quant_25 quant_75   max
   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
@@ -773,10 +781,10 @@ you make.</p>
 <p>Consider a famous dataset containing information on smoking and mortality.
 The data is available in the <code>R</code> package <code>faraway</code>. We may load the package and data
 and retrieve information on it as follows:</p>
-<div class="sourceCode" id="section-cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1"><span class="co"># install.packages(&quot;faraway&quot;) # Run this to install the faraway package, which has useful datasets</span></a>
-<a class="sourceLine" id="cb68-2" title="2"><span class="kw">library</span>(faraway) <span class="co"># Attach the faraway package</span></a>
-<a class="sourceLine" id="cb68-3" title="3"><span class="kw">data</span>(<span class="st">&quot;femsmoke&quot;</span>) <span class="co"># Load the &quot;femsmoke&quot; data</span></a>
-<a class="sourceLine" id="cb68-4" title="4"><span class="co"># ?femsmoke # Run this to open the help page for the dataset.</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb68-1"></a><span class="co"># install.packages(&quot;faraway&quot;) # Run this to install the faraway package, which has useful datasets</span></span>
+<span id="cb68-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb68-2"></a><span class="kw">library</span>(faraway) <span class="co"># Attach the faraway package</span></span>
+<span id="cb68-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb68-3"></a><span class="kw">data</span>(<span class="st">&quot;femsmoke&quot;</span>) <span class="co"># Load the &quot;femsmoke&quot; data</span></span>
+<span id="cb68-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb68-4"></a><span class="co"># ?femsmoke # Run this to open the help page for the dataset.</span></span></code></pre></div>
 <p>We see from the help page, and associated reference to the paper in the <em>American Statistician</em>,
 that the data comes from asking women in Whickham, England, whether they smoke or not,
 and then following up in 20 years to see if they died.</p>
@@ -787,37 +795,37 @@ and then following up in 20 years to see if they died.</p>
 <li>How might we summarize each variable? We might compute a <strong>mean</strong> and a <strong>five-number summary</strong> for “continuous” variables, and a <strong>table of counts</strong> for “categorical” variables (more on this later…).</li>
 </ul>
 <p>Let’s see how we can obtain these descriptive measures in <code>R</code>:</p>
-<div class="sourceCode" id="section-cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="co"># Get the number of observations (rows), variables, and an idea</span></a>
-<a class="sourceLine" id="cb69-2" title="2"><span class="co"># of what the data looks like:</span></a>
-<a class="sourceLine" id="cb69-3" title="3"><span class="kw">glimpse</span>(femsmoke)</a></code></pre></div>
+<div class="sourceCode" id="section-cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb69-1"></a><span class="co"># Get the number of observations (rows), variables, and an idea</span></span>
+<span id="cb69-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb69-2"></a><span class="co"># of what the data looks like:</span></span>
+<span id="cb69-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb69-3"></a><span class="kw">glimpse</span>(femsmoke)</span></code></pre></div>
 <pre><code>Observations: 28
 Variables: 4
 $ y      &lt;dbl&gt; 2, 1, 3, 5, 14, 7, 27, 12, 51, 40, 29, 101, 13, 64, 53, 61, 12…
 $ smoker &lt;fct&gt; yes, no, yes, no, yes, no, yes, no, yes, no, yes, no, yes, no,…
 $ dead   &lt;fct&gt; yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, yes, ye…
 $ age    &lt;fct&gt; 18-24, 18-24, 25-34, 25-34, 35-44, 35-44, 45-54, 45-54, 55-64,…</code></pre>
-<div class="sourceCode" id="section-cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="co"># One observation represents a count of people in each category.</span></a>
-<a class="sourceLine" id="cb71-2" title="2"><span class="co"># How many people?</span></a>
-<a class="sourceLine" id="cb71-3" title="3">femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb71-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y)) <span class="co"># The summarize() function lets you compute summaries of variables in your dataframe</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb71-1"></a><span class="co"># One observation represents a count of people in each category.</span></span>
+<span id="cb71-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb71-2"></a><span class="co"># How many people?</span></span>
+<span id="cb71-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb71-3"></a>femsmoke <span class="op">%&gt;%</span></span>
+<span id="cb71-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb71-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y)) <span class="co"># The summarize() function lets you compute summaries of variables in your dataframe</span></span></code></pre></div>
 <pre><code>  num_people
 1       1314</code></pre>
-<div class="sourceCode" id="section-cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="co"># How many smokers?</span></a>
-<a class="sourceLine" id="cb73-2" title="2">femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb73-3" title="3"><span class="st">  </span><span class="kw">filter</span>(smoker <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># filter() lets you choose which rows to keep</span></a>
-<a class="sourceLine" id="cb73-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_smokers =</span> <span class="kw">sum</span>(y))</a></code></pre></div>
+<div class="sourceCode" id="section-cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb73-1"></a><span class="co"># How many smokers?</span></span>
+<span id="cb73-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb73-2"></a>femsmoke <span class="op">%&gt;%</span></span>
+<span id="cb73-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb73-3"></a><span class="st">  </span><span class="kw">filter</span>(smoker <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># filter() lets you choose which rows to keep</span></span>
+<span id="cb73-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb73-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_smokers =</span> <span class="kw">sum</span>(y))</span></code></pre></div>
 <pre><code>  num_smokers
 1         582</code></pre>
-<div class="sourceCode" id="section-cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1"><span class="co"># How many non-smokers?</span></a>
-<a class="sourceLine" id="cb75-2" title="2">femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb75-3" title="3"><span class="st">  </span><span class="kw">filter</span>(smoker <span class="op">==</span><span class="st"> &quot;no&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb75-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_non_smokers =</span> <span class="kw">sum</span>(y))</a></code></pre></div>
+<div class="sourceCode" id="section-cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb75-1"></a><span class="co"># How many non-smokers?</span></span>
+<span id="cb75-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb75-2"></a>femsmoke <span class="op">%&gt;%</span></span>
+<span id="cb75-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb75-3"></a><span class="st">  </span><span class="kw">filter</span>(smoker <span class="op">==</span><span class="st"> &quot;no&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb75-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb75-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_non_smokers =</span> <span class="kw">sum</span>(y))</span></code></pre></div>
 <pre><code>  num_non_smokers
 1             732</code></pre>
-<div class="sourceCode" id="section-cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="co"># We can get both those numbers at the same time:</span></a>
-<a class="sourceLine" id="cb77-2" title="2">femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb77-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># group_by() makes summarize() compute summaries within levels of a variable</span></a>
-<a class="sourceLine" id="cb77-4" title="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</a></code></pre></div>
+<div class="sourceCode" id="section-cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb77-1"></a><span class="co"># We can get both those numbers at the same time:</span></span>
+<span id="cb77-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb77-2"></a>femsmoke <span class="op">%&gt;%</span></span>
+<span id="cb77-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb77-3"></a><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># group_by() makes summarize() compute summaries within levels of a variable</span></span>
+<span id="cb77-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb77-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</span></code></pre></div>
 <pre><code># A tibble: 2 x 2
   smoker num_people
   &lt;fct&gt;       &lt;dbl&gt;
@@ -847,34 +855,34 @@ $ age    &lt;fct&gt; 18-24, 18-24, 25-34, 25-34, 35-44, 35-44, 45-54, 45-54, 55-
 <h3><span class="header-section-number">2.4.2</span> Association between smoking and mortality</h3>
 <p>Let’s go into a bit more detail. I want to see if there is any apparent association
 between smoking and mortality.</p>
-<div class="sourceCode" id="section-cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" title="1"><span class="co"># Compute the mortality rate for smokers and non-smokers.</span></a>
-<a class="sourceLine" id="cb80-2" title="2"><span class="co"># To do this, create a dataframe containing the numbers of smokers</span></a>
-<a class="sourceLine" id="cb80-3" title="3"><span class="co"># and non-smokers</span></a>
-<a class="sourceLine" id="cb80-4" title="4">smoker_numbers &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># The %&gt;% operator lets you form sequences of operations</span></a>
-<a class="sourceLine" id="cb80-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># group_by() makes all the following operations happen within groups</span></a>
-<a class="sourceLine" id="cb80-6" title="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y)) <span class="co"># Count the number of people who are smokers and not smokers </span></a>
-<a class="sourceLine" id="cb80-7" title="7">smoker_numbers</a></code></pre></div>
+<div class="sourceCode" id="section-cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb80-1"></a><span class="co"># Compute the mortality rate for smokers and non-smokers.</span></span>
+<span id="cb80-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb80-2"></a><span class="co"># To do this, create a dataframe containing the numbers of smokers</span></span>
+<span id="cb80-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb80-3"></a><span class="co"># and non-smokers</span></span>
+<span id="cb80-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb80-4"></a>smoker_numbers &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># The %&gt;% operator lets you form sequences of operations</span></span>
+<span id="cb80-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb80-5"></a><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># group_by() makes all the following operations happen within groups</span></span>
+<span id="cb80-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb80-6"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y)) <span class="co"># Count the number of people who are smokers and not smokers </span></span>
+<span id="cb80-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb80-7"></a>smoker_numbers</span></code></pre></div>
 <pre><code># A tibble: 2 x 2
   smoker num_people
   &lt;fct&gt;       &lt;dbl&gt;
 1 yes           582
 2 no            732</code></pre>
-<div class="sourceCode" id="section-cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1"><span class="co"># Now, compute the number of people who died out of the smokers and non-smokers</span></a>
-<a class="sourceLine" id="cb82-2" title="2"><span class="co"># This looks the same as above, except we now filter() only the people who died.</span></a>
-<a class="sourceLine" id="cb82-3" title="3">smoker_numbers_dead &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb82-4" title="4"><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Retains rows where dead == &quot;yes&quot; only</span></a>
-<a class="sourceLine" id="cb82-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb82-6" title="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</a>
-<a class="sourceLine" id="cb82-7" title="7">smoker_numbers_dead</a></code></pre></div>
+<div class="sourceCode" id="section-cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb82-1"></a><span class="co"># Now, compute the number of people who died out of the smokers and non-smokers</span></span>
+<span id="cb82-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb82-2"></a><span class="co"># This looks the same as above, except we now filter() only the people who died.</span></span>
+<span id="cb82-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb82-3"></a>smoker_numbers_dead &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></span>
+<span id="cb82-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb82-4"></a><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Retains rows where dead == &quot;yes&quot; only</span></span>
+<span id="cb82-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb82-5"></a><span class="st">  </span><span class="kw">group_by</span>(smoker) <span class="op">%&gt;%</span></span>
+<span id="cb82-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb82-6"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</span>
+<span id="cb82-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb82-7"></a>smoker_numbers_dead</span></code></pre></div>
 <pre><code># A tibble: 2 x 2
   smoker num_dead
   &lt;fct&gt;     &lt;dbl&gt;
 1 yes         139
 2 no          230</code></pre>
-<div class="sourceCode" id="section-cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1"><span class="co"># Now, we join these two tables together and compute the mortality rates by group.</span></a>
-<a class="sourceLine" id="cb84-2" title="2">smoker_numbers <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb84-3" title="3"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_dead,<span class="dt">by =</span> <span class="st">&quot;smoker&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Joins rows with the same value of &quot;smoker&quot;</span></a>
-<a class="sourceLine" id="cb84-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="co"># mutate() creates a new variable, which can be a function of the other variables in the dataframe.</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb84-1"></a><span class="co"># Now, we join these two tables together and compute the mortality rates by group.</span></span>
+<span id="cb84-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb84-2"></a>smoker_numbers <span class="op">%&gt;%</span></span>
+<span id="cb84-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb84-3"></a><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_dead,<span class="dt">by =</span> <span class="st">&quot;smoker&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Joins rows with the same value of &quot;smoker&quot;</span></span>
+<span id="cb84-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb84-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="co"># mutate() creates a new variable, which can be a function of the other variables in the dataframe.</span></span></code></pre></div>
 <pre><code># A tibble: 2 x 4
   smoker num_people num_dead mort_rate
   &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
@@ -887,18 +895,18 @@ non-smokers? This contradicts the <em>context</em> surrounding this analysis, wh
 <p>One thing we definitely did was ignore some present information. Specifically,
 we also know how old the women were. How can we include this information in our
 exploratory analysis? We can compute mortality rates by age:</p>
-<div class="sourceCode" id="section-cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1">smoker_numbers_age &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb86-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Now we&#39;re grouping by smoker AND age. The rest of the code remains unchanged.</span></a>
-<a class="sourceLine" id="cb86-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</a>
-<a class="sourceLine" id="cb86-4" title="4"></a>
-<a class="sourceLine" id="cb86-5" title="5">smoker_numbers_age_dead &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb86-6" title="6"><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb86-7" title="7"><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb86-8" title="8"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</a>
-<a class="sourceLine" id="cb86-9" title="9"></a>
-<a class="sourceLine" id="cb86-10" title="10">smoker_numbers_age <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb86-11" title="11"><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb86-12" title="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</a></code></pre></div>
+<div class="sourceCode" id="section-cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-1"></a>smoker_numbers_age &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></span>
+<span id="cb86-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-2"></a><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Now we&#39;re grouping by smoker AND age. The rest of the code remains unchanged.</span></span>
+<span id="cb86-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_people =</span> <span class="kw">sum</span>(y))</span>
+<span id="cb86-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-4"></a></span>
+<span id="cb86-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-5"></a>smoker_numbers_age_dead &lt;-<span class="st"> </span>femsmoke <span class="op">%&gt;%</span></span>
+<span id="cb86-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-6"></a><span class="st">  </span><span class="kw">filter</span>(dead <span class="op">==</span><span class="st"> &quot;yes&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb86-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-7"></a><span class="st">  </span><span class="kw">group_by</span>(smoker,age) <span class="op">%&gt;%</span></span>
+<span id="cb86-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-8"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">num_dead =</span> <span class="kw">sum</span>(y))</span>
+<span id="cb86-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-9"></a></span>
+<span id="cb86-10"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-10"></a>smoker_numbers_age <span class="op">%&gt;%</span></span>
+<span id="cb86-11"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-11"></a><span class="st">  </span><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb86-12"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb86-12"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people)</span></code></pre></div>
 <pre><code># A tibble: 14 x 5
 # Groups:   smoker [2]
    smoker age   num_people num_dead mort_rate
@@ -936,17 +944,17 @@ following:</li>
 <ul>
 <li>Create two datasets using <code>filter()</code>: one containing smokers and one containing
 non-smokers. <code>filter()</code> out only the 18-24 year olds. This gives you two datasets
-each with only one row. For example, <code>smokers &lt;- femsmoke %&gt;% filter(smoker == &quot;yes&quot;,age = &quot;18-24&quot;)</code>.</li>
+each with only one row. For example, <code>smokers &lt;- femsmoke %&gt;% filter(smoker == "yes",age = "18-24")</code>.</li>
 <li><code>inner_join()</code> the two datasets together, using <code>age</code> as the <code>by</code> variable:
-<code>smokers %&gt;% inner_join(???,by = &quot;age&quot;)</code></li>
+<code>smokers %&gt;% inner_join(???,by = "age")</code></li>
 </ul>
 <ol style="list-style-type: decimal">
 <li><em>Advanced</em>: modify the above steps to create the following table of relative mortality rates. You should start from a cleaned up version of the mortality rate by age table:</li>
 </ol>
-<div class="sourceCode" id="section-cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1">rates_by_age &lt;-<span class="st"> </span>smoker_numbers_age <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb88-2" title="2"><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb88-3" title="3"><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb88-4" title="4"><span class="kw">ungroup</span>() <span class="co"># The data was previously grouped, we don&#39;t want this anymore</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb88-1"></a>rates_by_age &lt;-<span class="st"> </span>smoker_numbers_age <span class="op">%&gt;%</span></span>
+<span id="cb88-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb88-2"></a><span class="kw">inner_join</span>(smoker_numbers_age_dead,<span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;smoker&quot;</span>,<span class="st">&quot;age&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb88-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb88-3"></a><span class="kw">mutate</span>(<span class="dt">mort_rate =</span> num_dead<span class="op">/</span>num_people) <span class="op">%&gt;%</span></span>
+<span id="cb88-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb88-4"></a><span class="kw">ungroup</span>() <span class="co"># The data was previously grouped, we don&#39;t want this anymore</span></span></code></pre></div>
 <p>Use <code>dplyr::select()</code> to remove and rename columns, see <code>?dplyr::select</code>. You
 should get the following:</p>
 <pre><code># A tibble: 7 x 4
@@ -986,16 +994,16 @@ them from data stored in databases.</p>
 <p>We may read the data into <code>R</code> using the <code>read_csv</code> function in the <code>readr</code> package.
 The <code>readr</code> package is part of the <code>tidyverse</code> package that we used before, so if
 you installed that package, you have it loaded.</p>
-<div class="sourceCode" id="section-cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="co"># https://open.toronto.ca/dataset/apartment-building-evaluation/</span></a>
-<a class="sourceLine" id="cb90-2" title="2"><span class="co"># install.packages(&quot;readr&quot;)</span></a>
-<a class="sourceLine" id="cb90-3" title="3"></a>
-<a class="sourceLine" id="cb90-4" title="4"><span class="co"># Read the data in. This means call the readr::read_csv() function, point it</span></a>
-<a class="sourceLine" id="cb90-5" title="5"><span class="co"># to where you saved the data on your computer, and then save the result to a</span></a>
-<a class="sourceLine" id="cb90-6" title="6"><span class="co"># variable. I am naming this variable &#39;apartmentdata&#39;.</span></a>
-<a class="sourceLine" id="cb90-7" title="7"><span class="co"># Type ?readr::read_csv if you want to read about this function.</span></a>
-<a class="sourceLine" id="cb90-8" title="8">apartmentdata &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb90-9" title="9">  <span class="dt">file =</span> <span class="st">&quot;data/apartment-data/toronto-apartment-building-evaluations.csv&quot;</span></a>
-<a class="sourceLine" id="cb90-10" title="10">)</a></code></pre></div>
+<div class="sourceCode" id="section-cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb90-1"></a><span class="co"># https://open.toronto.ca/dataset/apartment-building-evaluation/</span></span>
+<span id="cb90-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb90-2"></a><span class="co"># install.packages(&quot;readr&quot;)</span></span>
+<span id="cb90-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb90-3"></a></span>
+<span id="cb90-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb90-4"></a><span class="co"># Read the data in. This means call the readr::read_csv() function, point it</span></span>
+<span id="cb90-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb90-5"></a><span class="co"># to where you saved the data on your computer, and then save the result to a</span></span>
+<span id="cb90-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb90-6"></a><span class="co"># variable. I am naming this variable &#39;apartmentdata&#39;.</span></span>
+<span id="cb90-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb90-7"></a><span class="co"># Type ?readr::read_csv if you want to read about this function.</span></span>
+<span id="cb90-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb90-8"></a>apartmentdata &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
+<span id="cb90-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb90-9"></a>  <span class="dt">file =</span> <span class="st">&quot;data/apartment-data/toronto-apartment-building-evaluations.csv&quot;</span></span>
+<span id="cb90-10"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb90-10"></a>)</span></code></pre></div>
 <pre><code>Parsed with column specification:
 cols(
   .default = col_double(),
@@ -1011,7 +1019,7 @@ kind of data were in each column, i.e. numbers, letters, dates, etc. You should
 make sure, as I have while writing, that these are what you expect. You can
 get a concise view of this dataset using the <code>glimpse</code> function in the <code>dplyr</code>
 package, which is automatically loaded when you load the <code>tidyverse</code>:</p>
-<div class="sourceCode" id="section-cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="kw">glimpse</span>(apartmentdata)</a></code></pre></div>
+<div class="sourceCode" id="section-cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb93-1"></a><span class="kw">glimpse</span>(apartmentdata)</span></code></pre></div>
 <pre><code>Observations: 3,446
 Variables: 32
 $ `_id`                       &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13…
@@ -1057,20 +1065,20 @@ helpful for characterizing neighbourhoods.</p>
 <p>Because you read the documentation and familiarized yourselves with the variables in the dataset, you know that there is a variable called <code>SCORE</code> which sums up the individual category scores for each building. In the context of determining building quality, this seems like an important variable to look at.</p>
 <p>We’ll summarize the distribution of <code>SCORE</code> using a five-number summary and mean, and a <strong>histogram</strong> with a <strong>kernel density estimate</strong>.</p>
 <p>First, prepare the data for analysis:</p>
-<div class="sourceCode" id="section-cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1"><span class="co"># First, select only the columns you want</span></a>
-<a class="sourceLine" id="cb95-2" title="2"><span class="co"># This isn&#39;t strictly necessary but trust me, it makes </span></a>
-<a class="sourceLine" id="cb95-3" title="3"><span class="co"># debugging WAY easier.</span></a>
-<a class="sourceLine" id="cb95-4" title="4"><span class="co"># I&#39;m also renaming the columns so the dataframe looks prettier.</span></a>
-<a class="sourceLine" id="cb95-5" title="5"><span class="co"># Again, trust me. This stuff matters.</span></a>
-<a class="sourceLine" id="cb95-6" title="6">apartmentclean &lt;-<span class="st"> </span>apartmentdata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb95-7" title="7"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(SCORE)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Remove apartments with missing scores</span></a>
-<a class="sourceLine" id="cb95-8" title="8"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="dt">ward =</span> WARD,</a>
-<a class="sourceLine" id="cb95-9" title="9">                <span class="dt">score =</span> SCORE,</a>
-<a class="sourceLine" id="cb95-10" title="10">                <span class="dt">property_type =</span> PROPERTY_TYPE,</a>
-<a class="sourceLine" id="cb95-11" title="11">                <span class="dt">year_built =</span> YEAR_BUILT,</a>
-<a class="sourceLine" id="cb95-12" title="12">                <span class="dt">address =</span> SITE_ADDRESS</a>
-<a class="sourceLine" id="cb95-13" title="13">  )</a>
-<a class="sourceLine" id="cb95-14" title="14"><span class="kw">glimpse</span>(apartmentclean) <span class="co"># Much nicer!</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-1"></a><span class="co"># First, select only the columns you want</span></span>
+<span id="cb95-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-2"></a><span class="co"># This isn&#39;t strictly necessary but trust me, it makes </span></span>
+<span id="cb95-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-3"></a><span class="co"># debugging WAY easier.</span></span>
+<span id="cb95-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-4"></a><span class="co"># I&#39;m also renaming the columns so the dataframe looks prettier.</span></span>
+<span id="cb95-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-5"></a><span class="co"># Again, trust me. This stuff matters.</span></span>
+<span id="cb95-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-6"></a>apartmentclean &lt;-<span class="st"> </span>apartmentdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-7"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(SCORE)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Remove apartments with missing scores</span></span>
+<span id="cb95-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="dt">ward =</span> WARD,</span>
+<span id="cb95-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-9"></a>                <span class="dt">score =</span> SCORE,</span>
+<span id="cb95-10"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-10"></a>                <span class="dt">property_type =</span> PROPERTY_TYPE,</span>
+<span id="cb95-11"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-11"></a>                <span class="dt">year_built =</span> YEAR_BUILT,</span>
+<span id="cb95-12"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-12"></a>                <span class="dt">address =</span> SITE_ADDRESS</span>
+<span id="cb95-13"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-13"></a>  )</span>
+<span id="cb95-14"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb95-14"></a><span class="kw">glimpse</span>(apartmentclean) <span class="co"># Much nicer!</span></span></code></pre></div>
 <pre><code>Observations: 3,437
 Variables: 5
 $ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;04&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;08&quot;, &quot;…
@@ -1079,10 +1087,10 @@ $ property_type &lt;chr&gt; &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIV
 $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 1920, 2017, 1967, 2015, 1970, 1976, 1…
 $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACPHERSO…</code></pre>
 <p>To compute the five-number summary (plus mean), use the <code>summary()</code> function in <code>R</code>. I also want to know the <em>standard deviation</em> of <code>SCORE</code>:</p>
-<div class="sourceCode" id="section-cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1"><span class="kw">summary</span>(apartmentclean<span class="op">$</span>score)</a></code></pre></div>
+<div class="sourceCode" id="section-cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb97-1"></a><span class="kw">summary</span>(apartmentclean<span class="op">$</span>score)</span></code></pre></div>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   37.00   68.00   72.00   72.28   77.00   99.00 </code></pre>
-<div class="sourceCode" id="section-cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1"><span class="kw">sd</span>(apartmentclean<span class="op">$</span>score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb99-1"></a><span class="kw">sd</span>(apartmentclean<span class="op">$</span>score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>[1] 7.117172</code></pre>
 <p>The worst building in the city has a total score of 37, and the best gets 99. The median score—half the buildings in the city have a lower score, and half a higher score than this—is 72, and this roughly equals the mean of 72.28. 25% of buildings score higher than 77, and 25% score lower than 68. So most buildings seem to fall within less than one standard deviation of the mean, which indicates that these data are fairly <em>concentrated</em> about their mean.</p>
 <p>To provide some context, go look up your own building (if you live in a rental building) or that of a friend in the data. Where does your building fall in terms of quality within Toronto?</p>
@@ -1090,23 +1098,23 @@ $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR
 We also learned about graphical displays. Let’s see a histogram of the scores, with a kernel density
 estimate:</p>
 <p>We can make a histogram in <code>R</code> as follows:</p>
-<div class="sourceCode" id="section-cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1"><span class="co"># The ggplot2 package is loaded as part of the tidyverse</span></a>
-<a class="sourceLine" id="cb101-2" title="2">score_histogram &lt;-<span class="st"> </span>apartmentclean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb101-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> score)) <span class="op">+</span><span class="st"> </span><span class="co"># Tell ggplot to use score on the x axis</span></a>
-<a class="sourceLine" id="cb101-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span><span class="co"># Make the plot pretty</span></a>
-<a class="sourceLine" id="cb101-5" title="5"><span class="st">  </span><span class="kw">geom_histogram</span>( <span class="co"># Makes a histogram</span></a>
-<a class="sourceLine" id="cb101-6" title="6">    <span class="kw">aes</span>(<span class="dt">y =</span> ..density..),</a>
-<a class="sourceLine" id="cb101-7" title="7">    <span class="dt">bins =</span> <span class="dv">20</span>,</a>
-<a class="sourceLine" id="cb101-8" title="8">    <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,</a>
-<a class="sourceLine" id="cb101-9" title="9">    <span class="dt">fill =</span> <span class="st">&quot;lightgrey&quot;</span></a>
-<a class="sourceLine" id="cb101-10" title="10">  ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb101-11" title="11"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb101-12" title="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Distribution of RentSafeTO Apartment Building Standards score&quot;</span>,</a>
-<a class="sourceLine" id="cb101-13" title="13">       <span class="dt">x =</span> <span class="st">&quot;Score&quot;</span>,</a>
-<a class="sourceLine" id="cb101-14" title="14">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb101-15" title="15"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">30</span>,<span class="dv">100</span>,<span class="dt">by =</span> <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb101-16" title="16"></a>
-<a class="sourceLine" id="cb101-17" title="17">score_histogram</a></code></pre></div>
+<div class="sourceCode" id="section-cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-1"></a><span class="co"># The ggplot2 package is loaded as part of the tidyverse</span></span>
+<span id="cb101-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-2"></a>score_histogram &lt;-<span class="st"> </span>apartmentclean <span class="op">%&gt;%</span></span>
+<span id="cb101-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> score)) <span class="op">+</span><span class="st"> </span><span class="co"># Tell ggplot to use score on the x axis</span></span>
+<span id="cb101-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-4"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span><span class="co"># Make the plot pretty</span></span>
+<span id="cb101-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-5"></a><span class="st">  </span><span class="kw">geom_histogram</span>( <span class="co"># Makes a histogram</span></span>
+<span id="cb101-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-6"></a>    <span class="kw">aes</span>(<span class="dt">y =</span> ..density..),</span>
+<span id="cb101-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-7"></a>    <span class="dt">bins =</span> <span class="dv">20</span>,</span>
+<span id="cb101-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-8"></a>    <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb101-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-9"></a>    <span class="dt">fill =</span> <span class="st">&quot;lightgrey&quot;</span></span>
+<span id="cb101-10"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-10"></a>  ) <span class="op">+</span></span>
+<span id="cb101-11"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-11"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
+<span id="cb101-12"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-12"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Distribution of RentSafeTO Apartment Building Standards score&quot;</span>,</span>
+<span id="cb101-13"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-13"></a>       <span class="dt">x =</span> <span class="st">&quot;Score&quot;</span>,</span>
+<span id="cb101-14"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-14"></a>       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="op">+</span></span>
+<span id="cb101-15"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-15"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">30</span>,<span class="dv">100</span>,<span class="dt">by =</span> <span class="dv">5</span>))</span>
+<span id="cb101-16"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-16"></a></span>
+<span id="cb101-17"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb101-17"></a>score_histogram</span></code></pre></div>
 <p><img src="book_files/figure-html/apartment-descriptive-3-1.png" width="672" /></p>
 <p>It appears that most buildings are in the 65 to 85 range. I actually just moved
 from a building that has a 66 to a building that has an 86. The difference
@@ -1149,12 +1157,12 @@ above table of average scores.</li>
 </ul>
 <p>With these decisions made, we may proceed with our analysis using the <code>tidyverse</code>
 as follows:</p>
-<div class="sourceCode" id="section-cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1"><span class="co"># Apply filter(s).</span></a>
-<a class="sourceLine" id="cb102-2" title="2">apartmentfiltered &lt;-<span class="st"> </span>apartmentclean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb102-3" title="3"><span class="st">  </span><span class="kw">filter</span>(property_type <span class="op">==</span><span class="st"> &quot;PRIVATE&quot;</span>)</a>
-<a class="sourceLine" id="cb102-4" title="4"><span class="co"># When filtering, always compare the filtered and unfiltered data to ensure</span></a>
-<a class="sourceLine" id="cb102-5" title="5"><span class="co"># the result is as expected:</span></a>
-<a class="sourceLine" id="cb102-6" title="6"><span class="kw">glimpse</span>(apartmentclean)</a></code></pre></div>
+<div class="sourceCode" id="section-cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb102-1"></a><span class="co"># Apply filter(s).</span></span>
+<span id="cb102-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb102-2"></a>apartmentfiltered &lt;-<span class="st"> </span>apartmentclean <span class="op">%&gt;%</span></span>
+<span id="cb102-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb102-3"></a><span class="st">  </span><span class="kw">filter</span>(property_type <span class="op">==</span><span class="st"> &quot;PRIVATE&quot;</span>)</span>
+<span id="cb102-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb102-4"></a><span class="co"># When filtering, always compare the filtered and unfiltered data to ensure</span></span>
+<span id="cb102-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb102-5"></a><span class="co"># the result is as expected:</span></span>
+<span id="cb102-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb102-6"></a><span class="kw">glimpse</span>(apartmentclean)</span></code></pre></div>
 <pre><code>Observations: 3,437
 Variables: 5
 $ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;04&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;08&quot;, &quot;…
@@ -1162,7 +1170,7 @@ $ score         &lt;dbl&gt; 71, 77, 71, 78, 98, 76, 93, 72, 74, 78, 73, 76, 57, 
 $ property_type &lt;chr&gt; &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;SOCIAL HOUSING&quot;, &quot;PRI…
 $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 1920, 2017, 1967, 2015, 1970, 1976, 1…
 $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACPHERSO…</code></pre>
-<div class="sourceCode" id="section-cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1"><span class="kw">glimpse</span>(apartmentfiltered)</a></code></pre></div>
+<div class="sourceCode" id="section-cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb104-1"></a><span class="kw">glimpse</span>(apartmentfiltered)</span></code></pre></div>
 <pre><code>Observations: 2,873
 Variables: 5
 $ ward          &lt;chr&gt; &quot;04&quot;, &quot;19&quot;, &quot;11&quot;, &quot;07&quot;, &quot;03&quot;, &quot;17&quot;, &quot;17&quot;, &quot;08&quot;, &quot;13&quot;, &quot;…
@@ -1170,13 +1178,13 @@ $ score         &lt;dbl&gt; 71, 77, 71, 98, 76, 93, 72, 74, 78, 73, 76, 57, 70, 
 $ property_type &lt;chr&gt; &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, &quot;PRIVATE&quot;, …
 $ year_built    &lt;dbl&gt; 1976, 1953, 1948, 2017, 1967, 2015, 1970, 1976, 1968, 1…
 $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR&quot;, &quot;130  MACPHERSO…</code></pre>
-<div class="sourceCode" id="section-cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" title="1"><span class="kw">nrow</span>(apartmentclean) <span class="op">-</span><span class="st"> </span><span class="kw">nrow</span>(apartmentfiltered) <span class="co"># Dropped 567 rows.</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb106-1"></a><span class="kw">nrow</span>(apartmentclean) <span class="op">-</span><span class="st"> </span><span class="kw">nrow</span>(apartmentfiltered) <span class="co"># Dropped 567 rows.</span></span></code></pre></div>
 <pre><code>[1] 564</code></pre>
-<div class="sourceCode" id="section-cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1"><span class="co"># Now create the table of averages:</span></a>
-<a class="sourceLine" id="cb108-2" title="2">apartmentfiltered <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb108-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb108-4" title="4"><span class="st">  </span><span class="co"># na.rm = TRUE: ignore missing values</span></a>
-<a class="sourceLine" id="cb108-5" title="5"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="section-cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb108-1"></a><span class="co"># Now create the table of averages:</span></span>
+<span id="cb108-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb108-2"></a>apartmentfiltered <span class="op">%&gt;%</span></span>
+<span id="cb108-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb108-3"></a><span class="st">  </span><span class="kw">group_by</span>(ward) <span class="op">%&gt;%</span></span>
+<span id="cb108-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb108-4"></a><span class="st">  </span><span class="co"># na.rm = TRUE: ignore missing values</span></span>
+<span id="cb108-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb108-5"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_score =</span> <span class="kw">mean</span>(score,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <pre><code># A tibble: 26 x 2
    ward  avg_score
    &lt;chr&gt;     &lt;dbl&gt;
@@ -1193,13 +1201,13 @@ $ address       &lt;chr&gt; &quot;2350  DUNDAS ST W&quot;, &quot;9  STAG HILL DR
 # … with 16 more rows</code></pre>
 <p>This isn’t a super friendly way of comparing these 26 numbers. I’d rather use a
 graphical display, like the boxplots we learned about in chapters 15 and 16:</p>
-<div class="sourceCode" id="section-cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1">apartmentfiltered <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb110-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ward,<span class="dt">y =</span> score)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb110-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb110-4" title="4"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb110-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;ABS score shows moderate variability across wards in Toronto&quot;</span>,</a>
-<a class="sourceLine" id="cb110-6" title="6">       <span class="dt">x =</span> <span class="st">&quot;Ward&quot;</span>,</a>
-<a class="sourceLine" id="cb110-7" title="7">       <span class="dt">y =</span> <span class="st">&quot;ABS Score&quot;</span>) </a></code></pre></div>
+<div class="sourceCode" id="section-cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb110-1"></a>apartmentfiltered <span class="op">%&gt;%</span></span>
+<span id="cb110-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb110-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ward,<span class="dt">y =</span> score)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb110-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb110-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb110-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb110-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb110-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb110-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;ABS score shows moderate variability across wards in Toronto&quot;</span>,</span>
+<span id="cb110-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb110-6"></a>       <span class="dt">x =</span> <span class="st">&quot;Ward&quot;</span>,</span>
+<span id="cb110-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb110-7"></a>       <span class="dt">y =</span> <span class="st">&quot;ABS Score&quot;</span>) </span></code></pre></div>
 <p><img src="book_files/figure-html/barchart-apartment-1-1.png" width="672" /></p>
 <p>It looks like some wards are better than others. Or are they? Can we make any
 definitive conclusions based on this?</p>
@@ -1221,23 +1229,23 @@ scatterplot has continuous variables on the x- and y-axes, and draws a point (or
 bubble) at each place in the two-dimensional plane where a datapoint occurs. We
 can make this kind of plot in <code>ggplot2</code> as well. This time, we use the raw
 (well, cleaned and filtered) data:</p>
-<div class="sourceCode" id="section-cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1">apartmentfiltered <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb111-2" title="2"><span class="st">  </span><span class="kw">filter</span>(year_built <span class="op">&gt;</span><span class="st"> </span><span class="dv">1900</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb111-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year_built,<span class="dt">y =</span> score)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb111-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb111-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># pch=21 makes the bubbles hollow, looks nice</span></a>
-<a class="sourceLine" id="cb111-6" title="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1900</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">10</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># Set the x-axis range</span></a>
-<a class="sourceLine" id="cb111-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Less rental buildings are being built recently, but they are of higher quality&quot;</span>,</a>
-<a class="sourceLine" id="cb111-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Year Built&quot;</span>,</a>
-<a class="sourceLine" id="cb111-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;ABS Score&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb111-1"></a>apartmentfiltered <span class="op">%&gt;%</span></span>
+<span id="cb111-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb111-2"></a><span class="st">  </span><span class="kw">filter</span>(year_built <span class="op">&gt;</span><span class="st"> </span><span class="dv">1900</span>) <span class="op">%&gt;%</span></span>
+<span id="cb111-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb111-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year_built,<span class="dt">y =</span> score)) <span class="op">+</span></span>
+<span id="cb111-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb111-4"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb111-5"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb111-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># pch=21 makes the bubbles hollow, looks nice</span></span>
+<span id="cb111-6"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb111-6"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1900</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">10</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># Set the x-axis range</span></span>
+<span id="cb111-7"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb111-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Less rental buildings are being built recently, but they are of higher quality&quot;</span>,</span>
+<span id="cb111-8"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb111-8"></a>       <span class="dt">x =</span> <span class="st">&quot;Year Built&quot;</span>,</span>
+<span id="cb111-9"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb111-9"></a>       <span class="dt">y =</span> <span class="st">&quot;ABS Score&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/apartment-plot-2-1.png" width="672" /></p>
 <p>Very interesting. You can clearly see the baby boom of the 1950’s to 1970’s, followed by a massive slowdown in construction during the economic slump in the 1980’s, and a complete stop when rent control was introduced in 1991 (remember, these are <em>rental</em> buildings only). Then, we see a new wave of
 rental building construction, and the new buildings seem to be of higher quality.</p>
 <p>What are the highest and lowest quality rental buildings in Toronto?</p>
-<div class="sourceCode" id="section-cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1"><span class="co"># Get the 10 highest scoring buildings</span></a>
-<a class="sourceLine" id="cb112-2" title="2">apartmentfiltered <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb112-3" title="3"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(score)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Sort the data, descending, by score</span></a>
-<a class="sourceLine" id="cb112-4" title="4"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="co"># Take the first ten- i.e. the top ten</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb112-1"></a><span class="co"># Get the 10 highest scoring buildings</span></span>
+<span id="cb112-2"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb112-2"></a>apartmentfiltered <span class="op">%&gt;%</span></span>
+<span id="cb112-3"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb112-3"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(score)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Sort the data, descending, by score</span></span>
+<span id="cb112-4"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#cb112-4"></a><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="co"># Take the first ten- i.e. the top ten</span></span></code></pre></div>
 <pre><code># A tibble: 10 x 5
    ward  score property_type year_built address                 
    &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;                   

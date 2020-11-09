@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2020-10-31" />
+<meta name="date" content="2020-11-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,14 +50,15 @@
 
 
 
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -66,14 +67,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -262,6 +265,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-model-world-population-over-time"><i class="fa fa-check"></i><b>15.2</b> Model world population over time</a></li>
 <li class="chapter" data-level="15.3" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-model-for-world-population"><i class="fa fa-check"></i><b>15.3</b> Bayesian model for world population</a></li>
 <li class="chapter" data-level="15.4" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-quantifying-uncertainty-in-estimates-of-world-population-regression-model"><i class="fa fa-check"></i><b>15.4</b> Quantifying uncertainty in estimates of world population: regression model</a></li>
+<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-and-uncertainty-quantification"><i class="fa fa-check"></i><b>15.5.1</b> Estimation and uncertainty quantification</a></li>
+<li class="chapter" data-level="15.5.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-by-sampling"><i class="fa fa-check"></i><b>15.5.2</b> Estimation by sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -297,7 +305,6 @@ population will look like in the future. More specifically, we will:</p>
 (<strong>Chapter 4</strong>),</p></li>
 <li><p>Develop a Bayesian model for total world population (<strong>Chapter 6</strong>),</p></li>
 <li><p>Quantify uncertainty in our estimate for total world population (<strong>Chapter 9</strong>),</p></li>
-<li><p>Assess the goodness of fit of our model for total world population (<strong>Chapter 10</strong>),</p></li>
 <li><p>Develop a Bayesian estimator for total world population (<strong>Chapter 11</strong>),</p></li>
 <li><p>Predict the population to the year 2100 and compare our predictions and
 uncertainty quantification with those reported by the UN (<strong>Chapter 12</strong>).</p></li>
@@ -313,7 +320,7 @@ columns, and summary statistics mixed in with the raw data.</p>
 <p>I have done a bit of manual editing and posted the files to the book data folder
 at <code>data/worldpop/*</code>. Let’s read in the data corresponding to the world population
 estimates from 1950–2020. First, look at it, either in excel or on the command line:</p>
-<div class="sourceCode" id="section-cb382"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb382-1" title="1"><span class="fu">head</span> data/worldpop/worldpop-estimates.csv</a></code></pre></div>
+<div class="sourceCode" id="section-cb382"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb382-1"><a href="section-extended-example-world-population-data.html#cb382-1"></a><span class="fu">head</span> data/worldpop/worldpop-estimates.csv</span></code></pre></div>
 <pre><code>﻿country,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020
 WORLD, 2 536 431, 2 584 034, 2 630 862, 2 677 609, 2 724 847, 2 773 020, 2 822 443, 2 873 306, 2 925 687, 2 979 576, 3 034 950, 3 091 844, 3 150 421, 3 211 001, 3 273 978, 3 339 584, 3 407 923, 3 478 770, 3 551 599, 3 625 681, 3 700 437, 3 775 760, 3 851 651, 3 927 781, 4 003 794, 4 079 480, 4 154 667, 4 229 506, 4 304 534, 4 380 506, 4 458 003, 4 536 997, 4 617 387, 4 699 569, 4 784 012, 4 870 922, 4 960 568, 5 052 522, 5 145 426, 5 237 441, 5 327 231, 5 414 289, 5 498 920, 5 581 598, 5 663 150, 5 744 213, 5 824 892, 5 905 046, 5 984 794, 6 064 239, 6 143 494, 6 222 627, 6 301 773, 6 381 185, 6 461 159, 6 541 907, 6 623 518, 6 705 947, 6 789 089, 6 872 767, 6 956 824, 7 041 194, 7 125 828, 7 210 582, 7 295 291, 7 379 797, 7 464 022, 7 547 859, 7 631 091, 7 713 468, 7 794 799
 Burundi,  2 309,  2 360,  2 406,  2 449,  2 492,  2 537,  2 585,  2 636,  2 689,  2 743,  2 798,  2 852,  2 907,  2 964,  3 026,  3 094,  3 170,  3 253,  3 337,  3 414,  3 479,  3 530,  3 570,  3 605,  3 646,  3 701,  3 771,  3 854,  3 949,  4 051,  4 157,  4 267,  4 380,  4 498,  4 621,  4 751,  4 887,  5 027,  5 169,  5 307,  5 439,  5 565,  5 686,  5 798,  5 899,  5 987,  6 060,  6 122,  6 186,  6 267,  6 379,  6 526,  6 704,  6 909,  7 132,  7 365,  7 608,  7 862,  8 126,  8 398,  8 676,  8 958,  9 246,  9 540,  9 844,  10 160,  10 488,  10 827,  11 175,  11 531,  11 891
@@ -327,12 +334,12 @@ Malawi,  2 954,  3 012,  3 072,  3 136,  3 202,  3 271,  3 342,  3 417,  3 495, 
 <p>There is one character column containing the country and then <span class="math inline">\((2020 - 1950 + 1) = 71\)</span>
 numeric columns containing population counts.</p>
 <p>Let’s read it in with those specs:</p>
-<div class="sourceCode" id="section-cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1">worldpop &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb384-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;data/worldpop/worldpop-estimates.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb384-3" title="3">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb384-4" title="4">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">c</span>(<span class="st">&quot;c&quot;</span>,<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">71</span>)),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb384-5" title="5">)</a>
-<a class="sourceLine" id="cb384-6" title="6"><span class="kw">glimpse</span>(worldpop)</a></code></pre></div>
+<div class="sourceCode" id="section-cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="section-extended-example-world-population-data.html#cb384-1"></a>worldpop &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
+<span id="cb384-2"><a href="section-extended-example-world-population-data.html#cb384-2"></a>  <span class="dt">file =</span> <span class="st">&quot;data/worldpop/worldpop-estimates.csv&quot;</span>,</span>
+<span id="cb384-3"><a href="section-extended-example-world-population-data.html#cb384-3"></a>  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb384-4"><a href="section-extended-example-world-population-data.html#cb384-4"></a>  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">c</span>(<span class="st">&quot;c&quot;</span>,<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">71</span>)),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb384-5"><a href="section-extended-example-world-population-data.html#cb384-5"></a>)</span>
+<span id="cb384-6"><a href="section-extended-example-world-population-data.html#cb384-6"></a><span class="kw">glimpse</span>(worldpop)</span></code></pre></div>
 <pre><code>Observations: 236
 Variables: 72
 $ country &lt;chr&gt; &quot;WORLD&quot;, &quot;Burundi&quot;, &quot;Comoros&quot;, &quot;Djibouti&quot;, &quot;Eritrea&quot;, &quot;Ethiop…
@@ -421,17 +428,17 @@ of simple but annoying thing happens <em>all the time</em> when analyzing data �
 <p>To remove the spaces (this works for any annoying character like a period, or a
 dollar sign, or whatever), read the data in with all columns as character, process
 the data in <code>R</code>, and then convert to numeric. Check it out:</p>
-<div class="sourceCode" id="section-cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" title="1">remove_space &lt;-<span class="st"> </span><span class="cf">function</span>(x) stringr<span class="op">::</span><span class="kw">str_remove_all</span>(x,<span class="st">&quot; &quot;</span>)</a>
-<a class="sourceLine" id="cb386-2" title="2">worldpop &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb386-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/worldpop/worldpop-estimates.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb386-4" title="4">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb386-5" title="5">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">72</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb386-6" title="6">) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb386-7" title="7"><span class="st">  </span><span class="co"># Remove the space</span></a>
-<a class="sourceLine" id="cb386-8" title="8"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">1950</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>),remove_space) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb386-9" title="9"><span class="st">  </span><span class="co"># Convert to numeric</span></a>
-<a class="sourceLine" id="cb386-10" title="10"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">1950</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>),as.numeric)</a>
-<a class="sourceLine" id="cb386-11" title="11"><span class="kw">glimpse</span>(worldpop)</a></code></pre></div>
+<div class="sourceCode" id="section-cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="section-extended-example-world-population-data.html#cb386-1"></a>remove_space &lt;-<span class="st"> </span><span class="cf">function</span>(x) stringr<span class="op">::</span><span class="kw">str_remove_all</span>(x,<span class="st">&quot; &quot;</span>)</span>
+<span id="cb386-2"><a href="section-extended-example-world-population-data.html#cb386-2"></a>worldpop &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
+<span id="cb386-3"><a href="section-extended-example-world-population-data.html#cb386-3"></a>  <span class="dt">file =</span> <span class="st">&quot;data/worldpop/worldpop-estimates.csv&quot;</span>,</span>
+<span id="cb386-4"><a href="section-extended-example-world-population-data.html#cb386-4"></a>  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb386-5"><a href="section-extended-example-world-population-data.html#cb386-5"></a>  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">72</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb386-6"><a href="section-extended-example-world-population-data.html#cb386-6"></a>) <span class="op">%&gt;%</span></span>
+<span id="cb386-7"><a href="section-extended-example-world-population-data.html#cb386-7"></a><span class="st">  </span><span class="co"># Remove the space</span></span>
+<span id="cb386-8"><a href="section-extended-example-world-population-data.html#cb386-8"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">1950</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>),remove_space) <span class="op">%&gt;%</span></span>
+<span id="cb386-9"><a href="section-extended-example-world-population-data.html#cb386-9"></a><span class="st">  </span><span class="co"># Convert to numeric</span></span>
+<span id="cb386-10"><a href="section-extended-example-world-population-data.html#cb386-10"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">1950</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>),as.numeric)</span>
+<span id="cb386-11"><a href="section-extended-example-world-population-data.html#cb386-11"></a><span class="kw">glimpse</span>(worldpop)</span></code></pre></div>
 <pre><code>Observations: 236
 Variables: 72
 $ country &lt;chr&gt; &quot;WORLD&quot;, &quot;Burundi&quot;, &quot;Comoros&quot;, &quot;Djibouti&quot;, &quot;Eritrea&quot;, &quot;Ethiop…
@@ -512,14 +519,14 @@ text data.</p>
 want the data in long format for analysis, with two variables, <code>country</code> and <code>year</code>,
 and a variable containing the population count.</p>
 <p>We can do that:</p>
-<div class="sourceCode" id="section-cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" title="1">worldpop &lt;-<span class="st"> </span>worldpop <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb388-2" title="2"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
-<a class="sourceLine" id="cb388-3" title="3">    <span class="st">`</span><span class="dt">1950</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>,</a>
-<a class="sourceLine" id="cb388-4" title="4">    <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</a>
-<a class="sourceLine" id="cb388-5" title="5">    <span class="dt">values_to =</span> <span class="st">&quot;population&quot;</span></a>
-<a class="sourceLine" id="cb388-6" title="6">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb388-7" title="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.numeric</span>(year))</a>
-<a class="sourceLine" id="cb388-8" title="8"><span class="kw">glimpse</span>(worldpop)</a></code></pre></div>
+<div class="sourceCode" id="section-cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="section-extended-example-world-population-data.html#cb388-1"></a>worldpop &lt;-<span class="st"> </span>worldpop <span class="op">%&gt;%</span></span>
+<span id="cb388-2"><a href="section-extended-example-world-population-data.html#cb388-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(</span>
+<span id="cb388-3"><a href="section-extended-example-world-population-data.html#cb388-3"></a>    <span class="st">`</span><span class="dt">1950</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>,</span>
+<span id="cb388-4"><a href="section-extended-example-world-population-data.html#cb388-4"></a>    <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb388-5"><a href="section-extended-example-world-population-data.html#cb388-5"></a>    <span class="dt">values_to =</span> <span class="st">&quot;population&quot;</span></span>
+<span id="cb388-6"><a href="section-extended-example-world-population-data.html#cb388-6"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb388-7"><a href="section-extended-example-world-population-data.html#cb388-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.numeric</span>(year))</span>
+<span id="cb388-8"><a href="section-extended-example-world-population-data.html#cb388-8"></a><span class="kw">glimpse</span>(worldpop)</span></code></pre></div>
 <pre><code>Observations: 16,756
 Variables: 3
 $ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
@@ -556,7 +563,7 @@ $ population &lt;dbl&gt; 2536431, 2584034, 2630862, 2677609, 2724847, 2773020, 2
 <p><img src="book_files/figure-html/worldpopexercise-1-1.png" width="672" /></p>
 <p><em>Hints</em>: use <code>scale_x_discrete(breaks = as.character(seq(1950,2020,by=5)))</code> to get
 the five-year axis, and use <code>theme(axis.text.x = element_text(angle = 90))</code> to make the axis text
-sideways. Use <code>geom_bar(stat = &quot;identity&quot;)</code> to get the bar plot. Or, make another
+sideways. Use <code>geom_bar(stat = "identity")</code> to get the bar plot. Or, make another
 type of plot of your choosing! Don’t be afraid to have some fun.</p>
 <p>Now, for later in this chapter, we’re going to need data on the world population projections
 from 2020–2100. The median and “95% intervals” (you’ll learn what this means later)
@@ -566,7 +573,7 @@ in the “interval” ones and then join them all together.</p>
 numbers are now stored with quotes and with thousands separated by commas, however.
 Like when it was stored with thousands separated by spaces, we have to read it in
 as a character, and then process the data in <code>R</code> and convert to numeric.</p>
-<div class="sourceCode" id="section-cb391"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb391-1" title="1"><span class="fu">head</span> data/worldpop/worldpop-pred-median.csv</a></code></pre></div>
+<div class="sourceCode" id="section-cb391"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb391-1"><a href="section-extended-example-world-population-data.html#cb391-1"></a><span class="fu">head</span> data/worldpop/worldpop-pred-median.csv</span></code></pre></div>
 <pre><code>﻿country,2020,2025,2030,2035,2040,2045,2050,2055,2060,2065,2070,2075,2080,2085,2090,2095,2100
 WORLD,&quot;7,794,799&quot;,&quot;8,184,437&quot;,&quot;8,548,487&quot;,&quot;8,887,524&quot;,&quot;9,198,847&quot;,&quot;9,481,803&quot;,&quot;9,735,034&quot;,&quot;9,958,099&quot;,&quot;10,151,470&quot;,&quot;10,317,879&quot;,&quot;10,459,240&quot;,&quot;10,577,288&quot;,&quot;10,673,904&quot;,&quot;10,750,662&quot;,&quot;10,809,892&quot;,&quot;10,851,860&quot;,&quot;10,875,394&quot;
 Eastern Africa,&quot;445,406&quot;,&quot;505,292&quot;,&quot;569,705&quot;,&quot;637,437&quot;,&quot;707,393&quot;,&quot;778,916&quot;,&quot;851,218&quot;,&quot;923,483&quot;,&quot;994,888&quot;,&quot;1,064,642&quot;,&quot;1,131,895&quot;,&quot;1,195,953&quot;,&quot;1,256,219&quot;,&quot;1,312,230&quot;,&quot;1,363,577&quot;,&quot;1,410,118&quot;,&quot;1,451,842&quot;
@@ -577,24 +584,24 @@ Eritrea,&quot;3,546&quot;,&quot;3,866&quot;,&quot;4,240&quot;,&quot;4,664&quot;,
 Ethiopia,&quot;114,964&quot;,&quot;129,749&quot;,&quot;144,944&quot;,&quot;160,231&quot;,&quot;175,466&quot;,&quot;190,611&quot;,&quot;205,411&quot;,&quot;219,639&quot;,&quot;232,994&quot;,&quot;245,316&quot;,&quot;256,441&quot;,&quot;266,190&quot;,&quot;274,558&quot;,&quot;281,512&quot;,&quot;287,056&quot;,&quot;291,317&quot;,&quot;294,393&quot;
 Kenya,&quot;53,771&quot;,&quot;59,981&quot;,&quot;66,450&quot;,&quot;73,026&quot;,&quot;79,470&quot;,&quot;85,669&quot;,&quot;91,575&quot;,&quot;97,175&quot;,&quot;102,398&quot;,&quot;107,170&quot;,&quot;111,411&quot;,&quot;115,093&quot;,&quot;118,214&quot;,&quot;120,777&quot;,&quot;122,807&quot;,&quot;124,341&quot;,&quot;125,424&quot;
 Madagascar,&quot;27,691&quot;,&quot;31,510&quot;,&quot;35,622&quot;,&quot;39,949&quot;,&quot;44,471&quot;,&quot;49,175&quot;,&quot;54,048&quot;,&quot;59,033&quot;,&quot;64,059&quot;,&quot;69,074&quot;,&quot;74,035&quot;,&quot;78,897&quot;,&quot;83,598&quot;,&quot;88,090&quot;,&quot;92,343&quot;,&quot;96,310&quot;,&quot;99,957&quot;</code></pre>
-<div class="sourceCode" id="section-cb393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb393-1" title="1">remove_comma &lt;-<span class="st"> </span><span class="cf">function</span>(x) stringr<span class="op">::</span><span class="kw">str_remove_all</span>(x,<span class="st">&quot;,&quot;</span>)</a>
-<a class="sourceLine" id="cb393-2" title="2">worldpop_pred_median &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb393-3" title="3">  <span class="dt">file =</span> <span class="st">&quot;data/worldpop/worldpop-pred-median.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb393-4" title="4">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb393-5" title="5">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">18</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb393-6" title="6">) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb393-7" title="7"><span class="st">  </span><span class="co"># Remove the commas. R already removed the quotes.</span></a>
-<a class="sourceLine" id="cb393-8" title="8"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">2020</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2100</span><span class="st">`</span>),remove_comma) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb393-9" title="9"><span class="st">  </span><span class="co"># Convert to numeric</span></a>
-<a class="sourceLine" id="cb393-10" title="10"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">2020</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2100</span><span class="st">`</span>),as.numeric) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb393-11" title="11"><span class="st">  </span><span class="co"># Pivot to long format</span></a>
-<a class="sourceLine" id="cb393-12" title="12"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
-<a class="sourceLine" id="cb393-13" title="13">    <span class="st">`</span><span class="dt">2020</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2100</span><span class="st">`</span>,</a>
-<a class="sourceLine" id="cb393-14" title="14">    <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</a>
-<a class="sourceLine" id="cb393-15" title="15">    <span class="dt">values_to =</span> <span class="st">&quot;population&quot;</span></a>
-<a class="sourceLine" id="cb393-16" title="16">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb393-17" title="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.numeric</span>(year))</a>
-<a class="sourceLine" id="cb393-18" title="18"><span class="kw">glimpse</span>(worldpop_pred_median)</a></code></pre></div>
+<div class="sourceCode" id="section-cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="section-extended-example-world-population-data.html#cb393-1"></a>remove_comma &lt;-<span class="st"> </span><span class="cf">function</span>(x) stringr<span class="op">::</span><span class="kw">str_remove_all</span>(x,<span class="st">&quot;,&quot;</span>)</span>
+<span id="cb393-2"><a href="section-extended-example-world-population-data.html#cb393-2"></a>worldpop_pred_median &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
+<span id="cb393-3"><a href="section-extended-example-world-population-data.html#cb393-3"></a>  <span class="dt">file =</span> <span class="st">&quot;data/worldpop/worldpop-pred-median.csv&quot;</span>,</span>
+<span id="cb393-4"><a href="section-extended-example-world-population-data.html#cb393-4"></a>  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb393-5"><a href="section-extended-example-world-population-data.html#cb393-5"></a>  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">18</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb393-6"><a href="section-extended-example-world-population-data.html#cb393-6"></a>) <span class="op">%&gt;%</span></span>
+<span id="cb393-7"><a href="section-extended-example-world-population-data.html#cb393-7"></a><span class="st">  </span><span class="co"># Remove the commas. R already removed the quotes.</span></span>
+<span id="cb393-8"><a href="section-extended-example-world-population-data.html#cb393-8"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">2020</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2100</span><span class="st">`</span>),remove_comma) <span class="op">%&gt;%</span></span>
+<span id="cb393-9"><a href="section-extended-example-world-population-data.html#cb393-9"></a><span class="st">  </span><span class="co"># Convert to numeric</span></span>
+<span id="cb393-10"><a href="section-extended-example-world-population-data.html#cb393-10"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="st">`</span><span class="dt">2020</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2100</span><span class="st">`</span>),as.numeric) <span class="op">%&gt;%</span></span>
+<span id="cb393-11"><a href="section-extended-example-world-population-data.html#cb393-11"></a><span class="st">  </span><span class="co"># Pivot to long format</span></span>
+<span id="cb393-12"><a href="section-extended-example-world-population-data.html#cb393-12"></a><span class="st">  </span><span class="kw">pivot_longer</span>(</span>
+<span id="cb393-13"><a href="section-extended-example-world-population-data.html#cb393-13"></a>    <span class="st">`</span><span class="dt">2020</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2100</span><span class="st">`</span>,</span>
+<span id="cb393-14"><a href="section-extended-example-world-population-data.html#cb393-14"></a>    <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb393-15"><a href="section-extended-example-world-population-data.html#cb393-15"></a>    <span class="dt">values_to =</span> <span class="st">&quot;population&quot;</span></span>
+<span id="cb393-16"><a href="section-extended-example-world-population-data.html#cb393-16"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb393-17"><a href="section-extended-example-world-population-data.html#cb393-17"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.numeric</span>(year))</span>
+<span id="cb393-18"><a href="section-extended-example-world-population-data.html#cb393-18"></a><span class="kw">glimpse</span>(worldpop_pred_median)</span></code></pre></div>
 <pre><code>Observations: 4,029
 Variables: 3
 $ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
@@ -616,18 +623,18 @@ $ population_upper95 &lt;dbl&gt; 7794799, 8223574, 8636041, 9029502, 9396987, 97
 <div id="section-model-world-population-over-time" class="section level2">
 <h2><span class="header-section-number">15.2</span> Model world population over time</h2>
 <p>Look at the world population across years:</p>
-<div class="sourceCode" id="section-cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" title="1">worldpopplot &lt;-<span class="st"> </span>worldpop <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb396-2" title="2"><span class="st">  </span><span class="kw">filter</span>(country<span class="op">==</span><span class="st">&#39;WORLD&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb396-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> population)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb396-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb396-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb396-6" title="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb396-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population over time&quot;</span>,</a>
-<a class="sourceLine" id="cb396-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
-<a class="sourceLine" id="cb396-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb396-10" title="10"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb396-11" title="11"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) x<span class="op">*</span><span class="fl">1e-06</span>)</a>
-<a class="sourceLine" id="cb396-12" title="12">worldpopplot</a></code></pre></div>
+<div class="sourceCode" id="section-cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="section-extended-example-world-population-data.html#cb396-1"></a>worldpopplot &lt;-<span class="st"> </span>worldpop <span class="op">%&gt;%</span></span>
+<span id="cb396-2"><a href="section-extended-example-world-population-data.html#cb396-2"></a><span class="st">  </span><span class="kw">filter</span>(country<span class="op">==</span><span class="st">&#39;WORLD&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb396-3"><a href="section-extended-example-world-population-data.html#cb396-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> population)) <span class="op">+</span></span>
+<span id="cb396-4"><a href="section-extended-example-world-population-data.html#cb396-4"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb396-5"><a href="section-extended-example-world-population-data.html#cb396-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb396-6"><a href="section-extended-example-world-population-data.html#cb396-6"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></span>
+<span id="cb396-7"><a href="section-extended-example-world-population-data.html#cb396-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population over time&quot;</span>,</span>
+<span id="cb396-8"><a href="section-extended-example-world-population-data.html#cb396-8"></a>       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</span>
+<span id="cb396-9"><a href="section-extended-example-world-population-data.html#cb396-9"></a>       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></span>
+<span id="cb396-10"><a href="section-extended-example-world-population-data.html#cb396-10"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></span>
+<span id="cb396-11"><a href="section-extended-example-world-population-data.html#cb396-11"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) x<span class="op">*</span><span class="fl">1e-06</span>)</span>
+<span id="cb396-12"><a href="section-extended-example-world-population-data.html#cb396-12"></a>worldpopplot</span></code></pre></div>
 <p><img src="book_files/figure-html/countryhist-1.png" width="672" /></p>
 <p>It looks like population may be growing at a pretty constant rate, or
 equivalently (sort of- bear with me), may be increasing by a constant
@@ -662,8 +669,8 @@ Y_{i+1} &amp;= \beta_{0} + \Delta (i+1) + \epsilon_{i+1} \\
 \implies Y_{i+1} - Y_{i} &amp;= \Delta + \left(\epsilon_{i+1} - \epsilon_{i}\right)
 \end{aligned}\end{equation}\]</span>
 and <span class="math inline">\(\left(\epsilon_{i+1} - \epsilon_{i}\right)\overset{iid}{\sim}\text{Normal}\left(0,\sigma^{2}\right)\)</span>.</p>
-<div class="sourceCode" id="section-cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" title="1">diffmod &lt;-<span class="st"> </span><span class="kw">lm</span>(population <span class="op">~</span><span class="st"> </span><span class="kw">as.numeric</span>(year),<span class="dt">data =</span> <span class="kw">filter</span>(worldpop,country <span class="op">==</span><span class="st"> &#39;WORLD&#39;</span>))</a>
-<a class="sourceLine" id="cb398-2" title="2"><span class="kw">summary</span>(diffmod)</a></code></pre></div>
+<div class="sourceCode" id="section-cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="section-extended-example-world-population-data.html#cb398-1"></a>diffmod &lt;-<span class="st"> </span><span class="kw">lm</span>(population <span class="op">~</span><span class="st"> </span><span class="kw">as.numeric</span>(year),<span class="dt">data =</span> <span class="kw">filter</span>(worldpop,country <span class="op">==</span><span class="st"> &#39;WORLD&#39;</span>))</span>
+<span id="cb398-2"><a href="section-extended-example-world-population-data.html#cb398-2"></a><span class="kw">summary</span>(diffmod)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = population ~ as.numeric(year), data = filter(worldpop, 
@@ -683,12 +690,12 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 97200 on 69 degrees of freedom
 Multiple R-squared:  0.996, Adjusted R-squared:  0.996 
 F-statistic: 1.91e+04 on 1 and 69 DF,  p-value: &lt;2e-16</code></pre>
-<div class="sourceCode" id="section-cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" title="1"><span class="kw">unname</span>(<span class="kw">coef</span>(diffmod)[<span class="dv">2</span>]) <span class="co"># Should be close to the mean difference</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="section-extended-example-world-population-data.html#cb400-1"></a><span class="kw">unname</span>(<span class="kw">coef</span>(diffmod)[<span class="dv">2</span>]) <span class="co"># Should be close to the mean difference</span></span></code></pre></div>
 <pre><code>[1] 77877</code></pre>
 <p>The estimated slope of the regression line is <span class="math inline">\(\hat{\Delta} = 77877\)</span>, close to
 the mean difference (estimating the standard deviation is a bit trickier).</p>
 <p>Plot the model:</p>
-<div class="sourceCode" id="section-cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1">worldpopplot <span class="op">+</span><span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">2</span>],<span class="dt">intercept =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="section-cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="section-extended-example-world-population-data.html#cb402-1"></a>worldpopplot <span class="op">+</span><span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">2</span>],<span class="dt">intercept =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">1</span>])</span></code></pre></div>
 <p><img src="book_files/figure-html/plotdiffmod1-1.png" width="672" /></p>
 <p>It’s ok. It looks like maybe the growth isn’t by some constant value each year,
 but rather maybe the <em>rate</em> of growth is constant.</p>
@@ -721,7 +728,7 @@ doing a linear regression model for that.</p>
 <li><p>Do a linear regression as above, like <code>lm(logpopulation ~ ...)</code>.</p></li>
 </ol>
 <p>Here’s what I got, calling my model object <code>logmodel</code>:</p>
-<div class="sourceCode" id="section-cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" title="1"><span class="kw">summary</span>(logmodel)</a></code></pre></div>
+<div class="sourceCode" id="section-cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="section-extended-example-world-population-data.html#cb403-1"></a><span class="kw">summary</span>(logmodel)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = logpopulation ~ year, data = logpopdat)
@@ -740,22 +747,22 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 0.0319 on 69 degrees of freedom
 Multiple R-squared:  0.991, Adjusted R-squared:  0.991 
 F-statistic: 7.96e+03 on 1 and 69 DF,  p-value: &lt;2e-16</code></pre>
-<div class="sourceCode" id="section-cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" title="1"><span class="kw">exp</span>(<span class="kw">unname</span>(<span class="kw">coef</span>(logmodel)[<span class="dv">2</span>])) <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="co"># Delta</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="section-extended-example-world-population-data.html#cb405-1"></a><span class="kw">exp</span>(<span class="kw">unname</span>(<span class="kw">coef</span>(logmodel)[<span class="dv">2</span>])) <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="co"># Delta</span></span></code></pre></div>
 <pre><code>[1] 0.016599</code></pre>
 <p>So it looks like population increases by about <span class="math inline">\(1.66\%\)</span> each year on average.</p>
 <p>Check out how it looks (I called my new data <code>logpopdat</code>):</p>
-<div class="sourceCode" id="section-cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" title="1">logpopdat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb407-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> logpopulation)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb407-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb407-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb407-5" title="5"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coef</span>(logmodel)[<span class="dv">2</span>],<span class="dt">intercept =</span> <span class="kw">coef</span>(logmodel)[<span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb407-6" title="6"><span class="st">  </span><span class="kw">coord_trans</span>(<span class="dt">y =</span> <span class="st">&quot;exp&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb407-7" title="7"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb407-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population over time&quot;</span>,</a>
-<a class="sourceLine" id="cb407-9" title="9">       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
-<a class="sourceLine" id="cb407-10" title="10">       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb407-11" title="11"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb407-12" title="12"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">log</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">8</span> <span class="op">*</span><span class="st"> </span><span class="fl">1e06</span>),<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">exp</span>(x)<span class="op">*</span><span class="fl">1e-06</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="section-extended-example-world-population-data.html#cb407-1"></a>logpopdat <span class="op">%&gt;%</span></span>
+<span id="cb407-2"><a href="section-extended-example-world-population-data.html#cb407-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> logpopulation)) <span class="op">+</span></span>
+<span id="cb407-3"><a href="section-extended-example-world-population-data.html#cb407-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb407-4"><a href="section-extended-example-world-population-data.html#cb407-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb407-5"><a href="section-extended-example-world-population-data.html#cb407-5"></a><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coef</span>(logmodel)[<span class="dv">2</span>],<span class="dt">intercept =</span> <span class="kw">coef</span>(logmodel)[<span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb407-6"><a href="section-extended-example-world-population-data.html#cb407-6"></a><span class="st">  </span><span class="kw">coord_trans</span>(<span class="dt">y =</span> <span class="st">&quot;exp&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb407-7"><a href="section-extended-example-world-population-data.html#cb407-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></span>
+<span id="cb407-8"><a href="section-extended-example-world-population-data.html#cb407-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population over time&quot;</span>,</span>
+<span id="cb407-9"><a href="section-extended-example-world-population-data.html#cb407-9"></a>       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</span>
+<span id="cb407-10"><a href="section-extended-example-world-population-data.html#cb407-10"></a>       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></span>
+<span id="cb407-11"><a href="section-extended-example-world-population-data.html#cb407-11"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></span>
+<span id="cb407-12"><a href="section-extended-example-world-population-data.html#cb407-12"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">log</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">8</span> <span class="op">*</span><span class="st"> </span><span class="fl">1e06</span>),<span class="dt">labels =</span> <span class="cf">function</span>(x) <span class="kw">exp</span>(x)<span class="op">*</span><span class="fl">1e-06</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/logmodel3-1.png" width="672" /></p>
 <p>We don’t yet have the tools to tell if one model is “better” than the other!</p>
 </div>
@@ -787,17 +794,17 @@ equal to <span class="math inline">\(10\)</span>billion and <span class="math in
 \lambda \sim\text{Gamma}(3.358,0.778)
 \]</span>
 Let’s plot this prior to see what it looks like:</p>
-<div class="sourceCode" id="section-cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1">alpha &lt;-<span class="st"> </span><span class="fl">3.358</span></a>
-<a class="sourceLine" id="cb408-2" title="2">beta &lt;-<span class="st"> </span><span class="fl">0.778</span></a>
-<a class="sourceLine" id="cb408-3" title="3">priorplot &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">xx =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dt">length.out =</span> <span class="dv">10000</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb408-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> xx)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb408-5" title="5"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb408-6" title="6"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha,<span class="dt">rate =</span> beta)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb408-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Prior on total world population&quot;</span>,</a>
-<a class="sourceLine" id="cb408-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Total world population (billions)&quot;</span>,</a>
-<a class="sourceLine" id="cb408-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Prior density&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb408-10" title="10"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dt">by =</span> <span class="dv">1</span>),<span class="dt">labels =</span> <span class="cf">function</span>(x) scales<span class="op">::</span><span class="kw">comma</span>(x))</a>
-<a class="sourceLine" id="cb408-11" title="11">priorplot</a></code></pre></div>
+<div class="sourceCode" id="section-cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="section-extended-example-world-population-data.html#cb408-1"></a>alpha &lt;-<span class="st"> </span><span class="fl">3.358</span></span>
+<span id="cb408-2"><a href="section-extended-example-world-population-data.html#cb408-2"></a>beta &lt;-<span class="st"> </span><span class="fl">0.778</span></span>
+<span id="cb408-3"><a href="section-extended-example-world-population-data.html#cb408-3"></a>priorplot &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">xx =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dt">length.out =</span> <span class="dv">10000</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb408-4"><a href="section-extended-example-world-population-data.html#cb408-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> xx)) <span class="op">+</span></span>
+<span id="cb408-5"><a href="section-extended-example-world-population-data.html#cb408-5"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb408-6"><a href="section-extended-example-world-population-data.html#cb408-6"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha,<span class="dt">rate =</span> beta)) <span class="op">+</span></span>
+<span id="cb408-7"><a href="section-extended-example-world-population-data.html#cb408-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Prior on total world population&quot;</span>,</span>
+<span id="cb408-8"><a href="section-extended-example-world-population-data.html#cb408-8"></a>       <span class="dt">x =</span> <span class="st">&quot;Total world population (billions)&quot;</span>,</span>
+<span id="cb408-9"><a href="section-extended-example-world-population-data.html#cb408-9"></a>       <span class="dt">y =</span> <span class="st">&quot;Prior density&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb408-10"><a href="section-extended-example-world-population-data.html#cb408-10"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dt">by =</span> <span class="dv">1</span>),<span class="dt">labels =</span> <span class="cf">function</span>(x) scales<span class="op">::</span><span class="kw">comma</span>(x))</span>
+<span id="cb408-11"><a href="section-extended-example-world-population-data.html#cb408-11"></a>priorplot</span></code></pre></div>
 <p><img src="book_files/figure-html/plotgamma1-1.png" width="672" /></p>
 <p>Now, you have to get the posterior for <span class="math inline">\(\lambda|Y\)</span>. The likelihood is
 <span class="math display">\[
@@ -814,14 +821,14 @@ The prior is
 Now, with the posterior determined, we can infer the world population for any given
 year. For <span class="math inline">\(2010\)</span>, say, we can plot the posterior (note that <span class="math inline">\(Y\)</span> is now converted to billions,
 from thousands):</p>
-<div class="sourceCode" id="section-cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1">observedpop &lt;-<span class="st"> </span>worldpop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &#39;WORLD&#39;</span>,year <span class="op">==</span><span class="st"> </span><span class="dv">2010</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(population)</a>
-<a class="sourceLine" id="cb409-2" title="2">observedpop &lt;-<span class="st"> </span>observedpop <span class="op">*</span><span class="st"> </span><span class="fl">1e-06</span> <span class="co"># Convert to billions, from thousands</span></a>
-<a class="sourceLine" id="cb409-3" title="3">priorplot <span class="op">+</span></a>
-<a class="sourceLine" id="cb409-4" title="4"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha <span class="op">+</span><span class="st"> </span>observedpop,<span class="dt">rate =</span> beta<span class="op">+</span><span class="dv">1</span>),<span class="dt">colour =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb409-5" title="5"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> observedpop,<span class="dt">linetype =</span> <span class="st">&#39;dashed&#39;</span>,<span class="dt">colour=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb409-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Prior (black) and posterior (orange) for total world population&quot;</span>,</a>
-<a class="sourceLine" id="cb409-7" title="7">       <span class="dt">subtitle =</span> <span class="st">&quot;Red line: observed world population&quot;</span>,</a>
-<a class="sourceLine" id="cb409-8" title="8">       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="section-extended-example-world-population-data.html#cb409-1"></a>observedpop &lt;-<span class="st"> </span>worldpop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &#39;WORLD&#39;</span>,year <span class="op">==</span><span class="st"> </span><span class="dv">2010</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(population)</span>
+<span id="cb409-2"><a href="section-extended-example-world-population-data.html#cb409-2"></a>observedpop &lt;-<span class="st"> </span>observedpop <span class="op">*</span><span class="st"> </span><span class="fl">1e-06</span> <span class="co"># Convert to billions, from thousands</span></span>
+<span id="cb409-3"><a href="section-extended-example-world-population-data.html#cb409-3"></a>priorplot <span class="op">+</span></span>
+<span id="cb409-4"><a href="section-extended-example-world-population-data.html#cb409-4"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha <span class="op">+</span><span class="st"> </span>observedpop,<span class="dt">rate =</span> beta<span class="op">+</span><span class="dv">1</span>),<span class="dt">colour =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></span>
+<span id="cb409-5"><a href="section-extended-example-world-population-data.html#cb409-5"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> observedpop,<span class="dt">linetype =</span> <span class="st">&#39;dashed&#39;</span>,<span class="dt">colour=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span></span>
+<span id="cb409-6"><a href="section-extended-example-world-population-data.html#cb409-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Prior (black) and posterior (orange) for total world population&quot;</span>,</span>
+<span id="cb409-7"><a href="section-extended-example-world-population-data.html#cb409-7"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Red line: observed world population&quot;</span>,</span>
+<span id="cb409-8"><a href="section-extended-example-world-population-data.html#cb409-8"></a>       <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/plotgammapost1-1.png" width="672" /></p>
 <p>We will see later how to use this to estimate the world population in a given year.</p>
 <p><strong>Exercise</strong>: the prior pulls the posterior to the left of the observed values,
@@ -829,12 +836,12 @@ favouring the notion that the reported world population is an <em>overestimate</
 the true value. Is this reasonable? Try it out with some different priors. I wrote
 you a helper function which lets you put in the <span class="math inline">\(2.5\%\)</span> and <span class="math inline">\(97.5\%\)</span> quantiles you
 want, and gives you the <span class="math inline">\(\alpha,\beta\)</span> that give you these quantiles:</p>
-<div class="sourceCode" id="section-cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1"><span class="kw">getgammaparams</span>(<span class="dv">1</span>,<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="section-extended-example-world-population-data.html#cb410-1"></a><span class="kw">getgammaparams</span>(<span class="dv">1</span>,<span class="dv">10</span>)</span></code></pre></div>
 <pre><code> alpha   beta 
 3.3582 0.7787 </code></pre>
 <p>For example, if you wanted to use a Gamma distribution with lower quantile <span class="math inline">\(0.1\)</span> billion
 and upper quantile <span class="math inline">\(15\)</span> billion, you would use</p>
-<div class="sourceCode" id="section-cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" title="1"><span class="kw">getgammaparams</span>(.<span class="dv">1</span>,<span class="dv">15</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="section-extended-example-world-population-data.html#cb412-1"></a><span class="kw">getgammaparams</span>(.<span class="dv">1</span>,<span class="dv">15</span>)</span></code></pre></div>
 <pre><code>  alpha    beta 
 0.99196 0.24480 </code></pre>
 <p>and so on.</p>
@@ -845,7 +852,7 @@ Is the posterior very sensitive to the choice of prior?</p>
 <div id="section-quantifying-uncertainty-in-estimates-of-world-population-regression-model" class="section level2">
 <h2><span class="header-section-number">15.4</span> Quantifying uncertainty in estimates of world population: regression model</h2>
 <p>We have done the following linear regression for world population:</p>
-<div class="sourceCode" id="section-cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1">worldpopplot <span class="op">+</span><span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">2</span>],<span class="dt">intercept =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="section-cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="section-extended-example-world-population-data.html#cb414-1"></a>worldpopplot <span class="op">+</span><span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">2</span>],<span class="dt">intercept =</span> <span class="kw">coef</span>(diffmod)[<span class="dv">1</span>])</span></code></pre></div>
 <p><img src="book_files/figure-html/plotdiffmodagain1-1.png" width="672" />
 The value of the regression line at any year gives an estimate of the population
 in that year.</p>
@@ -872,7 +879,7 @@ The predicted value of the world population in year <span class="math inline">\(
 Its value along with its standard deviation, <span class="math inline">\(\text{SD}(\hat{\mu}_{i})\)</span>, can be obtained from the regression
 output using the <code>predict</code> function. To get the estimated world population and <span class="math inline">\(95\%\)</span>
 confidence interval for 2010, for example, you could do</p>
-<div class="sourceCode" id="section-cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1"><span class="kw">predict</span>(diffmod,<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">year =</span> <span class="dv">2010</span>),<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)<span class="op">$</span>fit</a></code></pre></div>
+<div class="sourceCode" id="section-cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="section-extended-example-world-population-data.html#cb415-1"></a><span class="kw">predict</span>(diffmod,<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">year =</span> <span class="dv">2010</span>),<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)<span class="op">$</span>fit</span></code></pre></div>
 <pre><code>      fit     lwr     upr
 1 6914203 6877901 6950504</code></pre>
 <p>There is a problem, though. A subtle problem. A confidence interval is interpreted as
@@ -891,20 +898,20 @@ over and over again, we think that <span class="math inline">\(95\%\)</span> of 
 this interval. We call this a <strong>prediction interval</strong> instead of a confidence interval.
 It is based off both the variability in <span class="math inline">\(\hat{\mu}_{i}\)</span> and the variability in
 <span class="math inline">\(\epsilon_{i}\)</span>. It is obtained as</p>
-<div class="sourceCode" id="section-cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1"><span class="kw">predict</span>(diffmod,<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">year =</span> <span class="dv">2010</span>),<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)<span class="op">$</span>fit</a></code></pre></div>
+<div class="sourceCode" id="section-cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="section-extended-example-world-population-data.html#cb417-1"></a><span class="kw">predict</span>(diffmod,<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">year =</span> <span class="dv">2010</span>),<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)<span class="op">$</span>fit</span></code></pre></div>
 <pre><code>      fit     lwr     upr
 1 6914203 6716913 7111492</code></pre>
 <p>Notice how it is <strong>wider</strong> than the confidence interval, because it accounts for more
 types of uncertainty.</p>
 <p>Let’s plot the confidence intervals on our plot:</p>
-<div class="sourceCode" id="section-cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1"><span class="co"># Note: removing the &quot;newdata&quot; argument gives</span></a>
-<a class="sourceLine" id="cb419-2" title="2"><span class="co"># predictions on the original values</span></a>
-<a class="sourceLine" id="cb419-3" title="3">worldpoponlyworld &lt;-<span class="st"> </span><span class="kw">filter</span>(worldpop,country<span class="op">==</span><span class="st">&#39;WORLD&#39;</span>)</a>
-<a class="sourceLine" id="cb419-4" title="4">preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(diffmod,<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)<span class="op">$</span>fit <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb419-5" title="5"><span class="st">  </span><span class="kw">as_tibble</span>()</a>
-<a class="sourceLine" id="cb419-6" title="6">preddat<span class="op">$</span>year &lt;-<span class="st"> </span>worldpoponlyworld<span class="op">$</span>year</a>
-<a class="sourceLine" id="cb419-7" title="7">worldpoppred &lt;-<span class="st"> </span><span class="kw">inner_join</span>(worldpoponlyworld,preddat,<span class="dt">by =</span> <span class="st">&quot;year&quot;</span>)</a>
-<a class="sourceLine" id="cb419-8" title="8"><span class="kw">glimpse</span>(worldpoppred)</a></code></pre></div>
+<div class="sourceCode" id="section-cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="section-extended-example-world-population-data.html#cb419-1"></a><span class="co"># Note: removing the &quot;newdata&quot; argument gives</span></span>
+<span id="cb419-2"><a href="section-extended-example-world-population-data.html#cb419-2"></a><span class="co"># predictions on the original values</span></span>
+<span id="cb419-3"><a href="section-extended-example-world-population-data.html#cb419-3"></a>worldpoponlyworld &lt;-<span class="st"> </span><span class="kw">filter</span>(worldpop,country<span class="op">==</span><span class="st">&#39;WORLD&#39;</span>)</span>
+<span id="cb419-4"><a href="section-extended-example-world-population-data.html#cb419-4"></a>preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(diffmod,<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)<span class="op">$</span>fit <span class="op">%&gt;%</span></span>
+<span id="cb419-5"><a href="section-extended-example-world-population-data.html#cb419-5"></a><span class="st">  </span><span class="kw">as_tibble</span>()</span>
+<span id="cb419-6"><a href="section-extended-example-world-population-data.html#cb419-6"></a>preddat<span class="op">$</span>year &lt;-<span class="st"> </span>worldpoponlyworld<span class="op">$</span>year</span>
+<span id="cb419-7"><a href="section-extended-example-world-population-data.html#cb419-7"></a>worldpoppred &lt;-<span class="st"> </span><span class="kw">inner_join</span>(worldpoponlyworld,preddat,<span class="dt">by =</span> <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb419-8"><a href="section-extended-example-world-population-data.html#cb419-8"></a><span class="kw">glimpse</span>(worldpoppred)</span></code></pre></div>
 <pre><code>Observations: 71
 Variables: 6
 $ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
@@ -913,38 +920,38 @@ $ population &lt;dbl&gt; 2536431, 2584034, 2630862, 2677609, 2724847, 2773020, 2
 $ fit        &lt;dbl&gt; 2241597, 2319473, 2397350, 2475227, 2553104, 2630980, 2708…
 $ lwr        &lt;dbl&gt; 2196050, 2274892, 2353727, 2432554, 2511372, 2590181, 2668…
 $ upr        &lt;dbl&gt; 2287143, 2364054, 2440973, 2517900, 2594836, 2671780, 2748…</code></pre>
-<div class="sourceCode" id="section-cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1">predplotconfint &lt;-<span class="st"> </span>worldpoppred <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb421-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> fit)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb421-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb421-4" title="4"><span class="st">  </span><span class="co"># Shaded region for the interval</span></a>
-<a class="sourceLine" id="cb421-5" title="5"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lwr,<span class="dt">ymax =</span> upr),<span class="dt">fill =</span> <span class="st">&quot;darkgrey&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb421-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb421-7" title="7"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> population)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb421-8" title="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb421-9" title="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population with estimate and 95% CI&quot;</span>,</a>
-<a class="sourceLine" id="cb421-10" title="10">       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
-<a class="sourceLine" id="cb421-11" title="11">       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb421-12" title="12"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb421-13" title="13"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) x<span class="op">*</span><span class="fl">1e-06</span>)</a>
-<a class="sourceLine" id="cb421-14" title="14">  </a>
-<a class="sourceLine" id="cb421-15" title="15">  </a>
-<a class="sourceLine" id="cb421-16" title="16"></a>
-<a class="sourceLine" id="cb421-17" title="17">predplotconfint</a></code></pre></div>
+<div class="sourceCode" id="section-cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="section-extended-example-world-population-data.html#cb421-1"></a>predplotconfint &lt;-<span class="st"> </span>worldpoppred <span class="op">%&gt;%</span></span>
+<span id="cb421-2"><a href="section-extended-example-world-population-data.html#cb421-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> fit)) <span class="op">+</span></span>
+<span id="cb421-3"><a href="section-extended-example-world-population-data.html#cb421-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb421-4"><a href="section-extended-example-world-population-data.html#cb421-4"></a><span class="st">  </span><span class="co"># Shaded region for the interval</span></span>
+<span id="cb421-5"><a href="section-extended-example-world-population-data.html#cb421-5"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lwr,<span class="dt">ymax =</span> upr),<span class="dt">fill =</span> <span class="st">&quot;darkgrey&quot;</span>) <span class="op">+</span></span>
+<span id="cb421-6"><a href="section-extended-example-world-population-data.html#cb421-6"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb421-7"><a href="section-extended-example-world-population-data.html#cb421-7"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> population)) <span class="op">+</span></span>
+<span id="cb421-8"><a href="section-extended-example-world-population-data.html#cb421-8"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></span>
+<span id="cb421-9"><a href="section-extended-example-world-population-data.html#cb421-9"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population with estimate and 95% CI&quot;</span>,</span>
+<span id="cb421-10"><a href="section-extended-example-world-population-data.html#cb421-10"></a>       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</span>
+<span id="cb421-11"><a href="section-extended-example-world-population-data.html#cb421-11"></a>       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></span>
+<span id="cb421-12"><a href="section-extended-example-world-population-data.html#cb421-12"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></span>
+<span id="cb421-13"><a href="section-extended-example-world-population-data.html#cb421-13"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) x<span class="op">*</span><span class="fl">1e-06</span>)</span>
+<span id="cb421-14"><a href="section-extended-example-world-population-data.html#cb421-14"></a>  </span>
+<span id="cb421-15"><a href="section-extended-example-world-population-data.html#cb421-15"></a>  </span>
+<span id="cb421-16"><a href="section-extended-example-world-population-data.html#cb421-16"></a></span>
+<span id="cb421-17"><a href="section-extended-example-world-population-data.html#cb421-17"></a>predplotconfint</span></code></pre></div>
 <p><img src="book_files/figure-html/plotconfdiffmod1-1.png" width="672" />
 Notice how the interval is really narrow, and doesn’t contain most of the actual
 measured values. This is because it is an interval for the true, unknown value
 of the world population, not the actual measured values themselves.</p>
 <p><strong>Exercise</strong>: create the same plot but with a <strong>prediction interval</strong>. I got the
 following:</p>
-<div class="sourceCode" id="section-cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1"><span class="co"># Note: removing the &quot;newdata&quot; argument gives</span></a>
-<a class="sourceLine" id="cb422-2" title="2"><span class="co"># predictions on the original values</span></a>
-<a class="sourceLine" id="cb422-3" title="3">worldpoponlyworld &lt;-<span class="st"> </span><span class="kw">filter</span>(worldpop,country<span class="op">==</span><span class="st">&#39;WORLD&#39;</span>)</a>
-<a class="sourceLine" id="cb422-4" title="4">preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(diffmod,<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)<span class="op">$</span>fit <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb422-5" title="5"><span class="st">  </span><span class="kw">as_tibble</span>()</a></code></pre></div>
+<div class="sourceCode" id="section-cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="section-extended-example-world-population-data.html#cb422-1"></a><span class="co"># Note: removing the &quot;newdata&quot; argument gives</span></span>
+<span id="cb422-2"><a href="section-extended-example-world-population-data.html#cb422-2"></a><span class="co"># predictions on the original values</span></span>
+<span id="cb422-3"><a href="section-extended-example-world-population-data.html#cb422-3"></a>worldpoponlyworld &lt;-<span class="st"> </span><span class="kw">filter</span>(worldpop,country<span class="op">==</span><span class="st">&#39;WORLD&#39;</span>)</span>
+<span id="cb422-4"><a href="section-extended-example-world-population-data.html#cb422-4"></a>preddat &lt;-<span class="st"> </span><span class="kw">predict</span>(diffmod,<span class="dt">se.fit =</span> <span class="ot">TRUE</span>,<span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)<span class="op">$</span>fit <span class="op">%&gt;%</span></span>
+<span id="cb422-5"><a href="section-extended-example-world-population-data.html#cb422-5"></a><span class="st">  </span><span class="kw">as_tibble</span>()</span></code></pre></div>
 <pre><code>Warning in predict.lm(diffmod, se.fit = TRUE, interval = &quot;prediction&quot;): predictions on current data refer to _future_ responses</code></pre>
-<div class="sourceCode" id="section-cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1">preddat<span class="op">$</span>year &lt;-<span class="st"> </span>worldpoponlyworld<span class="op">$</span>year</a>
-<a class="sourceLine" id="cb424-2" title="2">worldpoppred &lt;-<span class="st"> </span><span class="kw">inner_join</span>(worldpoponlyworld,preddat,<span class="dt">by =</span> <span class="st">&quot;year&quot;</span>)</a>
-<a class="sourceLine" id="cb424-3" title="3"><span class="kw">glimpse</span>(worldpoppred)</a></code></pre></div>
+<div class="sourceCode" id="section-cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="section-extended-example-world-population-data.html#cb424-1"></a>preddat<span class="op">$</span>year &lt;-<span class="st"> </span>worldpoponlyworld<span class="op">$</span>year</span>
+<span id="cb424-2"><a href="section-extended-example-world-population-data.html#cb424-2"></a>worldpoppred &lt;-<span class="st"> </span><span class="kw">inner_join</span>(worldpoponlyworld,preddat,<span class="dt">by =</span> <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb424-3"><a href="section-extended-example-world-population-data.html#cb424-3"></a><span class="kw">glimpse</span>(worldpoppred)</span></code></pre></div>
 <pre><code>Observations: 71
 Variables: 6
 $ country    &lt;chr&gt; &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WORLD&quot;, &quot;WOR…
@@ -953,23 +960,23 @@ $ population &lt;dbl&gt; 2536431, 2584034, 2630862, 2677609, 2724847, 2773020, 2
 $ fit        &lt;dbl&gt; 2241597, 2319473, 2397350, 2475227, 2553104, 2630980, 2708…
 $ lwr        &lt;dbl&gt; 2042399, 2120494, 2198583, 2276666, 2354743, 2432814, 2510…
 $ upr        &lt;dbl&gt; 2440795, 2518453, 2596117, 2673788, 2751464, 2829147, 2906…</code></pre>
-<div class="sourceCode" id="section-cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1">predplotpredint &lt;-<span class="st"> </span>worldpoppred <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb426-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> fit)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb426-3" title="3"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb426-4" title="4"><span class="st">  </span><span class="co"># Shaded region for the interval</span></a>
-<a class="sourceLine" id="cb426-5" title="5"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lwr,<span class="dt">ymax =</span> upr),<span class="dt">fill =</span> <span class="st">&quot;darkgrey&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb426-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb426-7" title="7"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> population)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb426-8" title="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb426-9" title="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population with estimate and 95% PI&quot;</span>,</a>
-<a class="sourceLine" id="cb426-10" title="10">       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
-<a class="sourceLine" id="cb426-11" title="11">       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb426-12" title="12"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb426-13" title="13"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) x<span class="op">*</span><span class="fl">1e-06</span>)</a>
-<a class="sourceLine" id="cb426-14" title="14">  </a>
-<a class="sourceLine" id="cb426-15" title="15">  </a>
-<a class="sourceLine" id="cb426-16" title="16"></a>
-<a class="sourceLine" id="cb426-17" title="17">predplotpredint</a></code></pre></div>
+<div class="sourceCode" id="section-cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="section-extended-example-world-population-data.html#cb426-1"></a>predplotpredint &lt;-<span class="st"> </span>worldpoppred <span class="op">%&gt;%</span></span>
+<span id="cb426-2"><a href="section-extended-example-world-population-data.html#cb426-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year,<span class="dt">y =</span> fit)) <span class="op">+</span></span>
+<span id="cb426-3"><a href="section-extended-example-world-population-data.html#cb426-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb426-4"><a href="section-extended-example-world-population-data.html#cb426-4"></a><span class="st">  </span><span class="co"># Shaded region for the interval</span></span>
+<span id="cb426-5"><a href="section-extended-example-world-population-data.html#cb426-5"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lwr,<span class="dt">ymax =</span> upr),<span class="dt">fill =</span> <span class="st">&quot;darkgrey&quot;</span>) <span class="op">+</span></span>
+<span id="cb426-6"><a href="section-extended-example-world-population-data.html#cb426-6"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb426-7"><a href="section-extended-example-world-population-data.html#cb426-7"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> population)) <span class="op">+</span></span>
+<span id="cb426-8"><a href="section-extended-example-world-population-data.html#cb426-8"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></span>
+<span id="cb426-9"><a href="section-extended-example-world-population-data.html#cb426-9"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;World population with estimate and 95% PI&quot;</span>,</span>
+<span id="cb426-10"><a href="section-extended-example-world-population-data.html#cb426-10"></a>       <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</span>
+<span id="cb426-11"><a href="section-extended-example-world-population-data.html#cb426-11"></a>       <span class="dt">y =</span> <span class="st">&quot;World Population (Billions)&quot;</span>) <span class="op">+</span></span>
+<span id="cb426-12"><a href="section-extended-example-world-population-data.html#cb426-12"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1950</span>,<span class="dv">2020</span>,<span class="dt">by=</span><span class="dv">5</span>)) <span class="op">+</span></span>
+<span id="cb426-13"><a href="section-extended-example-world-population-data.html#cb426-13"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="cf">function</span>(x) x<span class="op">*</span><span class="fl">1e-06</span>)</span>
+<span id="cb426-14"><a href="section-extended-example-world-population-data.html#cb426-14"></a>  </span>
+<span id="cb426-15"><a href="section-extended-example-world-population-data.html#cb426-15"></a>  </span>
+<span id="cb426-16"><a href="section-extended-example-world-population-data.html#cb426-16"></a></span>
+<span id="cb426-17"><a href="section-extended-example-world-population-data.html#cb426-17"></a>predplotpredint</span></code></pre></div>
 <p><img src="book_files/figure-html/plotpreddiffmod1-1.png" width="672" /></p>
 <p>Note how the interval is <em>much</em> wider, and contains about 19/20 <span class="math inline">\(95\%\)</span> of the measured
 values.</p>
@@ -978,6 +985,205 @@ regression model we did). I got:</p>
 <pre><code>Warning in predict.lm(logmodel, se.fit = TRUE, interval = &quot;prediction&quot;): predictions on current data refer to _future_ responses</code></pre>
 <p><img src="book_files/figure-html/plotratemod1-1.png" width="672" /></p>
 <p>Comment on the difference in width of the two intervals.</p>
+</div>
+<div id="section-bayesian-estimate-of-world-population" class="section level2">
+<h2><span class="header-section-number">15.5</span> Bayesian estimate of world population</h2>
+<p>We previously looked at the model</p>
+<p><span class="math display">\[\begin{equation}\begin{aligned}
+Y &amp;\sim \text{Poisson}(\lambda)
+\lambda &amp;\sim\text{Gamma}(3.358,0.778)
+\implies \lambda | Y &amp;\sim \Gamma(3.358 + Y,0.788 + 1)
+\end{aligned}\end{equation}\]</span>
+where <span class="math inline">\(Y\)</span> is the measured value of world population in Billions, <span class="math inline">\(\lambda\)</span> is the real value
+of world population in Billions, and the prior on <span class="math inline">\(\lambda\)</span> was chosen so that
+<span class="math inline">\(P(1 \leq \lambda \leq 10) = 95\%\)</span>. Previously we derived the posterior distribution,
+but we didn’t actually use it to estimate or quantify uncertainty in <span class="math inline">\(\lambda\)</span>.
+We’ll do that now.</p>
+<div id="section-estimation-and-uncertainty-quantification" class="section level3">
+<h3><span class="header-section-number">15.5.1</span> Estimation and uncertainty quantification</h3>
+<p>The posterior distribution gives us both estimation and uncertainty quantification,
+but it’s up to us to decide how to use it. There are three common ways to use a
+posterior for point estimation: the <strong>posterior mode</strong>,
+<span class="math display">\[
+\hat{\lambda}_{\texttt{mode}} = \text{argmax}_{\lambda}\pi(\lambda | Y),
+\]</span>
+the <strong>posterior mean</strong>,
+<span class="math display">\[
+\hat{\lambda}_{\texttt{mean}} = E(\lambda|Y),
+\]</span>
+and the <strong>posterior median</strong>, which is the value <span class="math inline">\(\hat{\lambda}_{\texttt{med}}\)</span> which
+satisfies
+<span class="math display">\[
+P(\lambda &lt; \hat{\lambda}_{\texttt{med}}|Y) = 0.5
+\]</span>
+You can determine an expression for each of these posterior summaries using
+your usual probability techniques.</p>
+<p><strong>Exercise</strong>: show that <span class="math display">\[\hat{\lambda}_{\texttt{mode}} = \frac{\alpha + Y - 1}{\beta + 1}\]</span>
+where <span class="math inline">\((\alpha,\beta)\)</span> are the prior parameters (i.e. <span class="math inline">\(\lambda\)</span> has a <span class="math inline">\(\text{Gamma}(\alpha,\beta)\)</span>
+prior).</p>
+<p><strong>Exercise</strong>: show that <span class="math display">\[\hat{\lambda}_{\texttt{mean}} = \frac{\alpha + Y}{\beta + 1}.\]</span></p>
+<p>The posterior median does not have a closed-form expression in this example, although
+we can still compute it using <code>R</code>.</p>
+<p>Let’s compute these three statistics:</p>
+<div class="sourceCode" id="section-cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="section-extended-example-world-population-data.html#cb428-1"></a><span class="co"># Prior params</span></span>
+<span id="cb428-2"><a href="section-extended-example-world-population-data.html#cb428-2"></a>alpha &lt;-<span class="st"> </span><span class="fl">3.358</span></span>
+<span id="cb428-3"><a href="section-extended-example-world-population-data.html#cb428-3"></a>beta &lt;-<span class="st"> </span><span class="fl">0.778</span></span>
+<span id="cb428-4"><a href="section-extended-example-world-population-data.html#cb428-4"></a><span class="co"># Y: observed world population</span></span>
+<span id="cb428-5"><a href="section-extended-example-world-population-data.html#cb428-5"></a>observedpop &lt;-<span class="st"> </span>worldpop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &#39;WORLD&#39;</span>,year <span class="op">==</span><span class="st"> </span><span class="dv">2010</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(population)</span>
+<span id="cb428-6"><a href="section-extended-example-world-population-data.html#cb428-6"></a>observedpop &lt;-<span class="st"> </span>observedpop <span class="op">*</span><span class="st"> </span><span class="fl">1e-06</span> <span class="co"># Convert to billions, from thousands</span></span>
+<span id="cb428-7"><a href="section-extended-example-world-population-data.html#cb428-7"></a><span class="co"># Posterior mode</span></span>
+<span id="cb428-8"><a href="section-extended-example-world-population-data.html#cb428-8"></a>lambda_mode &lt;-<span class="st"> </span>(alpha <span class="op">+</span><span class="st"> </span>observedpop <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span>(beta <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb428-9"><a href="section-extended-example-world-population-data.html#cb428-9"></a><span class="co"># Posterior mean</span></span>
+<span id="cb428-10"><a href="section-extended-example-world-population-data.html#cb428-10"></a>lambda_mean &lt;-<span class="st"> </span>(alpha <span class="op">+</span><span class="st"> </span>observedpop) <span class="op">/</span><span class="st"> </span>(beta <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb428-11"><a href="section-extended-example-world-population-data.html#cb428-11"></a><span class="co"># Posterior median</span></span>
+<span id="cb428-12"><a href="section-extended-example-world-population-data.html#cb428-12"></a>lambda_med &lt;-<span class="st"> </span><span class="kw">qgamma</span>(.<span class="dv">5</span>,alpha <span class="op">+</span><span class="st"> </span>observedpop,beta<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb428-13"><a href="section-extended-example-world-population-data.html#cb428-13"></a><span class="co"># Look at them all</span></span>
+<span id="cb428-14"><a href="section-extended-example-world-population-data.html#cb428-14"></a><span class="kw">c</span>(</span>
+<span id="cb428-15"><a href="section-extended-example-world-population-data.html#cb428-15"></a>  <span class="st">&#39;observed&#39;</span> =<span class="st"> </span>observedpop,</span>
+<span id="cb428-16"><a href="section-extended-example-world-population-data.html#cb428-16"></a>  <span class="st">&#39;post_mode&#39;</span> =<span class="st"> </span>lambda_mode,</span>
+<span id="cb428-17"><a href="section-extended-example-world-population-data.html#cb428-17"></a>  <span class="st">&#39;post_mean&#39;</span> =<span class="st"> </span>lambda_mean,</span>
+<span id="cb428-18"><a href="section-extended-example-world-population-data.html#cb428-18"></a>  <span class="st">&#39;post_med&#39;</span> =<span class="st"> </span>lambda_med</span>
+<span id="cb428-19"><a href="section-extended-example-world-population-data.html#cb428-19"></a>)</span></code></pre></div>
+<pre><code> observed post_mode post_mean  post_med 
+   6.9568    5.2389    5.8014    5.6150 </code></pre>
+<p>Compare these to their corresponding <em>prior</em> values:</p>
+<div class="sourceCode" id="section-cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="section-extended-example-world-population-data.html#cb430-1"></a><span class="co"># Prior params</span></span>
+<span id="cb430-2"><a href="section-extended-example-world-population-data.html#cb430-2"></a>alpha &lt;-<span class="st"> </span><span class="fl">3.358</span></span>
+<span id="cb430-3"><a href="section-extended-example-world-population-data.html#cb430-3"></a>beta &lt;-<span class="st"> </span><span class="fl">0.778</span></span>
+<span id="cb430-4"><a href="section-extended-example-world-population-data.html#cb430-4"></a><span class="co"># Prior mode</span></span>
+<span id="cb430-5"><a href="section-extended-example-world-population-data.html#cb430-5"></a>prior_mode &lt;-<span class="st"> </span>(alpha <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span>(beta)</span>
+<span id="cb430-6"><a href="section-extended-example-world-population-data.html#cb430-6"></a><span class="co"># Prior mean</span></span>
+<span id="cb430-7"><a href="section-extended-example-world-population-data.html#cb430-7"></a>prior_mean &lt;-<span class="st"> </span>(alpha) <span class="op">/</span><span class="st"> </span>(beta)</span>
+<span id="cb430-8"><a href="section-extended-example-world-population-data.html#cb430-8"></a><span class="co"># Prior median</span></span>
+<span id="cb430-9"><a href="section-extended-example-world-population-data.html#cb430-9"></a>prior_med &lt;-<span class="st"> </span><span class="kw">qgamma</span>(.<span class="dv">5</span>,alpha,beta)</span>
+<span id="cb430-10"><a href="section-extended-example-world-population-data.html#cb430-10"></a><span class="co"># Look at them all</span></span>
+<span id="cb430-11"><a href="section-extended-example-world-population-data.html#cb430-11"></a><span class="kw">c</span>(</span>
+<span id="cb430-12"><a href="section-extended-example-world-population-data.html#cb430-12"></a>  <span class="st">&#39;observed&#39;</span> =<span class="st"> </span>observedpop,</span>
+<span id="cb430-13"><a href="section-extended-example-world-population-data.html#cb430-13"></a>  <span class="st">&#39;prior_mode&#39;</span> =<span class="st"> </span>prior_mode,</span>
+<span id="cb430-14"><a href="section-extended-example-world-population-data.html#cb430-14"></a>  <span class="st">&#39;prior_mean&#39;</span> =<span class="st"> </span>prior_mean,</span>
+<span id="cb430-15"><a href="section-extended-example-world-population-data.html#cb430-15"></a>  <span class="st">&#39;prior_med&#39;</span> =<span class="st"> </span>prior_med</span>
+<span id="cb430-16"><a href="section-extended-example-world-population-data.html#cb430-16"></a>)</span></code></pre></div>
+<pre><code>  observed prior_mode prior_mean  prior_med 
+    6.9568     3.0308     4.3162     3.8961 </code></pre>
+<p>Each statistic is pulled towards its corresponding prior value. The skewness in
+the Gamma distribution means that the mode and median are less than the mean.
+The observed data affects not only the location but also the shape of the posterior
+relative to the prior. The observed value being higher than the prior mean and
+mode causes them to be pulled up, but the median is actually pulled down.</p>
+<p>Since computing the posterior seems harder than working with a likelihood, and
+since coming up with a point estimator based on the posterior seems harder than
+maximizing a likelihood, you might be wondering why we’re bothering with Bayesian
+inference at all. One compelling answer comes from <strong>uncertainty quantification</strong>.
+Using the non-Bayesian methods, it was difficult to come up with a way to quantify
+uncertainty. We did a lot of work and came up with an interval that “if you were
+to repeat the experiment over and over and calculate many such intervals, <span class="math inline">\(95\%\)</span>
+of them would cover the true value of the parameter”. This is difficult to explain
+and interpret, and also, when you move into more complicated statistical procedures,
+it becomes difficult or impossible to derive such a confidence interval. Because of this,
+some of the most popular modern statistical procedures use Bayesian inference to
+compute uncertainty estimates (even nominally frequentist techniques), or don’t
+compute them at all. Since Statistics is the science of uncertainty, this means
+Bayesian inference is a lot more mainstream than it might appear to be when taught
+in introductory courses such as this.</p>
+<p>The reason is that computing uncertainty intervals in Bayesian stats is, for the
+most part, pretty straightforward. Uncertainty for <span class="math inline">\(\lambda|Y\)</span> is quantified by
+means of a <strong>credible interval</strong>. A <span class="math inline">\(95\%\)</span> (or some other level) credible interval
+is <em>any</em> pair of numbers <span class="math inline">\((L,U)\)</span> which satisfy
+<span class="math display">\[
+P(L \leq \lambda \leq U | Y) = 95\%.
+\]</span>
+The interpretation is straightforward: given the observed data, <span class="math inline">\(\lambda\)</span> has a
+<span class="math inline">\(95\%\)</span> posterior probability of being between <span class="math inline">\(L\)</span> and <span class="math inline">\(U\)</span>.</p>
+<p>You can use any <span class="math inline">\(L\)</span> and <span class="math inline">\(U\)</span> that satisfy this, but the common choice is to just
+use the <span class="math inline">\(2.5\%\)</span> and <span class="math inline">\(97.5\%\)</span> posterior quantiles, in analogy to the construction
+of frequentist confidence intervals. Less common but still sometimes done is to
+compute one sided intervals, taking <span class="math inline">\(L\)</span> or <span class="math inline">\(U\)</span> to be the endpoint of the parameter
+space (which might be <span class="math inline">\(\pm\infty\)</span>). Here are three calculations and visualizations
+of posterior credible intervals:</p>
+<div class="sourceCode" id="section-cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="section-extended-example-world-population-data.html#cb432-1"></a><span class="co"># Lower interval</span></span>
+<span id="cb432-2"><a href="section-extended-example-world-population-data.html#cb432-2"></a>lowerint &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">qgamma</span>(.<span class="dv">95</span>,alpha<span class="op">+</span>observedpop,beta<span class="op">+</span><span class="dv">1</span>))</span>
+<span id="cb432-3"><a href="section-extended-example-world-population-data.html#cb432-3"></a><span class="co"># Upper interval</span></span>
+<span id="cb432-4"><a href="section-extended-example-world-population-data.html#cb432-4"></a><span class="co"># Top point should be Inf, had to use big finite value for plotting</span></span>
+<span id="cb432-5"><a href="section-extended-example-world-population-data.html#cb432-5"></a>upperint &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">qgamma</span>(.<span class="dv">05</span>,alpha<span class="op">+</span>observedpop,beta<span class="op">+</span><span class="dv">1</span>),<span class="dv">15</span>) <span class="co"># Should be Inf</span></span>
+<span id="cb432-6"><a href="section-extended-example-world-population-data.html#cb432-6"></a><span class="co"># Middle interval, most common</span></span>
+<span id="cb432-7"><a href="section-extended-example-world-population-data.html#cb432-7"></a>middleint &lt;-<span class="st"> </span><span class="kw">qgamma</span>(<span class="kw">c</span>(.<span class="dv">025</span>,.<span class="dv">975</span>),alpha<span class="op">+</span>observedpop,beta<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb432-8"><a href="section-extended-example-world-population-data.html#cb432-8"></a><span class="co"># Plot them</span></span>
+<span id="cb432-9"><a href="section-extended-example-world-population-data.html#cb432-9"></a>baseplot &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">15</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb432-10"><a href="section-extended-example-world-population-data.html#cb432-10"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
+<span id="cb432-11"><a href="section-extended-example-world-population-data.html#cb432-11"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb432-12"><a href="section-extended-example-world-population-data.html#cb432-12"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha<span class="op">+</span>observedpop,<span class="dt">rate =</span> beta<span class="op">+</span><span class="dv">1</span>))</span>
+<span id="cb432-13"><a href="section-extended-example-world-population-data.html#cb432-13"></a></span>
+<span id="cb432-14"><a href="section-extended-example-world-population-data.html#cb432-14"></a>lowerplot &lt;-<span class="st"> </span>baseplot <span class="op">+</span><span class="st"> </span></span>
+<span id="cb432-15"><a href="section-extended-example-world-population-data.html#cb432-15"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma,</span>
+<span id="cb432-16"><a href="section-extended-example-world-population-data.html#cb432-16"></a>                <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha<span class="op">+</span>observedpop,<span class="dt">rate =</span> beta<span class="op">+</span><span class="dv">1</span>),</span>
+<span id="cb432-17"><a href="section-extended-example-world-population-data.html#cb432-17"></a>                <span class="dt">xlim =</span> lowerint,</span>
+<span id="cb432-18"><a href="section-extended-example-world-population-data.html#cb432-18"></a>                <span class="dt">geom =</span> <span class="st">&quot;area&quot;</span>,</span>
+<span id="cb432-19"><a href="section-extended-example-world-population-data.html#cb432-19"></a>                <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
+<span id="cb432-20"><a href="section-extended-example-world-population-data.html#cb432-20"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Lower one-sided 95% posterior credible interval&quot;</span>,</span>
+<span id="cb432-21"><a href="section-extended-example-world-population-data.html#cb432-21"></a>       <span class="dt">x =</span> <span class="kw">expression</span>(lambda),<span class="dt">y =</span> <span class="st">&quot;Posterior Density&quot;</span>)</span>
+<span id="cb432-22"><a href="section-extended-example-world-population-data.html#cb432-22"></a></span>
+<span id="cb432-23"><a href="section-extended-example-world-population-data.html#cb432-23"></a>upperplot &lt;-<span class="st"> </span>baseplot <span class="op">+</span><span class="st"> </span></span>
+<span id="cb432-24"><a href="section-extended-example-world-population-data.html#cb432-24"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma,</span>
+<span id="cb432-25"><a href="section-extended-example-world-population-data.html#cb432-25"></a>                <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha<span class="op">+</span>observedpop,<span class="dt">rate =</span> beta<span class="op">+</span><span class="dv">1</span>),</span>
+<span id="cb432-26"><a href="section-extended-example-world-population-data.html#cb432-26"></a>                <span class="dt">xlim =</span> upperint,</span>
+<span id="cb432-27"><a href="section-extended-example-world-population-data.html#cb432-27"></a>                <span class="dt">geom =</span> <span class="st">&quot;area&quot;</span>,</span>
+<span id="cb432-28"><a href="section-extended-example-world-population-data.html#cb432-28"></a>                <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
+<span id="cb432-29"><a href="section-extended-example-world-population-data.html#cb432-29"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Upper one-sided 95% posterior credible interval&quot;</span>,</span>
+<span id="cb432-30"><a href="section-extended-example-world-population-data.html#cb432-30"></a>       <span class="dt">x =</span> <span class="kw">expression</span>(lambda),<span class="dt">y =</span> <span class="st">&quot;Posterior Density&quot;</span>)</span>
+<span id="cb432-31"><a href="section-extended-example-world-population-data.html#cb432-31"></a></span>
+<span id="cb432-32"><a href="section-extended-example-world-population-data.html#cb432-32"></a>middleplot &lt;-<span class="st"> </span>baseplot <span class="op">+</span><span class="st"> </span></span>
+<span id="cb432-33"><a href="section-extended-example-world-population-data.html#cb432-33"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma,</span>
+<span id="cb432-34"><a href="section-extended-example-world-population-data.html#cb432-34"></a>                <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha<span class="op">+</span>observedpop,<span class="dt">rate =</span> beta<span class="op">+</span><span class="dv">1</span>),</span>
+<span id="cb432-35"><a href="section-extended-example-world-population-data.html#cb432-35"></a>                <span class="dt">xlim =</span> middleint,</span>
+<span id="cb432-36"><a href="section-extended-example-world-population-data.html#cb432-36"></a>                <span class="dt">geom =</span> <span class="st">&quot;area&quot;</span>,</span>
+<span id="cb432-37"><a href="section-extended-example-world-population-data.html#cb432-37"></a>                <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
+<span id="cb432-38"><a href="section-extended-example-world-population-data.html#cb432-38"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Two-sided 95% posterior credible interval&quot;</span>,</span>
+<span id="cb432-39"><a href="section-extended-example-world-population-data.html#cb432-39"></a>       <span class="dt">x =</span> <span class="kw">expression</span>(lambda),<span class="dt">y =</span> <span class="st">&quot;Posterior Density&quot;</span>)</span>
+<span id="cb432-40"><a href="section-extended-example-world-population-data.html#cb432-40"></a></span>
+<span id="cb432-41"><a href="section-extended-example-world-population-data.html#cb432-41"></a>lowerplot <span class="op">/</span><span class="st"> </span>middleplot <span class="op">/</span><span class="st"> </span>upperplot</span></code></pre></div>
+<p><img src="book_files/figure-html/postquants1-1.png" width="672" /></p>
+</div>
+<div id="section-estimation-by-sampling" class="section level3">
+<h3><span class="header-section-number">15.5.2</span> Estimation by sampling</h3>
+<p>Usually in practice you won’t know the posterior distribution exactly, but
+you might have a sample from it. Alternatively, you might just want to calculate
+any estimates you want without having to do tedious math. Bayesian inference can
+be done using only a sample from the posterior. In fact, this is very desirable:
+all of your data analytic skills can be carried over and used for inference. We
+will briefly touch on this here.</p>
+<p>Suppose we have a sample from the posterior:</p>
+<div class="sourceCode" id="section-cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="section-extended-example-world-population-data.html#cb433-1"></a>sample_from_the_posterior &lt;-<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>,alpha<span class="op">+</span>observedpop,beta<span class="op">+</span><span class="dv">1</span>)</span></code></pre></div>
+<p>You can compute an estimate of any quantity you like from this sample, without
+having to do math. Check it out and compare to what we did before:</p>
+<div class="sourceCode" id="section-cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="section-extended-example-world-population-data.html#cb434-1"></a><span class="co"># Mean</span></span>
+<span id="cb434-2"><a href="section-extended-example-world-population-data.html#cb434-2"></a><span class="kw">mean</span>(sample_from_the_posterior)</span></code></pre></div>
+<pre><code>[1] 5.8378</code></pre>
+<div class="sourceCode" id="section-cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="section-extended-example-world-population-data.html#cb436-1"></a>lambda_mean</span></code></pre></div>
+<pre><code>[1] 5.8014</code></pre>
+<div class="sourceCode" id="section-cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="section-extended-example-world-population-data.html#cb438-1"></a><span class="co"># Ok, the mode is a bit trickier (actually in practice this is the one</span></span>
+<span id="cb438-2"><a href="section-extended-example-world-population-data.html#cb438-2"></a><span class="co"># that I would always calculate using math or brute-force optimization):</span></span>
+<span id="cb438-3"><a href="section-extended-example-world-population-data.html#cb438-3"></a>ss &lt;-<span class="st"> </span><span class="kw">round</span>(sample_from_the_posterior,<span class="dv">3</span>)</span>
+<span id="cb438-4"><a href="section-extended-example-world-population-data.html#cb438-4"></a>sst &lt;-<span class="st"> </span><span class="kw">table</span>(ss)</span>
+<span id="cb438-5"><a href="section-extended-example-world-population-data.html#cb438-5"></a><span class="kw">names</span>(sst[sst <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(sst)])</span></code></pre></div>
+<pre><code>[1] &quot;4.589&quot; &quot;4.671&quot; &quot;5.706&quot; &quot;6.593&quot;</code></pre>
+<div class="sourceCode" id="section-cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="section-extended-example-world-population-data.html#cb440-1"></a>lambda_mode</span></code></pre></div>
+<pre><code>[1] 5.2389</code></pre>
+<div class="sourceCode" id="section-cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="section-extended-example-world-population-data.html#cb442-1"></a><span class="co"># Difficult to calculate and not that accurate</span></span>
+<span id="cb442-2"><a href="section-extended-example-world-population-data.html#cb442-2"></a><span class="co"># Everything else is pretty good though:</span></span>
+<span id="cb442-3"><a href="section-extended-example-world-population-data.html#cb442-3"></a><span class="co"># Quantiles and median</span></span>
+<span id="cb442-4"><a href="section-extended-example-world-population-data.html#cb442-4"></a>mm &lt;-<span class="st"> </span><span class="kw">median</span>(sample_from_the_posterior)</span>
+<span id="cb442-5"><a href="section-extended-example-world-population-data.html#cb442-5"></a>q2<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">quantile</span>(sample_from_the_posterior,.<span class="dv">025</span>)</span>
+<span id="cb442-6"><a href="section-extended-example-world-population-data.html#cb442-6"></a>q97<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">quantile</span>(sample_from_the_posterior,.<span class="dv">975</span>)</span>
+<span id="cb442-7"><a href="section-extended-example-world-population-data.html#cb442-7"></a><span class="kw">c</span>(q2<span class="fl">.5</span>,mm,q97<span class="fl">.5</span>)</span></code></pre></div>
+<pre><code>  2.5%         97.5% 
+2.8977 5.7171 9.9938 </code></pre>
+<div class="sourceCode" id="section-cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="section-extended-example-world-population-data.html#cb444-1"></a><span class="kw">c</span>(middleint[<span class="dv">1</span>],lambda_med,middleint[<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>[1] 2.8194 5.6150 9.8411</code></pre>
+<p>Sample-based Bayesian inference is a subject of entire upper year courses!</p>
+</div>
+</div>
+<div id="section-predicting-world-population" class="section level2">
+<h2><span class="header-section-number">15.6</span> Predicting world population</h2>
 
 </div>
 </div>

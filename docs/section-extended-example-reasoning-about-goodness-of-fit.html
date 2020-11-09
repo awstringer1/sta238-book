@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2020-10-31" />
+<meta name="date" content="2020-11-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,14 +50,15 @@
 
 
 
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -66,14 +67,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -262,6 +265,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-model-world-population-over-time"><i class="fa fa-check"></i><b>15.2</b> Model world population over time</a></li>
 <li class="chapter" data-level="15.3" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-model-for-world-population"><i class="fa fa-check"></i><b>15.3</b> Bayesian model for world population</a></li>
 <li class="chapter" data-level="15.4" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-quantifying-uncertainty-in-estimates-of-world-population-regression-model"><i class="fa fa-check"></i><b>15.4</b> Quantifying uncertainty in estimates of world population: regression model</a></li>
+<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-and-uncertainty-quantification"><i class="fa fa-check"></i><b>15.5.1</b> Estimation and uncertainty quantification</a></li>
+<li class="chapter" data-level="15.5.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-by-sampling"><i class="fa fa-check"></i><b>15.5.2</b> Estimation by sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -288,7 +296,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This chapter is a bit different: we introduce the idea of “goodness of fit” through
 implementing the analysis in a blog post discussing a disputed paper in a
 Psychology journal. You can find the article here: <a href="http://datacolada.org/74">http://datacolada.org/74</a></p>
-<div class="sourceCode" id="section-cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div class="sourceCode" id="section-cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb305-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 <div id="section-go-and-read-the-blog-post" class="section level2">
 <h2><span class="header-section-number">10.1</span> Go and read the blog post</h2>
 <p>To start, go read this blog post: <a href="http://datacolada.org/74">http://datacolada.org/74</a>.
@@ -314,12 +322,12 @@ use our own <code>R</code> code but I borrow parts from theirs.</p>
 <div id="section-read-in-the-data-1" class="section level3">
 <h3><span class="header-section-number">10.2.1</span> Read in the data</h3>
 <p>First, read in the data as usual:</p>
-<div class="sourceCode" id="section-cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" title="1">study1 &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
-<a class="sourceLine" id="cb306-2" title="2">  <span class="dt">file =</span> <span class="st">&quot;http://datacolada.org/appendix/74/Study%201%20-%20Decoy%20Effect.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb306-3" title="3">  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb306-4" title="4">  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">42</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb306-5" title="5">)</a>
-<a class="sourceLine" id="cb306-6" title="6"><span class="kw">glimpse</span>(study1)</a></code></pre></div>
+<div class="sourceCode" id="section-cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb306-1"></a>study1 &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
+<span id="cb306-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb306-2"></a>  <span class="dt">file =</span> <span class="st">&quot;http://datacolada.org/appendix/74/Study%201%20-%20Decoy%20Effect.csv&quot;</span>,</span>
+<span id="cb306-3"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb306-3"></a>  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb306-4"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb306-4"></a>  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">42</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb306-5"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb306-5"></a>)</span>
+<span id="cb306-6"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb306-6"></a><span class="kw">glimpse</span>(study1)</span></code></pre></div>
 <pre><code>Observations: 40
 Variables: 42
 $ Subject                                                   &lt;dbl&gt; 1, 2, 3, 4,…
@@ -370,9 +378,9 @@ otherwise. Verify that the <code>col_names</code> and <code>col_types</code> arg
 are correct.</p>
 <p>The data is in “wide” format– each day has its own column. We want one column
 for subject ID, one for Day, and one for measurement. Let’s reformat the data:</p>
-<div class="sourceCode" id="section-cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" title="1">study1_long &lt;-<span class="st"> </span>study1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb308-2" title="2"><span class="st">  </span><span class="kw">pivot_longer</span>(Day1<span class="op">:</span>Day40,<span class="dt">names_to =</span> <span class="st">&quot;day&quot;</span>,<span class="dt">values_to =</span> <span class="st">&quot;measurement&quot;</span>)</a>
-<a class="sourceLine" id="cb308-3" title="3"><span class="kw">glimpse</span>(study1_long)</a></code></pre></div>
+<div class="sourceCode" id="section-cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb308-1"></a>study1_long &lt;-<span class="st"> </span>study1 <span class="op">%&gt;%</span></span>
+<span id="cb308-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb308-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(Day1<span class="op">:</span>Day40,<span class="dt">names_to =</span> <span class="st">&quot;day&quot;</span>,<span class="dt">values_to =</span> <span class="st">&quot;measurement&quot;</span>)</span>
+<span id="cb308-3"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb308-3"></a><span class="kw">glimpse</span>(study1_long)</span></code></pre></div>
 <pre><code>Observations: 1,600
 Variables: 4
 $ Subject                                                   &lt;dbl&gt; 1, 1, 1, 1,…
@@ -388,12 +396,12 @@ need to</p>
 </ol>
 <p>Let’s do this. We’ll use the <code>substr</code> function to choose the last digit of each
 number. Type <code>?substr</code> to learn about this function.</p>
-<div class="sourceCode" id="section-cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" title="1">study1_clean &lt;-<span class="st"> </span>study1_long <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb310-2" title="2"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">subject =</span> Subject,</a>
-<a class="sourceLine" id="cb310-3" title="3">         <span class="dt">group =</span> <span class="st">`</span><span class="dt">Group (1=experimental condition, 0 = control condition)</span><span class="st">`</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb310-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">last_digit =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(measurement,<span class="kw">nchar</span>(measurement),<span class="kw">nchar</span>(measurement))))</a>
-<a class="sourceLine" id="cb310-5" title="5"></a>
-<a class="sourceLine" id="cb310-6" title="6"><span class="kw">glimpse</span>(study1_clean)</a></code></pre></div>
+<div class="sourceCode" id="section-cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb310-1"></a>study1_clean &lt;-<span class="st"> </span>study1_long <span class="op">%&gt;%</span></span>
+<span id="cb310-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb310-2"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">subject =</span> Subject,</span>
+<span id="cb310-3"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb310-3"></a>         <span class="dt">group =</span> <span class="st">`</span><span class="dt">Group (1=experimental condition, 0 = control condition)</span><span class="st">`</span>) <span class="op">%&gt;%</span></span>
+<span id="cb310-4"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb310-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">last_digit =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(measurement,<span class="kw">nchar</span>(measurement),<span class="kw">nchar</span>(measurement))))</span>
+<span id="cb310-5"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb310-5"></a></span>
+<span id="cb310-6"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb310-6"></a><span class="kw">glimpse</span>(study1_clean)</span></code></pre></div>
 <pre><code>Observations: 1,600
 Variables: 5
 $ subject     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
@@ -410,17 +418,17 @@ $ last_digit  &lt;dbl&gt; 5, 5, 5, 0, 5, 5, 5, 0, 5, 7, 5, 0, 0, 5, 0, 0, 0, 5, 
 occasionally used a scale with <span class="math inline">\(5\)</span>-gram precision, and occasionally one with
 <span class="math inline">\(1\)</span>-gram precision (this alone is suspect…). They then make a histogram
 of all the last digits. We can do this too:</p>
-<div class="sourceCode" id="section-cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" title="1">study1_clean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb312-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">5</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb312-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> last_digit)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb312-4" title="4"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb312-5" title="5"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb312-6" title="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb312-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Study 1: Last digit strikingly not uniform&quot;</span>,</a>
-<a class="sourceLine" id="cb312-8" title="8">       <span class="dt">x =</span> <span class="st">&quot;Last Digit (0&#39;s and 5&#39;s removed)&quot;</span>,</a>
-<a class="sourceLine" id="cb312-9" title="9">       <span class="dt">y =</span> <span class="st">&quot;Frequency&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb312-1"></a>study1_clean <span class="op">%&gt;%</span></span>
+<span id="cb312-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb312-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">5</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb312-3"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb312-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> last_digit)) <span class="op">+</span></span>
+<span id="cb312-4"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb312-4"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb312-5"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb312-5"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></span>
+<span id="cb312-6"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb312-6"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)) <span class="op">+</span></span>
+<span id="cb312-7"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb312-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Study 1: Last digit strikingly not uniform&quot;</span>,</span>
+<span id="cb312-8"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb312-8"></a>       <span class="dt">x =</span> <span class="st">&quot;Last Digit (0&#39;s and 5&#39;s removed)&quot;</span>,</span>
+<span id="cb312-9"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb312-9"></a>       <span class="dt">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/digits-hist-1-1.png" width="672" /></p>
-<p>I called this plot a “histogram” (which it is), but I used <code>geom_bar(stat = &quot;count&quot;)</code> to create
+<p>I called this plot a “histogram” (which it is), but I used <code>geom_bar(stat = "count")</code> to create
 it. I did this because I wanted the bins to be at specific values. It’s still a histogram (why?).</p>
 </div>
 <div id="section-testing-goodness-of-fit-simulation" class="section level3">
@@ -455,55 +463,55 @@ could consider the distribution of <span class="math inline">\(3&#39;s\)</span> 
 Well, <em>any</em> random numbers should work, but to keep things consistent with the real
 data, let’s try generating from a normal distribution with mean and variance equal
 to the sample mean and variance of our data, rounded to the nearest integer:</p>
-<div class="sourceCode" id="section-cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" title="1">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(study1_clean<span class="op">$</span>measurement)</a>
-<a class="sourceLine" id="cb313-2" title="2">ss &lt;-<span class="st"> </span><span class="kw">sd</span>(study1_clean<span class="op">$</span>measurement)</a>
-<a class="sourceLine" id="cb313-3" title="3">testnumbers &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>,mn,ss))</a>
-<a class="sourceLine" id="cb313-4" title="4"><span class="co"># Plot a chart of the last digits</span></a>
-<a class="sourceLine" id="cb313-5" title="5"><span class="kw">tibble</span>(<span class="dt">x =</span> testnumbers) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb313-6" title="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">last_digit =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(x,<span class="kw">nchar</span>(x),<span class="kw">nchar</span>(x)))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb313-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> last_digit)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb313-8" title="8"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb313-9" title="9"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb313-10" title="10"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb313-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Last digits of normal random sample&quot;</span>,</a>
-<a class="sourceLine" id="cb313-12" title="12">       <span class="dt">x =</span> <span class="st">&quot;Last Digit&quot;</span>,</a>
-<a class="sourceLine" id="cb313-13" title="13">       <span class="dt">y =</span> <span class="st">&quot;Frequency&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="section-cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-1"></a>mn &lt;-<span class="st"> </span><span class="kw">mean</span>(study1_clean<span class="op">$</span>measurement)</span>
+<span id="cb313-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-2"></a>ss &lt;-<span class="st"> </span><span class="kw">sd</span>(study1_clean<span class="op">$</span>measurement)</span>
+<span id="cb313-3"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-3"></a>testnumbers &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>,mn,ss))</span>
+<span id="cb313-4"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-4"></a><span class="co"># Plot a chart of the last digits</span></span>
+<span id="cb313-5"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-5"></a><span class="kw">tibble</span>(<span class="dt">x =</span> testnumbers) <span class="op">%&gt;%</span></span>
+<span id="cb313-6"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">last_digit =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(x,<span class="kw">nchar</span>(x),<span class="kw">nchar</span>(x)))) <span class="op">%&gt;%</span></span>
+<span id="cb313-7"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> last_digit)) <span class="op">+</span></span>
+<span id="cb313-8"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-8"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb313-9"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-9"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></span>
+<span id="cb313-10"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-10"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>),<span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)) <span class="op">+</span></span>
+<span id="cb313-11"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-11"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Last digits of normal random sample&quot;</span>,</span>
+<span id="cb313-12"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-12"></a>       <span class="dt">x =</span> <span class="st">&quot;Last Digit&quot;</span>,</span>
+<span id="cb313-13"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb313-13"></a>       <span class="dt">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/even-dist-1-1.png" width="672" /></p>
 <p>Looks pretty uniform to me! Let’s proceed with our simulation:</p>
-<div class="sourceCode" id="section-cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" title="1"><span class="kw">set.seed</span>(<span class="dv">789685</span>)</a>
-<a class="sourceLine" id="cb314-2" title="2"><span class="co"># Create a function that simulates a dataset</span></a>
-<a class="sourceLine" id="cb314-3" title="3"><span class="co"># and returns the proportion of last digits</span></a>
-<a class="sourceLine" id="cb314-4" title="4"><span class="co"># that are either 3 or 7</span></a>
-<a class="sourceLine" id="cb314-5" title="5">N &lt;-<span class="st"> </span><span class="kw">nrow</span>(study1_clean <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>)))) <span class="co"># Size of dataset to simulate</span></a>
-<a class="sourceLine" id="cb314-6" title="6">B &lt;-<span class="st"> </span><span class="fl">1e04</span> <span class="co"># Number of simulations to do</span></a>
-<a class="sourceLine" id="cb314-7" title="7">mn &lt;-<span class="st"> </span><span class="kw">mean</span>(study1_clean<span class="op">$</span>measurement)</a>
-<a class="sourceLine" id="cb314-8" title="8">ss &lt;-<span class="st"> </span><span class="kw">sd</span>(study1_clean<span class="op">$</span>measurement)</a>
-<a class="sourceLine" id="cb314-9" title="9">simulate_proportion &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb314-10" title="10">  ds &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(N,mn,ss))</a>
-<a class="sourceLine" id="cb314-11" title="11">  last_digits &lt;-<span class="st"> </span><span class="kw">substr</span>(ds,<span class="kw">nchar</span>(ds),<span class="kw">nchar</span>(ds))</a>
-<a class="sourceLine" id="cb314-12" title="12">  <span class="kw">mean</span>(last_digits <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;3&quot;</span>,<span class="st">&quot;7&quot;</span>))</a>
-<a class="sourceLine" id="cb314-13" title="13">}</a>
-<a class="sourceLine" id="cb314-14" title="14"><span class="co"># What is the proportion of 3&#39;s and 7&#39;s in our data,</span></a>
-<a class="sourceLine" id="cb314-15" title="15"><span class="co"># after filtering out 5&#39;s and 0&#39;s?</span></a>
-<a class="sourceLine" id="cb314-16" title="16">study_proportion &lt;-<span class="st"> </span>study1_clean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb314-17" title="17"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb314-18" title="18"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">7</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb314-19" title="19"><span class="st">  </span><span class="kw">pull</span>(p) </a>
-<a class="sourceLine" id="cb314-20" title="20">study_proportion</a></code></pre></div>
+<div class="sourceCode" id="section-cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-1"></a><span class="kw">set.seed</span>(<span class="dv">789685</span>)</span>
+<span id="cb314-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-2"></a><span class="co"># Create a function that simulates a dataset</span></span>
+<span id="cb314-3"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-3"></a><span class="co"># and returns the proportion of last digits</span></span>
+<span id="cb314-4"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-4"></a><span class="co"># that are either 3 or 7</span></span>
+<span id="cb314-5"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-5"></a>N &lt;-<span class="st"> </span><span class="kw">nrow</span>(study1_clean <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>)))) <span class="co"># Size of dataset to simulate</span></span>
+<span id="cb314-6"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-6"></a>B &lt;-<span class="st"> </span><span class="fl">1e04</span> <span class="co"># Number of simulations to do</span></span>
+<span id="cb314-7"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-7"></a>mn &lt;-<span class="st"> </span><span class="kw">mean</span>(study1_clean<span class="op">$</span>measurement)</span>
+<span id="cb314-8"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-8"></a>ss &lt;-<span class="st"> </span><span class="kw">sd</span>(study1_clean<span class="op">$</span>measurement)</span>
+<span id="cb314-9"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-9"></a>simulate_proportion &lt;-<span class="st"> </span><span class="cf">function</span>() {</span>
+<span id="cb314-10"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-10"></a>  ds &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(N,mn,ss))</span>
+<span id="cb314-11"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-11"></a>  last_digits &lt;-<span class="st"> </span><span class="kw">substr</span>(ds,<span class="kw">nchar</span>(ds),<span class="kw">nchar</span>(ds))</span>
+<span id="cb314-12"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-12"></a>  <span class="kw">mean</span>(last_digits <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;3&quot;</span>,<span class="st">&quot;7&quot;</span>))</span>
+<span id="cb314-13"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-13"></a>}</span>
+<span id="cb314-14"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-14"></a><span class="co"># What is the proportion of 3&#39;s and 7&#39;s in our data,</span></span>
+<span id="cb314-15"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-15"></a><span class="co"># after filtering out 5&#39;s and 0&#39;s?</span></span>
+<span id="cb314-16"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-16"></a>study_proportion &lt;-<span class="st"> </span>study1_clean <span class="op">%&gt;%</span></span>
+<span id="cb314-17"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-17"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb314-18"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-18"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">p =</span> <span class="kw">mean</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">7</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb314-19"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-19"></a><span class="st">  </span><span class="kw">pull</span>(p) </span>
+<span id="cb314-20"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb314-20"></a>study_proportion</span></code></pre></div>
 <pre><code>[1] 0.88148</code></pre>
-<div class="sourceCode" id="section-cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" title="1"><span class="co"># 88.1%. Wow.</span></a>
-<a class="sourceLine" id="cb316-2" title="2"></a>
-<a class="sourceLine" id="cb316-3" title="3"><span class="co"># Perform the simulation:</span></a>
-<a class="sourceLine" id="cb316-4" title="4">sim_results &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</a>
-<a class="sourceLine" id="cb316-5" title="5"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) sim_results[b] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">simulate_proportion</span>() <span class="op">&gt;=</span><span class="st"> </span>study_proportion)</a>
-<a class="sourceLine" id="cb316-6" title="6"></a>
-<a class="sourceLine" id="cb316-7" title="7"><span class="co"># This is a vector of 0/1 which says whether each simulation&#39;s proportion of</span></a>
-<a class="sourceLine" id="cb316-8" title="8"><span class="co"># 3&#39;s and 7&#39;s exceeded the study proportion. Its mean is the simulated probability</span></a>
-<a class="sourceLine" id="cb316-9" title="9"><span class="co"># of seeing what we saw in the study, if the digits are actually evenly distributed:</span></a>
-<a class="sourceLine" id="cb316-10" title="10"><span class="kw">mean</span>(sim_results)</a></code></pre></div>
+<div class="sourceCode" id="section-cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb316-1"></a><span class="co"># 88.1%. Wow.</span></span>
+<span id="cb316-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb316-2"></a></span>
+<span id="cb316-3"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb316-3"></a><span class="co"># Perform the simulation:</span></span>
+<span id="cb316-4"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb316-4"></a>sim_results &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
+<span id="cb316-5"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb316-5"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) sim_results[b] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">simulate_proportion</span>() <span class="op">&gt;=</span><span class="st"> </span>study_proportion)</span>
+<span id="cb316-6"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb316-6"></a></span>
+<span id="cb316-7"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb316-7"></a><span class="co"># This is a vector of 0/1 which says whether each simulation&#39;s proportion of</span></span>
+<span id="cb316-8"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb316-8"></a><span class="co"># 3&#39;s and 7&#39;s exceeded the study proportion. Its mean is the simulated probability</span></span>
+<span id="cb316-9"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb316-9"></a><span class="co"># of seeing what we saw in the study, if the digits are actually evenly distributed:</span></span>
+<span id="cb316-10"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb316-10"></a><span class="kw">mean</span>(sim_results)</span></code></pre></div>
 <pre><code>[1] 0</code></pre>
-<div class="sourceCode" id="section-cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" title="1"><span class="co"># Okay... how many?</span></a>
-<a class="sourceLine" id="cb318-2" title="2"><span class="kw">sum</span>(sim_results)</a></code></pre></div>
+<div class="sourceCode" id="section-cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb318-1"></a><span class="co"># Okay... how many?</span></span>
+<span id="cb318-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb318-2"></a><span class="kw">sum</span>(sim_results)</span></code></pre></div>
 <pre><code>[1] 0</code></pre>
 <p>In <span class="math inline">\(B = 10,000\)</span> simulations, I didn’t even get a single dataset that was as extreme
 as ours. This provides strong evidence against the notion that the digits are, in
@@ -595,49 +603,49 @@ of digits truly is even</em>. It’s called a <strong>p-value</strong>, and it�
 summary statistic in problems where the research question concerns comparing
 observations to some sort of reference, like we’re doing here.</p>
 <p>Let’s compute the likelihood ratio for our data:</p>
-<div class="sourceCode" id="section-cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" title="1"><span class="co"># Compute the MLEs</span></a>
-<a class="sourceLine" id="cb320-2" title="2">study1_filtered &lt;-<span class="st"> </span>study1_clean <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb320-3" title="3"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>))) <span class="co"># Should have done this before...</span></a>
-<a class="sourceLine" id="cb320-4" title="4">pmledat &lt;-<span class="st"> </span>study1_filtered <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb320-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(last_digit) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb320-6" title="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">cnt =</span> <span class="kw">n</span>(),</a>
-<a class="sourceLine" id="cb320-7" title="7">            <span class="dt">pp =</span> <span class="kw">n</span>() <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(study1_filtered))</a>
-<a class="sourceLine" id="cb320-8" title="8"></a>
-<a class="sourceLine" id="cb320-9" title="9">obsvec &lt;-<span class="st"> </span>pmledat<span class="op">$</span>cnt</a>
-<a class="sourceLine" id="cb320-10" title="10"><span class="kw">names</span>(obsvec) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</a>
-<a class="sourceLine" id="cb320-11" title="11"></a>
-<a class="sourceLine" id="cb320-12" title="12"><span class="co"># Notice how there are no digits ending in 1 in the data</span></a>
-<a class="sourceLine" id="cb320-13" title="13"><span class="co"># So the MLE for p1 is zero.</span></a>
-<a class="sourceLine" id="cb320-14" title="14"><span class="co"># Need to account for this manually</span></a>
-<a class="sourceLine" id="cb320-15" title="15">pmle &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb320-16" title="16"><span class="kw">names</span>(pmle) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb320-17" title="17">pmlevals &lt;-<span class="st"> </span>pmledat<span class="op">$</span>pp</a>
-<a class="sourceLine" id="cb320-18" title="18"><span class="kw">names</span>(pmlevals) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</a>
-<a class="sourceLine" id="cb320-19" title="19">pmle[<span class="kw">names</span>(pmlevals)] &lt;-<span class="st"> </span>pmlevals</a>
-<a class="sourceLine" id="cb320-20" title="20">pmle</a></code></pre></div>
+<div class="sourceCode" id="section-cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-1"></a><span class="co"># Compute the MLEs</span></span>
+<span id="cb320-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-2"></a>study1_filtered &lt;-<span class="st"> </span>study1_clean <span class="op">%&gt;%</span></span>
+<span id="cb320-3"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-3"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(last_digit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>))) <span class="co"># Should have done this before...</span></span>
+<span id="cb320-4"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-4"></a>pmledat &lt;-<span class="st"> </span>study1_filtered <span class="op">%&gt;%</span></span>
+<span id="cb320-5"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-5"></a><span class="st">  </span><span class="kw">group_by</span>(last_digit) <span class="op">%&gt;%</span></span>
+<span id="cb320-6"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-6"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">cnt =</span> <span class="kw">n</span>(),</span>
+<span id="cb320-7"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-7"></a>            <span class="dt">pp =</span> <span class="kw">n</span>() <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(study1_filtered))</span>
+<span id="cb320-8"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-8"></a></span>
+<span id="cb320-9"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-9"></a>obsvec &lt;-<span class="st"> </span>pmledat<span class="op">$</span>cnt</span>
+<span id="cb320-10"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-10"></a><span class="kw">names</span>(obsvec) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</span>
+<span id="cb320-11"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-11"></a></span>
+<span id="cb320-12"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-12"></a><span class="co"># Notice how there are no digits ending in 1 in the data</span></span>
+<span id="cb320-13"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-13"></a><span class="co"># So the MLE for p1 is zero.</span></span>
+<span id="cb320-14"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-14"></a><span class="co"># Need to account for this manually</span></span>
+<span id="cb320-15"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-15"></a>pmle &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">8</span>)</span>
+<span id="cb320-16"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-16"></a><span class="kw">names</span>(pmle) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)</span>
+<span id="cb320-17"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-17"></a>pmlevals &lt;-<span class="st"> </span>pmledat<span class="op">$</span>pp</span>
+<span id="cb320-18"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-18"></a><span class="kw">names</span>(pmlevals) &lt;-<span class="st"> </span>pmledat<span class="op">$</span>last_digit</span>
+<span id="cb320-19"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-19"></a>pmle[<span class="kw">names</span>(pmlevals)] &lt;-<span class="st"> </span>pmlevals</span>
+<span id="cb320-20"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb320-20"></a>pmle</span></code></pre></div>
 <pre><code>        1         2         3         4         6         7         8         9 
 0.0000000 0.0074074 0.5259259 0.0148148 0.0222222 0.3555556 0.0518519 0.0222222 </code></pre>
-<div class="sourceCode" id="section-cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" title="1"><span class="co"># Truth, if digits evenly distributed</span></a>
-<a class="sourceLine" id="cb322-2" title="2">p0 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(pmle)) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(pmle)</a>
-<a class="sourceLine" id="cb322-3" title="3"><span class="kw">names</span>(p0) &lt;-<span class="st"> </span><span class="kw">names</span>(pmle)</a>
-<a class="sourceLine" id="cb322-4" title="4">p0</a></code></pre></div>
+<div class="sourceCode" id="section-cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb322-1"></a><span class="co"># Truth, if digits evenly distributed</span></span>
+<span id="cb322-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb322-2"></a>p0 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(pmle)) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(pmle)</span>
+<span id="cb322-3"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb322-3"></a><span class="kw">names</span>(p0) &lt;-<span class="st"> </span><span class="kw">names</span>(pmle)</span>
+<span id="cb322-4"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb322-4"></a>p0</span></code></pre></div>
 <pre><code>    1     2     3     4     6     7     8     9 
 0.125 0.125 0.125 0.125 0.125 0.125 0.125 0.125 </code></pre>
-<div class="sourceCode" id="section-cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1"><span class="co"># Compute minus twice the likelihood ratio</span></a>
-<a class="sourceLine" id="cb324-2" title="2">multinom_log_likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(x,p) {</a>
-<a class="sourceLine" id="cb324-3" title="3">  <span class="co"># x: named vector where the name is j and the value is the count of </span></a>
-<a class="sourceLine" id="cb324-4" title="4">  <span class="co"># times y_ij = 1 in the sample</span></a>
-<a class="sourceLine" id="cb324-5" title="5">  <span class="co"># p: named vector with names equal to the unique values of x,</span></a>
-<a class="sourceLine" id="cb324-6" title="6">  <span class="co"># containing probabilities of each</span></a>
-<a class="sourceLine" id="cb324-7" title="7">  <span class="kw">sum</span>(x <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(p[<span class="kw">names</span>(x)]))</a>
-<a class="sourceLine" id="cb324-8" title="8">}</a>
-<a class="sourceLine" id="cb324-9" title="9"></a>
-<a class="sourceLine" id="cb324-10" title="10">lr &lt;-<span class="st"> </span><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span>(<span class="kw">multinom_log_likelihood</span>(obsvec,p0) <span class="op">-</span><span class="st"> </span><span class="kw">multinom_log_likelihood</span>(obsvec,pmle))</a>
-<a class="sourceLine" id="cb324-11" title="11">lr</a></code></pre></div>
+<div class="sourceCode" id="section-cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb324-1"></a><span class="co"># Compute minus twice the likelihood ratio</span></span>
+<span id="cb324-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb324-2"></a>multinom_log_likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(x,p) {</span>
+<span id="cb324-3"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb324-3"></a>  <span class="co"># x: named vector where the name is j and the value is the count of </span></span>
+<span id="cb324-4"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb324-4"></a>  <span class="co"># times y_ij = 1 in the sample</span></span>
+<span id="cb324-5"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb324-5"></a>  <span class="co"># p: named vector with names equal to the unique values of x,</span></span>
+<span id="cb324-6"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb324-6"></a>  <span class="co"># containing probabilities of each</span></span>
+<span id="cb324-7"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb324-7"></a>  <span class="kw">sum</span>(x <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(p[<span class="kw">names</span>(x)]))</span>
+<span id="cb324-8"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb324-8"></a>}</span>
+<span id="cb324-9"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb324-9"></a></span>
+<span id="cb324-10"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb324-10"></a>lr &lt;-<span class="st"> </span><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span>(<span class="kw">multinom_log_likelihood</span>(obsvec,p0) <span class="op">-</span><span class="st"> </span><span class="kw">multinom_log_likelihood</span>(obsvec,pmle))</span>
+<span id="cb324-11"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb324-11"></a>lr</span></code></pre></div>
 <pre><code>[1] 257.16</code></pre>
-<div class="sourceCode" id="section-cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" title="1"><span class="co"># Compute the probability that a chisquare random variable is greater than this</span></a>
-<a class="sourceLine" id="cb326-2" title="2"><span class="co"># value:</span></a>
-<a class="sourceLine" id="cb326-3" title="3"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pchisq</span>(lr,<span class="dt">df =</span> <span class="kw">length</span>(pmle) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># zero.</span></a></code></pre></div>
+<div class="sourceCode" id="section-cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb326-1"></a><span class="co"># Compute the probability that a chisquare random variable is greater than this</span></span>
+<span id="cb326-2"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb326-2"></a><span class="co"># value:</span></span>
+<span id="cb326-3"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb326-3"></a><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pchisq</span>(lr,<span class="dt">df =</span> <span class="kw">length</span>(pmle) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># zero.</span></span></code></pre></div>
 <pre><code>[1] 0</code></pre>
 <p><strong>Exercise</strong>: write your own function to implement the multinomial loglikelihood,
 using the <code>dmultinom</code> function and a <code>for</code> loop. Compare your results to mine.</p>
@@ -650,7 +658,7 @@ in the scientific literature, as are these p-value things. They are useful, but
 we want you, as stats majors and specialists, to leave this course understanding
 than statistics is so very much more than just a ritual or toolbox!</p>
 
-<div class="sourceCode" id="section-cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div class="sourceCode" id="section-cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#cb328-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 </div>
 </div>
 </div>
