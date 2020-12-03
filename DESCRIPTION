@@ -1,0 +1,9 @@
+Package: LEAF2018
+Version: 0.1
+Date: 2020-12-03
+Description: LEAF2018 Curriculum Development Materials
+Author: Alex Stringer <alex.stringer@mail.utoronto.ca>
+  Depends:
+  R (>= 3.5.0)
+Imports:
+  tidyverse
