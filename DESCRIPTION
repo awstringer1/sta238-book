@@ -6,4 +6,6 @@ Author: Alex Stringer <alex.stringer@mail.utoronto.ca>
   Depends:
   R (>= 3.5.0)
 Imports:
-  tidyverse
+  tidyverse,
+  patchwork,
+  cowplot
