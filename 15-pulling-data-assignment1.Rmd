@@ -1,0 +1,144 @@
+# Short tutorial on pulling data for Assignment 1
+
+This "chapter" shows you how to use 
+the `opendatatoronto` `R` [package](https://sharlagelfand.github.io/opendatatoronto/)
+to pull data from the [Toronto Open Data Portal](https://open.toronto.ca/) 
+and the `cesR` `R` [package](https://hodgettsp.github.io/cesR/) to pull data from the [Canadian Election Study](http://www.ces-eec.ca/). This
+is to support you doing assignment 1 part 2 for STA238, Winter 2021.
+
+
+## Toronto Open Data Portal
+
+The [Toronto Open Data Portal](https://open.toronto.ca/) is a website maintained
+by the City of Toronto full of publicly accessible datasets pertaining to city operations.
+Let's pull a dataset on monthly TTC subway station usage counts.
+
+First install and load the `opendatatoronto` package:
+
+```{r installopendatato1}
+# Install the package. You only have to run this line once. Uncomment it 
+# first (delete the "#" sign before the "install"):
+# install.packages("opendatatoronto")
+
+# Now load the package. You have to do this every time you re-open R:
+library(opendatatoronto)
+# Oh, and always always load the tidyverse:
+library(tidyverse)
+```
+
+Check out the open data portal: type `browse_portal()` into your
+`R` console and hit `Enter`. It should open up the portal website in a web browser.
+
+I searched for "TTC ridership" and the first thing that popped up was a dataset
+of TTC subway station usage counts, among other things. You can do this searching right in `R` using the package:
+
+```{r searchto1}
+search_packages("TTC ridership")
+```
+
+This is convenient because it gives you identifying information. Let's pull the `id`
+of the one we want:
+
+```{r pullid1}
+# The search_packages("TTC ridership") command returns a dataframe, so you can 
+# index it:
+search_packages("TTC ridership")[4, ] # we want this one!
+idoftheonewewant <- search_packages("TTC ridership")[4,'id']
+# This returns a 1 x 1 dataframe. Use pull() to get it as a single character string:
+idoftheonewewant <- pull(idoftheonewewant,id)
+idoftheonewewant
+```
+
+Each dataset on the portal has potentially several "resources" pertaining to it.
+This will include the data itself, but also maybe a readme, some metadata, 
+different formats, years, etc. Check what's available for our chosen data using the `list_package_resources()`
+function:
+```{r list1}
+list_package_resources(idoftheonewewant)
+```
+
+It appears that there is data for multiple years. Grab the id for 2017:
+
+```{r grabid1}
+idofthedata <- pull(
+  list_package_resources(idoftheonewewant)[5,"id"],
+  id
+)
+idofthedata
+```
+
+Now, to actually get the dataset, you can call `get_resource()`:
+
+```{r getresource1}
+thedata <- get_resource(idofthedata)
+glimpse(thedata)
+```
+
+The data appear a bit messy and will have to be cleaned-- see Chapter 2 for detailed
+examples of how to do this.
+
+To summarize, to get a dataset:
+
+1. Search for data on a chosen subject of interest using `search_packages()`,
+
+1. Figure out which one you want and grab its `id`,
+
+1. Check what resources are actually available for those data using `list_package_resources`,
+and grab the `id` of the dataset you want to download, and
+
+1. Download the data with `get_resource`.
+
+
+## Canadian Election Study
+
+The [Canadian Election Study](http://www.ces-eec.ca/) is an annual survey of voting
+and other preferences and demographics which are thought to pertain to political
+behaviour of Canadian voters. It is publicly available and you can get it using the 
+`cesR` package.
+
+If you're reading this tutorial and noticing that this section is shorter than
+the Toronto Open data one and you're thinking this is the path of least resistance:
+be warned that the CES data are often a LOT messier than some of the datasets you'll
+find on the Open Data Portal. So you're just kicking the can down the road in terms
+of work :)
+
+Install and load the package like before. It's not on the `CRAN` package repository
+and cannot be installed using `install.packages`. The [package website](https://hodgettsp.github.io/cesR/)
+tells you how to install it directly from github:
+
+```{r installcesR}
+# First, if you don't already have it, install the devtools package:
+# install.packages("devtools")
+
+# Now use devtools to install the cesR package directly from Github:
+# devtools::install_github("hodgettsp/cesR")
+
+# Load it like any other package:
+library(cesR)
+```
+
+There are many different CES datasets, and they have unique codes. See them with
+the `get_cescodes()` function:
+
+```{r getcescodes1}
+get_cescodes()
+```
+
+A table of what each of these codes means is available on the website.
+
+Pick one, and get it with the `get_ces()` function:
+
+```{r getces1}
+get_ces("ces2015_phone")
+```
+
+The function `get_ces` assigns an object `ces2015_phone` in your global environment.
+The above code therefore looks slightly different to how you would usually see this step.
+
+So this is all it takes to get the data... but when choosing which data to use you
+may want to consider how messy these data are:
+
+```{r cesmessy1}
+glimpse(ces2015_phone)
+```
+

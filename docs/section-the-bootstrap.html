@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 The Bootstrap | Probability, Statistics, and Data Analysis</title>
   <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
-  <meta name="generator" content="bookdown 0.21.2 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 The Bootstrap | Probability, Statistics, and Data Analysis" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2021-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="section-introduction-to-bayesian-inference.html"/>
 <link rel="next" href="section-maximum-likelihood.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,24 +51,22 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,7 +86,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,24 +136,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a><ul>
-<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
 <li class="chapter" data-level="2.1.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
 <li class="chapter" data-level="2.1.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
 <li class="chapter" data-level="2.2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
 <li class="chapter" data-level="2.2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries-1"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
-<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
 <li class="chapter" data-level="2.4.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-association-between-smoking-and-mortality"><i class="fa fa-check"></i><b>2.4.2</b> Association between smoking and mortality</a></li>
 <li class="chapter" data-level="2.4.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
 <li class="chapter" data-level="2.5.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
 <li class="chapter" data-level="2.5.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
@@ -163,30 +167,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.6" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a><ul>
-<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a><ul>
-<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.1.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-simulated-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a><ul>
+<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-estimating-a-uniform-maximum"><i class="fa fa-check"></i><b>5.1</b> Estimating a Uniform Maximum</a></li>
 <li class="chapter" data-level="5.2" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-efficiency"><i class="fa fa-check"></i><b>5.2</b> Efficiency</a></li>
 <li class="chapter" data-level="5.3" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-mean-squared-error"><i class="fa fa-check"></i><b>5.3</b> Mean Squared Error</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a><ul>
-<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a><ul>
+<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-frequentistlikelihood-perspective"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist/Likelihood Perspective</a></li>
 <li class="chapter" data-level="6.1.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-bayesian-inference-introduction"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Inference: introduction</a></li>
 <li class="chapter" data-level="6.1.3" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-flipping-more-coins"><i class="fa fa-check"></i><b>6.1.3</b> Flipping More Coins</a></li>
@@ -194,23 +207,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-interactive-app"><i class="fa fa-check"></i><b>6.2</b> Interactive App</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a><ul>
-<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a><ul>
+<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-empirical-bootstrap-old-faithful-data"><i class="fa fa-check"></i><b>7.1.1</b> Empirical bootstrap: Old Faithful data</a></li>
 <li class="chapter" data-level="7.1.2" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-parametric-bootstrap-software-data"><i class="fa fa-check"></i><b>7.1.2</b> Parametric Bootstrap: software data</a></li>
 <li class="chapter" data-level="7.1.3" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-extended-example-the-standard-error-of-a-proportion"><i class="fa fa-check"></i><b>7.1.3</b> Extended example: the standard error of a proportion</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html"><i class="fa fa-check"></i><b>8</b> Maximum Likelihood</a><ul>
-<li class="chapter" data-level="8.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a><ul>
+<li class="chapter" data-level="8" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html"><i class="fa fa-check"></i><b>8</b> Maximum Likelihood</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
 <li class="chapter" data-level="8.1.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
 <li class="chapter" data-level="8.1.3" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.2</b> Extended example: rental housing in Toronto</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html"><i class="fa fa-check"></i><b>9</b> Confidence Intervals and Quantifying Uncertainty</a><ul>
-<li class="chapter" data-level="9.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html"><i class="fa fa-check"></i><b>9</b> Confidence Intervals and Quantifying Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-simulation-an-example"><i class="fa fa-check"></i><b>9.1.1</b> Simulation: an example</a></li>
 <li class="chapter" data-level="9.1.2" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
 <li class="chapter" data-level="9.1.3" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-when-you-dont-know-sigma"><i class="fa fa-check"></i><b>9.1.3</b> When you don’t know <span class="math inline">\(\sigma\)</span></a></li>
@@ -218,38 +237,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1.5" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.5</b> Bootstrap Confidence Intervals</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
-<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a>
+<ul>
 <li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
 <li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
 <li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
 <li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html"><i class="fa fa-check"></i><b>11</b> Bayesian Inference: Estimation</a><ul>
-<li class="chapter" data-level="11.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a><ul>
+<li class="chapter" data-level="11" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html"><i class="fa fa-check"></i><b>11</b> Bayesian Inference: Estimation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a>
+<ul>
 <li class="chapter" data-level="11.1.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-prior"><i class="fa fa-check"></i><b>11.1.1</b> The Prior</a></li>
 <li class="chapter" data-level="11.1.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-posterior"><i class="fa fa-check"></i><b>11.1.2</b> The Posterior</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-point-and-interval-estimation"><i class="fa fa-check"></i><b>11.2</b> Estimation in Bayesian Inference: point and interval estimation</a></li>
-<li class="chapter" data-level="11.3" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a><ul>
+<li class="chapter" data-level="11.3" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a>
+<ul>
 <li class="chapter" data-level="11.3.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-conjugate-priors"><i class="fa fa-check"></i><b>11.3.1</b> Conjugate Priors</a></li>
 <li class="chapter" data-level="11.3.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a><ul>
+<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a>
+<ul>
 <li class="chapter" data-level="12.1" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-overview"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
 <li class="chapter" data-level="12.2" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-plug-in-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.2</b> Plug-in prediction: coin flipping</a></li>
 <li class="chapter" data-level="12.3" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-bayesian-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.3</b> Bayesian Prediction: coin flipping</a></li>
 <li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.4</b> Extended example: predicting call centre wait times</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-r"><i class="fa fa-check"></i><b>13.1</b> Installing R</a></li>
 <li class="chapter" data-level="13.2" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-rstudio"><i class="fa fa-check"></i><b>13.2</b> Installing RStudio</a></li>
 <li class="chapter" data-level="13.3" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-using-rmarkdown"><i class="fa fa-check"></i><b>13.3</b> Using RMarkdown</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a><ul>
+<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a>
+<ul>
 <li class="chapter" data-level="14.1" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-15-and-16"><i class="fa fa-check"></i><b>14.1</b> Chapters 15 and 16</a></li>
 <li class="chapter" data-level="14.2" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-13-and-14"><i class="fa fa-check"></i><b>14.2</b> Chapters 13 and 14</a></li>
 <li class="chapter" data-level="14.3" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-17-and-19"><i class="fa fa-check"></i><b>14.3</b> Chapters 17 and 19</a></li>
@@ -260,18 +287,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.8" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-23"><i class="fa fa-check"></i><b>14.8</b> Chapter 23</a></li>
 <li class="chapter" data-level="14.9" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7.2"><i class="fa fa-check"></i><b>14.9</b> Evans and Rosenthal, Chapter 7.2</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html"><i class="fa fa-check"></i><b>15</b> Extended Example: World Population Data</a><ul>
+<li class="chapter" data-level="15" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html"><i class="fa fa-check"></i><b>15</b> Extended Example: World Population Data</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-read-in-and-prepare-the-data-for-analysis"><i class="fa fa-check"></i><b>15.1</b> Read in and prepare the data for analysis</a></li>
 <li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-model-world-population-over-time"><i class="fa fa-check"></i><b>15.2</b> Model world population over time</a></li>
 <li class="chapter" data-level="15.3" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-model-for-world-population"><i class="fa fa-check"></i><b>15.3</b> Bayesian model for world population</a></li>
 <li class="chapter" data-level="15.4" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-quantifying-uncertainty-in-estimates-of-world-population-regression-model"><i class="fa fa-check"></i><b>15.4</b> Quantifying uncertainty in estimates of world population: regression model</a></li>
-<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a><ul>
+<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a>
+<ul>
 <li class="chapter" data-level="15.5.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-and-uncertainty-quantification"><i class="fa fa-check"></i><b>15.5.1</b> Estimation and uncertainty quantification</a></li>
 <li class="chapter" data-level="15.5.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-by-sampling"><i class="fa fa-check"></i><b>15.5.2</b> Estimation by sampling</a></li>
 </ul></li>
-<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a><ul>
+<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a>
+<ul>
 <li class="chapter" data-level="15.6.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-why-arent-our-predictions-accurate"><i class="fa fa-check"></i><b>15.6.1</b> Why aren’t our predictions accurate?</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html"><i class="fa fa-check"></i><b>16</b> Short tutorial on pulling data for Assignment 1</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html#section-toronto-open-data-portal"><i class="fa fa-check"></i><b>16.1</b> Toronto Open Data Portal</a></li>
+<li class="chapter" data-level="16.2" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html#section-canadian-election-study"><i class="fa fa-check"></i><b>16.2</b> Canadian Election Study</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -293,11 +328,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="section-the-bootstrap" class="section level1">
+<div id="section-the-bootstrap" class="section level1" number="7">
 <h1><span class="header-section-number">Chapter 7</span> The Bootstrap</h1>
 <p>This chapter introduces the Bootstrap and shows how you can use simulation to
 enhance your statistical thinking. We use datasets from MIPS which can be downloaded here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>.</p>
-<div id="section-the-bootstrap-chapter-18" class="section level2">
+<div id="section-the-bootstrap-chapter-18" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> The Bootstrap (Chapter 18)</h2>
 <p>The bootstrap is one of the most foundational computational tools in modern
 statistics. It as important on the computation side as basic calculus is on the
@@ -311,10 +346,10 @@ idea when you don’t know the distribution of the data! The idea is to sample
 with replacement from the data that you have. A lot of the statistical properties
 of estimators are still recoverable under this type of sampling.</p>
 <p>It seems like magic. Indeed, the name “bootstrap” comes from the old expression
-“lift yourself up by your bootstraps”, which roughly means to do something
+“lift yourself up by your bootstraps,” which roughly means to do something
 seemingly impossible or contradictory in order to better your situation. One
 of the best-named concepts in all of stats, in my opinion.</p>
-<div id="section-empirical-bootstrap-old-faithful-data" class="section level3">
+<div id="section-empirical-bootstrap-old-faithful-data" class="section level3" number="7.1.1">
 <h3><span class="header-section-number">7.1.1</span> Empirical bootstrap: Old Faithful data</h3>
 <p>Recall the Old Faithful data: <span class="math inline">\(n = 272\)</span> measurements of the waiting time to eruption <span class="math inline">\(X_{i}\)</span> of
 the Old Faithful Geyser. A statistical model for these data was given as
@@ -349,40 +384,40 @@ distribution of <span class="math inline">\(\hat{\mu}\)</span>.</p></li>
 </ol>
 <p>This seems like magic: we got a sample from the sampling distribution of our estimator,
 without knowing anything about it mathematically. Let’s do this in code:</p>
-<div class="sourceCode" id="section-cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="section-the-bootstrap.html#cb219-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb219-2"><a href="section-the-bootstrap.html#cb219-2"></a><span class="kw">library</span>(patchwork)</span></code></pre></div>
-<div class="sourceCode" id="section-cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="section-the-bootstrap.html#cb220-1"></a><span class="co"># Read in old faithful, copied from chapter 1:</span></span>
-<span id="cb220-2"><a href="section-the-bootstrap.html#cb220-2"></a>oldfaithful &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
-<span id="cb220-3"><a href="section-the-bootstrap.html#cb220-3"></a>  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/oldfaithful.txt&quot;</span>, <span class="co"># Tell it where the file is</span></span>
-<span id="cb220-4"><a href="section-the-bootstrap.html#cb220-4"></a>  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>, <span class="co"># Tell it that the first row is NOT column names, and at the same time, tell it what name you want for the column.</span></span>
-<span id="cb220-5"><a href="section-the-bootstrap.html#cb220-5"></a>  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span> <span class="co"># Tell it that there is one column, and it is &quot;numeric&quot; (n)</span></span>
-<span id="cb220-6"><a href="section-the-bootstrap.html#cb220-6"></a>)</span>
-<span id="cb220-7"><a href="section-the-bootstrap.html#cb220-7"></a><span class="co"># Check what was read in using the dplyr::glimpse() function</span></span>
-<span id="cb220-8"><a href="section-the-bootstrap.html#cb220-8"></a>dplyr<span class="op">::</span><span class="kw">glimpse</span>(oldfaithful)</span></code></pre></div>
-<pre><code>Observations: 272
-Variables: 1
-$ time &lt;dbl&gt; 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235, 252,…</code></pre>
-<div class="sourceCode" id="section-cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="section-the-bootstrap.html#cb222-1"></a><span class="co"># Bootstrap: sample with replacement</span></span>
-<span id="cb222-2"><a href="section-the-bootstrap.html#cb222-2"></a><span class="kw">set.seed</span>(<span class="dv">45356</span>) <span class="co"># So you can reproduce my results</span></span>
-<span id="cb222-3"><a href="section-the-bootstrap.html#cb222-3"></a>B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of bootstrap resamples to take</span></span>
-<span id="cb222-4"><a href="section-the-bootstrap.html#cb222-4"></a>n &lt;-<span class="st"> </span><span class="kw">nrow</span>(oldfaithful) <span class="co"># Sample size</span></span>
-<span id="cb222-5"><a href="section-the-bootstrap.html#cb222-5"></a>bootstrapmeans &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb222-6"><a href="section-the-bootstrap.html#cb222-6"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</span>
-<span id="cb222-7"><a href="section-the-bootstrap.html#cb222-7"></a>  <span class="co"># Draw a bootstrap sample</span></span>
-<span id="cb222-8"><a href="section-the-bootstrap.html#cb222-8"></a>  bootstrapsample &lt;-<span class="st"> </span><span class="kw">sample</span>(oldfaithful<span class="op">$</span>time,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb222-9"><a href="section-the-bootstrap.html#cb222-9"></a>  <span class="co"># Compute the bootstrap estimate</span></span>
-<span id="cb222-10"><a href="section-the-bootstrap.html#cb222-10"></a>  bootstrapmeans[b] &lt;-<span class="st"> </span><span class="kw">mean</span>(bootstrapsample)</span>
-<span id="cb222-11"><a href="section-the-bootstrap.html#cb222-11"></a>}</span>
-<span id="cb222-12"><a href="section-the-bootstrap.html#cb222-12"></a></span>
-<span id="cb222-13"><a href="section-the-bootstrap.html#cb222-13"></a><span class="co"># Plot a hisrogram and density estimate, along with</span></span>
-<span id="cb222-14"><a href="section-the-bootstrap.html#cb222-14"></a><span class="co"># the normal approximation</span></span>
-<span id="cb222-15"><a href="section-the-bootstrap.html#cb222-15"></a><span class="kw">tibble</span>(<span class="dt">x =</span> bootstrapmeans) <span class="op">%&gt;%</span></span>
-<span id="cb222-16"><a href="section-the-bootstrap.html#cb222-16"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
-<span id="cb222-17"><a href="section-the-bootstrap.html#cb222-17"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb222-18"><a href="section-the-bootstrap.html#cb222-18"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></span>
-<span id="cb222-19"><a href="section-the-bootstrap.html#cb222-19"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
-<span id="cb222-20"><a href="section-the-bootstrap.html#cb222-20"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> normalapproxmean,<span class="dt">sd =</span> normalapproxsd),<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb222-21"><a href="section-the-bootstrap.html#cb222-21"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">190</span>,<span class="dv">230</span>,<span class="dt">by=</span><span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="section-cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb228-1"><a href="section-the-bootstrap.html#section-cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="section-cb228-2"><a href="section-the-bootstrap.html#section-cb228-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div>
+<div class="sourceCode" id="section-cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb229-1"><a href="section-the-bootstrap.html#section-cb229-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in old faithful, copied from chapter 1:</span></span>
+<span id="section-cb229-2"><a href="section-the-bootstrap.html#section-cb229-2" aria-hidden="true" tabindex="-1"></a>oldfaithful <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="section-cb229-3"><a href="section-the-bootstrap.html#section-cb229-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;data/MIPSdata/oldfaithful.txt&quot;</span>, <span class="co"># Tell it where the file is</span></span>
+<span id="section-cb229-4"><a href="section-the-bootstrap.html#section-cb229-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="st">&quot;time&quot;</span>, <span class="co"># Tell it that the first row is NOT column names, and at the same time, tell it what name you want for the column.</span></span>
+<span id="section-cb229-5"><a href="section-the-bootstrap.html#section-cb229-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="st">&quot;n&quot;</span> <span class="co"># Tell it that there is one column, and it is &quot;numeric&quot; (n)</span></span>
+<span id="section-cb229-6"><a href="section-the-bootstrap.html#section-cb229-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="section-cb229-7"><a href="section-the-bootstrap.html#section-cb229-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check what was read in using the dplyr::glimpse() function</span></span>
+<span id="section-cb229-8"><a href="section-the-bootstrap.html#section-cb229-8" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(oldfaithful)</span></code></pre></div>
+<pre><code>Rows: 272
+Columns: 1
+$ time &lt;dbl&gt; 216, 108, 200, 137, 272, 173, 282, 216, 117, 261, 110, 235, 252, 105, 282, 130, 105, 288, 96, 255, 108, 105, 207, 184, 272, 216, 118, 245, 231, 266, 258, 268, 202, 242, 230, 121, 112, 290, 110…</code></pre>
+<div class="sourceCode" id="section-cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb231-1"><a href="section-the-bootstrap.html#section-cb231-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap: sample with replacement</span></span>
+<span id="section-cb231-2"><a href="section-the-bootstrap.html#section-cb231-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45356</span>) <span class="co"># So you can reproduce my results</span></span>
+<span id="section-cb231-3"><a href="section-the-bootstrap.html#section-cb231-3" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># Number of bootstrap resamples to take</span></span>
+<span id="section-cb231-4"><a href="section-the-bootstrap.html#section-cb231-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(oldfaithful) <span class="co"># Sample size</span></span>
+<span id="section-cb231-5"><a href="section-the-bootstrap.html#section-cb231-5" aria-hidden="true" tabindex="-1"></a>bootstrapmeans <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb231-6"><a href="section-the-bootstrap.html#section-cb231-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="section-cb231-7"><a href="section-the-bootstrap.html#section-cb231-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Draw a bootstrap sample</span></span>
+<span id="section-cb231-8"><a href="section-the-bootstrap.html#section-cb231-8" aria-hidden="true" tabindex="-1"></a>  bootstrapsample <span class="ot">&lt;-</span> <span class="fu">sample</span>(oldfaithful<span class="sc">$</span>time,n,<span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="section-cb231-9"><a href="section-the-bootstrap.html#section-cb231-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute the bootstrap estimate</span></span>
+<span id="section-cb231-10"><a href="section-the-bootstrap.html#section-cb231-10" aria-hidden="true" tabindex="-1"></a>  bootstrapmeans[b] <span class="ot">&lt;-</span> <span class="fu">mean</span>(bootstrapsample)</span>
+<span id="section-cb231-11"><a href="section-the-bootstrap.html#section-cb231-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb231-12"><a href="section-the-bootstrap.html#section-cb231-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb231-13"><a href="section-the-bootstrap.html#section-cb231-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a hisrogram and density estimate, along with</span></span>
+<span id="section-cb231-14"><a href="section-the-bootstrap.html#section-cb231-14" aria-hidden="true" tabindex="-1"></a><span class="co"># the normal approximation</span></span>
+<span id="section-cb231-15"><a href="section-the-bootstrap.html#section-cb231-15" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> bootstrapmeans) <span class="sc">%&gt;%</span></span>
+<span id="section-cb231-16"><a href="section-the-bootstrap.html#section-cb231-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="section-cb231-17"><a href="section-the-bootstrap.html#section-cb231-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb231-18"><a href="section-the-bootstrap.html#section-cb231-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),<span class="at">bins =</span> <span class="dv">20</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb231-19"><a href="section-the-bootstrap.html#section-cb231-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="section-cb231-20"><a href="section-the-bootstrap.html#section-cb231-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm,<span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> normalapproxmean,<span class="at">sd =</span> normalapproxsd),<span class="at">col =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb231-21"><a href="section-the-bootstrap.html#section-cb231-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">190</span>,<span class="dv">230</span>,<span class="at">by=</span><span class="dv">5</span>))</span></code></pre></div>
 <p><img src="book_files/figure-html/faithfulboot-1-1.png" width="672" /></p>
 <p>The histogram and black kernel density estimate curve are obtained using the empirical
 bootstrap algorithm. The red curve is obtained using the CLT approximation to the
@@ -413,37 +448,37 @@ distribution of <span class="math inline">\((\hat{\mu} - \mu)\)</span>.</p></li>
 </ol>
 <p>Notice that <strong>we compute</strong> <span class="math inline">\((\hat{\mu} - \mu)^{*}_{b}\)</span> <strong>without knowing</strong> <span class="math inline">\(\mu\)</span>.</p>
 <p>We can do this in code as follows:</p>
-<div class="sourceCode" id="section-cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="section-the-bootstrap.html#cb223-1"></a><span class="co"># Bootstrap: sample with replacement</span></span>
-<span id="cb223-2"><a href="section-the-bootstrap.html#cb223-2"></a><span class="kw">set.seed</span>(<span class="dv">45356</span>) <span class="co"># So you can reproduce my results</span></span>
-<span id="cb223-3"><a href="section-the-bootstrap.html#cb223-3"></a>B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of bootstrap resamples to take</span></span>
-<span id="cb223-4"><a href="section-the-bootstrap.html#cb223-4"></a>n &lt;-<span class="st"> </span><span class="kw">nrow</span>(oldfaithful) <span class="co"># Sample size</span></span>
-<span id="cb223-5"><a href="section-the-bootstrap.html#cb223-5"></a>bootstraperrors &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb223-6"><a href="section-the-bootstrap.html#cb223-6"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</span>
-<span id="cb223-7"><a href="section-the-bootstrap.html#cb223-7"></a>  <span class="co"># Draw a bootstrap sample</span></span>
-<span id="cb223-8"><a href="section-the-bootstrap.html#cb223-8"></a>  bootstrapsample &lt;-<span class="st"> </span><span class="kw">sample</span>(oldfaithful<span class="op">$</span>time,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb223-9"><a href="section-the-bootstrap.html#cb223-9"></a>  <span class="co"># Compute the bootstrap mean</span></span>
-<span id="cb223-10"><a href="section-the-bootstrap.html#cb223-10"></a>  bootstrapmean &lt;-<span class="st"> </span><span class="kw">mean</span>(bootstrapsample)</span>
-<span id="cb223-11"><a href="section-the-bootstrap.html#cb223-11"></a>  <span class="co"># Compute the bootstrap estimate</span></span>
-<span id="cb223-12"><a href="section-the-bootstrap.html#cb223-12"></a>  bootstraperrors[b] &lt;-<span class="st"> </span>bootstrapmean <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(oldfaithful<span class="op">$</span>time)</span>
-<span id="cb223-13"><a href="section-the-bootstrap.html#cb223-13"></a>}</span>
-<span id="cb223-14"><a href="section-the-bootstrap.html#cb223-14"></a></span>
-<span id="cb223-15"><a href="section-the-bootstrap.html#cb223-15"></a><span class="co"># For the record, we could have just done</span></span>
-<span id="cb223-16"><a href="section-the-bootstrap.html#cb223-16"></a><span class="co"># bootstraperrors &lt;- bootstrapmeans - mean(oldfaithful$time)</span></span>
-<span id="cb223-17"><a href="section-the-bootstrap.html#cb223-17"></a></span>
-<span id="cb223-18"><a href="section-the-bootstrap.html#cb223-18"></a><span class="co"># Plot a hisrogram and density estimate, along with</span></span>
-<span id="cb223-19"><a href="section-the-bootstrap.html#cb223-19"></a><span class="co"># the normal approximation</span></span>
-<span id="cb223-20"><a href="section-the-bootstrap.html#cb223-20"></a><span class="kw">tibble</span>(<span class="dt">x =</span> bootstraperrors) <span class="op">%&gt;%</span></span>
-<span id="cb223-21"><a href="section-the-bootstrap.html#cb223-21"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
-<span id="cb223-22"><a href="section-the-bootstrap.html#cb223-22"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb223-23"><a href="section-the-bootstrap.html#cb223-23"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></span>
-<span id="cb223-24"><a href="section-the-bootstrap.html#cb223-24"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
-<span id="cb223-25"><a href="section-the-bootstrap.html#cb223-25"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm,<span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> normalapproxmeanerror,<span class="dt">sd =</span> normalapproxsderror),<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb223-26"><a href="section-the-bootstrap.html#cb223-26"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">14</span>,<span class="dv">14</span>,<span class="dt">by=</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="section-cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb232-1"><a href="section-the-bootstrap.html#section-cb232-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap: sample with replacement</span></span>
+<span id="section-cb232-2"><a href="section-the-bootstrap.html#section-cb232-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45356</span>) <span class="co"># So you can reproduce my results</span></span>
+<span id="section-cb232-3"><a href="section-the-bootstrap.html#section-cb232-3" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># Number of bootstrap resamples to take</span></span>
+<span id="section-cb232-4"><a href="section-the-bootstrap.html#section-cb232-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(oldfaithful) <span class="co"># Sample size</span></span>
+<span id="section-cb232-5"><a href="section-the-bootstrap.html#section-cb232-5" aria-hidden="true" tabindex="-1"></a>bootstraperrors <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb232-6"><a href="section-the-bootstrap.html#section-cb232-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="section-cb232-7"><a href="section-the-bootstrap.html#section-cb232-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Draw a bootstrap sample</span></span>
+<span id="section-cb232-8"><a href="section-the-bootstrap.html#section-cb232-8" aria-hidden="true" tabindex="-1"></a>  bootstrapsample <span class="ot">&lt;-</span> <span class="fu">sample</span>(oldfaithful<span class="sc">$</span>time,n,<span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="section-cb232-9"><a href="section-the-bootstrap.html#section-cb232-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute the bootstrap mean</span></span>
+<span id="section-cb232-10"><a href="section-the-bootstrap.html#section-cb232-10" aria-hidden="true" tabindex="-1"></a>  bootstrapmean <span class="ot">&lt;-</span> <span class="fu">mean</span>(bootstrapsample)</span>
+<span id="section-cb232-11"><a href="section-the-bootstrap.html#section-cb232-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute the bootstrap estimate</span></span>
+<span id="section-cb232-12"><a href="section-the-bootstrap.html#section-cb232-12" aria-hidden="true" tabindex="-1"></a>  bootstraperrors[b] <span class="ot">&lt;-</span> bootstrapmean <span class="sc">-</span> <span class="fu">mean</span>(oldfaithful<span class="sc">$</span>time)</span>
+<span id="section-cb232-13"><a href="section-the-bootstrap.html#section-cb232-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb232-14"><a href="section-the-bootstrap.html#section-cb232-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb232-15"><a href="section-the-bootstrap.html#section-cb232-15" aria-hidden="true" tabindex="-1"></a><span class="co"># For the record, we could have just done</span></span>
+<span id="section-cb232-16"><a href="section-the-bootstrap.html#section-cb232-16" aria-hidden="true" tabindex="-1"></a><span class="co"># bootstraperrors &lt;- bootstrapmeans - mean(oldfaithful$time)</span></span>
+<span id="section-cb232-17"><a href="section-the-bootstrap.html#section-cb232-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb232-18"><a href="section-the-bootstrap.html#section-cb232-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a hisrogram and density estimate, along with</span></span>
+<span id="section-cb232-19"><a href="section-the-bootstrap.html#section-cb232-19" aria-hidden="true" tabindex="-1"></a><span class="co"># the normal approximation</span></span>
+<span id="section-cb232-20"><a href="section-the-bootstrap.html#section-cb232-20" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> bootstraperrors) <span class="sc">%&gt;%</span></span>
+<span id="section-cb232-21"><a href="section-the-bootstrap.html#section-cb232-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="section-cb232-22"><a href="section-the-bootstrap.html#section-cb232-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb232-23"><a href="section-the-bootstrap.html#section-cb232-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),<span class="at">bins =</span> <span class="dv">20</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb232-24"><a href="section-the-bootstrap.html#section-cb232-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="section-cb232-25"><a href="section-the-bootstrap.html#section-cb232-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm,<span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> normalapproxmeanerror,<span class="at">sd =</span> normalapproxsderror),<span class="at">col =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb232-26"><a href="section-the-bootstrap.html#section-cb232-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">14</span>,<span class="dv">14</span>,<span class="at">by=</span><span class="dv">2</span>))</span></code></pre></div>
 <p><img src="book_files/figure-html/faithfulboot-22-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: again, how did I get the values of <code>normalapproxmeanerror</code> and <code>normalapproxsderror</code>?</p>
 <p><strong>Exercise</strong>: compute an estimate of <span class="math inline">\(P(|\bar{X}_{n} - \mu| &gt; 5)\)</span>. Using the
 above <code>set.seed(45356)</code> I got the following:</p>
-<pre><code>[1] 0.22</code></pre>
+<pre><code>[1] 0.23</code></pre>
 <p><em>Hint</em>: consider the sample proportion of <span class="math inline">\(\bar{X}_{n} - \mu\)</span> that have absolute value
 greater than <span class="math inline">\(5\)</span>.</p>
 <p><strong>Exercise</strong>: even this <span class="math inline">\(P(|\bar{X}_{n} - \mu| &gt; 5)\)</span> is just an estimate, and
@@ -454,7 +489,7 @@ I got the following with <code>set.seed(8768432)</code> and <span class="math in
 <p><img src="book_files/figure-html/faithful-3-1.png" width="672" /></p>
 <p>So it looks like we can be pretty sure the absolute error won’t be more than <span class="math inline">\(0.27\)</span>.</p>
 </div>
-<div id="section-parametric-bootstrap-software-data" class="section level3">
+<div id="section-parametric-bootstrap-software-data" class="section level3" number="7.1.2">
 <h3><span class="header-section-number">7.1.2</span> Parametric Bootstrap: software data</h3>
 <p>The empirical bootstrap is used to sample from the sampling distribution of an
 estimator without knowing the distribution of the data. The <strong>parametric bootstrap</strong>
@@ -462,8 +497,8 @@ is used to sample from the sampling distribution of an estimator when you know
 the family of distributions <span class="math inline">\(F_{\theta}\)</span> (like “Exponential” or “Normal” or “Poisson”)
 from which the data is drawn, but you don’t know the value of the parameter <span class="math inline">\(\theta\)</span>.</p>
 <p>Recall the **software data*:</p>
-<div class="sourceCode" id="section-cb225"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb225-1"><a href="section-the-bootstrap.html#cb225-1"></a><span class="fu">head</span> data/MIPSdata/software.txt</span>
-<span id="cb225-2"><a href="section-the-bootstrap.html#cb225-2"></a><span class="fu">wc</span> -l data/MIPSdata/software.txt</span></code></pre></div>
+<div class="sourceCode" id="section-cb234"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="section-cb234-1"><a href="section-the-bootstrap.html#section-cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> data/MIPSdata/software.txt</span>
+<span id="section-cb234-2"><a href="section-the-bootstrap.html#section-cb234-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> -l data/MIPSdata/software.txt</span></code></pre></div>
 <pre><code>30  
 113  
 81  
@@ -475,36 +510,36 @@ from which the data is drawn, but you don’t know the value of the parameter <s
 15  
 138
      136 data/MIPSdata/software.txt</code></pre>
-<div class="sourceCode" id="section-cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="section-the-bootstrap.html#cb227-1"></a>software &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
-<span id="cb227-2"><a href="section-the-bootstrap.html#cb227-2"></a>  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/software.txt&quot;</span>,</span>
-<span id="cb227-3"><a href="section-the-bootstrap.html#cb227-3"></a>  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>,</span>
-<span id="cb227-4"><a href="section-the-bootstrap.html#cb227-4"></a>  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span></span>
-<span id="cb227-5"><a href="section-the-bootstrap.html#cb227-5"></a>)</span>
-<span id="cb227-6"><a href="section-the-bootstrap.html#cb227-6"></a><span class="kw">glimpse</span>(software)</span></code></pre></div>
-<pre><code>Observations: 136
-Variables: 1
-$ time &lt;dbl&gt; 30, 113, 81, 115, 9, 2, 91, 112, 15, 138, 50, 77, 24, 108, 88, 6…</code></pre>
+<div class="sourceCode" id="section-cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb236-1"><a href="section-the-bootstrap.html#section-cb236-1" aria-hidden="true" tabindex="-1"></a>software <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="section-cb236-2"><a href="section-the-bootstrap.html#section-cb236-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;data/MIPSdata/software.txt&quot;</span>,</span>
+<span id="section-cb236-3"><a href="section-the-bootstrap.html#section-cb236-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="st">&quot;time&quot;</span>,</span>
+<span id="section-cb236-4"><a href="section-the-bootstrap.html#section-cb236-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="st">&quot;n&quot;</span></span>
+<span id="section-cb236-5"><a href="section-the-bootstrap.html#section-cb236-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="section-cb236-6"><a href="section-the-bootstrap.html#section-cb236-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(software)</span></code></pre></div>
+<pre><code>Rows: 136
+Columns: 1
+$ time &lt;dbl&gt; 30, 113, 81, 115, 9, 2, 91, 112, 15, 138, 50, 77, 24, 108, 88, 670, 120, 26, 114, 325, 55, 242, 68, 422, 180, 10, 1146, 600, 15, 36, 4, 0, 8, 227, 65, 176, 58, 457, 300, 97, 263, 452, 255, 197…</code></pre>
 <p>One possible model for these data is <span class="math inline">\(X_{i}\overset{iid}{\sim}\text{Exponential}(\lambda)\)</span> with
 <span class="math inline">\(\lambda\)</span> being the rate of failures of the software: <span class="math inline">\(E(X_{i}) = \lambda^{-1}\)</span>.</p>
 <p>We can
 estimate <span class="math inline">\(\hat{\lambda} = \bar{X}^{-1}\)</span> and plot the CDF <span class="math inline">\(F_{\hat{\theta}}\)</span> of the estimated <span class="math inline">\(\text{Exponential}(\hat{\lambda})\)</span> distribution against the empirical CDF <span class="math inline">\(\hat{F}_{n}\)</span> of the data. Of interest is the maximum possible
-error in estimating the CDF: <span class="math inline">\(T_{ks} = \text{sup}_{x\in\mathbb{R}}|F_{\hat{\theta}}(x) - \hat{F}_{n}(x)|\)</span>. The “KS” stands for “Kolmogorov-Smirnov”, who used this error in some statistical theory in the early
-20th century, and so <span class="math inline">\(T_{ks}\)</span> is sometimes called the “Kolmogorov-Smirnov distance”. It’s also
+error in estimating the CDF: <span class="math inline">\(T_{ks} = \text{sup}_{x\in\mathbb{R}}|F_{\hat{\theta}}(x) - \hat{F}_{n}(x)|\)</span>. The “KS” stands for “Kolmogorov-Smirnov,” who used this error in some statistical theory in the early
+20th century, and so <span class="math inline">\(T_{ks}\)</span> is sometimes called the “Kolmogorov-Smirnov distance.” It’s also
 sometimes called the “Total Variation” distance. It is the length of the red segment
 in the following plot:</p>
-<div class="sourceCode" id="section-cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="section-the-bootstrap.html#cb229-1"></a>lambdahat &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">mean</span>(software<span class="op">$</span>time)</span>
-<span id="cb229-2"><a href="section-the-bootstrap.html#cb229-2"></a>samppoints &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="dt">by=</span>.<span class="dv">1</span>)</span>
-<span id="cb229-3"><a href="section-the-bootstrap.html#cb229-3"></a>expcdf &lt;-<span class="st"> </span><span class="kw">pexp</span>(samppoints,<span class="dt">rate =</span> lambdahat)</span>
-<span id="cb229-4"><a href="section-the-bootstrap.html#cb229-4"></a>empcdf &lt;-<span class="st"> </span><span class="kw">ecdf</span>(software<span class="op">$</span>time)</span>
-<span id="cb229-5"><a href="section-the-bootstrap.html#cb229-5"></a>tksestimate &lt;-<span class="st"> </span><span class="kw">max</span>(<span class="kw">abs</span>(expcdf <span class="op">-</span><span class="st"> </span><span class="kw">empcdf</span>(samppoints)))</span>
-<span id="cb229-6"><a href="section-the-bootstrap.html#cb229-6"></a>whereisthetks &lt;-<span class="st"> </span><span class="kw">which.max</span>(<span class="kw">abs</span>(expcdf <span class="op">-</span><span class="st"> </span><span class="kw">empcdf</span>(samppoints)))</span>
-<span id="cb229-7"><a href="section-the-bootstrap.html#cb229-7"></a></span>
-<span id="cb229-8"><a href="section-the-bootstrap.html#cb229-8"></a><span class="kw">tibble</span>(<span class="dt">x =</span> samppoints,<span class="dt">y =</span> expcdf) <span class="op">%&gt;%</span></span>
-<span id="cb229-9"><a href="section-the-bootstrap.html#cb229-9"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x,<span class="dt">y =</span> y)) <span class="op">+</span></span>
-<span id="cb229-10"><a href="section-the-bootstrap.html#cb229-10"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb229-11"><a href="section-the-bootstrap.html#cb229-11"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb229-12"><a href="section-the-bootstrap.html#cb229-12"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> empcdf,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></span>
-<span id="cb229-13"><a href="section-the-bootstrap.html#cb229-13"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> samppoints[whereisthetks],<span class="dt">y =</span> expcdf[whereisthetks],<span class="dt">xend =</span> samppoints[whereisthetks],<span class="dt">yend =</span> <span class="kw">empcdf</span>(samppoints[whereisthetks])),<span class="dt">colour =</span> <span class="st">&#39;red&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb238-1"><a href="section-the-bootstrap.html#section-cb238-1" aria-hidden="true" tabindex="-1"></a>lambdahat <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">mean</span>(software<span class="sc">$</span>time)</span>
+<span id="section-cb238-2"><a href="section-the-bootstrap.html#section-cb238-2" aria-hidden="true" tabindex="-1"></a>samppoints <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="at">by=</span>.<span class="dv">1</span>)</span>
+<span id="section-cb238-3"><a href="section-the-bootstrap.html#section-cb238-3" aria-hidden="true" tabindex="-1"></a>expcdf <span class="ot">&lt;-</span> <span class="fu">pexp</span>(samppoints,<span class="at">rate =</span> lambdahat)</span>
+<span id="section-cb238-4"><a href="section-the-bootstrap.html#section-cb238-4" aria-hidden="true" tabindex="-1"></a>empcdf <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(software<span class="sc">$</span>time)</span>
+<span id="section-cb238-5"><a href="section-the-bootstrap.html#section-cb238-5" aria-hidden="true" tabindex="-1"></a>tksestimate <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">abs</span>(expcdf <span class="sc">-</span> <span class="fu">empcdf</span>(samppoints)))</span>
+<span id="section-cb238-6"><a href="section-the-bootstrap.html#section-cb238-6" aria-hidden="true" tabindex="-1"></a>whereisthetks <span class="ot">&lt;-</span> <span class="fu">which.max</span>(<span class="fu">abs</span>(expcdf <span class="sc">-</span> <span class="fu">empcdf</span>(samppoints)))</span>
+<span id="section-cb238-7"><a href="section-the-bootstrap.html#section-cb238-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb238-8"><a href="section-the-bootstrap.html#section-cb238-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> samppoints,<span class="at">y =</span> expcdf) <span class="sc">%&gt;%</span></span>
+<span id="section-cb238-9"><a href="section-the-bootstrap.html#section-cb238-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x,<span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="section-cb238-10"><a href="section-the-bootstrap.html#section-cb238-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="section-cb238-11"><a href="section-the-bootstrap.html#section-cb238-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="section-cb238-12"><a href="section-the-bootstrap.html#section-cb238-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> empcdf,<span class="at">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb238-13"><a href="section-the-bootstrap.html#section-cb238-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> samppoints[whereisthetks],<span class="at">y =</span> expcdf[whereisthetks],<span class="at">xend =</span> samppoints[whereisthetks],<span class="at">yend =</span> <span class="fu">empcdf</span>(samppoints[whereisthetks])),<span class="at">colour =</span> <span class="st">&#39;red&#39;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/software-3-1.png" width="672" /></p>
 <p>What a complicated statistic!</p>
 <p>The statistic <span class="math inline">\(T_{ks}\)</span> is a random variable because it depends on the data through the
@@ -522,26 +557,26 @@ distribution of <span class="math inline">\(\hat{\lambda}^{*}\)</span>.</p></li>
 </ol>
 <p>Let’s use this algorithm to get a bootstrap sample from the sampling distribution
 of <span class="math inline">\(T_{ks}\)</span>:</p>
-<div class="sourceCode" id="section-cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="section-the-bootstrap.html#cb230-1"></a><span class="kw">set.seed</span>(<span class="dv">97876856</span>)</span>
-<span id="cb230-2"><a href="section-the-bootstrap.html#cb230-2"></a>compute_tks &lt;-<span class="st"> </span><span class="cf">function</span>() {</span>
-<span id="cb230-3"><a href="section-the-bootstrap.html#cb230-3"></a>  samppoints &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="dt">by=</span>.<span class="dv">1</span>)</span>
-<span id="cb230-4"><a href="section-the-bootstrap.html#cb230-4"></a>  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(software)</span>
-<span id="cb230-5"><a href="section-the-bootstrap.html#cb230-5"></a>  samp &lt;-<span class="st"> </span><span class="kw">rexp</span>(n,<span class="dt">rate =</span> lambdahat)</span>
-<span id="cb230-6"><a href="section-the-bootstrap.html#cb230-6"></a>  ecdfboot &lt;-<span class="st"> </span><span class="kw">ecdf</span>(samp)(samppoints)</span>
-<span id="cb230-7"><a href="section-the-bootstrap.html#cb230-7"></a>  expcdf &lt;-<span class="st"> </span><span class="kw">pexp</span>(samppoints,<span class="dt">rate =</span> lambdahat)</span>
-<span id="cb230-8"><a href="section-the-bootstrap.html#cb230-8"></a>  <span class="kw">max</span>(<span class="kw">abs</span>(ecdfboot <span class="op">-</span><span class="st"> </span>expcdf))</span>
-<span id="cb230-9"><a href="section-the-bootstrap.html#cb230-9"></a>}</span>
-<span id="cb230-10"><a href="section-the-bootstrap.html#cb230-10"></a>B &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb230-11"><a href="section-the-bootstrap.html#cb230-11"></a>tksboot &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb230-12"><a href="section-the-bootstrap.html#cb230-12"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) tksboot[b] &lt;-<span class="st"> </span><span class="kw">compute_tks</span>()</span>
-<span id="cb230-13"><a href="section-the-bootstrap.html#cb230-13"></a></span>
-<span id="cb230-14"><a href="section-the-bootstrap.html#cb230-14"></a><span class="kw">tibble</span>(<span class="dt">x =</span> tksboot) <span class="op">%&gt;%</span></span>
-<span id="cb230-15"><a href="section-the-bootstrap.html#cb230-15"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
-<span id="cb230-16"><a href="section-the-bootstrap.html#cb230-16"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb230-17"><a href="section-the-bootstrap.html#cb230-17"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">20</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></span>
-<span id="cb230-18"><a href="section-the-bootstrap.html#cb230-18"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
-<span id="cb230-19"><a href="section-the-bootstrap.html#cb230-19"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>,.<span class="dv">2</span>,<span class="dt">by=</span>.<span class="dv">05</span>),.<span class="dv">176</span>)) <span class="op">+</span></span>
-<span id="cb230-20"><a href="section-the-bootstrap.html#cb230-20"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="section-cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb239-1"><a href="section-the-bootstrap.html#section-cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">97876856</span>)</span>
+<span id="section-cb239-2"><a href="section-the-bootstrap.html#section-cb239-2" aria-hidden="true" tabindex="-1"></a>compute_tks <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="section-cb239-3"><a href="section-the-bootstrap.html#section-cb239-3" aria-hidden="true" tabindex="-1"></a>  samppoints <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">3000</span>,<span class="at">by=</span>.<span class="dv">1</span>)</span>
+<span id="section-cb239-4"><a href="section-the-bootstrap.html#section-cb239-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(software)</span>
+<span id="section-cb239-5"><a href="section-the-bootstrap.html#section-cb239-5" aria-hidden="true" tabindex="-1"></a>  samp <span class="ot">&lt;-</span> <span class="fu">rexp</span>(n,<span class="at">rate =</span> lambdahat)</span>
+<span id="section-cb239-6"><a href="section-the-bootstrap.html#section-cb239-6" aria-hidden="true" tabindex="-1"></a>  ecdfboot <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(samp)(samppoints)</span>
+<span id="section-cb239-7"><a href="section-the-bootstrap.html#section-cb239-7" aria-hidden="true" tabindex="-1"></a>  expcdf <span class="ot">&lt;-</span> <span class="fu">pexp</span>(samppoints,<span class="at">rate =</span> lambdahat)</span>
+<span id="section-cb239-8"><a href="section-the-bootstrap.html#section-cb239-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">max</span>(<span class="fu">abs</span>(ecdfboot <span class="sc">-</span> expcdf))</span>
+<span id="section-cb239-9"><a href="section-the-bootstrap.html#section-cb239-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb239-10"><a href="section-the-bootstrap.html#section-cb239-10" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="section-cb239-11"><a href="section-the-bootstrap.html#section-cb239-11" aria-hidden="true" tabindex="-1"></a>tksboot <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb239-12"><a href="section-the-bootstrap.html#section-cb239-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) tksboot[b] <span class="ot">&lt;-</span> <span class="fu">compute_tks</span>()</span>
+<span id="section-cb239-13"><a href="section-the-bootstrap.html#section-cb239-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb239-14"><a href="section-the-bootstrap.html#section-cb239-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> tksboot) <span class="sc">%&gt;%</span></span>
+<span id="section-cb239-15"><a href="section-the-bootstrap.html#section-cb239-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="section-cb239-16"><a href="section-the-bootstrap.html#section-cb239-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb239-17"><a href="section-the-bootstrap.html#section-cb239-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),<span class="at">bins =</span> <span class="dv">20</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb239-18"><a href="section-the-bootstrap.html#section-cb239-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="section-cb239-19"><a href="section-the-bootstrap.html#section-cb239-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">0</span>,.<span class="dv">2</span>,<span class="at">by=</span>.<span class="dv">05</span>),.<span class="dv">176</span>)) <span class="sc">+</span></span>
+<span id="section-cb239-20"><a href="section-the-bootstrap.html#section-cb239-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">2</span>))</span></code></pre></div>
 <p><img src="book_files/figure-html/software-4-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: the above <code>compute_tks()</code> is a bit tricky. Write out the exact algorithm
 I use to compute <span class="math inline">\(T_{ks}\)</span>. Basically I compute both the ECDF and the parametric estimated
@@ -549,12 +584,12 @@ CDF at a really fine grid of points and then take the max difference– this que
 is asking you to formalize this into an algorithm (sequence of steps) using
 mathematical notation, like I’ve done for the bootstraps.</p>
 </div>
-<div id="section-extended-example-the-standard-error-of-a-proportion" class="section level3">
+<div id="section-extended-example-the-standard-error-of-a-proportion" class="section level3" number="7.1.3">
 <h3><span class="header-section-number">7.1.3</span> Extended example: the standard error of a proportion</h3>
 <p>Dozens of news articles are published every day with claims that “xx% of Canadians
-say that yy”, where xx is some percentage and yy is some claim that the news
+say that yy,” where xx is some percentage and yy is some claim that the news
 company wants to make. These news articles most often only
-report <em>point estimates</em>– the “xx%”. They don’t tend to report the <em>standard error</em> of
+report <em>point estimates</em>– the “xx%.” They don’t tend to report the <em>standard error</em> of
 these estimates, which give you a measure of the variability, and hence uncertainty,
 in the conclusions that are made based off of them.</p>
 <p>We can use the bootstrap to get an idea of the variability in estimates based off
@@ -568,23 +603,23 @@ in excel). There is a numeric ID column, two date columns (which we don’t need
 and 58 numeric response columns. I removed the first three (blank) and fourth (information)
 rows from my
 .csv, and you should do the same in excel if you have it.</p>
-<div class="sourceCode" id="section-cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="section-the-bootstrap.html#cb231-1"></a>col_types &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
-<span id="cb231-2"><a href="section-the-bootstrap.html#cb231-2"></a>  <span class="st">&quot;ncc&quot;</span>,</span>
-<span id="cb231-3"><a href="section-the-bootstrap.html#cb231-3"></a>  stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">58</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb231-4"><a href="section-the-bootstrap.html#cb231-4"></a>) <span class="op">%&gt;%</span></span>
-<span id="cb231-5"><a href="section-the-bootstrap.html#cb231-5"></a><span class="st">  </span>stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb231-6"><a href="section-the-bootstrap.html#cb231-6"></a>col_types <span class="co"># Understand the above code by running it in pieces and looking at the results.</span></span></code></pre></div>
+<div class="sourceCode" id="section-cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb240-1"><a href="section-the-bootstrap.html#section-cb240-1" aria-hidden="true" tabindex="-1"></a>col_types <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="section-cb240-2"><a href="section-the-bootstrap.html#section-cb240-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;ncc&quot;</span>,</span>
+<span id="section-cb240-3"><a href="section-the-bootstrap.html#section-cb240-3" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="fu">rep</span>(<span class="st">&quot;n&quot;</span>,<span class="dv">58</span>),<span class="at">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="section-cb240-4"><a href="section-the-bootstrap.html#section-cb240-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="section-cb240-5"><a href="section-the-bootstrap.html#section-cb240-5" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="at">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="section-cb240-6"><a href="section-the-bootstrap.html#section-cb240-6" aria-hidden="true" tabindex="-1"></a>col_types <span class="co"># Understand the above code by running it in pieces and looking at the results.</span></span></code></pre></div>
 <pre><code>[1] &quot;nccnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn&quot;</code></pre>
-<div class="sourceCode" id="section-cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="section-the-bootstrap.html#cb233-1"></a>budget &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
-<span id="cb233-2"><a href="section-the-bootstrap.html#cb233-2"></a>  <span class="dt">file =</span> <span class="st">&quot;data/budget.csv&quot;</span>,</span>
-<span id="cb233-3"><a href="section-the-bootstrap.html#cb233-3"></a>  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb233-4"><a href="section-the-bootstrap.html#cb233-4"></a>  <span class="dt">col_types =</span> col_types</span>
-<span id="cb233-5"><a href="section-the-bootstrap.html#cb233-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb242-1"><a href="section-the-bootstrap.html#section-cb242-1" aria-hidden="true" tabindex="-1"></a>budget <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="section-cb242-2"><a href="section-the-bootstrap.html#section-cb242-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;data/budget.csv&quot;</span>,</span>
+<span id="section-cb242-3"><a href="section-the-bootstrap.html#section-cb242-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">TRUE</span>,</span>
+<span id="section-cb242-4"><a href="section-the-bootstrap.html#section-cb242-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> col_types</span>
+<span id="section-cb242-5"><a href="section-the-bootstrap.html#section-cb242-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Warning: Missing column names filled in: &#39;X17&#39; [17], &#39;X18&#39; [18], &#39;X19&#39; [19], &#39;X20&#39; [20], &#39;X21&#39; [21], &#39;X22&#39; [22], &#39;X23&#39; [23],
 &#39;X24&#39; [24], &#39;X26&#39; [26], &#39;X27&#39; [27], &#39;X28&#39; [28], &#39;X29&#39; [29], &#39;X30&#39; [30], &#39;X31&#39; [31], &#39;X33&#39; [33], &#39;X34&#39; [34], &#39;X35&#39; [35], &#39;X36&#39; [36],
 &#39;X37&#39; [37], &#39;X38&#39; [38], &#39;X39&#39; [39], &#39;X40&#39; [40], &#39;X41&#39; [41], &#39;X42&#39; [42], &#39;X44&#39; [44], &#39;X45&#39; [45], &#39;X46&#39; [46], &#39;X47&#39; [47], &#39;X48&#39; [48],
 &#39;X49&#39; [49], &#39;X50&#39; [50], &#39;X51&#39; [51], &#39;X52&#39; [52], &#39;X53&#39; [53], &#39;X55&#39; [55], &#39;X56&#39; [56], &#39;X57&#39; [57], &#39;X58&#39; [58], &#39;X59&#39; [59]</code></pre>
-<div class="sourceCode" id="section-cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="section-the-bootstrap.html#cb235-1"></a><span class="kw">glimpse</span>(budget)</span></code></pre></div>
+<div class="sourceCode" id="section-cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb244-1"><a href="section-the-bootstrap.html#section-cb244-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(budget)</span></code></pre></div>
 <pre><code>Observations: 40,513
 Variables: 61
 $ `Respond-ent ID`                                                                                                                                                                                                                &lt;dbl&gt; …
@@ -652,45 +687,45 @@ $ `Q16: What part of the province do you live in?`                              
 all these data, we would have to go in excel and manually label the columns correctly,
 since the analysts at the government didn’t.</p>
 <p>Look at the column names and start to think about the kind of news headlines they could
-generate. I like the first one: “Q1: To what extent do you think low oil prices impact the Alberta government’s ability to budget?”.</p>
+generate. I like the first one: “Q1: To what extent do you think low oil prices impact the Alberta government’s ability to budget?”</p>
 <p>Here, let’s estimate the proportion of Albertans who would answer <span class="math inline">\(1\)</span> (“A Great Deal”)
 to the above question.</p>
 <p><strong>Exercise</strong>: there are 40513 survey responses. The number who respond 1
 can be modelled as a Binomial random variable. Derive and calculate the standard
 deviation of the sample proportion of respondents who answered 1. I got <span class="math inline">\(0.0025\)</span>.
 Is this higher or lower than you would expect with this number of respondents?</p>
-<div class="sourceCode" id="section-cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="section-the-bootstrap.html#cb237-1"></a><span class="kw">set.seed</span>(<span class="dv">29394032</span>)</span>
-<span id="cb237-2"><a href="section-the-bootstrap.html#cb237-2"></a>origsamp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(budget[[<span class="st">&quot;Q1: To what extent do you think low oil prices impact the Alberta government&#39;s ability to budget?&quot;</span>]] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) </span>
-<span id="cb237-3"><a href="section-the-bootstrap.html#cb237-3"></a>n &lt;-<span class="st"> </span><span class="kw">length</span>(origsamp)</span>
-<span id="cb237-4"><a href="section-the-bootstrap.html#cb237-4"></a><span class="co"># Convert to 0/1 indicator of response == 1</span></span>
-<span id="cb237-5"><a href="section-the-bootstrap.html#cb237-5"></a><span class="co"># Sample proportion:</span></span>
-<span id="cb237-6"><a href="section-the-bootstrap.html#cb237-6"></a>phat &lt;-<span class="st"> </span><span class="kw">mean</span>(origsamp)</span>
-<span id="cb237-7"><a href="section-the-bootstrap.html#cb237-7"></a>phat</span></code></pre></div>
+<div class="sourceCode" id="section-cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb246-1"><a href="section-the-bootstrap.html#section-cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">29394032</span>)</span>
+<span id="section-cb246-2"><a href="section-the-bootstrap.html#section-cb246-2" aria-hidden="true" tabindex="-1"></a>origsamp <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(budget[[<span class="st">&quot;Q1: To what extent do you think low oil prices impact the Alberta government&#39;s ability to budget?&quot;</span>]] <span class="sc">==</span> <span class="dv">1</span>) </span>
+<span id="section-cb246-3"><a href="section-the-bootstrap.html#section-cb246-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(origsamp)</span>
+<span id="section-cb246-4"><a href="section-the-bootstrap.html#section-cb246-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to 0/1 indicator of response == 1</span></span>
+<span id="section-cb246-5"><a href="section-the-bootstrap.html#section-cb246-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample proportion:</span></span>
+<span id="section-cb246-6"><a href="section-the-bootstrap.html#section-cb246-6" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> <span class="fu">mean</span>(origsamp)</span>
+<span id="section-cb246-7"><a href="section-the-bootstrap.html#section-cb246-7" aria-hidden="true" tabindex="-1"></a>phat</span></code></pre></div>
 <pre><code>[1] 0.54</code></pre>
-<div class="sourceCode" id="section-cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="section-the-bootstrap.html#cb239-1"></a><span class="co"># Standard error (you should DERIVE this formula):</span></span>
-<span id="cb239-2"><a href="section-the-bootstrap.html#cb239-2"></a><span class="kw">sqrt</span>(phat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>phat)<span class="op">/</span>n)</span></code></pre></div>
+<div class="sourceCode" id="section-cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb248-1"><a href="section-the-bootstrap.html#section-cb248-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standard error (you should DERIVE this formula):</span></span>
+<span id="section-cb248-2"><a href="section-the-bootstrap.html#section-cb248-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(phat<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>phat)<span class="sc">/</span>n)</span></code></pre></div>
 <pre><code>[1] 0.0025</code></pre>
-<div class="sourceCode" id="section-cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="section-the-bootstrap.html#cb241-1"></a><span class="co"># So the mean is .5378 and the standard error is about 0.0025 (theoretically).</span></span>
-<span id="cb241-2"><a href="section-the-bootstrap.html#cb241-2"></a><span class="co"># Bootstrap: repeatedly resample and calculate the mean. The estimated standard error</span></span>
-<span id="cb241-3"><a href="section-the-bootstrap.html#cb241-3"></a><span class="co"># of the sample mean is then the standard error of these means.</span></span>
-<span id="cb241-4"><a href="section-the-bootstrap.html#cb241-4"></a><span class="co"># This code is a bit more concise than the previous ones, and I put it in a function.</span></span>
-<span id="cb241-5"><a href="section-the-bootstrap.html#cb241-5"></a>doboot &lt;-<span class="st"> </span><span class="cf">function</span>(B) {</span>
-<span id="cb241-6"><a href="section-the-bootstrap.html#cb241-6"></a>  boot &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb241-7"><a href="section-the-bootstrap.html#cb241-7"></a>  <span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) boot[b] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(origsamp,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb241-8"><a href="section-the-bootstrap.html#cb241-8"></a>  boot</span>
-<span id="cb241-9"><a href="section-the-bootstrap.html#cb241-9"></a>}</span>
-<span id="cb241-10"><a href="section-the-bootstrap.html#cb241-10"></a>bootmeans &lt;-<span class="st"> </span><span class="kw">doboot</span>(<span class="dv">1000</span>)</span>
-<span id="cb241-11"><a href="section-the-bootstrap.html#cb241-11"></a><span class="kw">mean</span>(bootmeans) <span class="co"># Pretty close!</span></span></code></pre></div>
+<div class="sourceCode" id="section-cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb250-1"><a href="section-the-bootstrap.html#section-cb250-1" aria-hidden="true" tabindex="-1"></a><span class="co"># So the mean is .5378 and the standard error is about 0.0025 (theoretically).</span></span>
+<span id="section-cb250-2"><a href="section-the-bootstrap.html#section-cb250-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap: repeatedly resample and calculate the mean. The estimated standard error</span></span>
+<span id="section-cb250-3"><a href="section-the-bootstrap.html#section-cb250-3" aria-hidden="true" tabindex="-1"></a><span class="co"># of the sample mean is then the standard error of these means.</span></span>
+<span id="section-cb250-4"><a href="section-the-bootstrap.html#section-cb250-4" aria-hidden="true" tabindex="-1"></a><span class="co"># This code is a bit more concise than the previous ones, and I put it in a function.</span></span>
+<span id="section-cb250-5"><a href="section-the-bootstrap.html#section-cb250-5" aria-hidden="true" tabindex="-1"></a>doboot <span class="ot">&lt;-</span> <span class="cf">function</span>(B) {</span>
+<span id="section-cb250-6"><a href="section-the-bootstrap.html#section-cb250-6" aria-hidden="true" tabindex="-1"></a>  boot <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb250-7"><a href="section-the-bootstrap.html#section-cb250-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) boot[b] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">sample</span>(origsamp,n,<span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="section-cb250-8"><a href="section-the-bootstrap.html#section-cb250-8" aria-hidden="true" tabindex="-1"></a>  boot</span>
+<span id="section-cb250-9"><a href="section-the-bootstrap.html#section-cb250-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb250-10"><a href="section-the-bootstrap.html#section-cb250-10" aria-hidden="true" tabindex="-1"></a>bootmeans <span class="ot">&lt;-</span> <span class="fu">doboot</span>(<span class="dv">1000</span>)</span>
+<span id="section-cb250-11"><a href="section-the-bootstrap.html#section-cb250-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bootmeans) <span class="co"># Pretty close!</span></span></code></pre></div>
 <pre><code>[1] 0.54</code></pre>
-<div class="sourceCode" id="section-cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="section-the-bootstrap.html#cb243-1"></a><span class="kw">sd</span>(bootmeans) <span class="co"># Not bad at all!</span></span></code></pre></div>
+<div class="sourceCode" id="section-cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb252-1"><a href="section-the-bootstrap.html#section-cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(bootmeans) <span class="co"># Not bad at all!</span></span></code></pre></div>
 <pre><code>[1] 0.0024</code></pre>
-<div class="sourceCode" id="section-cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="section-the-bootstrap.html#cb245-1"></a><span class="kw">tibble</span>(<span class="dt">x =</span> bootmeans) <span class="op">%&gt;%</span></span>
-<span id="cb245-2"><a href="section-the-bootstrap.html#cb245-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
-<span id="cb245-3"><a href="section-the-bootstrap.html#cb245-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb245-4"><a href="section-the-bootstrap.html#cb245-4"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">bins =</span> <span class="dv">30</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="op">+</span></span>
-<span id="cb245-5"><a href="section-the-bootstrap.html#cb245-5"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> rlang<span class="op">::</span><span class="kw">as_function</span>(<span class="op">~</span>n <span class="op">*</span><span class="st"> </span><span class="kw">dbinom</span>(<span class="kw">round</span>(n <span class="op">*</span><span class="st"> </span>.x),<span class="dt">size =</span> n,<span class="dt">prob =</span> phat)),<span class="dt">col =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span></span>
-<span id="cb245-6"><a href="section-the-bootstrap.html#cb245-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Bootstrap distribution of the sample mean&quot;</span>,</span>
-<span id="cb245-7"><a href="section-the-bootstrap.html#cb245-7"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;purple: theoretical distribution. red: CLT approximation&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb254-1"><a href="section-the-bootstrap.html#section-cb254-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> bootmeans) <span class="sc">%&gt;%</span></span>
+<span id="section-cb254-2"><a href="section-the-bootstrap.html#section-cb254-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="section-cb254-3"><a href="section-the-bootstrap.html#section-cb254-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb254-4"><a href="section-the-bootstrap.html#section-cb254-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),<span class="at">bins =</span> <span class="dv">30</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;transparent&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb254-5"><a href="section-the-bootstrap.html#section-cb254-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> rlang<span class="sc">::</span><span class="fu">as_function</span>(<span class="sc">~</span>n <span class="sc">*</span> <span class="fu">dbinom</span>(<span class="fu">round</span>(n <span class="sc">*</span> .x),<span class="at">size =</span> n,<span class="at">prob =</span> phat)),<span class="at">col =</span> <span class="st">&quot;purple&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb254-6"><a href="section-the-bootstrap.html#section-cb254-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Bootstrap distribution of the sample mean&quot;</span>,</span>
+<span id="section-cb254-7"><a href="section-the-bootstrap.html#section-cb254-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;purple: theoretical distribution. red: CLT approximation&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/budget-2-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: inside <code>stat_function(fun = rlang::as_function(~n * dbinom(round(n * .x),size = n,prob = phat)))</code> I
 specify the theoretical density of the sample mean. Derive this formula yourself using the change of variables
@@ -700,7 +735,7 @@ Add it to the above plot using another <code>stat_function</code> call, with <co
 <p><img src="book_files/figure-html/budget-3-1.png" width="672" /></p>
 <p>The normal approximation looks pretty good! The sample is really big so this is to be expected.</p>
 <p><strong>Exercise</strong>: suppose that based on this survey, a newspaper claims that “Albertans have given up hope: more than half
-of Albertans believe their province is unable to budget due to the low price of oil.”.
+of Albertans believe their province is unable to budget due to the low price of oil.”
 Use the bootstrap to calculate the probability that their claim is true, by considering
 whether each resampled sample mean is greater than .5. Using <code>set.seed(5647244)</code>, and
 <span class="math inline">\(B = 1000\)</span> resamples, I got the following:</p>

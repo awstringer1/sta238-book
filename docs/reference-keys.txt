@@ -104,3 +104,6 @@ section-estimation-and-uncertainty-quantification
 section-estimation-by-sampling
 section-predicting-world-population
 section-why-arent-our-predictions-accurate
+section-short-tutorial-on-pulling-data-for-assignment-1
+section-toronto-open-data-portal
+section-canadian-election-study

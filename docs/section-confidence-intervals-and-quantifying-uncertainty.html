@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Confidence Intervals and Quantifying Uncertainty | Probability, Statistics, and Data Analysis</title>
   <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
-  <meta name="generator" content="bookdown 0.21.2 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Confidence Intervals and Quantifying Uncertainty | Probability, Statistics, and Data Analysis" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2021-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="section-maximum-likelihood.html"/>
 <link rel="next" href="section-extended-example-reasoning-about-goodness-of-fit.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,24 +51,22 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,7 +86,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,24 +136,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a><ul>
-<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
 <li class="chapter" data-level="2.1.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
 <li class="chapter" data-level="2.1.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
 <li class="chapter" data-level="2.2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
 <li class="chapter" data-level="2.2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries-1"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
-<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
 <li class="chapter" data-level="2.4.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-association-between-smoking-and-mortality"><i class="fa fa-check"></i><b>2.4.2</b> Association between smoking and mortality</a></li>
 <li class="chapter" data-level="2.4.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
 <li class="chapter" data-level="2.5.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
 <li class="chapter" data-level="2.5.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
@@ -163,30 +167,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.6" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a><ul>
-<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a><ul>
-<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.1.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-simulated-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a><ul>
+<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-estimating-a-uniform-maximum"><i class="fa fa-check"></i><b>5.1</b> Estimating a Uniform Maximum</a></li>
 <li class="chapter" data-level="5.2" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-efficiency"><i class="fa fa-check"></i><b>5.2</b> Efficiency</a></li>
 <li class="chapter" data-level="5.3" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-mean-squared-error"><i class="fa fa-check"></i><b>5.3</b> Mean Squared Error</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a><ul>
-<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a><ul>
+<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-frequentistlikelihood-perspective"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist/Likelihood Perspective</a></li>
 <li class="chapter" data-level="6.1.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-bayesian-inference-introduction"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Inference: introduction</a></li>
 <li class="chapter" data-level="6.1.3" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-flipping-more-coins"><i class="fa fa-check"></i><b>6.1.3</b> Flipping More Coins</a></li>
@@ -194,23 +207,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-interactive-app"><i class="fa fa-check"></i><b>6.2</b> Interactive App</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a><ul>
-<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a><ul>
+<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-empirical-bootstrap-old-faithful-data"><i class="fa fa-check"></i><b>7.1.1</b> Empirical bootstrap: Old Faithful data</a></li>
 <li class="chapter" data-level="7.1.2" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-parametric-bootstrap-software-data"><i class="fa fa-check"></i><b>7.1.2</b> Parametric Bootstrap: software data</a></li>
 <li class="chapter" data-level="7.1.3" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-extended-example-the-standard-error-of-a-proportion"><i class="fa fa-check"></i><b>7.1.3</b> Extended example: the standard error of a proportion</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html"><i class="fa fa-check"></i><b>8</b> Maximum Likelihood</a><ul>
-<li class="chapter" data-level="8.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a><ul>
+<li class="chapter" data-level="8" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html"><i class="fa fa-check"></i><b>8</b> Maximum Likelihood</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
 <li class="chapter" data-level="8.1.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
 <li class="chapter" data-level="8.1.3" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.2</b> Extended example: rental housing in Toronto</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html"><i class="fa fa-check"></i><b>9</b> Confidence Intervals and Quantifying Uncertainty</a><ul>
-<li class="chapter" data-level="9.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html"><i class="fa fa-check"></i><b>9</b> Confidence Intervals and Quantifying Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-simulation-an-example"><i class="fa fa-check"></i><b>9.1.1</b> Simulation: an example</a></li>
 <li class="chapter" data-level="9.1.2" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
 <li class="chapter" data-level="9.1.3" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-when-you-dont-know-sigma"><i class="fa fa-check"></i><b>9.1.3</b> When you don’t know <span class="math inline">\(\sigma\)</span></a></li>
@@ -218,38 +237,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1.5" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.5</b> Bootstrap Confidence Intervals</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
-<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a>
+<ul>
 <li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
 <li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
 <li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
 <li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html"><i class="fa fa-check"></i><b>11</b> Bayesian Inference: Estimation</a><ul>
-<li class="chapter" data-level="11.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a><ul>
+<li class="chapter" data-level="11" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html"><i class="fa fa-check"></i><b>11</b> Bayesian Inference: Estimation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a>
+<ul>
 <li class="chapter" data-level="11.1.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-prior"><i class="fa fa-check"></i><b>11.1.1</b> The Prior</a></li>
 <li class="chapter" data-level="11.1.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-posterior"><i class="fa fa-check"></i><b>11.1.2</b> The Posterior</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-point-and-interval-estimation"><i class="fa fa-check"></i><b>11.2</b> Estimation in Bayesian Inference: point and interval estimation</a></li>
-<li class="chapter" data-level="11.3" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a><ul>
+<li class="chapter" data-level="11.3" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a>
+<ul>
 <li class="chapter" data-level="11.3.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-conjugate-priors"><i class="fa fa-check"></i><b>11.3.1</b> Conjugate Priors</a></li>
 <li class="chapter" data-level="11.3.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a><ul>
+<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a>
+<ul>
 <li class="chapter" data-level="12.1" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-overview"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
 <li class="chapter" data-level="12.2" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-plug-in-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.2</b> Plug-in prediction: coin flipping</a></li>
 <li class="chapter" data-level="12.3" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-bayesian-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.3</b> Bayesian Prediction: coin flipping</a></li>
 <li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.4</b> Extended example: predicting call centre wait times</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-r"><i class="fa fa-check"></i><b>13.1</b> Installing R</a></li>
 <li class="chapter" data-level="13.2" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-rstudio"><i class="fa fa-check"></i><b>13.2</b> Installing RStudio</a></li>
 <li class="chapter" data-level="13.3" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-using-rmarkdown"><i class="fa fa-check"></i><b>13.3</b> Using RMarkdown</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a><ul>
+<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a>
+<ul>
 <li class="chapter" data-level="14.1" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-15-and-16"><i class="fa fa-check"></i><b>14.1</b> Chapters 15 and 16</a></li>
 <li class="chapter" data-level="14.2" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-13-and-14"><i class="fa fa-check"></i><b>14.2</b> Chapters 13 and 14</a></li>
 <li class="chapter" data-level="14.3" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-17-and-19"><i class="fa fa-check"></i><b>14.3</b> Chapters 17 and 19</a></li>
@@ -260,18 +287,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.8" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-23"><i class="fa fa-check"></i><b>14.8</b> Chapter 23</a></li>
 <li class="chapter" data-level="14.9" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7.2"><i class="fa fa-check"></i><b>14.9</b> Evans and Rosenthal, Chapter 7.2</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html"><i class="fa fa-check"></i><b>15</b> Extended Example: World Population Data</a><ul>
+<li class="chapter" data-level="15" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html"><i class="fa fa-check"></i><b>15</b> Extended Example: World Population Data</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-read-in-and-prepare-the-data-for-analysis"><i class="fa fa-check"></i><b>15.1</b> Read in and prepare the data for analysis</a></li>
 <li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-model-world-population-over-time"><i class="fa fa-check"></i><b>15.2</b> Model world population over time</a></li>
 <li class="chapter" data-level="15.3" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-model-for-world-population"><i class="fa fa-check"></i><b>15.3</b> Bayesian model for world population</a></li>
 <li class="chapter" data-level="15.4" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-quantifying-uncertainty-in-estimates-of-world-population-regression-model"><i class="fa fa-check"></i><b>15.4</b> Quantifying uncertainty in estimates of world population: regression model</a></li>
-<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a><ul>
+<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a>
+<ul>
 <li class="chapter" data-level="15.5.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-and-uncertainty-quantification"><i class="fa fa-check"></i><b>15.5.1</b> Estimation and uncertainty quantification</a></li>
 <li class="chapter" data-level="15.5.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-by-sampling"><i class="fa fa-check"></i><b>15.5.2</b> Estimation by sampling</a></li>
 </ul></li>
-<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a><ul>
+<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a>
+<ul>
 <li class="chapter" data-level="15.6.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-why-arent-our-predictions-accurate"><i class="fa fa-check"></i><b>15.6.1</b> Why aren’t our predictions accurate?</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html"><i class="fa fa-check"></i><b>16</b> Short tutorial on pulling data for Assignment 1</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html#section-toronto-open-data-portal"><i class="fa fa-check"></i><b>16.1</b> Toronto Open Data Portal</a></li>
+<li class="chapter" data-level="16.2" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html#section-canadian-election-study"><i class="fa fa-check"></i><b>16.2</b> Canadian Election Study</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -293,15 +328,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="section-confidence-intervals-and-quantifying-uncertainty" class="section level1">
+<div id="section-confidence-intervals-and-quantifying-uncertainty" class="section level1" number="9">
 <h1><span class="header-section-number">Chapter 9</span> Confidence Intervals and Quantifying Uncertainty</h1>
 <p>This chapter introduces confidence intervals and uses them to quantify uncertainty
 in estimates of parameters in statistical models.</p>
 <p>All datasets from MIPS can be downloaded here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>.</p>
-<div class="sourceCode" id="section-cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb275-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb275-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb275-2"></a><span class="kw">library</span>(patchwork)</span>
-<span id="cb275-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb275-3"></a><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">5</span>)</span></code></pre></div>
-<div id="section-confidence-intervals-for-the-mean-chapter-23" class="section level2">
+<div class="sourceCode" id="section-cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb286-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb286-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="section-cb286-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb286-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="section-cb286-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb286-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div id="section-confidence-intervals-for-the-mean-chapter-23" class="section level2" number="9.1">
 <h2><span class="header-section-number">9.1</span> Confidence Intervals for the Mean (Chapter 23)</h2>
 <p>Consider the following familiar scenario: we have a sample <span class="math inline">\(X_{1},\ldots,X_{n}\overset{iid}{\sim}\text{N}(\mu,1)\)</span>, and we estimate the unknown
 parameter <span class="math inline">\(\mu\)</span> using the estimator <span class="math inline">\(\hat{\mu} = \bar{X}\)</span>. The sample is random,
@@ -315,7 +350,7 @@ In this chapter we are going to go one step further and <strong>quantify uncerta
 in our point estimates for parameters. We are going to do this by using the <strong>sampling distributions</strong> of
 the estimators to construct random intervals which contain the true parameter
 value with high probability. These are called <strong>confidence intervals</strong>.</p>
-<div id="section-simulation-an-example" class="section level3">
+<div id="section-simulation-an-example" class="section level3" number="9.1.1">
 <h3><span class="header-section-number">9.1.1</span> Simulation: an example</h3>
 <p>How do we do this? We know that <span class="math display">\[\hat{\mu} \sim \text{N}(\mu,1/\sqrt{n}).\]</span>
 Rearrangement gives <span class="math display">\[Z_{n} = \frac{\hat{\mu} - \mu}{1/\sqrt{n}} \overset \text{N}(0,1).\]</span></p>
@@ -340,50 +375,50 @@ fixed, unknown value <span class="math inline">\(\mu\)</span>.</p>
 from a <span class="math inline">\(\text{N}(0,1)\)</span> distribution, compute their confidence intervals <span class="math inline">\((L_{n},U_{n})\)</span>, and plot them.
 We’ll use <span class="math inline">\(\alpha = 0.05\)</span> so that about <span class="math inline">\(95\%\)</span> of the calculated intervals should contain
 the value <span class="math inline">\(0\)</span>.</p>
-<div class="sourceCode" id="section-cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-1"></a><span class="kw">set.seed</span>(<span class="dv">4329432</span>)</span>
-<span id="cb276-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-2"></a><span class="co"># How many samples to generate</span></span>
-<span id="cb276-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-3"></a>B &lt;-<span class="st"> </span><span class="dv">50</span></span>
-<span id="cb276-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-4"></a><span class="co"># Sample size of each</span></span>
-<span id="cb276-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-5"></a>n &lt;-<span class="st"> </span><span class="dv">20</span></span>
-<span id="cb276-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-6"></a><span class="co"># Confidence level</span></span>
-<span id="cb276-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-7"></a>alpha &lt;-<span class="st"> </span><span class="fl">.05</span></span>
-<span id="cb276-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-8"></a><span class="co"># Quantile</span></span>
-<span id="cb276-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-9"></a>critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>) <span class="co"># For alpha = .05 this equals 1.96</span></span>
-<span id="cb276-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-10"></a><span class="co"># Perform the simulation</span></span>
-<span id="cb276-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-11"></a>theintervals &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb276-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-12"></a>  <span class="dt">lower =</span> <span class="kw">numeric</span>(B),</span>
-<span id="cb276-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-13"></a>  <span class="dt">upper =</span> <span class="kw">numeric</span>(B)</span>
-<span id="cb276-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-14"></a>)</span>
-<span id="cb276-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-15"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</span>
-<span id="cb276-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-16"></a>  <span class="co"># Generate a sample</span></span>
-<span id="cb276-17"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-17"></a>  xx &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb276-18"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-18"></a>  <span class="co"># Compute the confidence interval</span></span>
-<span id="cb276-19"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-19"></a>  Ln &lt;-<span class="st"> </span><span class="kw">mean</span>(xx) <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(n))</span>
-<span id="cb276-20"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-20"></a>  Un &lt;-<span class="st"> </span><span class="kw">mean</span>(xx) <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(n))</span>
-<span id="cb276-21"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-21"></a>  theintervals<span class="op">$</span>lower[[b]] &lt;-<span class="st"> </span>Ln</span>
-<span id="cb276-22"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-22"></a>  theintervals<span class="op">$</span>upper[[b]] &lt;-<span class="st"> </span>Un</span>
-<span id="cb276-23"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-23"></a>}</span>
-<span id="cb276-24"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-24"></a></span>
-<span id="cb276-25"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-25"></a><span class="co"># Compute the proportion that don&#39;t contain zero</span></span>
-<span id="cb276-26"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-26"></a><span class="co"># Should be close to alpha</span></span>
-<span id="cb276-27"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb276-27"></a><span class="kw">mean</span>(theintervals<span class="op">$</span>upper <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">|</span><span class="st"> </span>theintervals<span class="op">$</span>lower <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb287-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4329432</span>)</span>
+<span id="section-cb287-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-2" aria-hidden="true" tabindex="-1"></a><span class="co"># How many samples to generate</span></span>
+<span id="section-cb287-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-3" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="section-cb287-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample size of each</span></span>
+<span id="section-cb287-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="section-cb287-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Confidence level</span></span>
+<span id="section-cb287-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-7" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> .<span class="dv">05</span></span>
+<span id="section-cb287-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Quantile</span></span>
+<span id="section-cb287-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-9" aria-hidden="true" tabindex="-1"></a>critval <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>) <span class="co"># For alpha = .05 this equals 1.96</span></span>
+<span id="section-cb287-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the simulation</span></span>
+<span id="section-cb287-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-11" aria-hidden="true" tabindex="-1"></a>theintervals <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="section-cb287-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">numeric</span>(B),</span>
+<span id="section-cb287-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb287-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="section-cb287-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="section-cb287-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate a sample</span></span>
+<span id="section-cb287-17"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-17" aria-hidden="true" tabindex="-1"></a>  xx <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="section-cb287-18"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute the confidence interval</span></span>
+<span id="section-cb287-19"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-19" aria-hidden="true" tabindex="-1"></a>  Ln <span class="ot">&lt;-</span> <span class="fu">mean</span>(xx) <span class="sc">-</span> critval <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="section-cb287-20"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-20" aria-hidden="true" tabindex="-1"></a>  Un <span class="ot">&lt;-</span> <span class="fu">mean</span>(xx) <span class="sc">+</span> critval <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="section-cb287-21"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-21" aria-hidden="true" tabindex="-1"></a>  theintervals<span class="sc">$</span>lower[[b]] <span class="ot">&lt;-</span> Ln</span>
+<span id="section-cb287-22"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-22" aria-hidden="true" tabindex="-1"></a>  theintervals<span class="sc">$</span>upper[[b]] <span class="ot">&lt;-</span> Un</span>
+<span id="section-cb287-23"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb287-24"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb287-25"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the proportion that don&#39;t contain zero</span></span>
+<span id="section-cb287-26"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Should be close to alpha</span></span>
+<span id="section-cb287-27"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb287-27" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(theintervals<span class="sc">$</span>upper <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">|</span> theintervals<span class="sc">$</span>lower <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div>
 <pre><code>[1] 0.04</code></pre>
-<div class="sourceCode" id="section-cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-1"></a><span class="co"># Plot them. This is a more complicated plot than you&#39;re used to.</span></span>
-<span id="cb278-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-2"></a><span class="co"># Run this code layer by layer to understand what each part does.</span></span>
-<span id="cb278-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-3"></a><span class="kw">as_tibble</span>(theintervals) <span class="op">%&gt;%</span></span>
-<span id="cb278-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">n</span>(),</span>
-<span id="cb278-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-5"></a>         <span class="dt">has_zero =</span> <span class="kw">if_else</span>(lower <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">|</span><span class="st"> </span>upper <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>,<span class="st">&quot;no&quot;</span>,<span class="st">&quot;yes&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb278-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> id)) <span class="op">+</span></span>
-<span id="cb278-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-7"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb278-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-8"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (upper <span class="op">+</span><span class="st"> </span>lower)<span class="op">/</span><span class="dv">2</span>),<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>,<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb278-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-9"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower,<span class="dt">ymax =</span> upper,<span class="dt">colour =</span> has_zero),<span class="dt">size =</span> <span class="fl">.2</span>) <span class="op">+</span></span>
-<span id="cb278-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-10"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></span>
-<span id="cb278-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-11"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span>.<span class="dv">2</span>)) <span class="op">+</span></span>
-<span id="cb278-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-12"></a><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;no&quot;</span> =<span class="st"> &quot;red&quot;</span>,<span class="st">&quot;yes&quot;</span> =<span class="st"> &quot;black&quot;</span>)) <span class="op">+</span></span>
-<span id="cb278-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-13"></a><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></span>
-<span id="cb278-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-14"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(),<span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>(),<span class="dt">axis.ticks.y =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></span>
-<span id="cb278-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-15"></a><span class="st">  </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
-<span id="cb278-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb278-16"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb289-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot them. This is a more complicated plot than you&#39;re used to.</span></span>
+<span id="section-cb289-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this code layer by layer to understand what each part does.</span></span>
+<span id="section-cb289-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(theintervals) <span class="sc">%&gt;%</span></span>
+<span id="section-cb289-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="section-cb289-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">has_zero =</span> <span class="fu">if_else</span>(lower <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> upper <span class="sc">&lt;</span> <span class="dv">0</span>,<span class="st">&quot;no&quot;</span>,<span class="st">&quot;yes&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="section-cb289-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> id)) <span class="sc">+</span></span>
+<span id="section-cb289-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb289-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> (upper <span class="sc">+</span> lower)<span class="sc">/</span><span class="dv">2</span>),<span class="at">pch =</span> <span class="dv">21</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>,<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="section-cb289-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower,<span class="at">ymax =</span> upper,<span class="at">colour =</span> has_zero),<span class="at">size =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="section-cb289-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>,<span class="at">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="at">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb289-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="at">by=</span>.<span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="section-cb289-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;no&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>,<span class="st">&quot;yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>)) <span class="sc">+</span></span>
+<span id="section-cb289-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="section-cb289-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),<span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),<span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="section-cb289-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">colour =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="section-cb289-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb289-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/normsim-1-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: re-run this experiment several times with different random seeds. What
 kind of empirical coverage probabilities—the proportion of intervals that don’t contain zero—do you
@@ -396,13 +431,13 @@ confidence interval for <span class="math inline">\(\mu\)</span> is
 \left(\hat{\mu} - q_{1 - \alpha/2}\times\frac{\sigma}{\sqrt{n}},\hat{\mu} + q_{1 - \alpha/2}\times\frac{\sigma}{\sqrt{n}}\right)
 \]</span></p>
 </div>
-<div id="section-gross-calorific-value-measurements-for-osterfeld-262de27" class="section level3">
+<div id="section-gross-calorific-value-measurements-for-osterfeld-262de27" class="section level3" number="9.1.2">
 <h3><span class="header-section-number">9.1.2</span> Gross calorific value measurements for Osterfeld 262DE27</h3>
 <p>The Osterfield data is made available with MIPS. It contains measurements of the gross
 calorific content of a type of coal. Its file name is misspelled,
 so be careful:</p>
-<div class="sourceCode" id="section-cb279"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb279-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb279-1"></a><span class="fu">head</span> data/MIPSdata/grosscalOsterfeld.txt</span>
-<span id="cb279-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb279-2"></a><span class="fu">wc</span> -l data/MIPSdata/grosscalOsterfeld.txt</span></code></pre></div>
+<div class="sourceCode" id="section-cb290"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="section-cb290-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> data/MIPSdata/grosscalOsterfeld.txt</span>
+<span id="section-cb290-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb290-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> -l data/MIPSdata/grosscalOsterfeld.txt</span></code></pre></div>
 <pre><code>23.870
 23.730
 23.712
@@ -416,28 +451,28 @@ so be careful:</p>
       23 data/MIPSdata/grosscalOsterfeld.txt</code></pre>
 <p>Read it in. I’m leaving this as an exericse (note: not because I’m lazy, I still had to
 write the code. It’s for your learning). You should get the following:</p>
-<div class="sourceCode" id="section-cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb281-1"></a><span class="kw">glimpse</span>(osterfield)</span></code></pre></div>
-<pre><code>Observations: 23
-Variables: 1
-$ calorific_value &lt;dbl&gt; 23.870, 23.730, 23.712, 23.760, 23.640, 23.850, 23.84…</code></pre>
+<div class="sourceCode" id="section-cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb292-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(osterfield)</span></code></pre></div>
+<pre><code>Rows: 23
+Columns: 1
+$ calorific_value &lt;dbl&gt; 23.870, 23.730, 23.712, 23.760, 23.640, 23.850, 23.840, 23.860, 23.940, 23.830, 23.877, 23.700, 23.796, 23.727, 23.778, 23.740, 23.890, 23.780, 23.678, 23.771, 23.860, 23.690, 23.800</code></pre>
 <p>Suppose that the measurements are normally distributed with known <span class="math inline">\(\sigma = .1\)</span>.
 Then we can compute a <span class="math inline">\(95\%\)</span> confidence interval.</p>
 <p><strong>Exercise</strong>: if we want a <span class="math inline">\(95\%\)</span> or <span class="math inline">\(0.95\)</span> confidence interval, what is <span class="math inline">\(\alpha\)</span>?
 What is <span class="math inline">\(q_{1 - \alpha/2}\)</span>?</p>
-<div class="sourceCode" id="section-cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-1"></a><span class="co"># Compute the sample mean and size</span></span>
-<span id="cb283-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-2"></a>xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(osterfield<span class="op">$</span>calorific_value)</span>
-<span id="cb283-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-3"></a>n &lt;-<span class="st"> </span><span class="kw">nrow</span>(osterfield)</span>
-<span id="cb283-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-4"></a><span class="co"># The population standard deviation, and the critical value/confidence level</span></span>
-<span id="cb283-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-5"></a><span class="co"># are given as:</span></span>
-<span id="cb283-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-6"></a>sigma &lt;-<span class="st"> </span><span class="fl">.1</span></span>
-<span id="cb283-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-7"></a>conf &lt;-<span class="st"> </span><span class="fl">.05</span></span>
-<span id="cb283-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-8"></a><span class="co"># Make sure to UNDERSTAND this calculation:</span></span>
-<span id="cb283-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-9"></a>critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>) <span class="co"># 1.96</span></span>
-<span id="cb283-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-10"></a><span class="co"># Compute the interval</span></span>
-<span id="cb283-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-11"></a><span class="kw">c</span>(</span>
-<span id="cb283-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-12"></a>  <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>xbar <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n),</span>
-<span id="cb283-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-13"></a>  <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>xbar <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
-<span id="cb283-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb283-14"></a>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb294-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the sample mean and size</span></span>
+<span id="section-cb294-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-2" aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(osterfield<span class="sc">$</span>calorific_value)</span>
+<span id="section-cb294-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(osterfield)</span>
+<span id="section-cb294-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The population standard deviation, and the critical value/confidence level</span></span>
+<span id="section-cb294-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-5" aria-hidden="true" tabindex="-1"></a><span class="co"># are given as:</span></span>
+<span id="section-cb294-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-6" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="section-cb294-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-7" aria-hidden="true" tabindex="-1"></a>conf <span class="ot">&lt;-</span> .<span class="dv">05</span></span>
+<span id="section-cb294-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure to UNDERSTAND this calculation:</span></span>
+<span id="section-cb294-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-9" aria-hidden="true" tabindex="-1"></a>critval <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>) <span class="co"># 1.96</span></span>
+<span id="section-cb294-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the interval</span></span>
+<span id="section-cb294-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-11" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="section-cb294-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;lower&quot;</span> <span class="ot">=</span> xbar <span class="sc">-</span> critval <span class="sc">*</span> sigma<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
+<span id="section-cb294-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;upper&quot;</span> <span class="ot">=</span> xbar <span class="sc">+</span> critval <span class="sc">*</span> sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="section-cb294-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb294-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code> lower  upper 
 23.747 23.829 </code></pre>
 <p>We are <span class="math inline">\(95\%\)</span> <strong>confident</strong> that <span class="math inline">\(\mu\)</span> lies between <span class="math inline">\(23.747\)</span> and <span class="math inline">\(23.829\)</span>. This
@@ -445,7 +480,7 @@ means that if we were to repeat this experiment over and over, obtaining each ti
 a new sample and hence a new confidence interval, that about <span class="math inline">\(95\%\)</span> of those
 intervals ought to contain the true value of <span class="math inline">\(\mu\)</span>, whatever it is.</p>
 </div>
-<div id="section-when-you-dont-know-sigma" class="section level3">
+<div id="section-when-you-dont-know-sigma" class="section level3" number="9.1.3">
 <h3><span class="header-section-number">9.1.3</span> When you don’t know <span class="math inline">\(\sigma\)</span></h3>
 <p>Now, suppose we have a normal sample but we don’t know <span class="math inline">\(\sigma\)</span>. If we don’t know <span class="math inline">\(\sigma\)</span> we might think to estimate it using the sample standard deviation
 <span class="math display">\[
@@ -458,47 +493,47 @@ treating it as the truth ignores this uncertainty and leads to a confidence inte
 for <span class="math inline">\(\mu\)</span> that is too wide. This means that it will contain the true <span class="math inline">\(\mu\)</span> less than
 <span class="math inline">\((1 - \alpha)\times 100\%\)</span> of the time.</p>
 <p>Let’s see this using simulation:</p>
-<div class="sourceCode" id="section-cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-1"></a><span class="kw">set.seed</span>(<span class="dv">7894236</span>)</span>
-<span id="cb285-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-2"></a>n &lt;-<span class="st"> </span><span class="dv">5</span> <span class="co"># Use a small sample to make this really obvious</span></span>
-<span id="cb285-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-3"></a>compute_ci_fixedsd &lt;-<span class="st"> </span><span class="cf">function</span>(samp) {</span>
-<span id="cb285-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-4"></a>  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)</span>
-<span id="cb285-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-5"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(samp)</span>
-<span id="cb285-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-6"></a>  critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">.05</span><span class="op">/</span><span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb285-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-7"></a>  <span class="kw">c</span>(</span>
-<span id="cb285-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-8"></a>    <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>xbar <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(n),</span>
-<span id="cb285-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-9"></a>    <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>xbar <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(n)</span>
-<span id="cb285-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-10"></a>  )</span>
-<span id="cb285-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-11"></a>}</span>
-<span id="cb285-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-12"></a></span>
-<span id="cb285-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-13"></a>compute_ci_samplesd &lt;-<span class="st"> </span><span class="cf">function</span>(samp) {</span>
-<span id="cb285-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-14"></a>  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)</span>
-<span id="cb285-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-15"></a>  sn &lt;-<span class="st"> </span><span class="kw">sd</span>(samp)</span>
-<span id="cb285-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-16"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(samp)</span>
-<span id="cb285-17"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-17"></a>  critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">.05</span><span class="op">/</span><span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb285-18"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-18"></a>  <span class="kw">c</span>(</span>
-<span id="cb285-19"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-19"></a>    <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>xbar <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n),</span>
-<span id="cb285-20"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-20"></a>    <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>xbar <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
-<span id="cb285-21"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-21"></a>  )</span>
-<span id="cb285-22"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-22"></a>}</span>
-<span id="cb285-23"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-23"></a></span>
-<span id="cb285-24"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-24"></a><span class="co"># True mu = 0, true sigma = 1</span></span>
-<span id="cb285-25"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-25"></a>B &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb285-26"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-26"></a>doesthefixedonecontainmu &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb285-27"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-27"></a>doesthesampleonecontainmu &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb285-28"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-28"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</span>
-<span id="cb285-29"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-29"></a>  <span class="co"># Take a sample</span></span>
-<span id="cb285-30"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-30"></a>  thesamp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb285-31"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-31"></a>  <span class="co"># Compute the intervals</span></span>
-<span id="cb285-32"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-32"></a>  fixedsigmainterval &lt;-<span class="st"> </span><span class="kw">compute_ci_fixedsd</span>(thesamp)</span>
-<span id="cb285-33"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-33"></a>  samplesigmainterval &lt;-<span class="st"> </span><span class="kw">compute_ci_samplesd</span>(thesamp)</span>
-<span id="cb285-34"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-34"></a>  <span class="co"># Record whether they each contain zero</span></span>
-<span id="cb285-35"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-35"></a>  doesthefixedonecontainmu[b] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(fixedsigmainterval[<span class="st">&#39;lower&#39;</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>fixedsigmainterval[<span class="st">&#39;upper&#39;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
-<span id="cb285-36"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-36"></a>  doesthesampleonecontainmu[b] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(samplesigmainterval[<span class="st">&#39;lower&#39;</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samplesigmainterval[<span class="st">&#39;upper&#39;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
-<span id="cb285-37"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-37"></a>}</span>
-<span id="cb285-38"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-38"></a><span class="co"># Proportion of each type of interval that contains mu</span></span>
-<span id="cb285-39"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb285-39"></a><span class="kw">mean</span>(doesthefixedonecontainmu)</span></code></pre></div>
+<div class="sourceCode" id="section-cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb296-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7894236</span>)</span>
+<span id="section-cb296-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># Use a small sample to make this really obvious</span></span>
+<span id="section-cb296-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-3" aria-hidden="true" tabindex="-1"></a>compute_ci_fixedsd <span class="ot">&lt;-</span> <span class="cf">function</span>(samp) {</span>
+<span id="section-cb296-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-4" aria-hidden="true" tabindex="-1"></a>  xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(samp)</span>
+<span id="section-cb296-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-5" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(samp)</span>
+<span id="section-cb296-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-6" aria-hidden="true" tabindex="-1"></a>  critval <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">05</span><span class="sc">/</span><span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="section-cb296-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="section-cb296-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;lower&quot;</span> <span class="ot">=</span> xbar <span class="sc">-</span> critval <span class="sc">*</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
+<span id="section-cb296-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;upper&quot;</span> <span class="ot">=</span> xbar <span class="sc">+</span> critval <span class="sc">*</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="section-cb296-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="section-cb296-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb296-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb296-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-13" aria-hidden="true" tabindex="-1"></a>compute_ci_samplesd <span class="ot">&lt;-</span> <span class="cf">function</span>(samp) {</span>
+<span id="section-cb296-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-14" aria-hidden="true" tabindex="-1"></a>  xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(samp)</span>
+<span id="section-cb296-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-15" aria-hidden="true" tabindex="-1"></a>  sn <span class="ot">&lt;-</span> <span class="fu">sd</span>(samp)</span>
+<span id="section-cb296-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-16" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(samp)</span>
+<span id="section-cb296-17"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-17" aria-hidden="true" tabindex="-1"></a>  critval <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">05</span><span class="sc">/</span><span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="section-cb296-18"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="section-cb296-19"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;lower&quot;</span> <span class="ot">=</span> xbar <span class="sc">-</span> critval <span class="sc">*</span> sn<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
+<span id="section-cb296-20"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;upper&quot;</span> <span class="ot">=</span> xbar <span class="sc">+</span> critval <span class="sc">*</span> sn<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="section-cb296-21"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="section-cb296-22"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb296-23"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb296-24"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-24" aria-hidden="true" tabindex="-1"></a><span class="co"># True mu = 0, true sigma = 1</span></span>
+<span id="section-cb296-25"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-25" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="section-cb296-26"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-26" aria-hidden="true" tabindex="-1"></a>doesthefixedonecontainmu <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb296-27"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-27" aria-hidden="true" tabindex="-1"></a>doesthesampleonecontainmu <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb296-28"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="section-cb296-29"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Take a sample</span></span>
+<span id="section-cb296-30"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-30" aria-hidden="true" tabindex="-1"></a>  thesamp <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="section-cb296-31"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute the intervals</span></span>
+<span id="section-cb296-32"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-32" aria-hidden="true" tabindex="-1"></a>  fixedsigmainterval <span class="ot">&lt;-</span> <span class="fu">compute_ci_fixedsd</span>(thesamp)</span>
+<span id="section-cb296-33"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-33" aria-hidden="true" tabindex="-1"></a>  samplesigmainterval <span class="ot">&lt;-</span> <span class="fu">compute_ci_samplesd</span>(thesamp)</span>
+<span id="section-cb296-34"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Record whether they each contain zero</span></span>
+<span id="section-cb296-35"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-35" aria-hidden="true" tabindex="-1"></a>  doesthefixedonecontainmu[b] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(fixedsigmainterval[<span class="st">&#39;lower&#39;</span>] <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> fixedsigmainterval[<span class="st">&#39;upper&#39;</span>] <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="section-cb296-36"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-36" aria-hidden="true" tabindex="-1"></a>  doesthesampleonecontainmu[b] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(samplesigmainterval[<span class="st">&#39;lower&#39;</span>] <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> samplesigmainterval[<span class="st">&#39;upper&#39;</span>] <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="section-cb296-37"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-37" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb296-38"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of each type of interval that contains mu</span></span>
+<span id="section-cb296-39"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb296-39" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(doesthefixedonecontainmu)</span></code></pre></div>
 <pre><code>[1] 0.961</code></pre>
-<div class="sourceCode" id="section-cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb287-1"></a><span class="kw">mean</span>(doesthesampleonecontainmu)</span></code></pre></div>
+<div class="sourceCode" id="section-cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb298-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb298-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(doesthesampleonecontainmu)</span></code></pre></div>
 <pre><code>[1] 0.876</code></pre>
 <p>The proportion of known-<span class="math inline">\(\sigma\)</span> intervals containing the true <span class="math inline">\(\mu\)</span> is close to
 the “nominal” value of <span class="math inline">\(0.95\)</span>. The proportion of the estimated-<span class="math inline">\(\sigma\)</span> intervals
@@ -520,43 +555,43 @@ is
 \]</span>
 Basically, when you swap <span class="math inline">\(\sigma\)</span> for <span class="math inline">\(s_{n}\)</span>, you swap <span class="math inline">\(q_{\alpha}\)</span> for <span class="math inline">\(q_{n-1,\alpha}\)</span>.</p>
 <p>We can check this fixes the problem using simulation:</p>
-<div class="sourceCode" id="section-cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-1"></a><span class="kw">set.seed</span>(<span class="dv">7894236</span>) <span class="co"># Same seed as before</span></span>
-<span id="cb289-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-2"></a>n &lt;-<span class="st"> </span><span class="dv">5</span> <span class="co"># Use a small sample to make this really obvious</span></span>
-<span id="cb289-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-3"></a>compute_ci_samplesd_T &lt;-<span class="st"> </span><span class="cf">function</span>(samp) {</span>
-<span id="cb289-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-4"></a>  xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)</span>
-<span id="cb289-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-5"></a>  sn &lt;-<span class="st"> </span><span class="kw">sd</span>(samp)</span>
-<span id="cb289-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-6"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(samp)</span>
-<span id="cb289-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-7"></a>  critval &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">.05</span><span class="op">/</span><span class="dv">2</span>,n<span class="dv">-1</span>)</span>
-<span id="cb289-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-8"></a>  <span class="kw">c</span>(</span>
-<span id="cb289-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-9"></a>    <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>xbar <span class="op">-</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n),</span>
-<span id="cb289-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-10"></a>    <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>xbar <span class="op">+</span><span class="st"> </span>critval <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
-<span id="cb289-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-11"></a>  )</span>
-<span id="cb289-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-12"></a>}</span>
-<span id="cb289-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-13"></a></span>
-<span id="cb289-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-14"></a><span class="co"># True mu = 0, true sigma = 1</span></span>
-<span id="cb289-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-15"></a>B &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb289-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-16"></a>doesthenewsampleonecontainmu &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb289-17"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-17"></a>doestheoldbadonecontainmu &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb289-18"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-18"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</span>
-<span id="cb289-19"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-19"></a>  <span class="co"># Take a sample</span></span>
-<span id="cb289-20"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-20"></a>  thesamp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb289-21"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-21"></a>  <span class="co"># Compute the interval</span></span>
-<span id="cb289-22"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-22"></a>  samplesigmainterval_oldandbad &lt;-<span class="st"> </span><span class="kw">compute_ci_samplesd</span>(thesamp)</span>
-<span id="cb289-23"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-23"></a>  samplesigmainterval_T &lt;-<span class="st"> </span><span class="kw">compute_ci_samplesd_T</span>(thesamp)</span>
-<span id="cb289-24"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-24"></a>  <span class="co"># Record whether they each contain zero</span></span>
-<span id="cb289-25"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-25"></a>  doestheoldbadonecontainmu[b] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(samplesigmainterval_oldandbad[<span class="st">&#39;lower&#39;</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samplesigmainterval_oldandbad[<span class="st">&#39;upper&#39;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
-<span id="cb289-26"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-26"></a>  doesthenewsampleonecontainmu[b] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(samplesigmainterval_T[<span class="st">&#39;lower&#39;</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samplesigmainterval_T[<span class="st">&#39;upper&#39;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
-<span id="cb289-27"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-27"></a>  </span>
-<span id="cb289-28"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-28"></a>}</span>
-<span id="cb289-29"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-29"></a><span class="co"># Proportion of intervals that contains mu</span></span>
-<span id="cb289-30"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb289-30"></a><span class="kw">mean</span>(doestheoldbadonecontainmu)</span></code></pre></div>
+<div class="sourceCode" id="section-cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb300-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7894236</span>) <span class="co"># Same seed as before</span></span>
+<span id="section-cb300-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># Use a small sample to make this really obvious</span></span>
+<span id="section-cb300-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-3" aria-hidden="true" tabindex="-1"></a>compute_ci_samplesd_T <span class="ot">&lt;-</span> <span class="cf">function</span>(samp) {</span>
+<span id="section-cb300-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-4" aria-hidden="true" tabindex="-1"></a>  xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(samp)</span>
+<span id="section-cb300-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-5" aria-hidden="true" tabindex="-1"></a>  sn <span class="ot">&lt;-</span> <span class="fu">sd</span>(samp)</span>
+<span id="section-cb300-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-6" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(samp)</span>
+<span id="section-cb300-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-7" aria-hidden="true" tabindex="-1"></a>  critval <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">05</span><span class="sc">/</span><span class="dv">2</span>,n<span class="dv">-1</span>)</span>
+<span id="section-cb300-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="section-cb300-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;lower&quot;</span> <span class="ot">=</span> xbar <span class="sc">-</span> critval <span class="sc">*</span> sn<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
+<span id="section-cb300-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;upper&quot;</span> <span class="ot">=</span> xbar <span class="sc">+</span> critval <span class="sc">*</span> sn<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="section-cb300-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="section-cb300-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb300-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb300-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-14" aria-hidden="true" tabindex="-1"></a><span class="co"># True mu = 0, true sigma = 1</span></span>
+<span id="section-cb300-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-15" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="section-cb300-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-16" aria-hidden="true" tabindex="-1"></a>doesthenewsampleonecontainmu <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb300-17"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-17" aria-hidden="true" tabindex="-1"></a>doestheoldbadonecontainmu <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb300-18"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="section-cb300-19"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Take a sample</span></span>
+<span id="section-cb300-20"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-20" aria-hidden="true" tabindex="-1"></a>  thesamp <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="section-cb300-21"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute the interval</span></span>
+<span id="section-cb300-22"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-22" aria-hidden="true" tabindex="-1"></a>  samplesigmainterval_oldandbad <span class="ot">&lt;-</span> <span class="fu">compute_ci_samplesd</span>(thesamp)</span>
+<span id="section-cb300-23"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-23" aria-hidden="true" tabindex="-1"></a>  samplesigmainterval_T <span class="ot">&lt;-</span> <span class="fu">compute_ci_samplesd_T</span>(thesamp)</span>
+<span id="section-cb300-24"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Record whether they each contain zero</span></span>
+<span id="section-cb300-25"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-25" aria-hidden="true" tabindex="-1"></a>  doestheoldbadonecontainmu[b] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(samplesigmainterval_oldandbad[<span class="st">&#39;lower&#39;</span>] <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> samplesigmainterval_oldandbad[<span class="st">&#39;upper&#39;</span>] <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="section-cb300-26"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-26" aria-hidden="true" tabindex="-1"></a>  doesthenewsampleonecontainmu[b] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(samplesigmainterval_T[<span class="st">&#39;lower&#39;</span>] <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> samplesigmainterval_T[<span class="st">&#39;upper&#39;</span>] <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="section-cb300-27"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="section-cb300-28"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb300-29"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of intervals that contains mu</span></span>
+<span id="section-cb300-30"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb300-30" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(doestheoldbadonecontainmu)</span></code></pre></div>
 <pre><code>[1] 0.876</code></pre>
-<div class="sourceCode" id="section-cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb291-1"></a><span class="kw">mean</span>(doesthenewsampleonecontainmu)</span></code></pre></div>
+<div class="sourceCode" id="section-cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb302-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb302-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(doesthenewsampleonecontainmu)</span></code></pre></div>
 <pre><code>[1] 0.949</code></pre>
 <p>The proportion of <span class="math inline">\(t\)</span>-intervals containing the true <span class="math inline">\(\mu\)</span> is now much closer to
 the nominal coverage of <span class="math inline">\(.95\)</span>.</p>
 </div>
-<div id="section-gross-calorific-value-measurements-for-daw-mill-258gb41" class="section level3">
+<div id="section-gross-calorific-value-measurements-for-daw-mill-258gb41" class="section level3" number="9.1.4">
 <h3><span class="header-section-number">9.1.4</span> Gross calorific value measurements for Daw Mill 258GB41</h3>
 <p>Now, for a different sample of measurements of the gross calorific content of
 some other type of coal, we can compute a confidence interval without assuming
@@ -564,14 +599,14 @@ that the standard deviation is known.</p>
 <p>Read the data in from file <code>grosscalDawMill.txt</code>, call it
 <code>dawmill</code>. You can compute the sample standard deviation and appropriate
 critical value as follows:</p>
-<div class="sourceCode" id="section-cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb293-1"></a>sn &lt;-<span class="st"> </span><span class="kw">sd</span>(dawmill<span class="op">$</span>calorific_value)</span>
-<span id="cb293-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb293-2"></a>alpha &lt;-<span class="st"> </span><span class="fl">.05</span></span>
-<span id="cb293-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb293-3"></a>critval &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> <span class="kw">nrow</span>(dawmill) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb304-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb304-1" aria-hidden="true" tabindex="-1"></a>sn <span class="ot">&lt;-</span> <span class="fu">sd</span>(dawmill<span class="sc">$</span>calorific_value)</span>
+<span id="section-cb304-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb304-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> .<span class="dv">05</span></span>
+<span id="section-cb304-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb304-3" aria-hidden="true" tabindex="-1"></a>critval <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>,<span class="at">df =</span> <span class="fu">nrow</span>(dawmill) <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>You should get:</p>
 <pre><code>  lower   upper 
  0.6478 61.3754 </code></pre>
 </div>
-<div id="section-bootstrap-confidence-intervals" class="section level3">
+<div id="section-bootstrap-confidence-intervals" class="section level3" number="9.1.5">
 <h3><span class="header-section-number">9.1.5</span> Bootstrap Confidence Intervals</h3>
 <p>The construction of the confidence interval assumes we know the distribution
 of
@@ -604,80 +639,80 @@ of <span class="math inline">\(T_{n}\)</span>.</p></li>
 the theoretical quantiles we used before.</p>
 <p>First, let’s simulate a dataset to illustrate this idea and so we can compare
 the bootstrap and analytical answers.</p>
-<div class="sourceCode" id="section-cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-1"></a><span class="kw">set.seed</span>(<span class="dv">43547803</span>)</span>
-<span id="cb295-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-2"></a>B &lt;-<span class="st"> </span><span class="dv">2000</span></span>
-<span id="cb295-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-3"></a>n &lt;-<span class="st"> </span><span class="dv">5000</span></span>
-<span id="cb295-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-4"></a><span class="co"># Simulate one dataset</span></span>
-<span id="cb295-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-5"></a>ds &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb295-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-6"></a><span class="co"># Values</span></span>
-<span id="cb295-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-7"></a>alpha &lt;-<span class="st"> </span><span class="fl">.05</span></span>
-<span id="cb295-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-8"></a>critval &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>)</span>
-<span id="cb295-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-9"></a><span class="co"># Now resample from it and calculate studentized statistics</span></span>
-<span id="cb295-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-10"></a>resampledTn &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb295-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-11"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</span>
-<span id="cb295-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-12"></a>  <span class="co"># Draw a bootstrap sample from the dataset ds</span></span>
-<span id="cb295-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-13"></a>  boot &lt;-<span class="st"> </span><span class="kw">sample</span>(ds,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb295-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-14"></a>  <span class="co"># Compute Tn</span></span>
-<span id="cb295-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-15"></a>  resampledTn[b] &lt;-<span class="st"> </span>(<span class="kw">mean</span>(boot) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(ds)) <span class="op">/</span><span class="st"> </span>(<span class="kw">sd</span>(boot) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(n))</span>
-<span id="cb295-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-16"></a>}</span>
-<span id="cb295-17"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-17"></a></span>
-<span id="cb295-18"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-18"></a><span class="co"># The confidence limits are obtained from the sample quantiles:</span></span>
-<span id="cb295-19"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-19"></a>samplequantiles &lt;-<span class="st"> </span><span class="kw">quantile</span>(resampledTn,<span class="dt">probs =</span> <span class="kw">c</span>(alpha<span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>))</span>
-<span id="cb295-20"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-20"></a>truequantiles &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="kw">c</span>(alpha<span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>),<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb295-21"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-21"></a><span class="co"># Here&#39;s a plot that illustrates what these look like:</span></span>
-<span id="cb295-22"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-22"></a><span class="kw">tibble</span>(<span class="dt">x =</span> resampledTn) <span class="op">%&gt;%</span></span>
-<span id="cb295-23"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-23"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
-<span id="cb295-24"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-24"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb295-25"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-25"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..),<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;lightgrey&quot;</span>,<span class="dt">bins =</span> <span class="dv">100</span>) <span class="op">+</span></span>
-<span id="cb295-26"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-26"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> samplequantiles[<span class="dv">1</span>],<span class="dt">colour =</span> <span class="st">&quot;orange&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></span>
-<span id="cb295-27"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-27"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> samplequantiles[<span class="dv">2</span>],<span class="dt">colour =</span> <span class="st">&quot;orange&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></span>
-<span id="cb295-28"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-28"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> truequantiles[<span class="dv">1</span>],<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></span>
-<span id="cb295-29"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-29"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> truequantiles[<span class="dv">2</span>],<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="op">+</span></span>
-<span id="cb295-30"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-30"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Resampled student statistics with true (blue) and empirical (orange) confidence limits&quot;</span>,</span>
-<span id="cb295-31"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb295-31"></a>       <span class="dt">x =</span> <span class="st">&quot;&quot;</span>,<span class="dt">y =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb306-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">43547803</span>)</span>
+<span id="section-cb306-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="section-cb306-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
+<span id="section-cb306-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate one dataset</span></span>
+<span id="section-cb306-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-5" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="section-cb306-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Values</span></span>
+<span id="section-cb306-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-7" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> .<span class="dv">05</span></span>
+<span id="section-cb306-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-8" aria-hidden="true" tabindex="-1"></a>critval <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="section-cb306-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Now resample from it and calculate studentized statistics</span></span>
+<span id="section-cb306-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-10" aria-hidden="true" tabindex="-1"></a>resampledTn <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb306-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="section-cb306-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Draw a bootstrap sample from the dataset ds</span></span>
+<span id="section-cb306-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-13" aria-hidden="true" tabindex="-1"></a>  boot <span class="ot">&lt;-</span> <span class="fu">sample</span>(ds,n,<span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="section-cb306-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute Tn</span></span>
+<span id="section-cb306-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-15" aria-hidden="true" tabindex="-1"></a>  resampledTn[b] <span class="ot">&lt;-</span> (<span class="fu">mean</span>(boot) <span class="sc">-</span> <span class="fu">mean</span>(ds)) <span class="sc">/</span> (<span class="fu">sd</span>(boot) <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="section-cb306-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb306-17"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb306-18"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-18" aria-hidden="true" tabindex="-1"></a><span class="co"># The confidence limits are obtained from the sample quantiles:</span></span>
+<span id="section-cb306-19"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-19" aria-hidden="true" tabindex="-1"></a>samplequantiles <span class="ot">&lt;-</span> <span class="fu">quantile</span>(resampledTn,<span class="at">probs =</span> <span class="fu">c</span>(alpha<span class="sc">/</span><span class="dv">2</span>,<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="section-cb306-20"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-20" aria-hidden="true" tabindex="-1"></a>truequantiles <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(alpha<span class="sc">/</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>),<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="section-cb306-21"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Here&#39;s a plot that illustrates what these look like:</span></span>
+<span id="section-cb306-22"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-22" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> resampledTn) <span class="sc">%&gt;%</span></span>
+<span id="section-cb306-23"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="section-cb306-24"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb306-25"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;lightgrey&quot;</span>,<span class="at">bins =</span> <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="section-cb306-26"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> samplequantiles[<span class="dv">1</span>],<span class="at">colour =</span> <span class="st">&quot;orange&quot;</span>,<span class="at">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb306-27"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> samplequantiles[<span class="dv">2</span>],<span class="at">colour =</span> <span class="st">&quot;orange&quot;</span>,<span class="at">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb306-28"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> truequantiles[<span class="dv">1</span>],<span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb306-29"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> truequantiles[<span class="dv">2</span>],<span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">linetype =</span> <span class="st">&quot;dotdash&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb306-30"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Resampled student statistics with true (blue) and empirical (orange) confidence limits&quot;</span>,</span>
+<span id="section-cb306-31"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb306-31" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>,<span class="at">y =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/boot-1-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: I deliberately chose a large sample size and number of bootstrap samples to make the
 results look good. I encourage you to change these numbers to try and break this
 simulation.</p>
 <p>The bootstrap-resampled confidence limits are close to the truth:</p>
-<div class="sourceCode" id="section-cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb296-1"></a>samplequantiles</span></code></pre></div>
+<div class="sourceCode" id="section-cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb307-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb307-1" aria-hidden="true" tabindex="-1"></a>samplequantiles</span></code></pre></div>
 <pre><code>   2.5%   97.5% 
 -1.9999  2.0060 </code></pre>
-<div class="sourceCode" id="section-cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb298-1"></a>truequantiles</span></code></pre></div>
+<div class="sourceCode" id="section-cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb309-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb309-1" aria-hidden="true" tabindex="-1"></a>truequantiles</span></code></pre></div>
 <pre><code>[1] -1.96  1.96</code></pre>
 <p>Let’s apply this to the software data from a previous chapter. Recall we had measurements <span class="math inline">\(X_{i}\)</span> of
 the time to failure of a software product, and we had a model <span class="math inline">\(X_{i}\overset{iid}{\sim}\text{Exponential}(\lambda)\)</span>.</p>
 <p>We can use the empirical bootstrap to compute a <span class="math inline">\(95\%\)</span> confidence interval for <span class="math inline">\(E(X_{i}) = \lambda^{-1}\)</span>:</p>
-<div class="sourceCode" id="section-cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-1"></a><span class="co"># Read it in:</span></span>
-<span id="cb300-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-2"></a>software &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
-<span id="cb300-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-3"></a>  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/software.txt&quot;</span>,</span>
-<span id="cb300-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-4"></a>  <span class="dt">col_names =</span> <span class="st">&quot;time&quot;</span>,</span>
-<span id="cb300-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-5"></a>  <span class="dt">col_types =</span> <span class="st">&quot;n&quot;</span></span>
-<span id="cb300-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-6"></a>)</span>
-<span id="cb300-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-7"></a>alpha &lt;-<span class="st"> </span><span class="fl">.05</span></span>
-<span id="cb300-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-8"></a>n &lt;-<span class="st"> </span><span class="kw">nrow</span>(software)</span>
-<span id="cb300-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-9"></a>mn &lt;-<span class="st"> </span><span class="kw">mean</span>(software<span class="op">$</span>time)</span>
-<span id="cb300-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-10"></a>sn &lt;-<span class="st"> </span><span class="kw">sd</span>(software<span class="op">$</span>time)</span>
-<span id="cb300-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-11"></a></span>
-<span id="cb300-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-12"></a><span class="co"># 95% CI for mu based on the empirical bootstrap:</span></span>
-<span id="cb300-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-13"></a>B &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb300-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-14"></a></span>
-<span id="cb300-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-15"></a><span class="kw">set.seed</span>(<span class="dv">821940379</span>)</span>
-<span id="cb300-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-16"></a>resampledTn &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb300-17"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-17"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</span>
-<span id="cb300-18"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-18"></a>  <span class="co"># Draw a bootstrap sample from the dataset ds</span></span>
-<span id="cb300-19"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-19"></a>  boot &lt;-<span class="st"> </span><span class="kw">sample</span>(software<span class="op">$</span>time,n,<span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb300-20"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-20"></a>  <span class="co"># Compute Tn</span></span>
-<span id="cb300-21"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-21"></a>  resampledTn[b] &lt;-<span class="st"> </span>(<span class="kw">mean</span>(boot) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(software<span class="op">$</span>time)) <span class="op">/</span><span class="st"> </span>(<span class="kw">sd</span>(boot) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(n))</span>
-<span id="cb300-22"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-22"></a>}</span>
-<span id="cb300-23"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-23"></a></span>
-<span id="cb300-24"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-24"></a><span class="co"># The confidence limits are obtained from the sample quantiles:</span></span>
-<span id="cb300-25"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-25"></a>conflim &lt;-<span class="st"> </span><span class="kw">quantile</span>(resampledTn,<span class="dt">probs =</span> <span class="kw">c</span>(alpha<span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha<span class="op">/</span><span class="dv">2</span>))</span>
-<span id="cb300-26"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-26"></a><span class="co"># The confidence interval:</span></span>
-<span id="cb300-27"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-27"></a><span class="kw">c</span>(</span>
-<span id="cb300-28"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-28"></a>  <span class="st">&quot;lower&quot;</span> =<span class="st"> </span>mn <span class="op">+</span><span class="st"> </span>conflim[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n),</span>
-<span id="cb300-29"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-29"></a>  <span class="st">&quot;upper&quot;</span> =<span class="st"> </span>mn <span class="op">+</span><span class="st"> </span>conflim[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>sn<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
-<span id="cb300-30"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#cb300-30"></a>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb311-1"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read it in:</span></span>
+<span id="section-cb311-2"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-2" aria-hidden="true" tabindex="-1"></a>software <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="section-cb311-3"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;data/MIPSdata/software.txt&quot;</span>,</span>
+<span id="section-cb311-4"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="st">&quot;time&quot;</span>,</span>
+<span id="section-cb311-5"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="st">&quot;n&quot;</span></span>
+<span id="section-cb311-6"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="section-cb311-7"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-7" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> .<span class="dv">05</span></span>
+<span id="section-cb311-8"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-8" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(software)</span>
+<span id="section-cb311-9"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-9" aria-hidden="true" tabindex="-1"></a>mn <span class="ot">&lt;-</span> <span class="fu">mean</span>(software<span class="sc">$</span>time)</span>
+<span id="section-cb311-10"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-10" aria-hidden="true" tabindex="-1"></a>sn <span class="ot">&lt;-</span> <span class="fu">sd</span>(software<span class="sc">$</span>time)</span>
+<span id="section-cb311-11"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb311-12"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 95% CI for mu based on the empirical bootstrap:</span></span>
+<span id="section-cb311-13"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-13" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="section-cb311-14"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb311-15"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-15" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">821940379</span>)</span>
+<span id="section-cb311-16"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-16" aria-hidden="true" tabindex="-1"></a>resampledTn <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb311-17"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="section-cb311-18"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Draw a bootstrap sample from the dataset ds</span></span>
+<span id="section-cb311-19"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-19" aria-hidden="true" tabindex="-1"></a>  boot <span class="ot">&lt;-</span> <span class="fu">sample</span>(software<span class="sc">$</span>time,n,<span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="section-cb311-20"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute Tn</span></span>
+<span id="section-cb311-21"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-21" aria-hidden="true" tabindex="-1"></a>  resampledTn[b] <span class="ot">&lt;-</span> (<span class="fu">mean</span>(boot) <span class="sc">-</span> <span class="fu">mean</span>(software<span class="sc">$</span>time)) <span class="sc">/</span> (<span class="fu">sd</span>(boot) <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="section-cb311-22"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb311-23"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb311-24"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-24" aria-hidden="true" tabindex="-1"></a><span class="co"># The confidence limits are obtained from the sample quantiles:</span></span>
+<span id="section-cb311-25"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-25" aria-hidden="true" tabindex="-1"></a>conflim <span class="ot">&lt;-</span> <span class="fu">quantile</span>(resampledTn,<span class="at">probs =</span> <span class="fu">c</span>(alpha<span class="sc">/</span><span class="dv">2</span>,<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="section-cb311-26"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-26" aria-hidden="true" tabindex="-1"></a><span class="co"># The confidence interval:</span></span>
+<span id="section-cb311-27"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-27" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="section-cb311-28"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;lower&quot;</span> <span class="ot">=</span> mn <span class="sc">+</span> conflim[<span class="dv">1</span>] <span class="sc">*</span> sn<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
+<span id="section-cb311-29"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;upper&quot;</span> <span class="ot">=</span> mn <span class="sc">+</span> conflim[<span class="dv">2</span>] <span class="sc">*</span> sn<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="section-cb311-30"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-cb311-30" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code> lower.2.5% upper.97.5% 
      436.40      807.14 </code></pre>
 <p><strong>Exercise</strong>: compute a <span class="math inline">\(95\%\)</span> confidence interval for the mean for the software

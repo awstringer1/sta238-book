@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 12 Predictive Modelling | Probability, Statistics, and Data Analysis</title>
   <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
-  <meta name="generator" content="bookdown 0.21.2 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 12 Predictive Modelling | Probability, Statistics, and Data Analysis" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2021-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="section-bayesian-inference-estimation.html"/>
 <link rel="next" href="section-installing-r-and-rstudio.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,24 +51,22 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,7 +86,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,24 +136,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a><ul>
-<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
 <li class="chapter" data-level="2.1.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
 <li class="chapter" data-level="2.1.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
 <li class="chapter" data-level="2.2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
 <li class="chapter" data-level="2.2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries-1"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
-<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
 <li class="chapter" data-level="2.4.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-association-between-smoking-and-mortality"><i class="fa fa-check"></i><b>2.4.2</b> Association between smoking and mortality</a></li>
 <li class="chapter" data-level="2.4.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
 <li class="chapter" data-level="2.5.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
 <li class="chapter" data-level="2.5.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
@@ -163,30 +167,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.6" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a><ul>
-<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a><ul>
-<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.1.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-simulated-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a><ul>
+<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-estimating-a-uniform-maximum"><i class="fa fa-check"></i><b>5.1</b> Estimating a Uniform Maximum</a></li>
 <li class="chapter" data-level="5.2" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-efficiency"><i class="fa fa-check"></i><b>5.2</b> Efficiency</a></li>
 <li class="chapter" data-level="5.3" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-mean-squared-error"><i class="fa fa-check"></i><b>5.3</b> Mean Squared Error</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a><ul>
-<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a><ul>
+<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-frequentistlikelihood-perspective"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist/Likelihood Perspective</a></li>
 <li class="chapter" data-level="6.1.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-bayesian-inference-introduction"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Inference: introduction</a></li>
 <li class="chapter" data-level="6.1.3" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-flipping-more-coins"><i class="fa fa-check"></i><b>6.1.3</b> Flipping More Coins</a></li>
@@ -194,23 +207,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-interactive-app"><i class="fa fa-check"></i><b>6.2</b> Interactive App</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a><ul>
-<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a><ul>
+<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-empirical-bootstrap-old-faithful-data"><i class="fa fa-check"></i><b>7.1.1</b> Empirical bootstrap: Old Faithful data</a></li>
 <li class="chapter" data-level="7.1.2" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-parametric-bootstrap-software-data"><i class="fa fa-check"></i><b>7.1.2</b> Parametric Bootstrap: software data</a></li>
 <li class="chapter" data-level="7.1.3" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-extended-example-the-standard-error-of-a-proportion"><i class="fa fa-check"></i><b>7.1.3</b> Extended example: the standard error of a proportion</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html"><i class="fa fa-check"></i><b>8</b> Maximum Likelihood</a><ul>
-<li class="chapter" data-level="8.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a><ul>
+<li class="chapter" data-level="8" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html"><i class="fa fa-check"></i><b>8</b> Maximum Likelihood</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
 <li class="chapter" data-level="8.1.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
 <li class="chapter" data-level="8.1.3" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.2</b> Extended example: rental housing in Toronto</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html"><i class="fa fa-check"></i><b>9</b> Confidence Intervals and Quantifying Uncertainty</a><ul>
-<li class="chapter" data-level="9.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html"><i class="fa fa-check"></i><b>9</b> Confidence Intervals and Quantifying Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-simulation-an-example"><i class="fa fa-check"></i><b>9.1.1</b> Simulation: an example</a></li>
 <li class="chapter" data-level="9.1.2" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
 <li class="chapter" data-level="9.1.3" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-when-you-dont-know-sigma"><i class="fa fa-check"></i><b>9.1.3</b> When you don’t know <span class="math inline">\(\sigma\)</span></a></li>
@@ -218,38 +237,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1.5" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.5</b> Bootstrap Confidence Intervals</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
-<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a>
+<ul>
 <li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
 <li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
 <li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
 <li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html"><i class="fa fa-check"></i><b>11</b> Bayesian Inference: Estimation</a><ul>
-<li class="chapter" data-level="11.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a><ul>
+<li class="chapter" data-level="11" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html"><i class="fa fa-check"></i><b>11</b> Bayesian Inference: Estimation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a>
+<ul>
 <li class="chapter" data-level="11.1.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-prior"><i class="fa fa-check"></i><b>11.1.1</b> The Prior</a></li>
 <li class="chapter" data-level="11.1.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-posterior"><i class="fa fa-check"></i><b>11.1.2</b> The Posterior</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-point-and-interval-estimation"><i class="fa fa-check"></i><b>11.2</b> Estimation in Bayesian Inference: point and interval estimation</a></li>
-<li class="chapter" data-level="11.3" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a><ul>
+<li class="chapter" data-level="11.3" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a>
+<ul>
 <li class="chapter" data-level="11.3.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-conjugate-priors"><i class="fa fa-check"></i><b>11.3.1</b> Conjugate Priors</a></li>
 <li class="chapter" data-level="11.3.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a><ul>
+<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a>
+<ul>
 <li class="chapter" data-level="12.1" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-overview"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
 <li class="chapter" data-level="12.2" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-plug-in-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.2</b> Plug-in prediction: coin flipping</a></li>
 <li class="chapter" data-level="12.3" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-bayesian-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.3</b> Bayesian Prediction: coin flipping</a></li>
 <li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.4</b> Extended example: predicting call centre wait times</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-r"><i class="fa fa-check"></i><b>13.1</b> Installing R</a></li>
 <li class="chapter" data-level="13.2" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-rstudio"><i class="fa fa-check"></i><b>13.2</b> Installing RStudio</a></li>
 <li class="chapter" data-level="13.3" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-using-rmarkdown"><i class="fa fa-check"></i><b>13.3</b> Using RMarkdown</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a><ul>
+<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a>
+<ul>
 <li class="chapter" data-level="14.1" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-15-and-16"><i class="fa fa-check"></i><b>14.1</b> Chapters 15 and 16</a></li>
 <li class="chapter" data-level="14.2" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-13-and-14"><i class="fa fa-check"></i><b>14.2</b> Chapters 13 and 14</a></li>
 <li class="chapter" data-level="14.3" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-17-and-19"><i class="fa fa-check"></i><b>14.3</b> Chapters 17 and 19</a></li>
@@ -260,18 +287,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.8" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-23"><i class="fa fa-check"></i><b>14.8</b> Chapter 23</a></li>
 <li class="chapter" data-level="14.9" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7.2"><i class="fa fa-check"></i><b>14.9</b> Evans and Rosenthal, Chapter 7.2</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html"><i class="fa fa-check"></i><b>15</b> Extended Example: World Population Data</a><ul>
+<li class="chapter" data-level="15" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html"><i class="fa fa-check"></i><b>15</b> Extended Example: World Population Data</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-read-in-and-prepare-the-data-for-analysis"><i class="fa fa-check"></i><b>15.1</b> Read in and prepare the data for analysis</a></li>
 <li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-model-world-population-over-time"><i class="fa fa-check"></i><b>15.2</b> Model world population over time</a></li>
 <li class="chapter" data-level="15.3" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-model-for-world-population"><i class="fa fa-check"></i><b>15.3</b> Bayesian model for world population</a></li>
 <li class="chapter" data-level="15.4" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-quantifying-uncertainty-in-estimates-of-world-population-regression-model"><i class="fa fa-check"></i><b>15.4</b> Quantifying uncertainty in estimates of world population: regression model</a></li>
-<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a><ul>
+<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a>
+<ul>
 <li class="chapter" data-level="15.5.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-and-uncertainty-quantification"><i class="fa fa-check"></i><b>15.5.1</b> Estimation and uncertainty quantification</a></li>
 <li class="chapter" data-level="15.5.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-by-sampling"><i class="fa fa-check"></i><b>15.5.2</b> Estimation by sampling</a></li>
 </ul></li>
-<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a><ul>
+<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a>
+<ul>
 <li class="chapter" data-level="15.6.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-why-arent-our-predictions-accurate"><i class="fa fa-check"></i><b>15.6.1</b> Why aren’t our predictions accurate?</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html"><i class="fa fa-check"></i><b>16</b> Short tutorial on pulling data for Assignment 1</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html#section-toronto-open-data-portal"><i class="fa fa-check"></i><b>16.1</b> Toronto Open Data Portal</a></li>
+<li class="chapter" data-level="16.2" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html#section-canadian-election-study"><i class="fa fa-check"></i><b>16.2</b> Canadian Election Study</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -293,14 +328,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="section-predictive-modelling" class="section level1">
+<div id="section-predictive-modelling" class="section level1" number="12">
 <h1><span class="header-section-number">Chapter 12</span> Predictive Modelling</h1>
 <p>This chapter is a supplementary tutorial on predictive modelling for STA238. The readings on this topic are <em>An Introduction to Statistical Learning with Applications in R</em> (ISLR), sections 2.1, 2.1.1, 2.2, 2.2.1, and 2.2.2; and <em>Probability and Statistics: the Science of Uncertainty</em>, section 7.2.4. The former has an overview of predictive modelling; the latter treats the Bayesian perspective.</p>
 <p>The assigned exercises associated with this material are from ISLR Section 2.4. Do questions 1, 2, 3, 4, 5, 8, 9, 10.</p>
-<div id="section-overview" class="section level2">
+<div id="section-overview" class="section level2" number="12.1">
 <h2><span class="header-section-number">12.1</span> Overview</h2>
-<p>Up to this point in the course, we have been focussing on data analysis and inference. Analyzing the specific data that you have available helps answer the question “what happened?”. Combining the available data with computational and mathematical modelling helps answer the question “what can be learned about the world, based on what happened?”.</p>
-<p>Predictive modelling focusses on answering “what is going to happen next?”. While the former two questions are of primary <em>scientific</em> interest, modern data science in business and industrial practice is often concerned with making predictions about what kind of data will be seen in the future. Predictive modelling, which is itself a science, is applied to address this question.</p>
+<p>Up to this point in the course, we have been focussing on data analysis and inference. Analyzing the specific data that you have available helps answer the question “what happened?” Combining the available data with computational and mathematical modelling helps answer the question “what can be learned about the world, based on what happened?”</p>
+<p>Predictive modelling focusses on answering “what is going to happen next?” While the former two questions are of primary <em>scientific</em> interest, modern data science in business and industrial practice is often concerned with making predictions about what kind of data will be seen in the future. Predictive modelling, which is itself a science, is applied to address this question.</p>
 <p>Often, the <em>point estimates</em> we get from our inferential procedures are themselves predictions. For example, we built a regression model of TTC ridership revenue over time back in chapter 4 of these supplementary notes. We <em>inferred</em> the slope of the regression line of revenue across years– but we could also use this line to make predictions for future years by simply extending the line to the year we want, and reading off its value.</p>
 <p>However, when measuring the <em>uncertainty</em> in our predictions, the situation is different. When doing inference, we have one source of uncertainty that we choose to address: the variability in the data. If we sampled the dataset again, we would get different inferences, and so on. In prediction, we have two sources of uncertainty: that from the model that we use for prediction, which we inferred from the data and hence is subject to variability; and that from the act of sampling a new datapoint from this model.</p>
 <p>ISLR refers to these two sources of error as <em>reducible</em> and <em>irreducible</em>. We can always make our inferences less uncertain in theory by getting more data (reducibile uncertainty), but even if we knew the underlying data-generating mechanism perfectly, its output is still random (irreducible uncertainty)!</p>
@@ -316,7 +351,7 @@ MSPE(\hat{Y}) &amp;= \mathbb{E}(\hat{\theta} - \theta)^{2} + \mathbb{E}(\epsilon
 <p><strong>Exercise</strong>: prove this formula. <em>Hint: look at what ISLR does, figure out the differences in notation between us and them, and fill in the details</em>.</p>
 <p>The key takeaway is that <em>the prediction error comes from two sources: error in inferring the underlying data-generating mechanism, and error in drawing new data from this mechanism</em>.</p>
 </div>
-<div id="section-plug-in-prediction-coin-flipping" class="section level2">
+<div id="section-plug-in-prediction-coin-flipping" class="section level2" number="12.2">
 <h2><span class="header-section-number">12.2</span> Plug-in prediction: coin flipping</h2>
 <p>To illustrate the idea of multiple sources of error, let’s briefly revist our now-classic coin flipping example. We are going to</p>
 <ol style="list-style-type: decimal">
@@ -326,13 +361,13 @@ MSPE(\hat{Y}) &amp;= \mathbb{E}(\hat{\theta} - \theta)^{2} + \mathbb{E}(\epsilon
 </ol>
 <p>This is an example of a <strong>classification</strong> problem: we are predicting a binary event, something that either happens or it doesn’t. We’re either completely right, or completely wrong. Note that the MSPE here has a special form, because <span class="math inline">\(|\hat{Y} - Y| \in \left\{ 0,1 \right\}\)</span>.</p>
 <p>First let’s draw a sample. We’ll leave the parameters to be specified at the top of the program so you can play around with them:</p>
-<div class="sourceCode" id="section-cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="section-predictive-modelling.html#cb348-1"></a><span class="kw">set.seed</span>(<span class="dv">87886</span>)</span>
-<span id="cb348-2"><a href="section-predictive-modelling.html#cb348-2"></a>n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></span>
-<span id="cb348-3"><a href="section-predictive-modelling.html#cb348-3"></a>p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></span>
-<span id="cb348-4"><a href="section-predictive-modelling.html#cb348-4"></a></span>
-<span id="cb348-5"><a href="section-predictive-modelling.html#cb348-5"></a><span class="co"># Draw the sample</span></span>
-<span id="cb348-6"><a href="section-predictive-modelling.html#cb348-6"></a>samp &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n,<span class="dv">1</span>,p0)</span>
-<span id="cb348-7"><a href="section-predictive-modelling.html#cb348-7"></a>samp</span></code></pre></div>
+<div class="sourceCode" id="section-cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb360-1"><a href="section-predictive-modelling.html#section-cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">87886</span>)</span>
+<span id="section-cb360-2"><a href="section-predictive-modelling.html#section-cb360-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># Number of flips</span></span>
+<span id="section-cb360-3"><a href="section-predictive-modelling.html#section-cb360-3" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co"># True probability of heads</span></span>
+<span id="section-cb360-4"><a href="section-predictive-modelling.html#section-cb360-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb360-5"><a href="section-predictive-modelling.html#section-cb360-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw the sample</span></span>
+<span id="section-cb360-6"><a href="section-predictive-modelling.html#section-cb360-6" aria-hidden="true" tabindex="-1"></a>samp <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n,<span class="dv">1</span>,p0)</span>
+<span id="section-cb360-7"><a href="section-predictive-modelling.html#section-cb360-7" aria-hidden="true" tabindex="-1"></a>samp</span></code></pre></div>
 <pre><code> [1] 1 0 0 0 1 0 1 0 0 1</code></pre>
 <p>We have drawn <span class="math inline">\(n = 10\)</span> samples from a <span class="math inline">\(\text{Bernoulli}(p)\)</span> distribution with parameter <span class="math inline">\(p = 0.5\)</span>. If <span class="math inline">\(Y_{i}\)</span> is a <span class="math inline">\(0/1\)</span> indicator of the <span class="math inline">\(i^{th}\)</span> toss being heads, the likelihood function for <span class="math inline">\(p\)</span> is given by:
 <span class="math display">\[\begin{equation}
@@ -340,8 +375,8 @@ L(p) = p^{\sum_{i=1}^{n}Y_{i}}(1-p)^{n - \sum_{i=1}^{n}Y_{i}}
 \end{equation}\]</span></p>
 <p><strong>Exercise</strong> (review): show that the maximum likelihood estimator is <span class="math inline">\(\hat{p} = \frac{1}{n}\sum_{i=1}^{n}Y_{i}\)</span>, the sample proportion of heads.</p>
 <p>We can compute the MLE for our sample:</p>
-<div class="sourceCode" id="section-cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="section-predictive-modelling.html#cb350-1"></a>pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)</span>
-<span id="cb350-2"><a href="section-predictive-modelling.html#cb350-2"></a>pmle</span></code></pre></div>
+<div class="sourceCode" id="section-cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb362-1"><a href="section-predictive-modelling.html#section-cb362-1" aria-hidden="true" tabindex="-1"></a>pmle <span class="ot">&lt;-</span> <span class="fu">mean</span>(samp)</span>
+<span id="section-cb362-2"><a href="section-predictive-modelling.html#section-cb362-2" aria-hidden="true" tabindex="-1"></a>pmle</span></code></pre></div>
 <pre><code>[1] 0.4</code></pre>
 <p>How to use this to make predictions? We need a rule—a function <span class="math inline">\(\hat{Y}\)</span>—that takes in our sample and predicts the next value. This construction is very similar in spirit to constructing an estimate of a parameter; we want something that makes intuitive sense and that has “desirable” statistical properties.</p>
 <p>It can be shown that the prediction rule that minimizes the MSPE for this simple case of binary prediction is to simply predict the outcome (heads or tails, 0 or 1) that is the most probable under our estimated model. Our inferred model ascribes a <span class="math inline">\(40\%\)</span> chance of heads and <span class="math inline">\(60\%\)</span> chance of tails to each flip, so our prediction rule (for <em>this</em> sample) is simply <span class="math inline">\(\hat{Y} = 0\)</span>.</p>
@@ -352,62 +387,61 @@ L(p) = p^{\sum_{i=1}^{n}Y_{i}}(1-p)^{n - \sum_{i=1}^{n}Y_{i}}
 \end{equation}\]</span>
 That is, you can first take the expectation with respect to one random variable <em>conditional</em> on another, and then take the expectation of this expression with respect to the second random variable. Use this to separate the model variability from the sampling variability.</p>
 Let’s assess the MSPE using a prediction. We’re going to repeat the following procedure a bunch of times:
-
-<div class="sourceCode" id="section-cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="section-predictive-modelling.html#cb352-1"></a><span class="kw">set.seed</span>(<span class="dv">874327086</span>)</span>
-<span id="cb352-2"><a href="section-predictive-modelling.html#cb352-2"></a>n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></span>
-<span id="cb352-3"><a href="section-predictive-modelling.html#cb352-3"></a>p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></span>
-<span id="cb352-4"><a href="section-predictive-modelling.html#cb352-4"></a>B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of simulations to do</span></span>
-<span id="cb352-5"><a href="section-predictive-modelling.html#cb352-5"></a></span>
-<span id="cb352-6"><a href="section-predictive-modelling.html#cb352-6"></a>do_simulation &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</span>
-<span id="cb352-7"><a href="section-predictive-modelling.html#cb352-7"></a>  pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></span>
-<span id="cb352-8"><a href="section-predictive-modelling.html#cb352-8"></a>  newy &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,p)</span>
-<span id="cb352-9"><a href="section-predictive-modelling.html#cb352-9"></a>  <span class="cf">if</span> (pmle <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>) {</span>
-<span id="cb352-10"><a href="section-predictive-modelling.html#cb352-10"></a>    predy &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># Predict 1 if pmle &gt;= 0.5</span></span>
-<span id="cb352-11"><a href="section-predictive-modelling.html#cb352-11"></a>  } <span class="cf">else</span> {</span>
-<span id="cb352-12"><a href="section-predictive-modelling.html#cb352-12"></a>    predy &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb352-13"><a href="section-predictive-modelling.html#cb352-13"></a>  }</span>
-<span id="cb352-14"><a href="section-predictive-modelling.html#cb352-14"></a>  (predy <span class="op">-</span><span class="st"> </span>newy)<span class="op">^</span><span class="dv">2</span></span>
-<span id="cb352-15"><a href="section-predictive-modelling.html#cb352-15"></a>}</span>
-<span id="cb352-16"><a href="section-predictive-modelling.html#cb352-16"></a></span>
-<span id="cb352-17"><a href="section-predictive-modelling.html#cb352-17"></a><span class="co"># Do the simulation </span></span>
-<span id="cb352-18"><a href="section-predictive-modelling.html#cb352-18"></a>sims &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb352-19"><a href="section-predictive-modelling.html#cb352-19"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) sims[b] &lt;-<span class="st"> </span><span class="kw">do_simulation</span>(n,p0)</span>
-<span id="cb352-20"><a href="section-predictive-modelling.html#cb352-20"></a>sim_mspe &lt;-<span class="st"> </span><span class="kw">mean</span>(sims)</span>
-<span id="cb352-21"><a href="section-predictive-modelling.html#cb352-21"></a></span>
-<span id="cb352-22"><a href="section-predictive-modelling.html#cb352-22"></a>sim_mspe</span></code></pre></div>
+<div class="sourceCode" id="section-cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb364-1"><a href="section-predictive-modelling.html#section-cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">874327086</span>)</span>
+<span id="section-cb364-2"><a href="section-predictive-modelling.html#section-cb364-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># Number of flips</span></span>
+<span id="section-cb364-3"><a href="section-predictive-modelling.html#section-cb364-3" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co"># True probability of heads</span></span>
+<span id="section-cb364-4"><a href="section-predictive-modelling.html#section-cb364-4" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># Number of simulations to do</span></span>
+<span id="section-cb364-5"><a href="section-predictive-modelling.html#section-cb364-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb364-6"><a href="section-predictive-modelling.html#section-cb364-6" aria-hidden="true" tabindex="-1"></a>do_simulation <span class="ot">&lt;-</span> <span class="cf">function</span>(n,p) {</span>
+<span id="section-cb364-7"><a href="section-predictive-modelling.html#section-cb364-7" aria-hidden="true" tabindex="-1"></a>  pmle <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></span>
+<span id="section-cb364-8"><a href="section-predictive-modelling.html#section-cb364-8" aria-hidden="true" tabindex="-1"></a>  newy <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,p)</span>
+<span id="section-cb364-9"><a href="section-predictive-modelling.html#section-cb364-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (pmle <span class="sc">&gt;=</span> <span class="fl">0.5</span>) {</span>
+<span id="section-cb364-10"><a href="section-predictive-modelling.html#section-cb364-10" aria-hidden="true" tabindex="-1"></a>    predy <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># Predict 1 if pmle &gt;= 0.5</span></span>
+<span id="section-cb364-11"><a href="section-predictive-modelling.html#section-cb364-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="section-cb364-12"><a href="section-predictive-modelling.html#section-cb364-12" aria-hidden="true" tabindex="-1"></a>    predy <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="section-cb364-13"><a href="section-predictive-modelling.html#section-cb364-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="section-cb364-14"><a href="section-predictive-modelling.html#section-cb364-14" aria-hidden="true" tabindex="-1"></a>  (predy <span class="sc">-</span> newy)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="section-cb364-15"><a href="section-predictive-modelling.html#section-cb364-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb364-16"><a href="section-predictive-modelling.html#section-cb364-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb364-17"><a href="section-predictive-modelling.html#section-cb364-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Do the simulation </span></span>
+<span id="section-cb364-18"><a href="section-predictive-modelling.html#section-cb364-18" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb364-19"><a href="section-predictive-modelling.html#section-cb364-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) sims[b] <span class="ot">&lt;-</span> <span class="fu">do_simulation</span>(n,p0)</span>
+<span id="section-cb364-20"><a href="section-predictive-modelling.html#section-cb364-20" aria-hidden="true" tabindex="-1"></a>sim_mspe <span class="ot">&lt;-</span> <span class="fu">mean</span>(sims)</span>
+<span id="section-cb364-21"><a href="section-predictive-modelling.html#section-cb364-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb364-22"><a href="section-predictive-modelling.html#section-cb364-22" aria-hidden="true" tabindex="-1"></a>sim_mspe</span></code></pre></div>
 <pre><code>[1] 0.498</code></pre>
 <p>Notice that it is close to <span class="math inline">\(0.5\)</span>, not <span class="math inline">\(0.4\)</span>– the model error matters, as you saw in the above theoretical exercise. Actually, to drive this point home…</p>
 <p><strong>Exercise</strong>: what did I do differently in the below code, compared to the above?</p>
-<div class="sourceCode" id="section-cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="section-predictive-modelling.html#cb354-1"></a><span class="kw">set.seed</span>(<span class="dv">874327086</span>)</span>
-<span id="cb354-2"><a href="section-predictive-modelling.html#cb354-2"></a>n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></span>
-<span id="cb354-3"><a href="section-predictive-modelling.html#cb354-3"></a>p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></span>
-<span id="cb354-4"><a href="section-predictive-modelling.html#cb354-4"></a>B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of simulations to do</span></span>
-<span id="cb354-5"><a href="section-predictive-modelling.html#cb354-5"></a></span>
-<span id="cb354-6"><a href="section-predictive-modelling.html#cb354-6"></a>do_simulation &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</span>
-<span id="cb354-7"><a href="section-predictive-modelling.html#cb354-7"></a>  pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></span>
-<span id="cb354-8"><a href="section-predictive-modelling.html#cb354-8"></a>  newy &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,pmle)</span>
-<span id="cb354-9"><a href="section-predictive-modelling.html#cb354-9"></a>  <span class="cf">if</span> (pmle <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>) {</span>
-<span id="cb354-10"><a href="section-predictive-modelling.html#cb354-10"></a>    predy &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># Predict 1 if pmle &gt;= 0.5</span></span>
-<span id="cb354-11"><a href="section-predictive-modelling.html#cb354-11"></a>  } <span class="cf">else</span> {</span>
-<span id="cb354-12"><a href="section-predictive-modelling.html#cb354-12"></a>    predy &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb354-13"><a href="section-predictive-modelling.html#cb354-13"></a>  }</span>
-<span id="cb354-14"><a href="section-predictive-modelling.html#cb354-14"></a>  (predy <span class="op">-</span><span class="st"> </span>newy)<span class="op">^</span><span class="dv">2</span></span>
-<span id="cb354-15"><a href="section-predictive-modelling.html#cb354-15"></a>}</span>
-<span id="cb354-16"><a href="section-predictive-modelling.html#cb354-16"></a></span>
-<span id="cb354-17"><a href="section-predictive-modelling.html#cb354-17"></a><span class="co"># Do the simulation </span></span>
-<span id="cb354-18"><a href="section-predictive-modelling.html#cb354-18"></a>sim_mspe2 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>B <span class="op">%&gt;%</span></span>
-<span id="cb354-19"><a href="section-predictive-modelling.html#cb354-19"></a><span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">do_simulation</span>(<span class="dt">n =</span> n,<span class="dt">p =</span> p0)) <span class="op">%&gt;%</span></span>
-<span id="cb354-20"><a href="section-predictive-modelling.html#cb354-20"></a><span class="st">  </span><span class="kw">reduce</span>(c) <span class="op">%&gt;%</span></span>
-<span id="cb354-21"><a href="section-predictive-modelling.html#cb354-21"></a><span class="st">  </span><span class="kw">mean</span>()</span>
-<span id="cb354-22"><a href="section-predictive-modelling.html#cb354-22"></a></span>
-<span id="cb354-23"><a href="section-predictive-modelling.html#cb354-23"></a>sim_mspe2</span></code></pre></div>
+<div class="sourceCode" id="section-cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb366-1"><a href="section-predictive-modelling.html#section-cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">874327086</span>)</span>
+<span id="section-cb366-2"><a href="section-predictive-modelling.html#section-cb366-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># Number of flips</span></span>
+<span id="section-cb366-3"><a href="section-predictive-modelling.html#section-cb366-3" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co"># True probability of heads</span></span>
+<span id="section-cb366-4"><a href="section-predictive-modelling.html#section-cb366-4" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># Number of simulations to do</span></span>
+<span id="section-cb366-5"><a href="section-predictive-modelling.html#section-cb366-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb366-6"><a href="section-predictive-modelling.html#section-cb366-6" aria-hidden="true" tabindex="-1"></a>do_simulation <span class="ot">&lt;-</span> <span class="cf">function</span>(n,p) {</span>
+<span id="section-cb366-7"><a href="section-predictive-modelling.html#section-cb366-7" aria-hidden="true" tabindex="-1"></a>  pmle <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></span>
+<span id="section-cb366-8"><a href="section-predictive-modelling.html#section-cb366-8" aria-hidden="true" tabindex="-1"></a>  newy <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,pmle)</span>
+<span id="section-cb366-9"><a href="section-predictive-modelling.html#section-cb366-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (pmle <span class="sc">&gt;=</span> <span class="fl">0.5</span>) {</span>
+<span id="section-cb366-10"><a href="section-predictive-modelling.html#section-cb366-10" aria-hidden="true" tabindex="-1"></a>    predy <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># Predict 1 if pmle &gt;= 0.5</span></span>
+<span id="section-cb366-11"><a href="section-predictive-modelling.html#section-cb366-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="section-cb366-12"><a href="section-predictive-modelling.html#section-cb366-12" aria-hidden="true" tabindex="-1"></a>    predy <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="section-cb366-13"><a href="section-predictive-modelling.html#section-cb366-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="section-cb366-14"><a href="section-predictive-modelling.html#section-cb366-14" aria-hidden="true" tabindex="-1"></a>  (predy <span class="sc">-</span> newy)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="section-cb366-15"><a href="section-predictive-modelling.html#section-cb366-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb366-16"><a href="section-predictive-modelling.html#section-cb366-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb366-17"><a href="section-predictive-modelling.html#section-cb366-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Do the simulation </span></span>
+<span id="section-cb366-18"><a href="section-predictive-modelling.html#section-cb366-18" aria-hidden="true" tabindex="-1"></a>sim_mspe2 <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>B <span class="sc">%&gt;%</span></span>
+<span id="section-cb366-19"><a href="section-predictive-modelling.html#section-cb366-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">do_simulation</span>(<span class="at">n =</span> n,<span class="at">p =</span> p0)) <span class="sc">%&gt;%</span></span>
+<span id="section-cb366-20"><a href="section-predictive-modelling.html#section-cb366-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(c) <span class="sc">%&gt;%</span></span>
+<span id="section-cb366-21"><a href="section-predictive-modelling.html#section-cb366-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span>
+<span id="section-cb366-22"><a href="section-predictive-modelling.html#section-cb366-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb366-23"><a href="section-predictive-modelling.html#section-cb366-23" aria-hidden="true" tabindex="-1"></a>sim_mspe2</span></code></pre></div>
 <pre><code>[1] 0.389</code></pre>
 <p>Figure out why it’s lower, <em>computationally</em> (what did I do differently in the code), <em>mathematically</em> (relate it to the above exercises), and <em>intuitively</em> (explain in words what the difference is).</p>
 </div>
-<div id="section-bayesian-prediction-coin-flipping" class="section level2">
+<div id="section-bayesian-prediction-coin-flipping" class="section level2" number="12.3">
 <h2><span class="header-section-number">12.3</span> Bayesian Prediction: coin flipping</h2>
 <p>We saw above that making predictions using our frequentist-inferred models for the observed data wasn’t that complicated (just “plug in” the inferred model parameters), but assessing the <em>uncertainty</em> in the predictions was challenging because the uncertainty comes from multiple different sources, and it is not always clear how to effectively combine these.</p>
-<p>One more systematic way to quantify the uncertainty in a prediction, conditional on the observed sample is, well, to <em>literally</em> do this, via the conditional distribution <span class="math inline">\(\pi(Y_{n+1}|Y_{1},\ldots,Y_{n})\)</span>. The mean of this distribution says “what will happen on average, given what we have observed?”, and the standard deviation of this distribution quantifies how close future values are to be concentrated around this mean, which seems like a perfectly reasonable measure of the uncertainty in a prediction.</p>
+<p>One more systematic way to quantify the uncertainty in a prediction, conditional on the observed sample is, well, to <em>literally</em> do this, via the conditional distribution <span class="math inline">\(\pi(Y_{n+1}|Y_{1},\ldots,Y_{n})\)</span>. The mean of this distribution says “what will happen on average, given what we have observed?” and the standard deviation of this distribution quantifies how close future values are to be concentrated around this mean, which seems like a perfectly reasonable measure of the uncertainty in a prediction.</p>
 <p>So what’s the problem? If we’re in the frequentist paradigm, there is a big one: the data are IID! So <span class="math inline">\(Y_{n+1}\)</span> is <em>statistically independent</em> of <span class="math inline">\(Y_{1},\ldots,Y_{n}\)</span>, and
 <span class="math display">\[\begin{equation}
 \pi(Y_{n+1}|Y_{1},\ldots,Y_{n}) = \pi(Y_{n+1})
@@ -419,7 +453,6 @@ Under this paradigm, the sample provides no <em>direct</em> information about th
 \end{equation}\]</span>
 where <span class="math inline">\(\pi(p|Y_{1},\ldots,Y_{n})\)</span> is the posterior distribution of <span class="math inline">\(p\)</span> given the sample, and <span class="math inline">\(\pi(Y_{n+1}|p)\)</span> is simply the likelihood for each value of <span class="math inline">\(p\)</span>, and for a single datapoint.</p>
 This has the following attractive properties:
-
 <p>Let’s see what this looks like for the coin flipping example. Recall the setup: we use a <span class="math inline">\(\text{Beta}(\alpha,\beta)\)</span> prior for the parameter <span class="math inline">\(p\)</span>, which leads to the posterior:
 <span class="math display">\[\begin{equation}
 \pi(p|Y_{1},\ldots,Y_{n}) = \text{Beta}\left(n\bar{Y} + \alpha,n(1 - \bar{Y}) + \beta\right)
@@ -437,38 +470,38 @@ Y_{n+1} | Y_{1},\ldots,Y_{n} \sim \text{Bernoulli}\left(\frac{n\bar{Y} + \alpha}
 <em>Hint: start by writing out the Bernoulli density</em>.</p>
 <p>How does the use of the posterior predictive mode do in terms of MSPE?
 Consider the setup from chapter 11 of these supplementary notes, where we put a <span class="math inline">\(\text{Beta}(12,12)\)</span> prior on <span class="math inline">\(p\)</span>. Let’s simulate the MSPE again, but using this for prediction:</p>
-<div class="sourceCode" id="section-cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="section-predictive-modelling.html#cb356-1"></a><span class="kw">set.seed</span>(<span class="dv">874327086</span>)</span>
-<span id="cb356-2"><a href="section-predictive-modelling.html#cb356-2"></a>n &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># Number of flips</span></span>
-<span id="cb356-3"><a href="section-predictive-modelling.html#cb356-3"></a>p0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co"># True probability of heads</span></span>
-<span id="cb356-4"><a href="section-predictive-modelling.html#cb356-4"></a>alpha &lt;-<span class="st"> </span><span class="dv">12</span> <span class="co"># Prior</span></span>
-<span id="cb356-5"><a href="section-predictive-modelling.html#cb356-5"></a>beta &lt;-<span class="st"> </span><span class="dv">12</span> <span class="co"># Prior</span></span>
-<span id="cb356-6"><a href="section-predictive-modelling.html#cb356-6"></a>B &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of simulations to do</span></span>
-<span id="cb356-7"><a href="section-predictive-modelling.html#cb356-7"></a></span>
-<span id="cb356-8"><a href="section-predictive-modelling.html#cb356-8"></a>do_simulation_bayes &lt;-<span class="st"> </span><span class="cf">function</span>(n,p) {</span>
-<span id="cb356-9"><a href="section-predictive-modelling.html#cb356-9"></a>  pmle &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></span>
-<span id="cb356-10"><a href="section-predictive-modelling.html#cb356-10"></a>  newy &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,p) <span class="co"># Draw a new value from the true distribution</span></span>
-<span id="cb356-11"><a href="section-predictive-modelling.html#cb356-11"></a>  postparam &lt;-<span class="st"> </span>(n <span class="op">*</span><span class="st"> </span>pmle <span class="op">+</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="st"> </span>alpha <span class="op">+</span><span class="st"> </span>beta)</span>
-<span id="cb356-12"><a href="section-predictive-modelling.html#cb356-12"></a>  <span class="cf">if</span> (postparam <span class="op">&gt;=</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>postparam)) {</span>
-<span id="cb356-13"><a href="section-predictive-modelling.html#cb356-13"></a>    predy &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># Predict 1 if postparam &gt;= (1 - postparam) (i.e. postparam &gt;= 0.5)</span></span>
-<span id="cb356-14"><a href="section-predictive-modelling.html#cb356-14"></a>  } <span class="cf">else</span> {</span>
-<span id="cb356-15"><a href="section-predictive-modelling.html#cb356-15"></a>    predy &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb356-16"><a href="section-predictive-modelling.html#cb356-16"></a>  }</span>
-<span id="cb356-17"><a href="section-predictive-modelling.html#cb356-17"></a>  (predy <span class="op">-</span><span class="st"> </span>newy)<span class="op">^</span><span class="dv">2</span></span>
-<span id="cb356-18"><a href="section-predictive-modelling.html#cb356-18"></a>}</span>
-<span id="cb356-19"><a href="section-predictive-modelling.html#cb356-19"></a></span>
-<span id="cb356-20"><a href="section-predictive-modelling.html#cb356-20"></a><span class="co"># Do the simulation </span></span>
-<span id="cb356-21"><a href="section-predictive-modelling.html#cb356-21"></a>sim_bayes &lt;-<span class="st"> </span><span class="kw">numeric</span>(B)</span>
-<span id="cb356-22"><a href="section-predictive-modelling.html#cb356-22"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) sim_bayes[b] &lt;-<span class="st"> </span><span class="kw">do_simulation_bayes</span>(n,p0)</span>
-<span id="cb356-23"><a href="section-predictive-modelling.html#cb356-23"></a>sim_mspe_bayes &lt;-<span class="st"> </span><span class="kw">mean</span>(sim_bayes)</span>
-<span id="cb356-24"><a href="section-predictive-modelling.html#cb356-24"></a></span>
-<span id="cb356-25"><a href="section-predictive-modelling.html#cb356-25"></a>sim_mspe_bayes</span></code></pre></div>
+<div class="sourceCode" id="section-cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb368-1"><a href="section-predictive-modelling.html#section-cb368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">874327086</span>)</span>
+<span id="section-cb368-2"><a href="section-predictive-modelling.html#section-cb368-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># Number of flips</span></span>
+<span id="section-cb368-3"><a href="section-predictive-modelling.html#section-cb368-3" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co"># True probability of heads</span></span>
+<span id="section-cb368-4"><a href="section-predictive-modelling.html#section-cb368-4" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="co"># Prior</span></span>
+<span id="section-cb368-5"><a href="section-predictive-modelling.html#section-cb368-5" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="co"># Prior</span></span>
+<span id="section-cb368-6"><a href="section-predictive-modelling.html#section-cb368-6" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># Number of simulations to do</span></span>
+<span id="section-cb368-7"><a href="section-predictive-modelling.html#section-cb368-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb368-8"><a href="section-predictive-modelling.html#section-cb368-8" aria-hidden="true" tabindex="-1"></a>do_simulation_bayes <span class="ot">&lt;-</span> <span class="cf">function</span>(n,p) {</span>
+<span id="section-cb368-9"><a href="section-predictive-modelling.html#section-cb368-9" aria-hidden="true" tabindex="-1"></a>  pmle <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rbinom</span>(n,<span class="dv">1</span>,p)) <span class="co"># Compute the MLE</span></span>
+<span id="section-cb368-10"><a href="section-predictive-modelling.html#section-cb368-10" aria-hidden="true" tabindex="-1"></a>  newy <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,p) <span class="co"># Draw a new value from the true distribution</span></span>
+<span id="section-cb368-11"><a href="section-predictive-modelling.html#section-cb368-11" aria-hidden="true" tabindex="-1"></a>  postparam <span class="ot">&lt;-</span> (n <span class="sc">*</span> pmle <span class="sc">+</span> alpha) <span class="sc">/</span> (n <span class="sc">+</span> alpha <span class="sc">+</span> beta)</span>
+<span id="section-cb368-12"><a href="section-predictive-modelling.html#section-cb368-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (postparam <span class="sc">&gt;=</span> (<span class="dv">1</span> <span class="sc">-</span> postparam)) {</span>
+<span id="section-cb368-13"><a href="section-predictive-modelling.html#section-cb368-13" aria-hidden="true" tabindex="-1"></a>    predy <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># Predict 1 if postparam &gt;= (1 - postparam) (i.e. postparam &gt;= 0.5)</span></span>
+<span id="section-cb368-14"><a href="section-predictive-modelling.html#section-cb368-14" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="section-cb368-15"><a href="section-predictive-modelling.html#section-cb368-15" aria-hidden="true" tabindex="-1"></a>    predy <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="section-cb368-16"><a href="section-predictive-modelling.html#section-cb368-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="section-cb368-17"><a href="section-predictive-modelling.html#section-cb368-17" aria-hidden="true" tabindex="-1"></a>  (predy <span class="sc">-</span> newy)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="section-cb368-18"><a href="section-predictive-modelling.html#section-cb368-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb368-19"><a href="section-predictive-modelling.html#section-cb368-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb368-20"><a href="section-predictive-modelling.html#section-cb368-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Do the simulation </span></span>
+<span id="section-cb368-21"><a href="section-predictive-modelling.html#section-cb368-21" aria-hidden="true" tabindex="-1"></a>sim_bayes <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="section-cb368-22"><a href="section-predictive-modelling.html#section-cb368-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) sim_bayes[b] <span class="ot">&lt;-</span> <span class="fu">do_simulation_bayes</span>(n,p0)</span>
+<span id="section-cb368-23"><a href="section-predictive-modelling.html#section-cb368-23" aria-hidden="true" tabindex="-1"></a>sim_mspe_bayes <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_bayes)</span>
+<span id="section-cb368-24"><a href="section-predictive-modelling.html#section-cb368-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb368-25"><a href="section-predictive-modelling.html#section-cb368-25" aria-hidden="true" tabindex="-1"></a>sim_mspe_bayes</span></code></pre></div>
 <pre><code>[1] 0.498</code></pre>
 <p>Notice anything odd about these results compared to what we got using the frequentist approach?</p>
 <p>It turns out that if the prior is symmetric (<span class="math inline">\(\alpha = \beta\)</span>), then the posterior mode <em>exactly equals</em> the prediction rule we obtained by minimizing the MSPE. If the prior is not symmetric, they won’t be the same– so which do you expect to be better?</p>
 <p><strong>Exercise</strong>: repeate the above simulation, but change the prior so that it is
 not symmetric (make <span class="math inline">\(a\neq b\)</span>). What is the <span class="math inline">\(MSPE\)</span> of the Bayesian prediction?</p>
 </div>
-<div id="section-extended-example-predicting-call-centre-wait-times" class="section level2">
+<div id="section-extended-example-predicting-call-centre-wait-times" class="section level2" number="12.4">
 <h2><span class="header-section-number">12.4</span> Extended example: predicting call centre wait times</h2>
 <p>The coin-flipping example is illustrative, but too simple to be interesting.
 For a given dataset, we either predict heads, or tails, the same for all future
@@ -481,38 +514,38 @@ are taken from the (much) more advanced tutorial by Alex on this stuff, <a href=
 <p>311 is a <a href="https://www.toronto.ca/home/311-toronto-at-your-service/">service</a> operated by the City of Toronto in which residents can call (dial *311) and submit service requests for things like potholes, excess garbage pickup, downed trees, and so on. People call in to the service and speak to an actual human being in a contact centre. When you call, sometimes you have to wait.</p>
 <p>Data on the daily average wait time for such calls for the period from December 28th, 2009 to January 2nd, 2011 is available from Open Data Toronto <a href="https://www.toronto.ca/city-government/data-research-maps/open-data/open-data-catalogue/#9d74296c-05f1-13b0-8129-efaffd623963">here</a>, and stored on <a href="https://media.githubusercontent.com/media/awstringer1/leaf2018/gh-pages/datasets/contact-centre.csv">github</a> by us for your use.</p>
 <p>Let’s read in and visualize the data:</p>
-<div class="sourceCode" id="section-cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="section-predictive-modelling.html#cb358-1"></a><span class="co"># Read data</span></span>
-<span id="cb358-2"><a href="section-predictive-modelling.html#cb358-2"></a>contactdat &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
-<span id="cb358-3"><a href="section-predictive-modelling.html#cb358-3"></a>  <span class="dt">file =</span> <span class="st">&quot;https://media.githubusercontent.com/media/awstringer1/leaf2018/gh-pages/datasets/contact-centre.csv&quot;</span>,</span>
-<span id="cb358-4"><a href="section-predictive-modelling.html#cb358-4"></a>  <span class="dt">col_names =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb358-5"><a href="section-predictive-modelling.html#cb358-5"></a>  <span class="dt">col_types =</span> <span class="st">&quot;cd&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb358-6"><a href="section-predictive-modelling.html#cb358-6"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="st">&quot;date&quot;</span>,lubridate<span class="op">::</span>mdy)</span>
-<span id="cb358-7"><a href="section-predictive-modelling.html#cb358-7"></a></span>
-<span id="cb358-8"><a href="section-predictive-modelling.html#cb358-8"></a><span class="kw">glimpse</span>(contactdat)</span></code></pre></div>
-<pre><code>Observations: 371
-Variables: 2
-$ date         &lt;date&gt; 2009-12-28, 2009-12-29, 2009-12-30, 2009-12-31, 2010-01…
-$ answer_speed &lt;dbl&gt; 55, 67, 56, 15, 9, 62, 51, 20, 16, 14, 23, 33, 14, 23, 1…</code></pre>
-<div class="sourceCode" id="section-cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="section-predictive-modelling.html#cb360-1"></a>contactdat <span class="op">%&gt;%</span></span>
-<span id="cb360-2"><a href="section-predictive-modelling.html#cb360-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date,<span class="dt">y =</span> answer_speed)) <span class="op">+</span></span>
-<span id="cb360-3"><a href="section-predictive-modelling.html#cb360-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb360-4"><a href="section-predictive-modelling.html#cb360-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></span>
-<span id="cb360-5"><a href="section-predictive-modelling.html#cb360-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Average Wait Time by Day, Toronto 311 Contact Centre&quot;</span>,</span>
-<span id="cb360-6"><a href="section-predictive-modelling.html#cb360-6"></a>       <span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>,</span>
-<span id="cb360-7"><a href="section-predictive-modelling.html#cb360-7"></a>       <span class="dt">y =</span> <span class="st">&quot;Wait Time&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb370-1"><a href="section-predictive-modelling.html#section-cb370-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data</span></span>
+<span id="section-cb370-2"><a href="section-predictive-modelling.html#section-cb370-2" aria-hidden="true" tabindex="-1"></a>contactdat <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="section-cb370-3"><a href="section-predictive-modelling.html#section-cb370-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;https://media.githubusercontent.com/media/awstringer1/leaf2018/gh-pages/datasets/contact-centre.csv&quot;</span>,</span>
+<span id="section-cb370-4"><a href="section-predictive-modelling.html#section-cb370-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">TRUE</span>,</span>
+<span id="section-cb370-5"><a href="section-predictive-modelling.html#section-cb370-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="st">&quot;cd&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="section-cb370-6"><a href="section-predictive-modelling.html#section-cb370-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="st">&quot;date&quot;</span>,lubridate<span class="sc">::</span>mdy)</span>
+<span id="section-cb370-7"><a href="section-predictive-modelling.html#section-cb370-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb370-8"><a href="section-predictive-modelling.html#section-cb370-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(contactdat)</span></code></pre></div>
+<pre><code>Rows: 371
+Columns: 2
+$ date         &lt;date&gt; 2009-12-28, 2009-12-29, 2009-12-30, 2009-12-31, 2010-01-01, 2010-01-02, 2010-01-03, 2010-01-04, 2010-01-05, 2010-01-06, 2010-01-07, 2010-01-08, 2010-01-09, 2010-01-10, 2010-01-11, 201…
+$ answer_speed &lt;dbl&gt; 55, 67, 56, 15, 9, 62, 51, 20, 16, 14, 23, 33, 14, 23, 15, 15, 40, 20, 19, 3, 9, 15, 5, 8, 5, 7, 6, 17, 9, 12, 17, 18, 30, 9, 9, 58, 15, 10, 11, 19, 5, 32, 23, 9, 25, 14, 38, 6, 8, 7, …</code></pre>
+<div class="sourceCode" id="section-cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb372-1"><a href="section-predictive-modelling.html#section-cb372-1" aria-hidden="true" tabindex="-1"></a>contactdat <span class="sc">%&gt;%</span></span>
+<span id="section-cb372-2"><a href="section-predictive-modelling.html#section-cb372-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date,<span class="at">y =</span> answer_speed)) <span class="sc">+</span></span>
+<span id="section-cb372-3"><a href="section-predictive-modelling.html#section-cb372-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb372-4"><a href="section-predictive-modelling.html#section-cb372-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">21</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb372-5"><a href="section-predictive-modelling.html#section-cb372-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Average Wait Time by Day, Toronto 311 Contact Centre&quot;</span>,</span>
+<span id="section-cb372-6"><a href="section-predictive-modelling.html#section-cb372-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Date&quot;</span>,</span>
+<span id="section-cb372-7"><a href="section-predictive-modelling.html#section-cb372-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Wait Time&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/contact-1-1.png" width="672" /></p>
 <p>Woah! That spike in wait times in July is terrible. If we were analyzing these data
 with the intent of informing any actual policy, we would contact the 311 office
 and ask what the heck happened there before proceeding.</p>
 <p>Let’s proceed. To mitigate the drastic spike, consider a log transformation of
 the <code>answer_speed</code>:</p>
-<div class="sourceCode" id="section-cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="section-predictive-modelling.html#cb361-1"></a>contactdat <span class="op">%&gt;%</span></span>
-<span id="cb361-2"><a href="section-predictive-modelling.html#cb361-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date,<span class="dt">y =</span> <span class="kw">log</span>(answer_speed))) <span class="op">+</span></span>
-<span id="cb361-3"><a href="section-predictive-modelling.html#cb361-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb361-4"><a href="section-predictive-modelling.html#cb361-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></span>
-<span id="cb361-5"><a href="section-predictive-modelling.html#cb361-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Average Wait Time by Day, Toronto 311 Contact Centre&quot;</span>,</span>
-<span id="cb361-6"><a href="section-predictive-modelling.html#cb361-6"></a>       <span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>,</span>
-<span id="cb361-7"><a href="section-predictive-modelling.html#cb361-7"></a>       <span class="dt">y =</span> <span class="st">&quot;log(Wait Time)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb373-1"><a href="section-predictive-modelling.html#section-cb373-1" aria-hidden="true" tabindex="-1"></a>contactdat <span class="sc">%&gt;%</span></span>
+<span id="section-cb373-2"><a href="section-predictive-modelling.html#section-cb373-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date,<span class="at">y =</span> <span class="fu">log</span>(answer_speed))) <span class="sc">+</span></span>
+<span id="section-cb373-3"><a href="section-predictive-modelling.html#section-cb373-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb373-4"><a href="section-predictive-modelling.html#section-cb373-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">21</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb373-5"><a href="section-predictive-modelling.html#section-cb373-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Average Wait Time by Day, Toronto 311 Contact Centre&quot;</span>,</span>
+<span id="section-cb373-6"><a href="section-predictive-modelling.html#section-cb373-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Date&quot;</span>,</span>
+<span id="section-cb373-7"><a href="section-predictive-modelling.html#section-cb373-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;log(Wait Time)&quot;</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/contact-2-1.png" width="672" /></p>
 <p>There’s a lot of variance, but it looks like there might be a kind of quadratic trend.</p>
 <p>Recall the simple linear model from Chapter 4 of these supplementary notes:
@@ -534,37 +567,37 @@ already seen. However, paradoxically, models that are <em>too complicated</em> w
 predict <em>new</em> data worse! This is due in part to the <em>variance-bias tradeoff</em> discussed in
 this week’s readings in ISLR.</p>
 <p>Let’s fit the model(s) and assess the in-sample mean-square prediction error.</p>
-<div class="sourceCode" id="section-cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="section-predictive-modelling.html#cb362-1"></a><span class="co"># THIS CODE IS ADVANCED-- the idea is important, but you won&#39;t be</span></span>
-<span id="cb362-2"><a href="section-predictive-modelling.html#cb362-2"></a><span class="co"># tested on the following CODE.</span></span>
-<span id="cb362-3"><a href="section-predictive-modelling.html#cb362-3"></a>contact_std &lt;-<span class="st"> </span>contactdat <span class="op">%&gt;%</span></span>
-<span id="cb362-4"><a href="section-predictive-modelling.html#cb362-4"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="st">&quot;date&quot;</span>,as.numeric) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb362-5"><a href="section-predictive-modelling.html#cb362-5"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="st">&quot;answer_speed&quot;</span>,log) <span class="op">%&gt;%</span></span>
-<span id="cb362-6"><a href="section-predictive-modelling.html#cb362-6"></a><span class="st">  </span><span class="kw">mutate_all</span>(<span class="kw">list</span>(<span class="op">~</span>(. <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(.)) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(.)))</span>
-<span id="cb362-7"><a href="section-predictive-modelling.html#cb362-7"></a></span>
-<span id="cb362-8"><a href="section-predictive-modelling.html#cb362-8"></a><span class="co"># Fit a polynomial regression of degree p</span></span>
-<span id="cb362-9"><a href="section-predictive-modelling.html#cb362-9"></a>fit_poly_regression &lt;-<span class="st"> </span><span class="cf">function</span>(p) {</span>
-<span id="cb362-10"><a href="section-predictive-modelling.html#cb362-10"></a>  <span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> p,<span class="dt">raw =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb362-11"><a href="section-predictive-modelling.html#cb362-11"></a>     <span class="dt">data =</span> contact_std)</span>
-<span id="cb362-12"><a href="section-predictive-modelling.html#cb362-12"></a>}</span>
-<span id="cb362-13"><a href="section-predictive-modelling.html#cb362-13"></a></span>
-<span id="cb362-14"><a href="section-predictive-modelling.html#cb362-14"></a>contactmod_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">1</span>)</span>
-<span id="cb362-15"><a href="section-predictive-modelling.html#cb362-15"></a>contactmod_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">2</span>)</span>
-<span id="cb362-16"><a href="section-predictive-modelling.html#cb362-16"></a>contactmod_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">10</span>)</span>
-<span id="cb362-17"><a href="section-predictive-modelling.html#cb362-17"></a>contactmod_<span class="dv">100</span> &lt;-<span class="st"> </span><span class="kw">fit_poly_regression</span>(<span class="dv">100</span>)</span>
-<span id="cb362-18"><a href="section-predictive-modelling.html#cb362-18"></a></span>
-<span id="cb362-19"><a href="section-predictive-modelling.html#cb362-19"></a><span class="co"># Plot of the predictions</span></span>
-<span id="cb362-20"><a href="section-predictive-modelling.html#cb362-20"></a>prediction_plot &lt;-<span class="st"> </span><span class="cf">function</span>(mod) {</span>
-<span id="cb362-21"><a href="section-predictive-modelling.html#cb362-21"></a>  contact_std <span class="op">%&gt;%</span></span>
-<span id="cb362-22"><a href="section-predictive-modelling.html#cb362-22"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pred =</span> <span class="kw">predict</span>(mod)) <span class="op">%&gt;%</span></span>
-<span id="cb362-23"><a href="section-predictive-modelling.html#cb362-23"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date)) <span class="op">+</span></span>
-<span id="cb362-24"><a href="section-predictive-modelling.html#cb362-24"></a><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb362-25"><a href="section-predictive-modelling.html#cb362-25"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> answer_speed),<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></span>
-<span id="cb362-26"><a href="section-predictive-modelling.html#cb362-26"></a><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred),<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>)</span>
-<span id="cb362-27"><a href="section-predictive-modelling.html#cb362-27"></a>}</span>
-<span id="cb362-28"><a href="section-predictive-modelling.html#cb362-28"></a></span>
-<span id="cb362-29"><a href="section-predictive-modelling.html#cb362-29"></a><span class="kw">library</span>(patchwork)</span>
-<span id="cb362-30"><a href="section-predictive-modelling.html#cb362-30"></a>(<span class="kw">prediction_plot</span>(contactmod_<span class="dv">1</span>) <span class="op">|</span><span class="st"> </span><span class="kw">prediction_plot</span>(contactmod_<span class="dv">2</span>)) <span class="op">/</span></span>
-<span id="cb362-31"><a href="section-predictive-modelling.html#cb362-31"></a><span class="st">  </span>(<span class="kw">prediction_plot</span>(contactmod_<span class="dv">10</span>) <span class="op">|</span><span class="st"> </span><span class="kw">prediction_plot</span>(contactmod_<span class="dv">100</span>))</span></code></pre></div>
+<div class="sourceCode" id="section-cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb374-1"><a href="section-predictive-modelling.html#section-cb374-1" aria-hidden="true" tabindex="-1"></a><span class="co"># THIS CODE IS ADVANCED-- the idea is important, but you won&#39;t be</span></span>
+<span id="section-cb374-2"><a href="section-predictive-modelling.html#section-cb374-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tested on the following CODE.</span></span>
+<span id="section-cb374-3"><a href="section-predictive-modelling.html#section-cb374-3" aria-hidden="true" tabindex="-1"></a>contact_std <span class="ot">&lt;-</span> contactdat <span class="sc">%&gt;%</span></span>
+<span id="section-cb374-4"><a href="section-predictive-modelling.html#section-cb374-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="st">&quot;date&quot;</span>,as.numeric) <span class="sc">%&gt;%</span> </span>
+<span id="section-cb374-5"><a href="section-predictive-modelling.html#section-cb374-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="st">&quot;answer_speed&quot;</span>,log) <span class="sc">%&gt;%</span></span>
+<span id="section-cb374-6"><a href="section-predictive-modelling.html#section-cb374-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="fu">list</span>(<span class="sc">~</span>(. <span class="sc">-</span> <span class="fu">mean</span>(.)) <span class="sc">/</span> <span class="fu">sd</span>(.)))</span>
+<span id="section-cb374-7"><a href="section-predictive-modelling.html#section-cb374-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb374-8"><a href="section-predictive-modelling.html#section-cb374-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a polynomial regression of degree p</span></span>
+<span id="section-cb374-9"><a href="section-predictive-modelling.html#section-cb374-9" aria-hidden="true" tabindex="-1"></a>fit_poly_regression <span class="ot">&lt;-</span> <span class="cf">function</span>(p) {</span>
+<span id="section-cb374-10"><a href="section-predictive-modelling.html#section-cb374-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(answer_speed <span class="sc">~</span> <span class="fu">poly</span>(date,<span class="at">degree =</span> p,<span class="at">raw =</span> <span class="cn">TRUE</span>),</span>
+<span id="section-cb374-11"><a href="section-predictive-modelling.html#section-cb374-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> contact_std)</span>
+<span id="section-cb374-12"><a href="section-predictive-modelling.html#section-cb374-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb374-13"><a href="section-predictive-modelling.html#section-cb374-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb374-14"><a href="section-predictive-modelling.html#section-cb374-14" aria-hidden="true" tabindex="-1"></a>contactmod_1 <span class="ot">&lt;-</span> <span class="fu">fit_poly_regression</span>(<span class="dv">1</span>)</span>
+<span id="section-cb374-15"><a href="section-predictive-modelling.html#section-cb374-15" aria-hidden="true" tabindex="-1"></a>contactmod_2 <span class="ot">&lt;-</span> <span class="fu">fit_poly_regression</span>(<span class="dv">2</span>)</span>
+<span id="section-cb374-16"><a href="section-predictive-modelling.html#section-cb374-16" aria-hidden="true" tabindex="-1"></a>contactmod_10 <span class="ot">&lt;-</span> <span class="fu">fit_poly_regression</span>(<span class="dv">10</span>)</span>
+<span id="section-cb374-17"><a href="section-predictive-modelling.html#section-cb374-17" aria-hidden="true" tabindex="-1"></a>contactmod_100 <span class="ot">&lt;-</span> <span class="fu">fit_poly_regression</span>(<span class="dv">100</span>)</span>
+<span id="section-cb374-18"><a href="section-predictive-modelling.html#section-cb374-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb374-19"><a href="section-predictive-modelling.html#section-cb374-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot of the predictions</span></span>
+<span id="section-cb374-20"><a href="section-predictive-modelling.html#section-cb374-20" aria-hidden="true" tabindex="-1"></a>prediction_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(mod) {</span>
+<span id="section-cb374-21"><a href="section-predictive-modelling.html#section-cb374-21" aria-hidden="true" tabindex="-1"></a>  contact_std <span class="sc">%&gt;%</span></span>
+<span id="section-cb374-22"><a href="section-predictive-modelling.html#section-cb374-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">pred =</span> <span class="fu">predict</span>(mod)) <span class="sc">%&gt;%</span></span>
+<span id="section-cb374-23"><a href="section-predictive-modelling.html#section-cb374-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span></span>
+<span id="section-cb374-24"><a href="section-predictive-modelling.html#section-cb374-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb374-25"><a href="section-predictive-modelling.html#section-cb374-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> answer_speed),<span class="at">pch =</span> <span class="dv">21</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb374-26"><a href="section-predictive-modelling.html#section-cb374-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred),<span class="at">colour =</span> <span class="st">&quot;purple&quot;</span>)</span>
+<span id="section-cb374-27"><a href="section-predictive-modelling.html#section-cb374-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb374-28"><a href="section-predictive-modelling.html#section-cb374-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb374-29"><a href="section-predictive-modelling.html#section-cb374-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="section-cb374-30"><a href="section-predictive-modelling.html#section-cb374-30" aria-hidden="true" tabindex="-1"></a>(<span class="fu">prediction_plot</span>(contactmod_1) <span class="sc">|</span> <span class="fu">prediction_plot</span>(contactmod_2)) <span class="sc">/</span></span>
+<span id="section-cb374-31"><a href="section-predictive-modelling.html#section-cb374-31" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">prediction_plot</span>(contactmod_10) <span class="sc">|</span> <span class="fu">prediction_plot</span>(contactmod_100))</span></code></pre></div>
 <p><img src="book_files/figure-html/fit-models-1-1.png" width="672" /></p>
 <p><strong>Exercise</strong>: I deliberately didn’t label the plots. Can you guess which plot is
 from which degree of polynomial? Remember that <em>higher</em> degree polynomials should
@@ -572,17 +605,17 @@ be more wiggly than lower degrees, and should give better <em>in-sample</em> pre
 than lower degrees.</p>
 <p>Indeed, if we compute the MSPE for each of these models, we find the higher the degree,
 the better the fit <em>to the data we have observed</em>:</p>
-<div class="sourceCode" id="section-cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="section-predictive-modelling.html#cb363-1"></a>compute_mspe_polymod &lt;-<span class="st"> </span><span class="cf">function</span>(mod) {</span>
-<span id="cb363-2"><a href="section-predictive-modelling.html#cb363-2"></a>  <span class="kw">mean</span>(( <span class="kw">predict</span>(mod) <span class="op">-</span><span class="st"> </span>contact_std<span class="op">$</span>answer_speed )<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb363-3"><a href="section-predictive-modelling.html#cb363-3"></a>}</span>
-<span id="cb363-4"><a href="section-predictive-modelling.html#cb363-4"></a></span>
-<span id="cb363-5"><a href="section-predictive-modelling.html#cb363-5"></a><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb375-1"><a href="section-predictive-modelling.html#section-cb375-1" aria-hidden="true" tabindex="-1"></a>compute_mspe_polymod <span class="ot">&lt;-</span> <span class="cf">function</span>(mod) {</span>
+<span id="section-cb375-2"><a href="section-predictive-modelling.html#section-cb375-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(( <span class="fu">predict</span>(mod) <span class="sc">-</span> contact_std<span class="sc">$</span>answer_speed )<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="section-cb375-3"><a href="section-predictive-modelling.html#section-cb375-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb375-4"><a href="section-predictive-modelling.html#section-cb375-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb375-5"><a href="section-predictive-modelling.html#section-cb375-5" aria-hidden="true" tabindex="-1"></a><span class="fu">compute_mspe_polymod</span>(contactmod_1)</span></code></pre></div>
 <pre><code>[1] 0.98471</code></pre>
-<div class="sourceCode" id="section-cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="section-predictive-modelling.html#cb365-1"></a><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb377-1"><a href="section-predictive-modelling.html#section-cb377-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compute_mspe_polymod</span>(contactmod_2)</span></code></pre></div>
 <pre><code>[1] 0.74395</code></pre>
-<div class="sourceCode" id="section-cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="section-predictive-modelling.html#cb367-1"></a><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb379-1"><a href="section-predictive-modelling.html#section-cb379-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compute_mspe_polymod</span>(contactmod_10)</span></code></pre></div>
 <pre><code>[1] 0.59074</code></pre>
-<div class="sourceCode" id="section-cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="section-predictive-modelling.html#cb369-1"></a><span class="kw">compute_mspe_polymod</span>(contactmod_<span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb381-1"><a href="section-predictive-modelling.html#section-cb381-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compute_mspe_polymod</span>(contactmod_100)</span></code></pre></div>
 <pre><code>[1] 0.46629</code></pre>
 <p>The problem with this is that the MSPE is supposed to be for predicting a <em>new</em>
 datapoint, not one that you’ve already seen! To get a better estimate of the real
@@ -597,32 +630,32 @@ where we</p>
 </ol>
 <p>There are many types of cross-validation; this one is called “K-fold” cross validation.</p>
 <p>We can implement this as follows:</p>
-<div class="sourceCode" id="section-cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="section-predictive-modelling.html#cb371-1"></a><span class="kw">set.seed</span>(<span class="dv">809796857</span>)</span>
-<span id="cb371-2"><a href="section-predictive-modelling.html#cb371-2"></a>do_crossval &lt;-<span class="st"> </span><span class="cf">function</span>(p,<span class="dt">K =</span> <span class="dv">10</span>) {</span>
-<span id="cb371-3"><a href="section-predictive-modelling.html#cb371-3"></a>  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(contact_std)</span>
-<span id="cb371-4"><a href="section-predictive-modelling.html#cb371-4"></a>  mspevec &lt;-<span class="st"> </span><span class="kw">numeric</span>(K)</span>
-<span id="cb371-5"><a href="section-predictive-modelling.html#cb371-5"></a>  <span class="co"># Split the data into K &quot;folds&quot;</span></span>
-<span id="cb371-6"><a href="section-predictive-modelling.html#cb371-6"></a>  <span class="co"># First randomly shuffle the rows:</span></span>
-<span id="cb371-7"><a href="section-predictive-modelling.html#cb371-7"></a>  contact_std_shuffle &lt;-<span class="st"> </span>contact_std[<span class="kw">sample.int</span>(n), ]</span>
-<span id="cb371-8"><a href="section-predictive-modelling.html#cb371-8"></a>  <span class="co"># Then split the data in order:</span></span>
-<span id="cb371-9"><a href="section-predictive-modelling.html#cb371-9"></a>  datachunks &lt;-<span class="st"> </span><span class="kw">split</span>(contact_std_shuffle,<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>K,<span class="dt">each =</span> <span class="kw">round</span>(n<span class="op">/</span>K))[<span class="dv">1</span><span class="op">:</span>n])</span>
-<span id="cb371-10"><a href="section-predictive-modelling.html#cb371-10"></a>  <span class="co"># Now fit the model to each combination of K-1 chunks, and predict</span></span>
-<span id="cb371-11"><a href="section-predictive-modelling.html#cb371-11"></a>  <span class="co"># on the Kth chunk:</span></span>
-<span id="cb371-12"><a href="section-predictive-modelling.html#cb371-12"></a>  <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K) {</span>
-<span id="cb371-13"><a href="section-predictive-modelling.html#cb371-13"></a>    ds &lt;-<span class="st"> </span><span class="kw">reduce</span>(datachunks[(<span class="dv">1</span><span class="op">:</span>K)[<span class="op">-</span>k]],bind_rows)</span>
-<span id="cb371-14"><a href="section-predictive-modelling.html#cb371-14"></a>    mod &lt;-<span class="st"> </span><span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> p,<span class="dt">raw =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb371-15"><a href="section-predictive-modelling.html#cb371-15"></a>              <span class="dt">data =</span> ds)</span>
-<span id="cb371-16"><a href="section-predictive-modelling.html#cb371-16"></a>    mspevec[k] &lt;-<span class="st"> </span><span class="kw">mean</span>( (<span class="kw">predict</span>(mod,<span class="dt">newdata =</span> datachunks[[k]]) <span class="op">-</span><span class="st"> </span>datachunks[[k]]<span class="op">$</span>answer_speed)<span class="op">^</span><span class="dv">2</span> )</span>
-<span id="cb371-17"><a href="section-predictive-modelling.html#cb371-17"></a>  }</span>
-<span id="cb371-18"><a href="section-predictive-modelling.html#cb371-18"></a>  <span class="kw">mean</span>(mspevec)</span>
-<span id="cb371-19"><a href="section-predictive-modelling.html#cb371-19"></a>}</span>
-<span id="cb371-20"><a href="section-predictive-modelling.html#cb371-20"></a><span class="kw">do_crossval</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb383-1"><a href="section-predictive-modelling.html#section-cb383-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">809796857</span>)</span>
+<span id="section-cb383-2"><a href="section-predictive-modelling.html#section-cb383-2" aria-hidden="true" tabindex="-1"></a>do_crossval <span class="ot">&lt;-</span> <span class="cf">function</span>(p,<span class="at">K =</span> <span class="dv">10</span>) {</span>
+<span id="section-cb383-3"><a href="section-predictive-modelling.html#section-cb383-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(contact_std)</span>
+<span id="section-cb383-4"><a href="section-predictive-modelling.html#section-cb383-4" aria-hidden="true" tabindex="-1"></a>  mspevec <span class="ot">&lt;-</span> <span class="fu">numeric</span>(K)</span>
+<span id="section-cb383-5"><a href="section-predictive-modelling.html#section-cb383-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Split the data into K &quot;folds&quot;</span></span>
+<span id="section-cb383-6"><a href="section-predictive-modelling.html#section-cb383-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># First randomly shuffle the rows:</span></span>
+<span id="section-cb383-7"><a href="section-predictive-modelling.html#section-cb383-7" aria-hidden="true" tabindex="-1"></a>  contact_std_shuffle <span class="ot">&lt;-</span> contact_std[<span class="fu">sample.int</span>(n), ]</span>
+<span id="section-cb383-8"><a href="section-predictive-modelling.html#section-cb383-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then split the data in order:</span></span>
+<span id="section-cb383-9"><a href="section-predictive-modelling.html#section-cb383-9" aria-hidden="true" tabindex="-1"></a>  datachunks <span class="ot">&lt;-</span> <span class="fu">split</span>(contact_std_shuffle,<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>K,<span class="at">each =</span> <span class="fu">round</span>(n<span class="sc">/</span>K))[<span class="dv">1</span><span class="sc">:</span>n])</span>
+<span id="section-cb383-10"><a href="section-predictive-modelling.html#section-cb383-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Now fit the model to each combination of K-1 chunks, and predict</span></span>
+<span id="section-cb383-11"><a href="section-predictive-modelling.html#section-cb383-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># on the Kth chunk:</span></span>
+<span id="section-cb383-12"><a href="section-predictive-modelling.html#section-cb383-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>K) {</span>
+<span id="section-cb383-13"><a href="section-predictive-modelling.html#section-cb383-13" aria-hidden="true" tabindex="-1"></a>    ds <span class="ot">&lt;-</span> <span class="fu">reduce</span>(datachunks[(<span class="dv">1</span><span class="sc">:</span>K)[<span class="sc">-</span>k]],bind_rows)</span>
+<span id="section-cb383-14"><a href="section-predictive-modelling.html#section-cb383-14" aria-hidden="true" tabindex="-1"></a>    mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(answer_speed <span class="sc">~</span> <span class="fu">poly</span>(date,<span class="at">degree =</span> p,<span class="at">raw =</span> <span class="cn">TRUE</span>),</span>
+<span id="section-cb383-15"><a href="section-predictive-modelling.html#section-cb383-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> ds)</span>
+<span id="section-cb383-16"><a href="section-predictive-modelling.html#section-cb383-16" aria-hidden="true" tabindex="-1"></a>    mspevec[k] <span class="ot">&lt;-</span> <span class="fu">mean</span>( (<span class="fu">predict</span>(mod,<span class="at">newdata =</span> datachunks[[k]]) <span class="sc">-</span> datachunks[[k]]<span class="sc">$</span>answer_speed)<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="section-cb383-17"><a href="section-predictive-modelling.html#section-cb383-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="section-cb383-18"><a href="section-predictive-modelling.html#section-cb383-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(mspevec)</span>
+<span id="section-cb383-19"><a href="section-predictive-modelling.html#section-cb383-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb383-20"><a href="section-predictive-modelling.html#section-cb383-20" aria-hidden="true" tabindex="-1"></a><span class="fu">do_crossval</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>[1] 0.99517</code></pre>
-<div class="sourceCode" id="section-cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="section-predictive-modelling.html#cb373-1"></a><span class="kw">do_crossval</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb385-1"><a href="section-predictive-modelling.html#section-cb385-1" aria-hidden="true" tabindex="-1"></a><span class="fu">do_crossval</span>(<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>[1] 0.74894</code></pre>
-<div class="sourceCode" id="section-cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="section-predictive-modelling.html#cb375-1"></a><span class="kw">do_crossval</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb387-1"><a href="section-predictive-modelling.html#section-cb387-1" aria-hidden="true" tabindex="-1"></a><span class="fu">do_crossval</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>[1] 0.60901</code></pre>
-<div class="sourceCode" id="section-cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="section-predictive-modelling.html#cb377-1"></a><span class="kw">do_crossval</span>(<span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb389-1"><a href="section-predictive-modelling.html#section-cb389-1" aria-hidden="true" tabindex="-1"></a><span class="fu">do_crossval</span>(<span class="dv">100</span>)</span></code></pre></div>
 <pre><code>[1] 4.1858</code></pre>
 <p>Woah! The fit on new data–that is, the quality of the predictions–
 seems to improve as the degree of polynomial increases, but only to a certain
@@ -631,32 +664,32 @@ point. For the <span class="math inline">\(p = 100\)</span> degree polynomial, t
 have some <strong>bias</strong>–they don’t predict perfectly in-sample–but they have low variance,
 in that <em>the inferred model parameters tend to be similar across datasets</em>.</p>
 <p>Consider again the <span class="math inline">\(p = 1\)</span> and <span class="math inline">\(p = 100\)</span> models:</p>
-<div class="sourceCode" id="section-cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="section-predictive-modelling.html#cb379-1"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(</span>
-<span id="cb379-2"><a href="section-predictive-modelling.html#cb379-2"></a>  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">1</span>),</span>
-<span id="cb379-3"><a href="section-predictive-modelling.html#cb379-3"></a>  <span class="kw">prediction_plot</span>(contactmod_<span class="dv">100</span>),</span>
-<span id="cb379-4"><a href="section-predictive-modelling.html#cb379-4"></a>  <span class="dt">nrow =</span> <span class="dv">1</span></span>
-<span id="cb379-5"><a href="section-predictive-modelling.html#cb379-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb391-1"><a href="section-predictive-modelling.html#section-cb391-1" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(</span>
+<span id="section-cb391-2"><a href="section-predictive-modelling.html#section-cb391-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prediction_plot</span>(contactmod_1),</span>
+<span id="section-cb391-3"><a href="section-predictive-modelling.html#section-cb391-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prediction_plot</span>(contactmod_100),</span>
+<span id="section-cb391-4"><a href="section-predictive-modelling.html#section-cb391-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">1</span></span>
+<span id="section-cb391-5"><a href="section-predictive-modelling.html#section-cb391-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p><img src="book_files/figure-html/contact-4-1.png" width="672" /></p>
 <p>The <span class="math inline">\(p = 1\)</span> plot (exercise: make sure you can tell which is which) doesn’t
 predict very many datapoints correctly. The <span class="math inline">\(p = 100\)</span> hugs the observed data
 much closer. But because of this, if we sample a new dataset…</p>
-<div class="sourceCode" id="section-cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="section-predictive-modelling.html#cb380-1"></a><span class="co"># Take a bootstrap sample</span></span>
-<span id="cb380-2"><a href="section-predictive-modelling.html#cb380-2"></a>contact_new &lt;-<span class="st"> </span>contact_std[<span class="kw">sample.int</span>(<span class="kw">nrow</span>(contact_std),<span class="dt">replace =</span> <span class="ot">TRUE</span>), ]</span>
-<span id="cb380-3"><a href="section-predictive-modelling.html#cb380-3"></a>contactmod_new_<span class="dv">1</span> &lt;-<span class="st">   </span><span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> <span class="dv">1</span>,<span class="dt">raw =</span> <span class="ot">TRUE</span>),<span class="dt">data =</span> contact_new)</span>
-<span id="cb380-4"><a href="section-predictive-modelling.html#cb380-4"></a>contactmod_new_<span class="dv">100</span> &lt;-<span class="st">   </span><span class="kw">lm</span>(answer_speed <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(date,<span class="dt">degree =</span> <span class="dv">100</span>,<span class="dt">raw =</span> <span class="ot">TRUE</span>),<span class="dt">data =</span> contact_new)</span>
-<span id="cb380-5"><a href="section-predictive-modelling.html#cb380-5"></a>prediction_plot_new &lt;-<span class="st"> </span><span class="cf">function</span>(mod) {</span>
-<span id="cb380-6"><a href="section-predictive-modelling.html#cb380-6"></a>  contact_new <span class="op">%&gt;%</span></span>
-<span id="cb380-7"><a href="section-predictive-modelling.html#cb380-7"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pred =</span> <span class="kw">predict</span>(mod)) <span class="op">%&gt;%</span></span>
-<span id="cb380-8"><a href="section-predictive-modelling.html#cb380-8"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date)) <span class="op">+</span></span>
-<span id="cb380-9"><a href="section-predictive-modelling.html#cb380-9"></a><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb380-10"><a href="section-predictive-modelling.html#cb380-10"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> answer_speed),<span class="dt">pch =</span> <span class="dv">21</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></span>
-<span id="cb380-11"><a href="section-predictive-modelling.html#cb380-11"></a><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred),<span class="dt">colour =</span> <span class="st">&quot;purple&quot;</span>)</span>
-<span id="cb380-12"><a href="section-predictive-modelling.html#cb380-12"></a>}</span>
-<span id="cb380-13"><a href="section-predictive-modelling.html#cb380-13"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(</span>
-<span id="cb380-14"><a href="section-predictive-modelling.html#cb380-14"></a>  <span class="kw">prediction_plot_new</span>(contactmod_new_<span class="dv">1</span>),</span>
-<span id="cb380-15"><a href="section-predictive-modelling.html#cb380-15"></a>  <span class="kw">prediction_plot_new</span>(contactmod_new_<span class="dv">100</span>),</span>
-<span id="cb380-16"><a href="section-predictive-modelling.html#cb380-16"></a>  <span class="dt">nrow =</span> <span class="dv">1</span></span>
-<span id="cb380-17"><a href="section-predictive-modelling.html#cb380-17"></a>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb392-1"><a href="section-predictive-modelling.html#section-cb392-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a bootstrap sample</span></span>
+<span id="section-cb392-2"><a href="section-predictive-modelling.html#section-cb392-2" aria-hidden="true" tabindex="-1"></a>contact_new <span class="ot">&lt;-</span> contact_std[<span class="fu">sample.int</span>(<span class="fu">nrow</span>(contact_std),<span class="at">replace =</span> <span class="cn">TRUE</span>), ]</span>
+<span id="section-cb392-3"><a href="section-predictive-modelling.html#section-cb392-3" aria-hidden="true" tabindex="-1"></a>contactmod_new_1 <span class="ot">&lt;-</span>   <span class="fu">lm</span>(answer_speed <span class="sc">~</span> <span class="fu">poly</span>(date,<span class="at">degree =</span> <span class="dv">1</span>,<span class="at">raw =</span> <span class="cn">TRUE</span>),<span class="at">data =</span> contact_new)</span>
+<span id="section-cb392-4"><a href="section-predictive-modelling.html#section-cb392-4" aria-hidden="true" tabindex="-1"></a>contactmod_new_100 <span class="ot">&lt;-</span>   <span class="fu">lm</span>(answer_speed <span class="sc">~</span> <span class="fu">poly</span>(date,<span class="at">degree =</span> <span class="dv">100</span>,<span class="at">raw =</span> <span class="cn">TRUE</span>),<span class="at">data =</span> contact_new)</span>
+<span id="section-cb392-5"><a href="section-predictive-modelling.html#section-cb392-5" aria-hidden="true" tabindex="-1"></a>prediction_plot_new <span class="ot">&lt;-</span> <span class="cf">function</span>(mod) {</span>
+<span id="section-cb392-6"><a href="section-predictive-modelling.html#section-cb392-6" aria-hidden="true" tabindex="-1"></a>  contact_new <span class="sc">%&gt;%</span></span>
+<span id="section-cb392-7"><a href="section-predictive-modelling.html#section-cb392-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">pred =</span> <span class="fu">predict</span>(mod)) <span class="sc">%&gt;%</span></span>
+<span id="section-cb392-8"><a href="section-predictive-modelling.html#section-cb392-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span></span>
+<span id="section-cb392-9"><a href="section-predictive-modelling.html#section-cb392-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb392-10"><a href="section-predictive-modelling.html#section-cb392-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> answer_speed),<span class="at">pch =</span> <span class="dv">21</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb392-11"><a href="section-predictive-modelling.html#section-cb392-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred),<span class="at">colour =</span> <span class="st">&quot;purple&quot;</span>)</span>
+<span id="section-cb392-12"><a href="section-predictive-modelling.html#section-cb392-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb392-13"><a href="section-predictive-modelling.html#section-cb392-13" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(</span>
+<span id="section-cb392-14"><a href="section-predictive-modelling.html#section-cb392-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prediction_plot_new</span>(contactmod_new_1),</span>
+<span id="section-cb392-15"><a href="section-predictive-modelling.html#section-cb392-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prediction_plot_new</span>(contactmod_new_100),</span>
+<span id="section-cb392-16"><a href="section-predictive-modelling.html#section-cb392-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">1</span></span>
+<span id="section-cb392-17"><a href="section-predictive-modelling.html#section-cb392-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p><img src="book_files/figure-html/contact-5-1.png" width="672" /></p>
 <p>The <span class="math inline">\(p = 1\)</span> model remains nearly identical, while the <span class="math inline">\(p = 100\)</span> model changes!
 High variance refers to the fact that slight changes in the sample cause big changes

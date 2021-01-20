@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Statistical Models | Probability, Statistics, and Data Analysis</title>
   <meta name="description" content="This book represents part of the course materials for STA238 at the University of Toronto" />
-  <meta name="generator" content="bookdown 0.21.2 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Statistical Models | Probability, Statistics, and Data Analysis" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Alison Gibbs and Alex Stringer" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2021-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"/>
 <link rel="next" href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,24 +51,22 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,7 +86,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,24 +136,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a><ul>
-<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a><ul>
+<li class="chapter" data-level="2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><i class="fa fa-check"></i><b>2</b> Introduction to Data Analysis: Data Input and Basic Summaries</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-old-faithful"><i class="fa fa-check"></i><b>2.1</b> Old Faithful</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Read in the data</a></li>
 <li class="chapter" data-level="2.1.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries"><i class="fa fa-check"></i><b>2.1.2</b> Graphical Summaries</a></li>
 <li class="chapter" data-level="2.1.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries"><i class="fa fa-check"></i><b>2.1.3</b> Numerical Summaries</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a><ul>
+<li class="chapter" data-level="2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-drilling"><i class="fa fa-check"></i><b>2.2</b> Drilling</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-read-in-data"><i class="fa fa-check"></i><b>2.2.1</b> Read in data</a></li>
 <li class="chapter" data-level="2.2.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-graphical-summaries-1"><i class="fa fa-check"></i><b>2.2.2</b> Graphical summaries</a></li>
 <li class="chapter" data-level="2.2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-numerical-summaries-1"><i class="fa fa-check"></i><b>2.2.3</b> Numerical summaries</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
-<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a><ul>
+<li class="chapter" data-level="2.4" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-extended-example-smoking-and-age-and-mortality"><i class="fa fa-check"></i><b>2.4</b> Extended example: smoking and age and mortality</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-1"><i class="fa fa-check"></i><b>2.4.1</b> Exercises</a></li>
 <li class="chapter" data-level="2.4.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-association-between-smoking-and-mortality"><i class="fa fa-check"></i><b>2.4.2</b> Association between smoking and mortality</a></li>
 <li class="chapter" data-level="2.4.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-2"><i class="fa fa-check"></i><b>2.4.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a><ul>
+<li class="chapter" data-level="2.5" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-case-study-rental-housing-in-toronto"><i class="fa fa-check"></i><b>2.5</b> Case study: rental housing in Toronto</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-load-the-data"><i class="fa fa-check"></i><b>2.5.1</b> Load the data</a></li>
 <li class="chapter" data-level="2.5.2" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-i-what-does-the-data-look-like"><i class="fa fa-check"></i><b>2.5.2</b> Analysis I: what does the data look like?</a></li>
 <li class="chapter" data-level="2.5.3" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-analysis-ii-do-different-wards-have-different-quality-housing"><i class="fa fa-check"></i><b>2.5.3</b> Analysis II: Do different wards have different quality housing?</a></li>
@@ -163,30 +167,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.6" data-path="section-introduction-to-data-analysis-data-input-and-basic-summaries.html"><a href="section-introduction-to-data-analysis-data-input-and-basic-summaries.html#section-exercises-3"><i class="fa fa-check"></i><b>2.5.6</b> Exercises</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a><ul>
-<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a><ul>
+<li class="chapter" data-level="3" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><i class="fa fa-check"></i><b>3</b> Introduction to Statistics: Law of Large Numbers and Central Limit Theorem</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-law-of-large-numbers-chapter-13"><i class="fa fa-check"></i><b>3.1</b> Law of Large Numbers (Chapter 13)</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads"><i class="fa fa-check"></i><b>3.1.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a><ul>
+<li class="chapter" data-level="3.2" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-central-limit-theorem-chapter-14"><i class="fa fa-check"></i><b>3.2</b> Central Limit Theorem (Chapter 14)</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html"><a href="section-introduction-to-statistics-law-of-large-numbers-and-central-limit-theorem.html#section-extended-example-the-probability-of-heads-1"><i class="fa fa-check"></i><b>3.2.1</b> Extended example: the probability of heads</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a><ul>
-<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a><ul>
+<li class="chapter" data-level="4" data-path="section-statistical-models.html"><a href="section-statistical-models.html"><i class="fa fa-check"></i><b>4</b> Statistical Models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-statistical-models-chapter-17"><i class="fa fa-check"></i><b>4.1</b> Statistical models (Chapter 17)</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.1.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-extended-example-ttc-ridership-revenues"><i class="fa fa-check"></i><b>4.1.2</b> Extended example: TTC ridership revenues</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a><ul>
+<li class="chapter" data-level="4.2" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-unbiased-estimators-chapter-19"><i class="fa fa-check"></i><b>4.2</b> Unbiased Estimators (Chapter 19)</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="section-statistical-models.html"><a href="section-statistical-models.html#section-simulated-data"><i class="fa fa-check"></i><b>4.2.1</b> Simulated data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a><ul>
+<li class="chapter" data-level="5" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><i class="fa fa-check"></i><b>5</b> Evaluating Estimators: Efficiency and Mean Squared Error</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-estimating-a-uniform-maximum"><i class="fa fa-check"></i><b>5.1</b> Estimating a Uniform Maximum</a></li>
 <li class="chapter" data-level="5.2" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-efficiency"><i class="fa fa-check"></i><b>5.2</b> Efficiency</a></li>
 <li class="chapter" data-level="5.3" data-path="section-evaluating-estimators-efficiency-and-mean-squared-error.html"><a href="section-evaluating-estimators-efficiency-and-mean-squared-error.html#section-mean-squared-error"><i class="fa fa-check"></i><b>5.3</b> Mean Squared Error</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a><ul>
-<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a><ul>
+<li class="chapter" data-level="6" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Inference</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-tutorial"><i class="fa fa-check"></i><b>6.1</b> Tutorial</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-frequentistlikelihood-perspective"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist/Likelihood Perspective</a></li>
 <li class="chapter" data-level="6.1.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-bayesian-inference-introduction"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Inference: introduction</a></li>
 <li class="chapter" data-level="6.1.3" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-flipping-more-coins"><i class="fa fa-check"></i><b>6.1.3</b> Flipping More Coins</a></li>
@@ -194,23 +207,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="section-introduction-to-bayesian-inference.html"><a href="section-introduction-to-bayesian-inference.html#section-interactive-app"><i class="fa fa-check"></i><b>6.2</b> Interactive App</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a><ul>
-<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a><ul>
+<li class="chapter" data-level="7" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html"><i class="fa fa-check"></i><b>7</b> The Bootstrap</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-the-bootstrap-chapter-18"><i class="fa fa-check"></i><b>7.1</b> The Bootstrap (Chapter 18)</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-empirical-bootstrap-old-faithful-data"><i class="fa fa-check"></i><b>7.1.1</b> Empirical bootstrap: Old Faithful data</a></li>
 <li class="chapter" data-level="7.1.2" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-parametric-bootstrap-software-data"><i class="fa fa-check"></i><b>7.1.2</b> Parametric Bootstrap: software data</a></li>
 <li class="chapter" data-level="7.1.3" data-path="section-the-bootstrap.html"><a href="section-the-bootstrap.html#section-extended-example-the-standard-error-of-a-proportion"><i class="fa fa-check"></i><b>7.1.3</b> Extended example: the standard error of a proportion</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html"><i class="fa fa-check"></i><b>8</b> Maximum Likelihood</a><ul>
-<li class="chapter" data-level="8.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a><ul>
+<li class="chapter" data-level="8" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html"><i class="fa fa-check"></i><b>8</b> Maximum Likelihood</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-maximum-likelihood-chapter-21"><i class="fa fa-check"></i><b>8.1</b> Maximum Likelihood (Chapter 21)</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-two-coins"><i class="fa fa-check"></i><b>8.1.1</b> Example: two coins</a></li>
 <li class="chapter" data-level="8.1.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-2"><i class="fa fa-check"></i><b>8.1.2</b> Example: unknown coins, <span class="math inline">\(n = 2\)</span></a></li>
 <li class="chapter" data-level="8.1.3" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-example-unknown-coins-n-bigger-than-2"><i class="fa fa-check"></i><b>8.1.3</b> Example: unknown coins, <span class="math inline">\(n\)</span> bigger than <span class="math inline">\(2\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="section-maximum-likelihood.html"><a href="section-maximum-likelihood.html#section-extended-example-rental-housing-in-toronto"><i class="fa fa-check"></i><b>8.2</b> Extended example: rental housing in Toronto</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html"><i class="fa fa-check"></i><b>9</b> Confidence Intervals and Quantifying Uncertainty</a><ul>
-<li class="chapter" data-level="9.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a><ul>
+<li class="chapter" data-level="9" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html"><i class="fa fa-check"></i><b>9</b> Confidence Intervals and Quantifying Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-confidence-intervals-for-the-mean-chapter-23"><i class="fa fa-check"></i><b>9.1</b> Confidence Intervals for the Mean (Chapter 23)</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-simulation-an-example"><i class="fa fa-check"></i><b>9.1.1</b> Simulation: an example</a></li>
 <li class="chapter" data-level="9.1.2" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-gross-calorific-value-measurements-for-osterfeld-262de27"><i class="fa fa-check"></i><b>9.1.2</b> Gross calorific value measurements for Osterfeld 262DE27</a></li>
 <li class="chapter" data-level="9.1.3" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-when-you-dont-know-sigma"><i class="fa fa-check"></i><b>9.1.3</b> When you don’t know <span class="math inline">\(\sigma\)</span></a></li>
@@ -218,38 +237,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1.5" data-path="section-confidence-intervals-and-quantifying-uncertainty.html"><a href="section-confidence-intervals-and-quantifying-uncertainty.html#section-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>9.1.5</b> Bootstrap Confidence Intervals</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a><ul>
+<li class="chapter" data-level="10" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html"><i class="fa fa-check"></i><b>10</b> Extended Example: Reasoning About Goodness of Fit</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-go-and-read-the-blog-post"><i class="fa fa-check"></i><b>10.1</b> Go and read the blog post</a></li>
-<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a><ul>
+<li class="chapter" data-level="10.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-distribution-of-last-digits"><i class="fa fa-check"></i><b>10.2</b> Distribution of last digits</a>
+<ul>
 <li class="chapter" data-level="10.2.1" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-read-in-the-data-1"><i class="fa fa-check"></i><b>10.2.1</b> Read in the data</a></li>
 <li class="chapter" data-level="10.2.2" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-make-the-histogram"><i class="fa fa-check"></i><b>10.2.2</b> Make the histogram</a></li>
 <li class="chapter" data-level="10.2.3" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-simulation"><i class="fa fa-check"></i><b>10.2.3</b> Testing goodness of fit: simulation</a></li>
 <li class="chapter" data-level="10.2.4" data-path="section-extended-example-reasoning-about-goodness-of-fit.html"><a href="section-extended-example-reasoning-about-goodness-of-fit.html#section-testing-goodness-of-fit-math"><i class="fa fa-check"></i><b>10.2.4</b> Testing goodness of fit: math</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html"><i class="fa fa-check"></i><b>11</b> Bayesian Inference: Estimation</a><ul>
-<li class="chapter" data-level="11.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a><ul>
+<li class="chapter" data-level="11" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html"><i class="fa fa-check"></i><b>11</b> Bayesian Inference: Estimation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-general-ideas"><i class="fa fa-check"></i><b>11.1</b> Estimation in Bayesian Inference: general ideas</a>
+<ul>
 <li class="chapter" data-level="11.1.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-prior"><i class="fa fa-check"></i><b>11.1.1</b> The Prior</a></li>
 <li class="chapter" data-level="11.1.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-the-posterior"><i class="fa fa-check"></i><b>11.1.2</b> The Posterior</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-estimation-in-bayesian-inference-point-and-interval-estimation"><i class="fa fa-check"></i><b>11.2</b> Estimation in Bayesian Inference: point and interval estimation</a></li>
-<li class="chapter" data-level="11.3" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a><ul>
+<li class="chapter" data-level="11.3" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-choosing-a-prior"><i class="fa fa-check"></i><b>11.3</b> Choosing a Prior</a>
+<ul>
 <li class="chapter" data-level="11.3.1" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-conjugate-priors"><i class="fa fa-check"></i><b>11.3.1</b> Conjugate Priors</a></li>
 <li class="chapter" data-level="11.3.2" data-path="section-bayesian-inference-estimation.html"><a href="section-bayesian-inference-estimation.html#section-setting-hyperparameters-by-moment-matching"><i class="fa fa-check"></i><b>11.3.2</b> Setting Hyperparameters by moment-matching</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a><ul>
+<li class="chapter" data-level="12" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html"><i class="fa fa-check"></i><b>12</b> Predictive Modelling</a>
+<ul>
 <li class="chapter" data-level="12.1" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-overview"><i class="fa fa-check"></i><b>12.1</b> Overview</a></li>
 <li class="chapter" data-level="12.2" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-plug-in-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.2</b> Plug-in prediction: coin flipping</a></li>
 <li class="chapter" data-level="12.3" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-bayesian-prediction-coin-flipping"><i class="fa fa-check"></i><b>12.3</b> Bayesian Prediction: coin flipping</a></li>
 <li class="chapter" data-level="12.4" data-path="section-predictive-modelling.html"><a href="section-predictive-modelling.html#section-extended-example-predicting-call-centre-wait-times"><i class="fa fa-check"></i><b>12.4</b> Extended example: predicting call centre wait times</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="13" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>13</b> Installing R and RStudio</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-r"><i class="fa fa-check"></i><b>13.1</b> Installing R</a></li>
 <li class="chapter" data-level="13.2" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-installing-rstudio"><i class="fa fa-check"></i><b>13.2</b> Installing RStudio</a></li>
 <li class="chapter" data-level="13.3" data-path="section-installing-r-and-rstudio.html"><a href="section-installing-r-and-rstudio.html#section-using-rmarkdown"><i class="fa fa-check"></i><b>13.3</b> Using RMarkdown</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a><ul>
+<li class="chapter" data-level="14" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html"><i class="fa fa-check"></i><b>14</b> Assigned Exercises from MIPS</a>
+<ul>
 <li class="chapter" data-level="14.1" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-15-and-16"><i class="fa fa-check"></i><b>14.1</b> Chapters 15 and 16</a></li>
 <li class="chapter" data-level="14.2" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-13-and-14"><i class="fa fa-check"></i><b>14.2</b> Chapters 13 and 14</a></li>
 <li class="chapter" data-level="14.3" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapters-17-and-19"><i class="fa fa-check"></i><b>14.3</b> Chapters 17 and 19</a></li>
@@ -260,18 +287,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.8" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-chapter-23"><i class="fa fa-check"></i><b>14.8</b> Chapter 23</a></li>
 <li class="chapter" data-level="14.9" data-path="section-assigned-exercises-from-mips.html"><a href="section-assigned-exercises-from-mips.html#section-evans-and-rosenthal-chapter-7.2"><i class="fa fa-check"></i><b>14.9</b> Evans and Rosenthal, Chapter 7.2</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html"><i class="fa fa-check"></i><b>15</b> Extended Example: World Population Data</a><ul>
+<li class="chapter" data-level="15" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html"><i class="fa fa-check"></i><b>15</b> Extended Example: World Population Data</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-read-in-and-prepare-the-data-for-analysis"><i class="fa fa-check"></i><b>15.1</b> Read in and prepare the data for analysis</a></li>
 <li class="chapter" data-level="15.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-model-world-population-over-time"><i class="fa fa-check"></i><b>15.2</b> Model world population over time</a></li>
 <li class="chapter" data-level="15.3" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-model-for-world-population"><i class="fa fa-check"></i><b>15.3</b> Bayesian model for world population</a></li>
 <li class="chapter" data-level="15.4" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-quantifying-uncertainty-in-estimates-of-world-population-regression-model"><i class="fa fa-check"></i><b>15.4</b> Quantifying uncertainty in estimates of world population: regression model</a></li>
-<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a><ul>
+<li class="chapter" data-level="15.5" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-bayesian-estimate-of-world-population"><i class="fa fa-check"></i><b>15.5</b> Bayesian estimate of world population</a>
+<ul>
 <li class="chapter" data-level="15.5.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-and-uncertainty-quantification"><i class="fa fa-check"></i><b>15.5.1</b> Estimation and uncertainty quantification</a></li>
 <li class="chapter" data-level="15.5.2" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-estimation-by-sampling"><i class="fa fa-check"></i><b>15.5.2</b> Estimation by sampling</a></li>
 </ul></li>
-<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a><ul>
+<li class="chapter" data-level="15.6" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-predicting-world-population"><i class="fa fa-check"></i><b>15.6</b> Predicting world population</a>
+<ul>
 <li class="chapter" data-level="15.6.1" data-path="section-extended-example-world-population-data.html"><a href="section-extended-example-world-population-data.html#section-why-arent-our-predictions-accurate"><i class="fa fa-check"></i><b>15.6.1</b> Why aren’t our predictions accurate?</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html"><i class="fa fa-check"></i><b>16</b> Short tutorial on pulling data for Assignment 1</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html#section-toronto-open-data-portal"><i class="fa fa-check"></i><b>16.1</b> Toronto Open Data Portal</a></li>
+<li class="chapter" data-level="16.2" data-path="section-short-tutorial-on-pulling-data-for-assignment-1.html"><a href="section-short-tutorial-on-pulling-data-for-assignment-1.html#section-canadian-election-study"><i class="fa fa-check"></i><b>16.2</b> Canadian Election Study</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -293,13 +328,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="section-statistical-models" class="section level1">
+<div id="section-statistical-models" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Statistical Models</h1>
 <p>This chapter covers statistical models and plotting regression lines
 (although most of the math of linear regression
 is left to a later chapter) and unbiased estimators.</p>
-<p>We’ll use data from the book A Modern Introduction to Probability and Statistics (MIPS) which can be found here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>. This will be referred to as “the book data folder”. This chapter corresponds to Chapters 17 and 19 in MIPS.</p>
-<div id="section-statistical-models-chapter-17" class="section level2">
+<p>We’ll use data from the book A Modern Introduction to Probability and Statistics (MIPS) which can be found here: <a href="https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/" class="uri">https://www.tudelft.nl/en/eemcs/the-faculty/departments/applied-mathematics/applied-probability/education/mips/</a>. This will be referred to as “the book data folder.” This chapter corresponds to Chapters 17 and 19 in MIPS.</p>
+<div id="section-statistical-models-chapter-17" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Statistical models (Chapter 17)</h2>
 <blockquote>
 <p>A statistical model is a probability distribution contructed to enable inferences
@@ -334,7 +369,7 @@ and velocity of stars (actually clusters of stars) which orbit the the Galaxy (<
 and they have a <strong>statistical model</strong> which relates these position and velocity measurements
 to the mass of the Galaxy. They go out, measure the position and velocities of these star clusters,
 and use them and this model to estimate the mass of the Milky Way.</p>
-<div id="section-linear-regression" class="section level3">
+<div id="section-linear-regression" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Linear Regression</h3>
 <p>A very common introductory statistical model is <strong>Linear Regression</strong>. Suppose you
 have data <span class="math inline">\(y_{i}\overset{ind}{\sim}\text{N}(\mu_{i},\sigma^{2})\)</span>– normally distributed
@@ -352,7 +387,7 @@ to relate the average hardness of the wood to its density. So <span class="math 
 and <span class="math inline">\(x_{i}\)</span> is density and we will do inference for the two unknown parameters
 in the linear regression model.</p>
 <p>First read in the data. Print it out on the command line:</p>
-<div class="sourceCode" id="section-cb141"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb141-1"><a href="section-statistical-models.html#cb141-1"></a><span class="fu">head</span> data/MIPSdata/jankahardness.txt</span></code></pre></div>
+<div class="sourceCode" id="section-cb144"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="section-cb144-1"><a href="section-statistical-models.html#section-cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> data/MIPSdata/jankahardness.txt</span></code></pre></div>
 <pre><code>24.7    484
 24.8    427
 27.3    413
@@ -365,43 +400,44 @@ in the linear regression model.</p>
 38.5    914</code></pre>
 <p>By printing it out on the command line, you can tell that the file is <em>tab-delimited</em>.
 Use <code>readr::read_delim()</code> to read it in:</p>
-<div class="sourceCode" id="section-cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="section-statistical-models.html#cb143-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb143-2"><a href="section-statistical-models.html#cb143-2"></a><span class="kw">library</span>(patchwork)</span>
-<span id="cb143-3"><a href="section-statistical-models.html#cb143-3"></a>janka &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_delim</span>(</span>
-<span id="cb143-4"><a href="section-statistical-models.html#cb143-4"></a>  <span class="dt">file =</span> <span class="st">&quot;data/MIPSdata/jankahardness.txt&quot;</span>,</span>
-<span id="cb143-5"><a href="section-statistical-models.html#cb143-5"></a>  <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>,</span>
-<span id="cb143-6"><a href="section-statistical-models.html#cb143-6"></a>  <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;density&quot;</span>,<span class="st">&quot;hardness&quot;</span>),</span>
-<span id="cb143-7"><a href="section-statistical-models.html#cb143-7"></a>  <span class="dt">col_types =</span> <span class="st">&quot;nn&quot;</span></span>
-<span id="cb143-8"><a href="section-statistical-models.html#cb143-8"></a>)</span>
-<span id="cb143-9"><a href="section-statistical-models.html#cb143-9"></a><span class="kw">glimpse</span>(janka)</span></code></pre></div>
-<pre><code>Observations: 36
-Variables: 2
-$ density  &lt;dbl&gt; 25, 25, 27, 28, 28, 29, 30, 33, 36, 38, 39, 39, 39, 40, 40, …
-$ hardness &lt;dbl&gt; 484, 427, 413, 517, 549, 648, 587, 704, 979, 914, 1070, 1020…</code></pre>
+<div class="sourceCode" id="section-cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb146-1"><a href="section-statistical-models.html#section-cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="section-cb146-2"><a href="section-statistical-models.html#section-cb146-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="section-cb146-3"><a href="section-statistical-models.html#section-cb146-3" aria-hidden="true" tabindex="-1"></a>janka <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_delim</span>(</span>
+<span id="section-cb146-4"><a href="section-statistical-models.html#section-cb146-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;data/MIPSdata/jankahardness.txt&quot;</span>,</span>
+<span id="section-cb146-5"><a href="section-statistical-models.html#section-cb146-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">delim =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>,</span>
+<span id="section-cb146-6"><a href="section-statistical-models.html#section-cb146-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">&quot;density&quot;</span>,<span class="st">&quot;hardness&quot;</span>),</span>
+<span id="section-cb146-7"><a href="section-statistical-models.html#section-cb146-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="st">&quot;nn&quot;</span></span>
+<span id="section-cb146-8"><a href="section-statistical-models.html#section-cb146-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="section-cb146-9"><a href="section-statistical-models.html#section-cb146-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(janka)</span></code></pre></div>
+<pre><code>Rows: 36
+Columns: 2
+$ density  &lt;dbl&gt; 25, 25, 27, 28, 28, 29, 30, 33, 36, 38, 39, 39, 39, 40, 40, 41, 41, 41, 43, 46, 47, 48, 52, 52, 53, 56, 56, 57, 58, 59, 60, 66, 67, 69, 69, 69
+$ hardness &lt;dbl&gt; 484, 427, 413, 517, 549, 648, 587, 704, 979, 914, 1070, 1020, 1210, 989, 1160, 1010, 1100, 1130, 1270, 1180, 1400, 1760, 1710, 2010, 1880, 1980, 1820, 2020, 1980, 2310, 1940, 3260, 2700, 2…</code></pre>
 <p>Create a scatterplot with <code>ggplot2</code>:</p>
-<div class="sourceCode" id="section-cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="section-statistical-models.html#cb145-1"></a>jankascatter &lt;-<span class="st"> </span>janka <span class="op">%&gt;%</span></span>
-<span id="cb145-2"><a href="section-statistical-models.html#cb145-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> density,<span class="dt">y =</span> hardness)) <span class="op">+</span></span>
-<span id="cb145-3"><a href="section-statistical-models.html#cb145-3"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb145-4"><a href="section-statistical-models.html#cb145-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb145-5"><a href="section-statistical-models.html#cb145-5"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">20</span>,<span class="dv">80</span>,<span class="dt">by=</span><span class="dv">10</span>)) <span class="op">+</span></span>
-<span id="cb145-6"><a href="section-statistical-models.html#cb145-6"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">3500</span>,<span class="dt">by=</span><span class="dv">500</span>)) <span class="op">+</span></span>
-<span id="cb145-7"><a href="section-statistical-models.html#cb145-7"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">20</span>,<span class="dv">80</span>),<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">3500</span>)) <span class="op">+</span></span>
-<span id="cb145-8"><a href="section-statistical-models.html#cb145-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wood density&quot;</span>,</span>
-<span id="cb145-9"><a href="section-statistical-models.html#cb145-9"></a>       <span class="dt">y =</span> <span class="st">&quot;Hardness&quot;</span>)</span>
-<span id="cb145-10"><a href="section-statistical-models.html#cb145-10"></a>jankascatter</span></code></pre></div>
+<div class="sourceCode" id="section-cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb148-1"><a href="section-statistical-models.html#section-cb148-1" aria-hidden="true" tabindex="-1"></a>jankascatter <span class="ot">&lt;-</span> janka <span class="sc">%&gt;%</span></span>
+<span id="section-cb148-2"><a href="section-statistical-models.html#section-cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> density,<span class="at">y =</span> hardness)) <span class="sc">+</span></span>
+<span id="section-cb148-3"><a href="section-statistical-models.html#section-cb148-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb148-4"><a href="section-statistical-models.html#section-cb148-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="section-cb148-5"><a href="section-statistical-models.html#section-cb148-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>,<span class="dv">80</span>,<span class="at">by=</span><span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="section-cb148-6"><a href="section-statistical-models.html#section-cb148-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">3500</span>,<span class="at">by=</span><span class="dv">500</span>)) <span class="sc">+</span></span>
+<span id="section-cb148-7"><a href="section-statistical-models.html#section-cb148-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">80</span>),<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3500</span>)) <span class="sc">+</span></span>
+<span id="section-cb148-8"><a href="section-statistical-models.html#section-cb148-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Wood density&quot;</span>,</span>
+<span id="section-cb148-9"><a href="section-statistical-models.html#section-cb148-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Hardness&quot;</span>)</span>
+<span id="section-cb148-10"><a href="section-statistical-models.html#section-cb148-10" aria-hidden="true" tabindex="-1"></a>jankascatter</span></code></pre></div>
 <p><img src="book_files/figure-html/janka-2-1.png" width="672" /></p>
 <p>It looks like on average, the hardness of the wood increases linearly with its density.
 A linear regression model might be appropriate.</p>
 <p>To add a line to a plot, use <code>geom_abline()</code>:</p>
-<div class="sourceCode" id="section-cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="section-statistical-models.html#cb146-1"></a>jankascatter <span class="op">+</span><span class="st"> </span></span>
-<span id="cb146-2"><a href="section-statistical-models.html#cb146-2"></a><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="fl">57.51</span>,<span class="dt">intercept =</span> <span class="fl">-1160.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb149-1"><a href="section-statistical-models.html#section-cb149-1" aria-hidden="true" tabindex="-1"></a>jankascatter <span class="sc">+</span> </span>
+<span id="section-cb149-2"><a href="section-statistical-models.html#section-cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="fl">57.51</span>,<span class="at">intercept =</span> <span class="sc">-</span><span class="fl">1160.5</span>)</span></code></pre></div>
 <p><img src="book_files/figure-html/janka-3-1.png" width="672" /></p>
 <p>In a later chapter, you will learn how to calculate the <span class="math inline">\(-1160.5\)</span> and the <span class="math inline">\(57.51\)</span>
 yourself. But for now, it would still be nice to get the computer to compute these
 values for us rather than typing them in manually. We can do this using the
 <code>geom_smooth()</code> function in <code>ggplot2</code>:</p>
-<div class="sourceCode" id="section-cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="section-statistical-models.html#cb147-1"></a>jankascatter <span class="op">+</span></span>
-<span id="cb147-2"><a href="section-statistical-models.html#cb147-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb150-1"><a href="section-statistical-models.html#section-cb150-1" aria-hidden="true" tabindex="-1"></a>jankascatter <span class="sc">+</span></span>
+<span id="section-cb150-2"><a href="section-statistical-models.html#section-cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="at">se =</span> <span class="cn">FALSE</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">size =</span> .<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="book_files/figure-html/janka-4-1.png" width="672" /></p>
 <p>The “lm” stands for “linear model” and the “se” stands for “standard error”; leaving
 this at its default of “TRUE” would add error bars to the line. We haven’t learned
@@ -411,13 +447,14 @@ The “loess” non-linear regression line is a type of nonlinear regression obt
 by breaking the <span class="math inline">\(x\)</span> axis up into chunks and then doing linear regression in each
 chunk and then joining the resulting lines together.
 It roughly stands for “local regression and smoothing
-splines”. We can add this using <code>ggplot2</code> as well:</p>
-<div class="sourceCode" id="section-cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="section-statistical-models.html#cb148-1"></a>jankascatter <span class="op">+</span></span>
-<span id="cb148-2"><a href="section-statistical-models.html#cb148-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>,<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">size =</span> <span class="fl">.5</span>)</span></code></pre></div>
+splines.” We can add this using <code>ggplot2</code> as well:</p>
+<div class="sourceCode" id="section-cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb152-1"><a href="section-statistical-models.html#section-cb152-1" aria-hidden="true" tabindex="-1"></a>jankascatter <span class="sc">+</span></span>
+<span id="section-cb152-2"><a href="section-statistical-models.html#section-cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>,<span class="at">se =</span> <span class="cn">FALSE</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">size =</span> .<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="book_files/figure-html/janka-5-1.png" width="672" /></p>
 <p>For these data, this isn’t much different.</p>
 </div>
-<div id="section-extended-example-ttc-ridership-revenues" class="section level3">
+<div id="section-extended-example-ttc-ridership-revenues" class="section level3" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Extended example: TTC ridership revenues</h3>
 <p>Toronto’s population is growing over time. This puts strain on our outdated
 public transit system. But it should also lead to increased revenues. According to
@@ -433,8 +470,8 @@ since it’s a bit tricky to describe exactly how, I have put the file
 and analyze the relationship between <code>year</code> and <code>revenue</code>.</p>
 <p>If you’re thinking “that sounds really easy, we just did that!”… just keep reading.</p>
 <p>First, print the data out and count the number of rows on the command line:</p>
-<div class="sourceCode" id="section-cb149"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb149-1"><a href="section-statistical-models.html#cb149-1"></a><span class="fu">head</span> data/ttc-ridership-revenues.csv</span>
-<span id="cb149-2"><a href="section-statistical-models.html#cb149-2"></a><span class="fu">wc</span> -l data/ttc-ridership-revenues.csv</span></code></pre></div>
+<div class="sourceCode" id="section-cb154"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="section-cb154-1"><a href="section-statistical-models.html#section-cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> data/ttc-ridership-revenues.csv</span>
+<span id="section-cb154-2"><a href="section-statistical-models.html#section-cb154-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> -l data/ttc-ridership-revenues.csv</span></code></pre></div>
 <pre><code>Year,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec
 2007 YTD Actual,$70600000,$131200000,$204600000,$264900000,$322000000,$395100000,$452100000,$507500000,$585600000,$646900000,$712500000,$774700000
 2008 YTD Actual,$72700000,$137600000,$217500000,$278200000,$340600000,$419600000,$482400000,$544100000,$629000000,$696400000,$766600000,$837000000
@@ -455,28 +492,28 @@ and super common.</p>
 similar UNIX-based tool, but I prefer whenever possible to keep all my analysis
 on one platform. We’ll read it into <code>R</code> as-is and then parse and change datatypes
 there:</p>
-<div class="sourceCode" id="section-cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="section-statistical-models.html#cb151-1"></a><span class="co"># Read in the data</span></span>
-<span id="cb151-2"><a href="section-statistical-models.html#cb151-2"></a>ridership &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</span>
-<span id="cb151-3"><a href="section-statistical-models.html#cb151-3"></a>  <span class="dt">file =</span> <span class="st">&quot;data/ttc-ridership-revenues.csv&quot;</span>,</span>
-<span id="cb151-4"><a href="section-statistical-models.html#cb151-4"></a>  <span class="dt">col_names =</span> <span class="ot">TRUE</span>, <span class="co"># Tells readr to read the column names from the first line of the file.</span></span>
-<span id="cb151-5"><a href="section-statistical-models.html#cb151-5"></a>  <span class="dt">col_types =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="kw">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">13</span>),<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>) <span class="co"># Read all 13 columns as &quot;c&quot;haracter</span></span>
-<span id="cb151-6"><a href="section-statistical-models.html#cb151-6"></a>)</span>
-<span id="cb151-7"><a href="section-statistical-models.html#cb151-7"></a><span class="kw">glimpse</span>(ridership)</span></code></pre></div>
-<pre><code>Observations: 13
-Variables: 13
-$ Year &lt;chr&gt; &quot;2007 YTD Actual&quot;, &quot;2008 YTD Actual&quot;, &quot;2009 YTD Actual&quot;, &quot;2010 Y…
-$ Jan  &lt;chr&gt; &quot;$70600000&quot;, &quot;$72700000&quot;, &quot;$69300000&quot;, &quot;$72200000&quot;, &quot;$75300000&quot;,…
-$ Feb  &lt;chr&gt; &quot;$131200000&quot;, &quot;$137600000&quot;, &quot;$135400000&quot;, &quot;$143400000&quot;, &quot;$150800…
-$ Mar  &lt;chr&gt; &quot;$204600000&quot;, &quot;$217500000&quot;, &quot;$216600000&quot;, &quot;$230700000&quot;, &quot;$244400…
-$ Apr  &lt;chr&gt; &quot;$264900000&quot;, &quot;$278200000&quot;, &quot;$280500000&quot;, &quot;$302400000&quot;, &quot;$318300…
-$ May  &lt;chr&gt; &quot;$322000000&quot;, &quot;$340600000&quot;, &quot;$344000000&quot;, &quot;$372500000&quot;, &quot;$392400…
-$ Jun  &lt;chr&gt; &quot;$395100000&quot;, &quot;$419600000&quot;, &quot;$422100000&quot;, &quot;$459100000&quot;, &quot;$484800…
-$ Jul  &lt;chr&gt; &quot;$452100000&quot;, &quot;$482400000&quot;, &quot;$483400000&quot;, &quot;$528800000&quot;, &quot;$557300…
-$ Aug  &lt;chr&gt; &quot;$507500000&quot;, &quot;$544100000&quot;, &quot;$543500000&quot;, &quot;$595700000&quot;, &quot;$625500…
-$ Sep  &lt;chr&gt; &quot;$585600000&quot;, &quot;$629000000&quot;, &quot;$627200000&quot;, &quot;$689100000&quot;, &quot;$722000…
-$ Oct  &lt;chr&gt; &quot;$646900000&quot;, &quot;$696400000&quot;, &quot;$693900000&quot;, &quot;$764500000&quot;, &quot;$799500…
-$ Nov  &lt;chr&gt; &quot;$712500000&quot;, &quot;$766600000&quot;, &quot;$762400000&quot;, &quot;$842000000&quot;, &quot;$879100…
-$ Dec  &lt;chr&gt; &quot;$774700000&quot;, &quot;$837000000&quot;, &quot;$834900000&quot;, &quot;$929300000&quot;, &quot;$969900…</code></pre>
+<div class="sourceCode" id="section-cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb156-1"><a href="section-statistical-models.html#section-cb156-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the data</span></span>
+<span id="section-cb156-2"><a href="section-statistical-models.html#section-cb156-2" aria-hidden="true" tabindex="-1"></a>ridership <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="section-cb156-3"><a href="section-statistical-models.html#section-cb156-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;data/ttc-ridership-revenues.csv&quot;</span>,</span>
+<span id="section-cb156-4"><a href="section-statistical-models.html#section-cb156-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">TRUE</span>, <span class="co"># Tells readr to read the column names from the first line of the file.</span></span>
+<span id="section-cb156-5"><a href="section-statistical-models.html#section-cb156-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>,<span class="dv">13</span>),<span class="at">collapse =</span> <span class="st">&quot;&quot;</span>) <span class="co"># Read all 13 columns as &quot;c&quot;haracter</span></span>
+<span id="section-cb156-6"><a href="section-statistical-models.html#section-cb156-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="section-cb156-7"><a href="section-statistical-models.html#section-cb156-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ridership)</span></code></pre></div>
+<pre><code>Rows: 13
+Columns: 13
+$ Year &lt;chr&gt; &quot;2007 YTD Actual&quot;, &quot;2008 YTD Actual&quot;, &quot;2009 YTD Actual&quot;, &quot;2010 YTD Actual&quot;, &quot;2011 YTD Actual&quot;, &quot;2012 YTD Actual&quot;, &quot;2013 YTD Actual&quot;, &quot;2014 YTD Actual&quot;, &quot;2015 YTD Actual&quot;, &quot;2016 YTD Actual&quot;, &quot;2…
+$ Jan  &lt;chr&gt; &quot;$70600000&quot;, &quot;$72700000&quot;, &quot;$69300000&quot;, &quot;$72200000&quot;, &quot;$75300000&quot;, &quot;$75500000&quot;, &quot;$93200000&quot;, &quot;$92200000&quot;, &quot;$90600000&quot;, &quot;$90800000&quot;, &quot;$85700000&quot;, &quot;$107289000&quot;, &quot;$101300000&quot;
+$ Feb  &lt;chr&gt; &quot;$131200000&quot;, &quot;$137600000&quot;, &quot;$135400000&quot;, &quot;$143400000&quot;, &quot;$150800000&quot;, &quot;$154800000&quot;, &quot;$176600000&quot;, &quot;$178900000&quot;, &quot;$178200000&quot;, &quot;$178600000&quot;, &quot;$177800000&quot;, &quot;$200343000&quot;, &quot;$189300000&quot;
+$ Mar  &lt;chr&gt; &quot;$204600000&quot;, &quot;$217500000&quot;, &quot;$216600000&quot;, &quot;$230700000&quot;, &quot;$244400000&quot;, &quot;$253900000&quot;, &quot;$278200000&quot;, &quot;$284400000&quot;, &quot;$284100000&quot;, &quot;$285400000&quot;, &quot;$290500000&quot;, &quot;$312499000&quot;, &quot;$303500000&quot;
+$ Apr  &lt;chr&gt; &quot;$264900000&quot;, &quot;$278200000&quot;, &quot;$280500000&quot;, &quot;$302400000&quot;, &quot;$318300000&quot;, &quot;$331600000&quot;, &quot;$360300000&quot;, &quot;$367200000&quot;, &quot;$370500000&quot;, &quot;$374600000&quot;, &quot;$381400000&quot;, &quot;$403902000&quot;, &quot;$393100000&quot;
+$ May  &lt;chr&gt; &quot;$322000000&quot;, &quot;$340600000&quot;, &quot;$344000000&quot;, &quot;$372500000&quot;, &quot;$392400000&quot;, &quot;$408300000&quot;, &quot;$439700000&quot;, &quot;$449700000&quot;, &quot;$455300000&quot;, &quot;$460600000&quot;, &quot;$468900000&quot;, &quot;$492802000&quot;, &quot;$483500000&quot;
+$ Jun  &lt;chr&gt; &quot;$395100000&quot;, &quot;$419600000&quot;, &quot;$422100000&quot;, &quot;$459100000&quot;, &quot;$484800000&quot;, &quot;$507100000&quot;, &quot;$539700000&quot;, &quot;$552300000&quot;, &quot;$559600000&quot;, &quot;$567200000&quot;, &quot;$582600000&quot;, &quot;$604022000&quot;, &quot;$597700000&quot;
+$ Jul  &lt;chr&gt; &quot;$452100000&quot;, &quot;$482400000&quot;, &quot;$483400000&quot;, &quot;$528800000&quot;, &quot;$557300000&quot;, &quot;$581800000&quot;, &quot;$617400000&quot;, &quot;$633200000&quot;, &quot;$641700000&quot;, &quot;$652200000&quot;, &quot;$669500000&quot;, &quot;$691174000&quot;, NA
+$ Aug  &lt;chr&gt; &quot;$507500000&quot;, &quot;$544100000&quot;, &quot;$543500000&quot;, &quot;$595700000&quot;, &quot;$625500000&quot;, &quot;$654300000&quot;, &quot;$693500000&quot;, &quot;$712200000&quot;, &quot;$721400000&quot;, &quot;$732200000&quot;, &quot;$753500000&quot;, &quot;$773892000&quot;, NA
+$ Sep  &lt;chr&gt; &quot;$585600000&quot;, &quot;$629000000&quot;, &quot;$627200000&quot;, &quot;$689100000&quot;, &quot;$722000000&quot;, &quot;$755800000&quot;, &quot;$799600000&quot;, &quot;$822000000&quot;, &quot;$833200000&quot;, &quot;$844900000&quot;, &quot;$870700000&quot;, &quot;$868803000&quot;, NA
+$ Oct  &lt;chr&gt; &quot;$646900000&quot;, &quot;$696400000&quot;, &quot;$693900000&quot;, &quot;$764500000&quot;, &quot;$799500000&quot;, &quot;$835900000&quot;, &quot;$882500000&quot;, &quot;$907900000&quot;, &quot;$920800000&quot;, &quot;$934200000&quot;, &quot;$962300000&quot;, &quot;$959797000&quot;, NA
+$ Nov  &lt;chr&gt; &quot;$712500000&quot;, &quot;$766600000&quot;, &quot;$762400000&quot;, &quot;$842000000&quot;, &quot;$879100000&quot;, &quot;$919100000&quot;, &quot;$968900000&quot;, &quot;$998200000&quot;, &quot;$1011600000&quot;, &quot;$1025700000&quot;, &quot;$1056000000&quot;, &quot;$1077488000&quot;, NA
+$ Dec  &lt;chr&gt; &quot;$774700000&quot;, &quot;$837000000&quot;, &quot;$834900000&quot;, &quot;$929300000&quot;, &quot;$969900000&quot;, &quot;$1017600000&quot;, &quot;$1052100000&quot;, &quot;$1086500000&quot;, &quot;$1107300000&quot;, &quot;$1125800000&quot;, &quot;$1163000000&quot;, &quot;$1162047000&quot;, NA</code></pre>
 <p>This does not look like it’s in a form ready to analyze. Some problems:</p>
 <ol style="list-style-type: decimal">
 <li>The <code>Year</code> has unwanted text in it. We just want the number representing what
@@ -490,26 +527,26 @@ We want the monthly revenues.</li>
 </ol>
 <p>Problems 1 and 3 require a bit of text parsing; Problem 2 requires converting from
 “wide” to “long” format. Let’s do it:</p>
-<div class="sourceCode" id="section-cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="section-statistical-models.html#cb153-1"></a><span class="co"># PROBLEM 1: Year</span></span>
-<span id="cb153-2"><a href="section-statistical-models.html#cb153-2"></a><span class="co"># To parse out only the number part, use a regular expression.</span></span>
-<span id="cb153-3"><a href="section-statistical-models.html#cb153-3"></a><span class="co"># Our string starts with a four digit number which starts with 20. We want to capture this number</span></span>
-<span id="cb153-4"><a href="section-statistical-models.html#cb153-4"></a><span class="co"># and nothing else.</span></span>
-<span id="cb153-5"><a href="section-statistical-models.html#cb153-5"></a><span class="co"># The ^ means &quot;the start of the string&quot;.</span></span>
-<span id="cb153-6"><a href="section-statistical-models.html#cb153-6"></a><span class="co"># The [20]{2} means &quot;a 0 or a 2, exactly twice&quot;</span></span>
-<span id="cb153-7"><a href="section-statistical-models.html#cb153-7"></a><span class="co"># The [0-9]{2} means &quot;anything from 0 - 9, exactly twice&quot;</span></span>
-<span id="cb153-8"><a href="section-statistical-models.html#cb153-8"></a>year_regex &lt;-<span class="st"> &quot;^[20]{2}[0-9]{2}&quot;</span></span>
-<span id="cb153-9"><a href="section-statistical-models.html#cb153-9"></a><span class="co"># Use stringr::str_extract to extract a substring matching the regular expression:</span></span>
-<span id="cb153-10"><a href="section-statistical-models.html#cb153-10"></a>stringr<span class="op">::</span><span class="kw">str_extract</span>(<span class="st">&quot;2007 YTD Actual&quot;</span>,year_regex)</span></code></pre></div>
+<div class="sourceCode" id="section-cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb158-1"><a href="section-statistical-models.html#section-cb158-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PROBLEM 1: Year</span></span>
+<span id="section-cb158-2"><a href="section-statistical-models.html#section-cb158-2" aria-hidden="true" tabindex="-1"></a><span class="co"># To parse out only the number part, use a regular expression.</span></span>
+<span id="section-cb158-3"><a href="section-statistical-models.html#section-cb158-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Our string starts with a four digit number which starts with 20. We want to capture this number</span></span>
+<span id="section-cb158-4"><a href="section-statistical-models.html#section-cb158-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and nothing else.</span></span>
+<span id="section-cb158-5"><a href="section-statistical-models.html#section-cb158-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The ^ means &quot;the start of the string&quot;.</span></span>
+<span id="section-cb158-6"><a href="section-statistical-models.html#section-cb158-6" aria-hidden="true" tabindex="-1"></a><span class="co"># The [20]{2} means &quot;a 0 or a 2, exactly twice&quot;</span></span>
+<span id="section-cb158-7"><a href="section-statistical-models.html#section-cb158-7" aria-hidden="true" tabindex="-1"></a><span class="co"># The [0-9]{2} means &quot;anything from 0 - 9, exactly twice&quot;</span></span>
+<span id="section-cb158-8"><a href="section-statistical-models.html#section-cb158-8" aria-hidden="true" tabindex="-1"></a>year_regex <span class="ot">&lt;-</span> <span class="st">&quot;^[20]{2}[0-9]{2}&quot;</span></span>
+<span id="section-cb158-9"><a href="section-statistical-models.html#section-cb158-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use stringr::str_extract to extract a substring matching the regular expression:</span></span>
+<span id="section-cb158-10"><a href="section-statistical-models.html#section-cb158-10" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="st">&quot;2007 YTD Actual&quot;</span>,year_regex)</span></code></pre></div>
 <pre><code>[1] &quot;2007&quot;</code></pre>
-<div class="sourceCode" id="section-cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="section-statistical-models.html#cb155-1"></a><span class="co"># PROBLEM 2: wide to long</span></span>
-<span id="cb155-2"><a href="section-statistical-models.html#cb155-2"></a><span class="co"># Use the tidyr::pivot_longer() function for gathering columns and putting them</span></span>
-<span id="cb155-3"><a href="section-statistical-models.html#cb155-3"></a><span class="co"># into one column:</span></span>
-<span id="cb155-4"><a href="section-statistical-models.html#cb155-4"></a>ridership <span class="op">%&gt;%</span></span>
-<span id="cb155-5"><a href="section-statistical-models.html#cb155-5"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</span>
-<span id="cb155-6"><a href="section-statistical-models.html#cb155-6"></a>    Jan<span class="op">:</span>Dec, <span class="co"># Collect columns Jan through Dec, including everything between</span></span>
-<span id="cb155-7"><a href="section-statistical-models.html#cb155-7"></a>    <span class="dt">names_to =</span> <span class="st">&quot;month&quot;</span>, <span class="co"># Create a new column called &quot;month&quot; which contains the names of the old columns</span></span>
-<span id="cb155-8"><a href="section-statistical-models.html#cb155-8"></a>    <span class="dt">values_to =</span> <span class="st">&quot;revenue&quot;</span> <span class="co"># Create a new column called &quot;revenue&quot; which contains the values of the old columns</span></span>
-<span id="cb155-9"><a href="section-statistical-models.html#cb155-9"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="section-cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb160-1"><a href="section-statistical-models.html#section-cb160-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PROBLEM 2: wide to long</span></span>
+<span id="section-cb160-2"><a href="section-statistical-models.html#section-cb160-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the tidyr::pivot_longer() function for gathering columns and putting them</span></span>
+<span id="section-cb160-3"><a href="section-statistical-models.html#section-cb160-3" aria-hidden="true" tabindex="-1"></a><span class="co"># into one column:</span></span>
+<span id="section-cb160-4"><a href="section-statistical-models.html#section-cb160-4" aria-hidden="true" tabindex="-1"></a>ridership <span class="sc">%&gt;%</span></span>
+<span id="section-cb160-5"><a href="section-statistical-models.html#section-cb160-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
+<span id="section-cb160-6"><a href="section-statistical-models.html#section-cb160-6" aria-hidden="true" tabindex="-1"></a>    Jan<span class="sc">:</span>Dec, <span class="co"># Collect columns Jan through Dec, including everything between</span></span>
+<span id="section-cb160-7"><a href="section-statistical-models.html#section-cb160-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;month&quot;</span>, <span class="co"># Create a new column called &quot;month&quot; which contains the names of the old columns</span></span>
+<span id="section-cb160-8"><a href="section-statistical-models.html#section-cb160-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;revenue&quot;</span> <span class="co"># Create a new column called &quot;revenue&quot; which contains the values of the old columns</span></span>
+<span id="section-cb160-9"><a href="section-statistical-models.html#section-cb160-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code># A tibble: 156 x 3
    Year            month revenue   
    &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;     
@@ -524,111 +561,110 @@ We want the monthly revenues.</li>
  9 2007 YTD Actual Sep   $585600000
 10 2007 YTD Actual Oct   $646900000
 # … with 146 more rows</code></pre>
-<div class="sourceCode" id="section-cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="section-statistical-models.html#cb157-1"></a><span class="co"># PROBLEM 3: removing the dollar sign</span></span>
-<span id="cb157-2"><a href="section-statistical-models.html#cb157-2"></a><span class="co"># Again, use text matching. Because $ is itself a special character,</span></span>
-<span id="cb157-3"><a href="section-statistical-models.html#cb157-3"></a><span class="co"># to match it, you have to &quot;escape&quot; it using a backslash</span></span>
-<span id="cb157-4"><a href="section-statistical-models.html#cb157-4"></a>dollar_regex &lt;-<span class="st"> &quot;</span><span class="ch">\\</span><span class="st">$&quot;</span></span>
-<span id="cb157-5"><a href="section-statistical-models.html#cb157-5"></a><span class="co"># Remove matching strings using stringr::str_remove()</span></span>
-<span id="cb157-6"><a href="section-statistical-models.html#cb157-6"></a>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;$1234&quot;</span>,dollar_regex)</span></code></pre></div>
+<div class="sourceCode" id="section-cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb162-1"><a href="section-statistical-models.html#section-cb162-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PROBLEM 3: removing the dollar sign</span></span>
+<span id="section-cb162-2"><a href="section-statistical-models.html#section-cb162-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Again, use text matching. Because $ is itself a special character,</span></span>
+<span id="section-cb162-3"><a href="section-statistical-models.html#section-cb162-3" aria-hidden="true" tabindex="-1"></a><span class="co"># to match it, you have to &quot;escape&quot; it using a backslash</span></span>
+<span id="section-cb162-4"><a href="section-statistical-models.html#section-cb162-4" aria-hidden="true" tabindex="-1"></a>dollar_regex <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">$&quot;</span></span>
+<span id="section-cb162-5"><a href="section-statistical-models.html#section-cb162-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove matching strings using stringr::str_remove()</span></span>
+<span id="section-cb162-6"><a href="section-statistical-models.html#section-cb162-6" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="st">&quot;$1234&quot;</span>,dollar_regex)</span></code></pre></div>
 <pre><code>[1] &quot;1234&quot;</code></pre>
-<div class="sourceCode" id="section-cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="section-statistical-models.html#cb159-1"></a><span class="co"># PROBLEM 4: going from cumulative to monthly revenue</span></span>
-<span id="cb159-2"><a href="section-statistical-models.html#cb159-2"></a><span class="co"># The cumulative revenue for 2007 is:</span></span>
-<span id="cb159-3"><a href="section-statistical-models.html#cb159-3"></a>cumrev2007 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="kw">as.character</span>(ridership[<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>]),dollar_regex))</span>
-<span id="cb159-4"><a href="section-statistical-models.html#cb159-4"></a>cumrev2007</span></code></pre></div>
-<pre><code> [1] 7.1e+07 1.3e+08 2.0e+08 2.6e+08 3.2e+08 4.0e+08 4.5e+08 5.1e+08 5.9e+08
-[10] 6.5e+08 7.1e+08 7.7e+08</code></pre>
-<div class="sourceCode" id="section-cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="section-statistical-models.html#cb161-1"></a><span class="co"># The monthly revenue for (e.g.) Feb is</span></span>
-<span id="cb161-2"><a href="section-statistical-models.html#cb161-2"></a>cumrev2007[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>cumrev2007[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="section-cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb164-1"><a href="section-statistical-models.html#section-cb164-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PROBLEM 4: going from cumulative to monthly revenue</span></span>
+<span id="section-cb164-2"><a href="section-statistical-models.html#section-cb164-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The cumulative revenue for 2007 is:</span></span>
+<span id="section-cb164-3"><a href="section-statistical-models.html#section-cb164-3" aria-hidden="true" tabindex="-1"></a>cumrev2007 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="fu">as.character</span>(ridership[<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>]),dollar_regex))</span>
+<span id="section-cb164-4"><a href="section-statistical-models.html#section-cb164-4" aria-hidden="true" tabindex="-1"></a>cumrev2007</span></code></pre></div>
+<pre><code> [1] 7.1e+07 1.3e+08 2.0e+08 2.6e+08 3.2e+08 4.0e+08 4.5e+08 5.1e+08 5.9e+08 6.5e+08 7.1e+08 7.7e+08</code></pre>
+<div class="sourceCode" id="section-cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb166-1"><a href="section-statistical-models.html#section-cb166-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The monthly revenue for (e.g.) Feb is</span></span>
+<span id="section-cb166-2"><a href="section-statistical-models.html#section-cb166-2" aria-hidden="true" tabindex="-1"></a>cumrev2007[<span class="dv">2</span>] <span class="sc">-</span> cumrev2007[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>[1] 6.1e+07</code></pre>
-<div class="sourceCode" id="section-cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="section-statistical-models.html#cb163-1"></a><span class="co"># Can do this all at once like</span></span>
-<span id="cb163-2"><a href="section-statistical-models.html#cb163-2"></a><span class="kw">c</span>(cumrev2007[<span class="dv">1</span>],cumrev2007[<span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(cumrev2007)] <span class="op">-</span><span class="st"> </span>cumrev2007[<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(cumrev2007)<span class="op">-</span><span class="dv">1</span>)])</span></code></pre></div>
-<pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07
-[10] 6.1e+07 6.6e+07 6.2e+07</code></pre>
-<div class="sourceCode" id="section-cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="section-statistical-models.html#cb165-1"></a><span class="co"># or</span></span>
-<span id="cb165-2"><a href="section-statistical-models.html#cb165-2"></a><span class="kw">c</span>(cumrev2007[<span class="dv">1</span>],<span class="kw">diff</span>(cumrev2007))</span></code></pre></div>
-<pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07
-[10] 6.1e+07 6.6e+07 6.2e+07</code></pre>
-<div class="sourceCode" id="section-cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="section-statistical-models.html#cb167-1"></a><span class="co"># but both those are a bit clumsy, and won&#39;t work inside a data processing</span></span>
-<span id="cb167-2"><a href="section-statistical-models.html#cb167-2"></a><span class="co"># pipeline with grouping. The lag() function in the dplyr package</span></span>
-<span id="cb167-3"><a href="section-statistical-models.html#cb167-3"></a><span class="co"># is meant for use within a data processing pipeline:</span></span>
-<span id="cb167-4"><a href="section-statistical-models.html#cb167-4"></a>cumrev2007 <span class="op">-</span><span class="st"> </span><span class="kw">lag</span>(cumrev2007,<span class="dt">n=</span><span class="dv">1</span>,<span class="dt">default =</span> <span class="dv">0</span>)</span></code></pre></div>
-<pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07
-[10] 6.1e+07 6.6e+07 6.2e+07</code></pre>
-<div class="sourceCode" id="section-cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="section-statistical-models.html#cb169-1"></a><span class="co"># and will let us do this for all years at once using one line of code below.</span></span>
-<span id="cb169-2"><a href="section-statistical-models.html#cb169-2"></a></span>
-<span id="cb169-3"><a href="section-statistical-models.html#cb169-3"></a><span class="co"># Now, combine all these into one data cleaning pipeline.</span></span>
-<span id="cb169-4"><a href="section-statistical-models.html#cb169-4"></a><span class="co"># Remember we have monthly revenue, so to get yearly revenue, we sum</span></span>
-<span id="cb169-5"><a href="section-statistical-models.html#cb169-5"></a><span class="co"># over months.</span></span>
-<span id="cb169-6"><a href="section-statistical-models.html#cb169-6"></a>ridership_clean &lt;-<span class="st"> </span>ridership <span class="op">%&gt;%</span></span>
-<span id="cb169-7"><a href="section-statistical-models.html#cb169-7"></a><span class="st">    </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</span>
-<span id="cb169-8"><a href="section-statistical-models.html#cb169-8"></a>    Jan<span class="op">:</span>Dec,</span>
-<span id="cb169-9"><a href="section-statistical-models.html#cb169-9"></a>    <span class="dt">names_to =</span> <span class="st">&quot;month&quot;</span>,</span>
-<span id="cb169-10"><a href="section-statistical-models.html#cb169-10"></a>    <span class="dt">values_to =</span> <span class="st">&quot;revenue&quot;</span></span>
-<span id="cb169-11"><a href="section-statistical-models.html#cb169-11"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb169-12"><a href="section-statistical-models.html#cb169-12"></a><span class="st">  </span><span class="co"># &quot;transmute&quot; is like mutate, but it deletes all original columns</span></span>
-<span id="cb169-13"><a href="section-statistical-models.html#cb169-13"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> stringr<span class="op">::</span><span class="kw">str_extract</span>(Year,year_regex),</span>
-<span id="cb169-14"><a href="section-statistical-models.html#cb169-14"></a>            <span class="dt">revenue =</span> stringr<span class="op">::</span><span class="kw">str_remove</span>(revenue,dollar_regex)) <span class="op">%&gt;%</span></span>
-<span id="cb169-15"><a href="section-statistical-models.html#cb169-15"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;revenue&quot;</span>),as.numeric) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Turn both year and revenue into numeric variables</span></span>
-<span id="cb169-16"><a href="section-statistical-models.html#cb169-16"></a><span class="st">  </span><span class="co"># Compute the monthly revenue, by year</span></span>
-<span id="cb169-17"><a href="section-statistical-models.html#cb169-17"></a><span class="st">  </span><span class="co"># Grouping by year...</span></span>
-<span id="cb169-18"><a href="section-statistical-models.html#cb169-18"></a><span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span></span>
-<span id="cb169-19"><a href="section-statistical-models.html#cb169-19"></a><span class="st">  </span><span class="co"># ...causes everything in the mutate() to be done separately for each year.</span></span>
-<span id="cb169-20"><a href="section-statistical-models.html#cb169-20"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">monthly_revenue =</span> revenue <span class="op">-</span><span class="st"> </span><span class="kw">lag</span>(revenue,<span class="dt">n=</span><span class="dv">1</span>,<span class="dt">default=</span><span class="dv">0</span>))</span>
-<span id="cb169-21"><a href="section-statistical-models.html#cb169-21"></a><span class="kw">glimpse</span>(ridership_clean)</span></code></pre></div>
-<pre><code>Observations: 156
-Variables: 5
+<div class="sourceCode" id="section-cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb168-1"><a href="section-statistical-models.html#section-cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Can do this all at once like</span></span>
+<span id="section-cb168-2"><a href="section-statistical-models.html#section-cb168-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(cumrev2007[<span class="dv">1</span>],cumrev2007[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(cumrev2007)] <span class="sc">-</span> cumrev2007[<span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(cumrev2007)<span class="sc">-</span><span class="dv">1</span>)])</span></code></pre></div>
+<pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07 6.1e+07 6.6e+07 6.2e+07</code></pre>
+<div class="sourceCode" id="section-cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb170-1"><a href="section-statistical-models.html#section-cb170-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="section-cb170-2"><a href="section-statistical-models.html#section-cb170-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(cumrev2007[<span class="dv">1</span>],<span class="fu">diff</span>(cumrev2007))</span></code></pre></div>
+<pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07 6.1e+07 6.6e+07 6.2e+07</code></pre>
+<div class="sourceCode" id="section-cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb172-1"><a href="section-statistical-models.html#section-cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co"># but both those are a bit clumsy, and won&#39;t work inside a data processing</span></span>
+<span id="section-cb172-2"><a href="section-statistical-models.html#section-cb172-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pipeline with grouping. The lag() function in the dplyr package</span></span>
+<span id="section-cb172-3"><a href="section-statistical-models.html#section-cb172-3" aria-hidden="true" tabindex="-1"></a><span class="co"># is meant for use within a data processing pipeline:</span></span>
+<span id="section-cb172-4"><a href="section-statistical-models.html#section-cb172-4" aria-hidden="true" tabindex="-1"></a>cumrev2007 <span class="sc">-</span> <span class="fu">lag</span>(cumrev2007,<span class="at">n=</span><span class="dv">1</span>,<span class="at">default =</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code> [1] 7.1e+07 6.1e+07 7.3e+07 6.0e+07 5.7e+07 7.3e+07 5.7e+07 5.5e+07 7.8e+07 6.1e+07 6.6e+07 6.2e+07</code></pre>
+<div class="sourceCode" id="section-cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb174-1"><a href="section-statistical-models.html#section-cb174-1" aria-hidden="true" tabindex="-1"></a><span class="co"># and will let us do this for all years at once using one line of code below.</span></span>
+<span id="section-cb174-2"><a href="section-statistical-models.html#section-cb174-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb174-3"><a href="section-statistical-models.html#section-cb174-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, combine all these into one data cleaning pipeline.</span></span>
+<span id="section-cb174-4"><a href="section-statistical-models.html#section-cb174-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remember we have monthly revenue, so to get yearly revenue, we sum</span></span>
+<span id="section-cb174-5"><a href="section-statistical-models.html#section-cb174-5" aria-hidden="true" tabindex="-1"></a><span class="co"># over months.</span></span>
+<span id="section-cb174-6"><a href="section-statistical-models.html#section-cb174-6" aria-hidden="true" tabindex="-1"></a>ridership_clean <span class="ot">&lt;-</span> ridership <span class="sc">%&gt;%</span></span>
+<span id="section-cb174-7"><a href="section-statistical-models.html#section-cb174-7" aria-hidden="true" tabindex="-1"></a>    tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
+<span id="section-cb174-8"><a href="section-statistical-models.html#section-cb174-8" aria-hidden="true" tabindex="-1"></a>    Jan<span class="sc">:</span>Dec,</span>
+<span id="section-cb174-9"><a href="section-statistical-models.html#section-cb174-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;month&quot;</span>,</span>
+<span id="section-cb174-10"><a href="section-statistical-models.html#section-cb174-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;revenue&quot;</span></span>
+<span id="section-cb174-11"><a href="section-statistical-models.html#section-cb174-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="section-cb174-12"><a href="section-statistical-models.html#section-cb174-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># &quot;transmute&quot; is like mutate, but it deletes all original columns</span></span>
+<span id="section-cb174-13"><a href="section-statistical-models.html#section-cb174-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> stringr<span class="sc">::</span><span class="fu">str_extract</span>(Year,year_regex),</span>
+<span id="section-cb174-14"><a href="section-statistical-models.html#section-cb174-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">revenue =</span> stringr<span class="sc">::</span><span class="fu">str_remove</span>(revenue,dollar_regex)) <span class="sc">%&gt;%</span></span>
+<span id="section-cb174-15"><a href="section-statistical-models.html#section-cb174-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;revenue&quot;</span>),as.numeric) <span class="sc">%&gt;%</span> <span class="co"># Turn both year and revenue into numeric variables</span></span>
+<span id="section-cb174-16"><a href="section-statistical-models.html#section-cb174-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute the monthly revenue, by year</span></span>
+<span id="section-cb174-17"><a href="section-statistical-models.html#section-cb174-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grouping by year...</span></span>
+<span id="section-cb174-18"><a href="section-statistical-models.html#section-cb174-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="section-cb174-19"><a href="section-statistical-models.html#section-cb174-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ...causes everything in the mutate() to be done separately for each year.</span></span>
+<span id="section-cb174-20"><a href="section-statistical-models.html#section-cb174-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">monthly_revenue =</span> revenue <span class="sc">-</span> <span class="fu">lag</span>(revenue,<span class="at">n=</span><span class="dv">1</span>,<span class="at">default=</span><span class="dv">0</span>))</span>
+<span id="section-cb174-21"><a href="section-statistical-models.html#section-cb174-21" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ridership_clean)</span></code></pre></div>
+<pre><code>Rows: 156
+Columns: 5
 Groups: year [13]
-$ Year            &lt;chr&gt; &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actua…
-$ month           &lt;chr&gt; &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug…
-$ revenue         &lt;dbl&gt; 7.1e+07, 1.3e+08, 2.0e+08, 2.6e+08, 3.2e+08, 4.0e+08,…
-$ year            &lt;dbl&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007,…
-$ monthly_revenue &lt;dbl&gt; 7.1e+07, 6.1e+07, 7.3e+07, 6.0e+07, 5.7e+07, 7.3e+07,…</code></pre>
+$ Year            &lt;chr&gt; &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD Actual&quot;, &quot;2007 YTD …
+$ month           &lt;chr&gt; &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;, &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;, &quot;Jan&quot;, &quot;Feb&quot;,…
+$ revenue         &lt;dbl&gt; 7.1e+07, 1.3e+08, 2.0e+08, 2.6e+08, 3.2e+08, 4.0e+08, 4.5e+08, 5.1e+08, 5.9e+08, 6.5e+08, 7.1e+08, 7.7e+08, 7.3e+07, 1.4e+08, 2.2e+08, 2.8e+08, 3.4e+08, 4.2e+08, 4.8e+08, 5.4e+08, 6…
+$ year            &lt;dbl&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2008, 2008, 2008, 2008, 2008, 2008, 2008, 2008, 2008, 2008, 2008, 2008, 2009, 2009, 2009, 2009, 2009, 2009, 2…
+$ monthly_revenue &lt;dbl&gt; 7.1e+07, 6.1e+07, 7.3e+07, 6.0e+07, 5.7e+07, 7.3e+07, 5.7e+07, 5.5e+07, 7.8e+07, 6.1e+07, 6.6e+07, 6.2e+07, 7.3e+07, 6.5e+07, 8.0e+07, 6.1e+07, 6.2e+07, 7.9e+07, 6.3e+07, 6.2e+07, 8…</code></pre>
 <p>That looks a lot better! As usual, you should run each line of code one by one to
 understand what is happening.</p>
 <p>Because we went to the effort of cleaning the data, we can now plot it. We want to
 plot the monthly revenue over time. This requires creating a variable that represents
 time– currently we have two, year and month. We can do this using the 
 function:</p>
-<div class="sourceCode" id="section-cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="section-statistical-models.html#cb171-1"></a><span class="co"># Cumulative revenue</span></span>
-<span id="cb171-2"><a href="section-statistical-models.html#cb171-2"></a>ridershipscattermonthly &lt;-<span class="st"> </span>ridership_clean <span class="op">%&gt;%</span></span>
-<span id="cb171-3"><a href="section-statistical-models.html#cb171-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="kw">paste0</span>(year,month,<span class="st">&quot;01&quot;</span>))) <span class="op">%&gt;%</span></span>
-<span id="cb171-4"><a href="section-statistical-models.html#cb171-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date,<span class="dt">y =</span> monthly_revenue)) <span class="op">+</span></span>
-<span id="cb171-5"><a href="section-statistical-models.html#cb171-5"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb171-6"><a href="section-statistical-models.html#cb171-6"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb171-7"><a href="section-statistical-models.html#cb171-7"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb171-8"><a href="section-statistical-models.html#cb171-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Monthly ridership revenues for the TTC&quot;</span>,</span>
-<span id="cb171-9"><a href="section-statistical-models.html#cb171-9"></a>       <span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>,</span>
-<span id="cb171-10"><a href="section-statistical-models.html#cb171-10"></a>       <span class="dt">y =</span> <span class="st">&quot;Revenue&quot;</span>) <span class="op">+</span></span>
-<span id="cb171-11"><a href="section-statistical-models.html#cb171-11"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">dollar_format</span>()) <span class="co"># Make the y-axis pretty</span></span>
-<span id="cb171-12"><a href="section-statistical-models.html#cb171-12"></a>ridershipscattermonthly</span></code></pre></div>
+<div class="sourceCode" id="section-cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb176-1"><a href="section-statistical-models.html#section-cb176-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cumulative revenue</span></span>
+<span id="section-cb176-2"><a href="section-statistical-models.html#section-cb176-2" aria-hidden="true" tabindex="-1"></a>ridershipscattermonthly <span class="ot">&lt;-</span> ridership_clean <span class="sc">%&gt;%</span></span>
+<span id="section-cb176-3"><a href="section-statistical-models.html#section-cb176-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(<span class="fu">paste0</span>(year,month,<span class="st">&quot;01&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="section-cb176-4"><a href="section-statistical-models.html#section-cb176-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date,<span class="at">y =</span> monthly_revenue)) <span class="sc">+</span></span>
+<span id="section-cb176-5"><a href="section-statistical-models.html#section-cb176-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb176-6"><a href="section-statistical-models.html#section-cb176-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="section-cb176-7"><a href="section-statistical-models.html#section-cb176-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="section-cb176-8"><a href="section-statistical-models.html#section-cb176-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Monthly ridership revenues for the TTC&quot;</span>,</span>
+<span id="section-cb176-9"><a href="section-statistical-models.html#section-cb176-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Date&quot;</span>,</span>
+<span id="section-cb176-10"><a href="section-statistical-models.html#section-cb176-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Revenue&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb176-11"><a href="section-statistical-models.html#section-cb176-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>()) <span class="co"># Make the y-axis pretty</span></span>
+<span id="section-cb176-12"><a href="section-statistical-models.html#section-cb176-12" aria-hidden="true" tabindex="-1"></a>ridershipscattermonthly</span></code></pre></div>
 <pre><code>Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
-<pre><code>Warning: Removed 6 rows containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 6 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="book_files/figure-html/ttc-41-1.png" width="672" /></p>
 <p>I added a line joining the points
 together to make the pattern clearer.</p>
 <p>It looks like monthly revenue is pretty cyclical. Can we add a regression line? Sure!</p>
-<div class="sourceCode" id="section-cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="section-statistical-models.html#cb174-1"></a>ridershipscattermonthly <span class="op">+</span></span>
-<span id="cb174-2"><a href="section-statistical-models.html#cb174-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb179-1"><a href="section-statistical-models.html#section-cb179-1" aria-hidden="true" tabindex="-1"></a>ridershipscattermonthly <span class="sc">+</span></span>
+<span id="section-cb179-2"><a href="section-statistical-models.html#section-cb179-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <pre><code>Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
-<pre><code>Warning: Removed 6 rows containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 6 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="book_files/figure-html/ttc-4-1.png" width="672" /></p>
 <p>While revenue doesn’t necessarily increase every month, it looks like
 it is increasing on average.</p>
 <p><strong>Exercise</strong>: repeate this analysis using <strong>annual</strong> revenue. You need to create
 the following dataset:</p>
-<pre><code>Observations: 13
-Variables: 2
-$ year           &lt;dbl&gt; 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, …
-$ annual_revenue &lt;dbl&gt; 7.7e+08, 8.4e+08, 8.3e+08, 9.3e+08, 9.7e+08, 1.0e+09, …</code></pre>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>Rows: 13
+Columns: 2
+$ year           &lt;dbl&gt; 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+$ annual_revenue &lt;dbl&gt; 7.7e+08, 8.4e+08, 8.3e+08, 9.3e+08, 9.7e+08, 1.0e+09, 1.1e+09, 1.1e+09, 1.1e+09, 1.1e+09, 1.2e+09, 1.2e+09, NA</code></pre>
 <p>by grouping by  and then summing , and then
 make the following plot:</p>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="book_files/figure-html/ttc-annual-2-1.png" width="672" /></p>
 <p>Once the monthly variation is smoothed out, it looks like revenues are increasing
 over years.</p>
 </div>
 </div>
-<div id="section-unbiased-estimators-chapter-19" class="section level2">
+<div id="section-unbiased-estimators-chapter-19" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Unbiased Estimators (Chapter 19)</h2>
 <p>Much of Statistics involves studying the mathematical properties of estimators.
 Studying the mathematical properties of estimators lets us reason about how well
@@ -643,13 +679,13 @@ The estimator <span class="math inline">\(\hat{\theta}\)</span> is said to be <s
 \]</span>
 The expectation is with respect to the probability distribution of <span class="math inline">\(\hat{\theta}\)</span>, which
 depends on the whole sample <span class="math inline">\(X_{1},\ldots,X_{n}\)</span> (“sampling distribution”).</p>
-<p>On average, over all possible samples, <span class="math inline">\(\hat{\theta}\)</span> “gets it right”. This is why
+<p>On average, over all possible samples, <span class="math inline">\(\hat{\theta}\)</span> “gets it right.” This is why
 some people consider the property of unbiasedness to be a desirable property for
 an estimator.</p>
 <p>We can use simulation to get a feel for what unbiasedness means by sampling a bunch
 of datasets, calculating the estimator for each one, and then calculating the average
 of those estimators.</p>
-<div id="section-simulated-data" class="section level3">
+<div id="section-simulated-data" class="section level3" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Simulated data</h3>
 <p>Consider samples <span class="math inline">\(X_{1},\ldots,X_{n}\)</span> of size <span class="math inline">\(n=30\)</span> from a
 <span class="math inline">\(X\sim\text{Poisson}(\lambda)\)</span> distribution with <span class="math inline">\(\lambda = \log 10\)</span>. We want to estimate the parameter <span class="math inline">\(p_{0}\)</span>,
@@ -672,47 +708,47 @@ estimating the population mean <span class="math inline">\(\lambda\)</span> usin
 then plugging this in to the actual formula for the value <span class="math inline">\(p_{0}\)</span>. How we come
 up with stuff like this will be revealed in later chapters.</p>
 <p>Let’s investigate their sampling distributions and (hence) unbiasedness via simulations:</p>
-<div class="sourceCode" id="section-cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="section-statistical-models.html#cb179-1"></a><span class="kw">set.seed</span>(<span class="dv">6574564</span>)</span>
-<span id="cb179-2"><a href="section-statistical-models.html#cb179-2"></a><span class="co"># Simulate 500 random samples of size 30 from a poisson(log(10))</span></span>
-<span id="cb179-3"><a href="section-statistical-models.html#cb179-3"></a>N &lt;-<span class="st"> </span><span class="dv">500</span></span>
-<span id="cb179-4"><a href="section-statistical-models.html#cb179-4"></a>n &lt;-<span class="st"> </span><span class="dv">30</span></span>
-<span id="cb179-5"><a href="section-statistical-models.html#cb179-5"></a>lambda &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="dv">10</span>)</span>
-<span id="cb179-6"><a href="section-statistical-models.html#cb179-6"></a>p0 &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>lambda) <span class="co"># True value of p0</span></span>
-<span id="cb179-7"><a href="section-statistical-models.html#cb179-7"></a></span>
-<span id="cb179-8"><a href="section-statistical-models.html#cb179-8"></a><span class="co"># Write functions to compute each estimator</span></span>
-<span id="cb179-9"><a href="section-statistical-models.html#cb179-9"></a>compute_S &lt;-<span class="st"> </span><span class="cf">function</span>(samp) <span class="kw">mean</span>(samp <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</span>
-<span id="cb179-10"><a href="section-statistical-models.html#cb179-10"></a>compute_T &lt;-<span class="st"> </span><span class="cf">function</span>(samp) <span class="kw">exp</span>(<span class="op">-</span><span class="kw">mean</span>(samp))</span>
-<span id="cb179-11"><a href="section-statistical-models.html#cb179-11"></a></span>
-<span id="cb179-12"><a href="section-statistical-models.html#cb179-12"></a><span class="co"># Simulate the samples and calculate the estimators for each sample</span></span>
-<span id="cb179-13"><a href="section-statistical-models.html#cb179-13"></a>samples &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>,<span class="dt">length =</span> N)</span>
-<span id="cb179-14"><a href="section-statistical-models.html#cb179-14"></a>SS &lt;-<span class="st"> </span>TT &lt;-<span class="st"> </span><span class="kw">numeric</span>(N)</span>
-<span id="cb179-15"><a href="section-statistical-models.html#cb179-15"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</span>
-<span id="cb179-16"><a href="section-statistical-models.html#cb179-16"></a>  samples[[i]] &lt;-<span class="st"> </span><span class="kw">rpois</span>(n,lambda)</span>
-<span id="cb179-17"><a href="section-statistical-models.html#cb179-17"></a>  SS[i] &lt;-<span class="st"> </span><span class="kw">compute_S</span>(samples[[i]])</span>
-<span id="cb179-18"><a href="section-statistical-models.html#cb179-18"></a>  TT[i] &lt;-<span class="st"> </span><span class="kw">compute_T</span>(samples[[i]])</span>
-<span id="cb179-19"><a href="section-statistical-models.html#cb179-19"></a>}</span>
-<span id="cb179-20"><a href="section-statistical-models.html#cb179-20"></a></span>
-<span id="cb179-21"><a href="section-statistical-models.html#cb179-21"></a><span class="co"># Create the plots</span></span>
-<span id="cb179-22"><a href="section-statistical-models.html#cb179-22"></a>plt_S &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">SS =</span> SS) <span class="op">%&gt;%</span></span>
-<span id="cb179-23"><a href="section-statistical-models.html#cb179-23"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> SS)) <span class="op">+</span></span>
-<span id="cb179-24"><a href="section-statistical-models.html#cb179-24"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb179-25"><a href="section-statistical-models.html#cb179-25"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">bins =</span> <span class="dv">7</span>) <span class="op">+</span></span>
-<span id="cb179-26"><a href="section-statistical-models.html#cb179-26"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">250</span>)) <span class="op">+</span></span>
-<span id="cb179-27"><a href="section-statistical-models.html#cb179-27"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> p0,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</span>
-<span id="cb179-28"><a href="section-statistical-models.html#cb179-28"></a></span>
-<span id="cb179-29"><a href="section-statistical-models.html#cb179-29"></a>plt_T &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">TT =</span> TT) <span class="op">%&gt;%</span></span>
-<span id="cb179-30"><a href="section-statistical-models.html#cb179-30"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> TT)) <span class="op">+</span></span>
-<span id="cb179-31"><a href="section-statistical-models.html#cb179-31"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
-<span id="cb179-32"><a href="section-statistical-models.html#cb179-32"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">bins =</span> <span class="dv">7</span>) <span class="op">+</span></span>
-<span id="cb179-33"><a href="section-statistical-models.html#cb179-33"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">250</span>)) <span class="op">+</span></span>
-<span id="cb179-34"><a href="section-statistical-models.html#cb179-34"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> p0,<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="dt">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</span>
-<span id="cb179-35"><a href="section-statistical-models.html#cb179-35"></a></span>
-<span id="cb179-36"><a href="section-statistical-models.html#cb179-36"></a>plt_S <span class="op">|</span><span class="st"> </span>plt_T</span></code></pre></div>
+<div class="sourceCode" id="section-cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb187-1"><a href="section-statistical-models.html#section-cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6574564</span>)</span>
+<span id="section-cb187-2"><a href="section-statistical-models.html#section-cb187-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate 500 random samples of size 30 from a poisson(log(10))</span></span>
+<span id="section-cb187-3"><a href="section-statistical-models.html#section-cb187-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="section-cb187-4"><a href="section-statistical-models.html#section-cb187-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="section-cb187-5"><a href="section-statistical-models.html#section-cb187-5" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="dv">10</span>)</span>
+<span id="section-cb187-6"><a href="section-statistical-models.html#section-cb187-6" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span>lambda) <span class="co"># True value of p0</span></span>
+<span id="section-cb187-7"><a href="section-statistical-models.html#section-cb187-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb187-8"><a href="section-statistical-models.html#section-cb187-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Write functions to compute each estimator</span></span>
+<span id="section-cb187-9"><a href="section-statistical-models.html#section-cb187-9" aria-hidden="true" tabindex="-1"></a>compute_S <span class="ot">&lt;-</span> <span class="cf">function</span>(samp) <span class="fu">mean</span>(samp <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="section-cb187-10"><a href="section-statistical-models.html#section-cb187-10" aria-hidden="true" tabindex="-1"></a>compute_T <span class="ot">&lt;-</span> <span class="cf">function</span>(samp) <span class="fu">exp</span>(<span class="sc">-</span><span class="fu">mean</span>(samp))</span>
+<span id="section-cb187-11"><a href="section-statistical-models.html#section-cb187-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb187-12"><a href="section-statistical-models.html#section-cb187-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate the samples and calculate the estimators for each sample</span></span>
+<span id="section-cb187-13"><a href="section-statistical-models.html#section-cb187-13" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;list&quot;</span>,<span class="at">length =</span> N)</span>
+<span id="section-cb187-14"><a href="section-statistical-models.html#section-cb187-14" aria-hidden="true" tabindex="-1"></a>SS <span class="ot">&lt;-</span> TT <span class="ot">&lt;-</span> <span class="fu">numeric</span>(N)</span>
+<span id="section-cb187-15"><a href="section-statistical-models.html#section-cb187-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="section-cb187-16"><a href="section-statistical-models.html#section-cb187-16" aria-hidden="true" tabindex="-1"></a>  samples[[i]] <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n,lambda)</span>
+<span id="section-cb187-17"><a href="section-statistical-models.html#section-cb187-17" aria-hidden="true" tabindex="-1"></a>  SS[i] <span class="ot">&lt;-</span> <span class="fu">compute_S</span>(samples[[i]])</span>
+<span id="section-cb187-18"><a href="section-statistical-models.html#section-cb187-18" aria-hidden="true" tabindex="-1"></a>  TT[i] <span class="ot">&lt;-</span> <span class="fu">compute_T</span>(samples[[i]])</span>
+<span id="section-cb187-19"><a href="section-statistical-models.html#section-cb187-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb187-20"><a href="section-statistical-models.html#section-cb187-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb187-21"><a href="section-statistical-models.html#section-cb187-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plots</span></span>
+<span id="section-cb187-22"><a href="section-statistical-models.html#section-cb187-22" aria-hidden="true" tabindex="-1"></a>plt_S <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">SS =</span> SS) <span class="sc">%&gt;%</span></span>
+<span id="section-cb187-23"><a href="section-statistical-models.html#section-cb187-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SS)) <span class="sc">+</span></span>
+<span id="section-cb187-24"><a href="section-statistical-models.html#section-cb187-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb187-25"><a href="section-statistical-models.html#section-cb187-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="at">bins =</span> <span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="section-cb187-26"><a href="section-statistical-models.html#section-cb187-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">250</span>)) <span class="sc">+</span></span>
+<span id="section-cb187-27"><a href="section-statistical-models.html#section-cb187-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> p0,<span class="at">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="at">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</span>
+<span id="section-cb187-28"><a href="section-statistical-models.html#section-cb187-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb187-29"><a href="section-statistical-models.html#section-cb187-29" aria-hidden="true" tabindex="-1"></a>plt_T <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">TT =</span> TT) <span class="sc">%&gt;%</span></span>
+<span id="section-cb187-30"><a href="section-statistical-models.html#section-cb187-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> TT)) <span class="sc">+</span></span>
+<span id="section-cb187-31"><a href="section-statistical-models.html#section-cb187-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="section-cb187-32"><a href="section-statistical-models.html#section-cb187-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="at">bins =</span> <span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="section-cb187-33"><a href="section-statistical-models.html#section-cb187-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">250</span>)) <span class="sc">+</span></span>
+<span id="section-cb187-34"><a href="section-statistical-models.html#section-cb187-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> p0,<span class="at">colour =</span> <span class="st">&quot;red&quot;</span>,<span class="at">linetype =</span> <span class="st">&quot;dotdash&quot;</span>)</span>
+<span id="section-cb187-35"><a href="section-statistical-models.html#section-cb187-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb187-36"><a href="section-statistical-models.html#section-cb187-36" aria-hidden="true" tabindex="-1"></a>plt_S <span class="sc">|</span> plt_T</span></code></pre></div>
 <p><img src="book_files/figure-html/poisson-1-1.png" width="672" /></p>
-<div class="sourceCode" id="section-cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="section-statistical-models.html#cb180-1"></a><span class="co"># Compute the mean of each:</span></span>
-<span id="cb180-2"><a href="section-statistical-models.html#cb180-2"></a><span class="kw">mean</span>(SS)</span></code></pre></div>
+<div class="sourceCode" id="section-cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb188-1"><a href="section-statistical-models.html#section-cb188-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the mean of each:</span></span>
+<span id="section-cb188-2"><a href="section-statistical-models.html#section-cb188-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(SS)</span></code></pre></div>
 <pre><code>[1] 0.1</code></pre>
-<div class="sourceCode" id="section-cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="section-statistical-models.html#cb182-1"></a><span class="kw">mean</span>(TT)</span></code></pre></div>
+<div class="sourceCode" id="section-cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb190-1"><a href="section-statistical-models.html#section-cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(TT)</span></code></pre></div>
 <pre><code>[1] 0.1</code></pre>
 <p><strong>Exercise</strong>: it turns out that, mathematically, <span class="math inline">\(S\)</span> is unbiased and <span class="math inline">\(T\)</span> is biased. Which estimator
 would you prefer? Compute a five number summary for <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span> from our simulations,
@@ -724,6 +760,8 @@ recreating the following (make sure to use the same random seed as me, using :</
 <p>Do you see any meaningful differences? Do the sampling distributions of <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>
 concentrate around <span class="math inline">\(p0\)</span> in the same way?</p>
 <p>Now, compute the mode (most frequently-observed value) of <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>. You should get the following:</p>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)
+`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>The mode of S is  0.067 </code></pre>
 <pre><code>The mode of T is  0.097 </code></pre>
 <p>(You’re going to have to figure out how to compute a mode in <code>R</code>. That’s part of
